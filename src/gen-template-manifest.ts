@@ -1,103 +1,83 @@
+/**
+ * Generate template-manifest.json from the authoring registry.
+ *
+ * Usage:  node dist/gen-template-manifest.js   (the build runs it for you)
+ *
+ * The manifest is the ZERO-EXEC browse surface: hosts list, filter, and
+ * preview this repo's templates from it without importing any code. This
+ * generator keeps it honest:
+ *   - every registry row's templateId parses as @m0saic-starter/<pack>/<slug>/vN,
+ *     with the pack declared in TEMPLATE_PACKS and a real src/<pack>/<slug>/vN/;
+ *   - slugs unique per pack; templateIds and exportNames globally unique;
+ *   - the registry and the exported `templates[]` agree EXACTLY — a template
+ *     can't ship unregistered, and a registry row can't outlive its template;
+ *   - preview assets referenced (explicitly or by convention) must exist.
+ *
+ * `buildStarterManifest()` is pure — the freshness test diffs it against the
+ * committed JSON so a stale manifest can't slip through review.
+ */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
 
 import type {
   MosaicTemplateRepoManifest,
-  MosaicTemplateRepoManifestEntry
+  MosaicTemplateRepoManifestEntry,
 } from "@m0saic/types";
 
-import { templateRegistry } from "./registry.js";
+import { templateRegistry, CHAPTERS } from "./template-registry";
+import { TEMPLATE_REPO, TEMPLATE_PACKS } from "./repo";
+import { templates } from "./index";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 
-const REPO_ID = "@m0saic-starter";
-const DISPLAY_NAME = "Template Repo Starter";
-const DESCRIPTION = "Golden example 3P template repo for m0saic Make.";
-const CURATOR = "m0saic";
-const HOMEPAGE = "https://github.com/m0saic/template-repo-starter";
-
-const TEMPLATES_DIR = "assets/templates";
+const TEMPLATES_DIR = TEMPLATE_REPO.assets?.templatesDir ?? "assets/templates";
 const ENTRY_MODULE = "./dist/index.js";
 
 /**
- * External repos follow:
- *   <repoId>/<slug>/v<major>
- *
- * Pre-release: starter repo defaults all templates to v1.
+ * Local id parser — deliberately NOT the platform's parseTemplateId, so this
+ * file compiles to a dist script with no @m0saic/* value imports and the
+ * whole build stays runnable anywhere the repo builds.
  */
-const DEFAULT_MAJOR_VERSION = 1;
+const STARTER_ID_RE =
+  /^@m0saic-starter\/([a-z0-9][a-z0-9-]*)\/([a-z0-9][a-z0-9-]*)\/v([1-9]\d*)$/;
+
+type TemplateKey = MosaicTemplateRepoManifestEntry["templateKey"];
+
+/* ── Helpers ─────────────────────────────────────────────── */
 
 function encodeTemplateKey(templateKey: string): string {
-  return templateKey.replaceAll("/", "__");
-}
-
-function absFromRepo(relPath: string): string {
-  return path.join(ROOT, relPath);
+  return templateKey.replace(/\//g, "__");
 }
 
 function existsRepoRel(relPath: string): boolean {
-  return fs.existsSync(absFromRepo(relPath));
+  return fs.existsSync(path.join(ROOT, relPath));
 }
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-function isNonEmptyString(x: unknown): x is string {
-  return typeof x === "string" && x.trim().length > 0;
-}
-
-function ensureSlug(slug: unknown, templateKeyHint: string): string {
-  assert(
-    isNonEmptyString(slug),
-    `Template "${templateKeyHint}" must define a non-empty slug`
-  );
-  assert(
-    /^[a-z0-9][a-z0-9-]*$/.test(slug),
-    `Template "${templateKeyHint}" slug "${slug}" must match /^[a-z0-9][a-z0-9-]*$/`
-  );
-  return slug;
-}
-
-function ensureTags(tags: unknown, templateKey: string): string[] {
-  assert(Array.isArray(tags), `Template "${templateKey}" must define tags: string[]`);
-  assert(tags.length > 0, `Template "${templateKey}" must have at least one tag`);
-  for (const tag of tags) {
-    assert(
-      isNonEmptyString(tag),
-      `Template "${templateKey}" has an invalid tag (must be non-empty string)`
-    );
-  }
-  return tags as string[];
-}
-
 function ensurePreviewPathsExist(
   preview: MosaicTemplateRepoManifestEntry["preview"] | undefined,
-  templateKey: string
+  templateKey: string,
 ) {
   if (!preview) return;
-
   const check = (p: string | undefined, field: string) => {
     if (!p) return;
     assert(
       existsRepoRel(p),
-      `Template "${templateKey}" preview.${field} points to missing file: "${p}"`
+      `Template "${templateKey}" preview.${field} points to missing file: "${p}"`,
     );
   };
-
   check(preview.image, "image");
   check(preview.video, "video");
   check(preview.poster, "poster");
 }
 
 function buildPreviewFromConvention(
-  templateKey: string
+  templateKey: string,
 ): MosaicTemplateRepoManifestEntry["preview"] | undefined {
-  const encoded = encodeTemplateKey(templateKey);
-  const baseDir = `${TEMPLATES_DIR}/${encoded}`;
+  const baseDir = `${TEMPLATES_DIR}/${encodeTemplateKey(templateKey)}`;
 
   const image = `${baseDir}/preview.png`;
   const video = `${baseDir}/preview.mp4`;
@@ -113,108 +93,151 @@ function buildPreviewFromConvention(
 
 function mergePreview(
   explicit: MosaicTemplateRepoManifestEntry["preview"] | undefined,
-  fallback: MosaicTemplateRepoManifestEntry["preview"] | undefined
+  fallback: MosaicTemplateRepoManifestEntry["preview"] | undefined,
 ): MosaicTemplateRepoManifestEntry["preview"] | undefined {
   if (!explicit && !fallback) return undefined;
-
   const merged = {
     image: explicit?.image ?? fallback?.image,
     video: explicit?.video ?? fallback?.video,
-    poster: explicit?.poster ?? fallback?.poster
+    poster: explicit?.poster ?? fallback?.poster,
   };
-
   return merged.image || merged.video || merged.poster ? merged : undefined;
 }
 
-// ---- FAIL: entry module must exist ----
-assert(
-  existsRepoRel(ENTRY_MODULE),
-  `entryModule "${ENTRY_MODULE}" does not exist. Run "npm run build" to emit dist/.`
-);
+/* ── Build (pure — also consumed by the freshness test) ───── */
 
-// ---- Load entry module exports to validate exportName ----
-const entryAbs = absFromRepo(ENTRY_MODULE);
-const entryUrl = pathToFileURL(entryAbs).href;
-const entryExports: Record<string, unknown> = await import(entryUrl);
+export function buildStarterManifest(): MosaicTemplateRepoManifest {
+  const packIds = new Set(TEMPLATE_PACKS.map((p) => p.id));
 
-// ---- FAIL: duplicates in registry ----
-const seenSlugs = new Set<string>();
-const seenExports = new Set<string>();
+  /* Chapter provenance: each registry row lives in the chapter whose pack
+   * matches its id's <pack> segment. */
+  for (const chapter of CHAPTERS) {
+    assert(
+      packIds.has(chapter.pack),
+      `CHAPTERS declares pack "${chapter.pack}" which is not in TEMPLATE_PACKS`,
+    );
+    for (const entry of chapter.entries) {
+      const parsed = STARTER_ID_RE.exec(entry.templateId);
+      assert(
+        parsed,
+        `Entry "${entry.templateId}" does not match "@m0saic-starter/<pack>/<slug>/vN"`,
+      );
+      assert(
+        parsed[1] === chapter.pack,
+        `Entry "${entry.templateId}" is registered under chapter "${chapter.pack}" ` +
+          `but its id says pack "${parsed[1]}"`,
+      );
+    }
+  }
 
-for (const raw of templateRegistry as any[]) {
-  const slug = ensureSlug(raw.slug, `${REPO_ID}/<unknown>/v${DEFAULT_MAJOR_VERSION}`);
-  assert(!seenSlugs.has(slug), `Duplicate slug in registry.ts: "${slug}"`);
-  seenSlugs.add(slug);
+  /* Row validation + uniqueness. */
+  const seenSlugKeys = new Set<string>();
+  const seenTemplateIds = new Set<string>();
+  const seenExports = new Set<string>();
 
-  assert(
-    isNonEmptyString(raw.exportName),
-    `Template "${REPO_ID}/${slug}/v${DEFAULT_MAJOR_VERSION}" must define exportName`
-  );
-  assert(
-    !seenExports.has(raw.exportName),
-    `Duplicate exportName in registry.ts: "${raw.exportName}"`
-  );
-  seenExports.add(raw.exportName);
-}
-
-// ---- Build manifest templates + validate each entry ----
-const templates: MosaicTemplateRepoManifestEntry[] = (templateRegistry as any[]).map(
-  (t): MosaicTemplateRepoManifestEntry => {
-    const slug = ensureSlug(t.slug, `${REPO_ID}/<unknown>/v${DEFAULT_MAJOR_VERSION}`);
-    const templateKey = `${REPO_ID}/${slug}/v${DEFAULT_MAJOR_VERSION}`;
+  for (const entry of templateRegistry) {
+    const parsed = STARTER_ID_RE.exec(entry.templateId);
+    assert(parsed, `Entry "${entry.templateId}" has an invalid id`);
+    const [, packId, slugFromId, major] = parsed;
 
     assert(
-      Object.prototype.hasOwnProperty.call(entryExports, t.exportName),
-      `Template "${templateKey}" exportName "${t.exportName}" is not exported by ${ENTRY_MODULE}`
+      entry.slug === slugFromId,
+      `Entry "${entry.templateId}" slug field "${entry.slug}" != id slug "${slugFromId}"`,
+    );
+    assert(
+      packIds.has(packId),
+      `Entry "${entry.templateId}" pack "${packId}" is not declared in TEMPLATE_PACKS`,
     );
 
-    const tags = ensureTags(t.tags, templateKey);
+    const srcDir = `src/${packId}/${entry.slug}/v${major}`;
+    assert(
+      fs.existsSync(path.join(ROOT, srcDir)),
+      `Entry "${entry.templateId}" has no source folder "${srcDir}/"`,
+    );
 
-    // If registry provides explicit preview paths, they must exist.
-    ensurePreviewPathsExist(t.preview, templateKey);
+    const slugKey = `${packId}/${entry.slug}`;
+    assert(!seenSlugKeys.has(slugKey), `Duplicate pack-scoped slug: "${slugKey}"`);
+    seenSlugKeys.add(slugKey);
 
-    // Merge explicit preview (if any) with conventional assets discovery.
-    const preview = mergePreview(t.preview, buildPreviewFromConvention(templateKey));
+    assert(
+      !seenTemplateIds.has(entry.templateId),
+      `Duplicate templateId: "${entry.templateId}"`,
+    );
+    seenTemplateIds.add(entry.templateId);
 
-    // If a video preview exists but no poster is provided,
-    // use the video itself as the poster fallback.
-    if (preview?.video && !preview.poster) {
-      preview.poster = preview.video;
-    }
+    assert(entry.exportName, `Entry "${entry.slug}" missing exportName`);
+    assert(!seenExports.has(entry.exportName), `Duplicate exportName: "${entry.exportName}"`);
+    seenExports.add(entry.exportName);
 
-    return {
-      slug,
-      templateKey,
-      title: t.title,
-      description: t.description,
-      tags,
-      preview
-    };
+    assert(
+      Array.isArray(entry.tags) && entry.tags.length > 0,
+      `Entry "${entry.templateId}" needs at least one tag`,
+    );
   }
-);
 
-const manifest: MosaicTemplateRepoManifest = {
-  schemaVersion: 1,
-  repo: {
+  /* Every declared pack must teach something. */
+  for (const pack of TEMPLATE_PACKS) {
+    const used = templateRegistry.some((e) => e.templateId.startsWith(`@m0saic-starter/${pack.id}/`));
+    assert(used, `TEMPLATE_PACKS declares "${pack.id}" but no registry entry uses it`);
+  }
+
+  /* Registry ↔ exports must agree exactly. */
+  const exportedIds = new Set(templates.map((t) => String(t.id)));
+  for (const id of seenTemplateIds) {
+    assert(exportedIds.has(id), `Registry entry "${id}" has no exported template`);
+  }
+  for (const id of exportedIds) {
+    assert(seenTemplateIds.has(id), `Exported template "${id}" has no registry entry`);
+  }
+
+  /* Manifest entries, in curriculum order. */
+  const manifestEntries: MosaicTemplateRepoManifestEntry[] = templateRegistry.map(
+    (entry): MosaicTemplateRepoManifestEntry => {
+      const templateKey = entry.templateId;
+      const parsed = STARTER_ID_RE.exec(templateKey);
+      assert(parsed, `unreachable: "${templateKey}" re-validated`);
+
+      ensurePreviewPathsExist(entry.preview, templateKey);
+      const preview = mergePreview(
+        entry.preview,
+        buildPreviewFromConvention(templateKey),
+      );
+      if (preview?.video && !preview.poster) {
+        preview.poster = preview.video;
+      }
+
+      return {
+        slug: entry.slug,
+        templateKey: templateKey as TemplateKey,
+        title: entry.title,
+        description: entry.description,
+        tags: entry.tags,
+        pack: parsed[1],
+        preview,
+      };
+    },
+  );
+
+  return {
     schemaVersion: 1,
-    repoId: REPO_ID,
-    displayName: DISPLAY_NAME,
-    description: DESCRIPTION,
-    curator: CURATOR,
-    homepage: HOMEPAGE,
-    assets: {
-      templatesDir: TEMPLATES_DIR
-    }
-  },
-  entryModule: ENTRY_MODULE,
-  templates
-};
+    repo: TEMPLATE_REPO,
+    entryModule: ENTRY_MODULE,
+    templates: manifestEntries,
+    packs: TEMPLATE_PACKS,
+  };
+}
 
-const outPath = path.join(ROOT, "template-manifest.json");
-fs.writeFileSync(outPath, JSON.stringify(manifest, null, 2) + "\n", "utf8");
+/* ── Write (build-script entrypoint) ─────────────────────── */
 
-const previewCount = templates.filter((t) => t.preview).length;
-console.log(
-  `[gen-template-manifest] wrote ${path.relative(ROOT, outPath)} ` +
-    `(${templates.length} templates, ${previewCount} with preview assets)`,
-);
+if (require.main === module) {
+  const manifest = buildStarterManifest();
+  const outPath = path.join(ROOT, "template-manifest.json");
+  fs.writeFileSync(outPath, JSON.stringify(manifest, null, 2) + "\n", "utf8");
+
+  const previewCount = manifest.templates.filter((t) => t.preview).length;
+  console.log(
+    `[gen-template-manifest] wrote ${path.relative(ROOT, outPath)} ` +
+      `(${manifest.templates.length} templates, ${manifest.packs?.length ?? 0} packs, ` +
+      `${previewCount} with preview assets)`,
+  );
+}

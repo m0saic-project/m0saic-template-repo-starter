@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "repo": {
-    "schemaVersion": 1,
     "repoId": "@m0saic-starter",
-    "displayName": "Template Repo Starter",
-    "description": "Golden example 3P template repo for m0saic Make.",
+    "displayName": "m0saic Template Starter",
+    "schemaVersion": 1,
+    "description": "The m0saic developer curriculum: minimal example templates, each exercising exactly one knob of the template-authoring surface. Clone it, load it, read it, fork it.",
     "curator": "m0saic",
-    "homepage": "https://github.com/m0saic/template-repo-starter",
+    "homepage": "https://github.com/m0saic-project/m0saic-template-repo-starter",
     "assets": {
       "templatesDir": "assets/templates"
     }
@@ -15,17 +15,61 @@
   "templates": [
     {
       "slug": "hello-world",
-      "templateKey": "@m0saic-starter/hello-world/v1",
+      "templateKey": "@m0saic-starter/basics/hello-world/v1",
       "title": "Hello World",
-      "description": "Minimal template that validates 3P loading in Make.",
+      "description": "The smallest correct template: one full-canvas tile, one text source, typed props with deterministic defaults, and a validated m0 string.",
       "tags": [
-        "example",
+        "basics",
         "starter",
-        "basic"
+        "text"
       ],
+      "pack": "basics",
       "preview": {
-        "image": "assets/templates/@m0saic-starter__hello-world__v1/preview.png"
+        "image": "assets/templates/@m0saic-starter__basics__hello-world__v1/preview.png"
       }
+    },
+    {
+      "slug": "hot-reload-canary",
+      "templateKey": "@m0saic-starter/basics/hot-reload-canary/v1",
+      "title": "Hot-Reload Canary",
+      "description": "Prove your edit loop: the fill comes from a module CONSTANT, so a rebuild + Refresh repos must change it — no app restart, no prop-bag tricks.",
+      "tags": [
+        "basics",
+        "starter",
+        "smoke"
+      ],
+      "pack": "basics"
+    },
+    {
+      "slug": "color-tiles",
+      "templateKey": "@m0saic-starter/basics/color-tiles/v1",
+      "title": "Color Tiles",
+      "description": "Three equal columns, one makeColorTile each — the sources[]-to-tiles mapping, the lavfi color-tile convention, and document.backgroundColor over a wasted base layer.",
+      "tags": [
+        "basics",
+        "layout",
+        "color"
+      ],
+      "pack": "basics"
+    },
+    {
+      "slug": "aspect-adaptive-card",
+      "templateKey": "@m0saic-starter/basics/aspect-adaptive-card/v1",
+      "title": "Aspect-Adaptive Card",
+      "description": "One template, every aspect: reads ctx.target and flips columns to rows on portrait. Size off ctx.target, never ctx.output — the rule that prevents the classic nested-render bug.",
+      "tags": [
+        "basics",
+        "ctx",
+        "layout"
+      ],
+      "pack": "basics"
+    }
+  ],
+  "packs": [
+    {
+      "id": "basics",
+      "title": "Basics",
+      "description": "Hello world, the hot-reload loop, color tiles, and sizing off ctx.target — the smallest possible templates that still do everything right."
     }
   ]
 }

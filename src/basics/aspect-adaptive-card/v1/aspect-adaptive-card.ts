@@ -1,0 +1,315 @@
+import type {
+  MosaicColor,
+  MosaicDocument,
+  MosaicEngineContext,
+  MosaicSource,
+} from "@m0saic/types";
+import { asTemplateId } from "@m0saic/types";
+import { weightedSplit } from "@m0saic/dsl-stdlib";
+import {
+  defineMosaicTemplate,
+  definePropsSchema,
+  makeColorTile,
+  measureText,
+} from "@m0saic/template-utils";
+
+/**
+ * `@m0saic-starter/basics/aspect-adaptive-card/v1` — size off `ctx.target`.
+ *
+ * ONE CONCEPT: `ctx.target` is the single source of truth for the canvas a
+ * render fills — `{width, height, fps, durationMs}`. Branch on it and one
+ * template serves every aspect: landscape lays the two panels side by side,
+ * portrait stacks them. The caption on the card prints the decision live
+ * (`1280×720 → columns`) so you can watch the branch flip as you resize.
+ *
+ * The rule that bites (worth memorizing):
+ *
+ *   SIZE OFF `ctx.target`, NEVER `ctx.output`.
+ *
+ * They often agree — until this template renders NESTED inside another
+ * document. Then `ctx.target` carries the SLOT the parent gave you, while
+ * `ctx.output` still describes the final deliverable. A nested template that
+ * reads `ctx.output` builds geometry for the whole video inside a tile a
+ * fraction of that size — the classic silent 5× bug.
+ *
+ * Second lesson, learned the moment any text overflows: NOTHING SOFT-WRAPS,
+ * and different hosts draw fallback fonts differently. So static text here
+ * uses `rasterizer: "svg"` — glyphs from the BUNDLED deterministic font,
+ * baked to geometry, identical in the app preview and the CLI — and the copy
+ * is fitted with `measureText` against that SAME font: greedy word-wrap,
+ * largest font whose wrapped block fits the panel box. The full fitting
+ * story gets its own lesson later in the curriculum (`text/fit-text`).
+ */
+
+export type AspectAdaptiveCardProps = {
+  /** Headline, accent panel. */
+  title?: string;
+  /** Supporting line, body panel. */
+  body?: string;
+  /** Accent panel fill (#rrggbb). */
+  accentColor?: string;
+  /** Body panel fill (#rrggbb). */
+  panelColor?: string;
+};
+
+const HEX = /^#[0-9a-fA-F]{6}$/;
+const ID = "@m0saic-starter/basics/aspect-adaptive-card/v1";
+
+const propsSchema = definePropsSchema<AspectAdaptiveCardProps>({
+  title: {
+    type: "string",
+    required: false,
+    description: "Headline, accent panel.",
+    meta: { ui: { label: "Title", order: 1 } },
+  },
+  body: {
+    type: "string",
+    required: false,
+    description: "Supporting line, body panel.",
+    meta: { ui: { label: "Body", order: 2 } },
+  },
+  accentColor: {
+    type: "string",
+    required: false,
+    description: "Accent panel fill as #rrggbb.",
+    meta: {
+      constraints: { isColor: true },
+      control: { colorPicker: true, defaultColor: "#2471a3" },
+      ui: { label: "Accent color", order: 3 },
+    },
+  },
+  panelColor: {
+    type: "string",
+    required: false,
+    description: "Body panel fill as #rrggbb.",
+    meta: {
+      constraints: { isColor: true },
+      control: { colorPicker: true, defaultColor: "#1c2833" },
+      ui: { label: "Panel color", order: 4 },
+    },
+  },
+});
+
+/**
+ * Greedy word-wrap measured against the bundled font: each line takes words
+ * while it still fits `maxWidthPx` at `fontSize`. Never breaks a word (a
+ * single over-long word gets its own line and the caller's size search
+ * shrinks until it fits).
+ */
+export function wrapMeasured(
+  text: string,
+  fontSize: number,
+  maxWidthPx: number,
+): string[] {
+  const words = text.trim().split(/\s+/).filter((w) => w.length > 0);
+  const lines: string[] = [];
+  let line = "";
+  for (const word of words) {
+    const candidate = line.length === 0 ? word : `${line} ${word}`;
+    if (
+      line.length === 0 ||
+      measureText(candidate, { fontSize }).width <= maxWidthPx
+    ) {
+      line = candidate;
+    } else {
+      lines.push(line);
+      line = word;
+    }
+  }
+  if (line.length > 0) lines.push(line);
+  return lines;
+}
+
+/**
+ * Fit `text` into a `boxW`×`boxH` pixel box: binary-search the largest font
+ * size (12..maxPx) whose measured, wrapped block fits both axes. The width
+ * budget is deliberately generous (~28% total side margin): breathing room
+ * is good typography on desktop canvases, and it keeps the block safe even
+ * on hosts whose preview font runs wider than the bundled render font.
+ * Returns the "\n"-joined block ready for one svg layer.
+ */
+export function fitSvgText(
+  text: string,
+  boxW: number,
+  boxH: number,
+  opts: { maxPx: number; maxLines: number; widthFrac?: number },
+): { text: string; fontSize: number; lineCount: number } {
+  const clean = text.trim().replace(/\s+/g, " ");
+  const usableW = boxW * (opts.widthFrac ?? 0.72);
+  const usableH = boxH * 0.66;
+
+  const attempt = (fontSize: number) => {
+    const lines = wrapMeasured(clean, fontSize, usableW);
+    if (lines.length > opts.maxLines) return undefined;
+    const block = lines.join("\n");
+    const m = measureText(block, { fontSize });
+    if (m.width > usableW || m.height > usableH) return undefined;
+    return { text: block, fontSize, lineCount: lines.length };
+  };
+
+  let lo = 12;
+  let hi = Math.max(12, Math.round(opts.maxPx));
+  let best = attempt(lo);
+  while (lo <= hi) {
+    const mid = Math.floor((lo + hi) / 2);
+    const fit = attempt(mid);
+    if (fit) {
+      best = fit;
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
+    }
+  }
+  // Nothing fits even at 12px (absurd box) — emit at 12px anyway; a clipped
+  // render beats a throw for a purely cosmetic overflow.
+  return best ?? { text: clean, fontSize: 12, lineCount: 1 };
+}
+
+/**
+ * SVG-glyph text source: bundled deterministic font, identical app + CLI.
+ * NOTE: svg-rasterized text bakes to a masked color tile, so it carries NO
+ * background of its own — pair it with a `makeColorTile` base underneath
+ * (see render(): base tile + attached `{...}` overlay per panel).
+ */
+function svgText(
+  layers: Array<{
+    text: string;
+    fontSize: number;
+    color: MosaicColor;
+    vAlign?: "top" | "middle" | "bottom";
+    padding?: { bottom?: number; top?: number };
+  }>,
+): MosaicSource {
+  return {
+    type: "text",
+    rasterizer: "svg",
+    renderMode: { kind: "image" },
+    layers: layers.map((layer) => ({
+      content: { kind: "literal", text: layer.text },
+      style: { fontSize: layer.fontSize, fontColor: layer.color },
+      placement: {
+        hAlign: "center" as const,
+        vAlign: layer.vAlign ?? ("middle" as const),
+        ...(layer.padding ? { padding: layer.padding } : {}),
+      },
+    })),
+  } as unknown as MosaicSource;
+}
+
+export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps>({
+  id: asTemplateId(ID),
+  label: "Aspect-Adaptive Card",
+  version: 1,
+  description:
+    "One template, every aspect: reads ctx.target, flips columns to rows on portrait, prints its decision live, and fits svg-rasterized text to the panels it computed. Teaches the rule that prevents the classic nested-render bug — size off ctx.target, never ctx.output.",
+  capabilities: { tier: "core" },
+  tags: ["basics", "ctx", "layout"],
+
+  outputHints: {
+    width: 1280,
+    height: 720,
+    fps: 30,
+    durationMs: 2000,
+    note: "Try 1080x1920 too — the layout flips to a stack and the caption follows.",
+  },
+
+  propsSchema,
+  defaultProps: {
+    title: "Reads the room",
+    body: "Same template, either way.",
+    accentColor: "#2471a3",
+    panelColor: "#1c2833",
+  },
+
+  async render(
+    props: AspectAdaptiveCardProps,
+    ctx: MosaicEngineContext,
+  ): Promise<MosaicDocument> {
+    for (const [key, value] of [
+      ["accentColor", props.accentColor],
+      ["panelColor", props.panelColor],
+    ] as const) {
+      if (value !== undefined && !HEX.test(value)) {
+        throw new Error(`${ID}: ${key} ${JSON.stringify(value)} must be #rrggbb.`);
+      }
+    }
+
+    // THE lesson: the target slot decides the layout. Nested or top-level,
+    // this is the canvas these pixels actually fill.
+    const { width, height } = ctx.target;
+    const landscape = width >= height;
+
+    // Landscape: 1:2 columns. Portrait: 1:2 rows. Each panel is a BASE color
+    // tile with its text attached as an overlay (`1{1}`): svg-rasterized text
+    // carries no background of its own, and "fill underneath, content on the
+    // attached overlay" is the standard pairing. Knowing our own weights
+    // means we also know each panel's PIXEL box — which is what the text
+    // must be fitted against (nothing soft-wraps).
+    const m0 = weightedSplit([1, 2], landscape ? "col" : "row", {
+      claimants: ["1{1}", "1{1}"],
+    });
+    const accentBox = landscape
+      ? { w: width / 3, h: height }
+      : { w: width, h: height / 3 };
+    const bodyBox = landscape
+      ? { w: (width * 2) / 3, h: height }
+      : { w: width, h: (height * 2) / 3 };
+
+    const title = props.title ?? "Reads the room";
+    const body = props.body ?? "Same template, either way.";
+
+    const titleFit = fitSvgText(title, accentBox.w, accentBox.h, {
+      maxPx: Math.round(Math.min(accentBox.h * 0.12, accentBox.w * 0.14)),
+      maxLines: 3,
+    });
+    const bodyFit = fitSvgText(body, bodyBox.w, bodyBox.h * 0.6, {
+      maxPx: Math.round(bodyBox.h * 0.065),
+      maxLines: 3,
+    });
+
+    // The decision, printed on the card — watch it flip with the canvas.
+    // ASCII "->" on purpose: the bundled glyph font is lean, and exotic
+    // codepoints (like U+2192) render as tofu. Keep card copy ASCII.
+    const caption = `${width}x${height} -> ${landscape ? "columns" : "rows"}`;
+    const captionFit = fitSvgText(caption, bodyBox.w, bodyBox.h * 0.2, {
+      maxPx: Math.round(bodyBox.h * 0.038),
+      maxLines: 1,
+    });
+
+    return {
+      kind: "mosaic_document",
+      version: 1,
+      m0,
+      assets: {},
+      // Paint order follows the DSL walk: base tile, then its attached
+      // overlay, per panel — so sources bind [fillA, textA, fillB, textB].
+      sources: [
+        makeColorTile((props.accentColor ?? "#2471a3") as MosaicColor),
+        svgText([
+          {
+            text: titleFit.text,
+            fontSize: titleFit.fontSize,
+            color: "#ffffff" as MosaicColor,
+          },
+        ]),
+        makeColorTile((props.panelColor ?? "#1c2833") as MosaicColor),
+        svgText([
+          {
+            text: bodyFit.text,
+            fontSize: bodyFit.fontSize,
+            color: "#ffffff" as MosaicColor,
+          },
+          {
+            text: captionFit.text,
+            fontSize: captionFit.fontSize,
+            color: "#7f8c9b" as MosaicColor,
+            vAlign: "bottom",
+            padding: { bottom: 0.06 },
+          },
+        ]),
+      ],
+    };
+  },
+});
+
+export default AspectAdaptiveCardV1;

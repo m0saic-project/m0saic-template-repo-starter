@@ -1,0 +1,65 @@
+# Lane A — policy + loader-contract checks against the COMMITTED artifacts.
+# Pure Node, no npm install, fork-safe: works on a bare clone, because dist/
+# and template-manifest.json are committed and tools/*.mjs use only builtins.
+#
+# Lane B (build + lint + jest + dist-freshness) needs the private m0saic
+# monorepo checked out as a SIBLING (the package.json file: links) via a PAT
+# secret. It is deliberately not wired yet — see the commented job below and
+# docs/publish.md. Until then, `npm run verify` on the dev machines is the
+# build gate (run it on Windows AND macOS before tagging).
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  policy:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Dependency + pack policy
+        run: node tools/check-deps.mjs
+      - name: Loader contract (committed dist + manifest)
+        run: node tools/contract-check.mjs
+
+  # build-verify:
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       os: [windows-latest, macos-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         path: m0saic-template-repo-starter
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         repository: <org>/m0saic            # private monorepo
+  #         token: ${{ secrets.M0SAIC_MONOREPO_TOKEN }}
+  #         path: m0saic
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #     - run: npm ci
+  #       working-directory: m0saic-template-repo-starter
+  #     - run: npm run build
+  #       working-directory: m0saic-template-repo-starter
+  #     - name: dist freshness (committed build must match source)
+  #       run: git diff --exit-code -- dist template-manifest.json
+  #       working-directory: m0saic-template-repo-starter
+  #     - run: npm run lint
+  #       working-directory: m0saic-template-repo-starter
+  #     - run: npm test
+  #       working-directory: m0saic-template-repo-starter
+  #     - run: node tools/contract-check.mjs --deep
+  #       working-directory: m0saic-template-repo-starter

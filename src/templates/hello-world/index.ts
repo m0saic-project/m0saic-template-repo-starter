@@ -1,1 +1,0 @@
-export { HelloWorld as HelloWorldV1 } from "./v1/hello-world.js";

@@ -18,20 +18,9 @@
  * generator asserts the two can't drift.
  */
 import type { MosaicTemplate, MosaicTemplateProps } from "@m0saic/types";
-
 import { TEMPLATE_PACKS, TEMPLATE_REPO } from "./repo";
-import { basicsTemplates } from "./basics";
-
-export const repo = TEMPLATE_REPO;
-
+export declare const repo: import("@m0saic/types").MosaicTemplateRepoDescriptor;
 /** Every template in the curriculum, chapter by chapter, in teaching order. */
-export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
-  ...basicsTemplates,
-];
-
-// Library re-exports for anyone importing this repo as code. `export *`
-// only for template modules — see the note in src/basics/index.ts for why
-// the `export * from` + named-re-export pairing is a trap. The repo
-// descriptors re-export as LOCAL bindings, which is always safe.
+export declare const templates: MosaicTemplate<MosaicTemplateProps>[];
 export * from "./basics";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

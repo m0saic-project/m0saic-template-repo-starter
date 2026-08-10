@@ -1,265 +1,72 @@
-# m0saic Template Repo Starter
+# m0saic Template Starter
 
-Official example of a third-party template repository for **m0saic Make**.
+The m0saic developer curriculum: a repo of **minimal example templates**, each
+exercising exactly one knob of the template-authoring surface. Clone it, load
+it in Mosaic, read the source, fork it into your own template repo.
 
-This repo demonstrates the production-ready structure required for:
+> **Status: under construction.** The scaffold and the `basics` chapter are
+> in; the remaining curriculum chapters (geometry, props, media, text, masks,
+> composition, pipelines, data, editor surfaces, watermarking, quality) land
+> in batches. The full README, CURRICULUM.md, and docs/ set arrive with them.
 
-- Scalable template discovery (manifest-based)
-- Zero-exec browsing
-- Deterministic rendering
-- External repo loading
-- Preview asset resolution
-- ESM execution at render time
+## Use it (zero build)
 
-This is a reusable template repository.
+`dist/` and `template-manifest.json` are **committed** — hosts load this repo
+straight from a clone; `src/` is never read at load time.
 
----
+- **App:** Templates page → **Add source** → pick this folder → accept the
+  third-party consent prompt → templates appear. After any rebuild, press
+  **Refresh repos**.
+- **CLI:**
 
-## Overview
+  ```
+  m0saic make "@m0saic-starter/basics/hello-world/v1" --template-repo <path-to-this-repo> -w 1280 -h 720 -o hello.mp4
+  ```
 
-A template repo contains:
+  (Quote the id in PowerShell — `@` starts splatting otherwise. Note
+  `list-templates` does not see external repos; verify with
+  `make --validate-only`.)
 
-- Typed templates
-- A manual registry
-- A generated `template-manifest.json`
-- Preview assets
-- A built ESM entry module
+- **Smoke everything:** `node tools/smoke-render.mjs` (validate-only sweep
+  over every template + tiny real renders into `test-output/`). Needs the
+  `m0saic` CLI on PATH or `M0SAIC_CLI` set.
 
-The manifest is the authoritative browse surface.  
-Hosts must be able to list templates without importing code.
+## Author mode (build / test / lint)
 
----
-
-## Repository Structure
-
-```
-src/
-  templates/
-    hello-world/
-      v1/
-        hello-world.ts
-        index.ts
-  templates/index.ts
-  registry.ts
-  gen-template-manifest.ts
-  index.ts
-
-assets/
-  templates/
-    @m0saic-starter__hello-world__v1/
-      preview.png
-      preview.mp4
-      poster.png
-
-dist/                  ← compiled output
-template-manifest.json ← generated
-```
-
----
-
-## Build
+Until the `@m0saic/*` substrate publishes to npm, author mode needs a checkout
+of the m0saic monorepo as a **sibling directory** (`../m0saic`) — the
+`package.json` `file:` links resolve against it. Then:
 
 ```
 npm install
-npm run build
+npm run verify     # build + lint + jest + loader-contract check + dep policy
 ```
 
-Build does:
+The edit loop against a running Mosaic Desktop:
+`edit → npm run build → Templates page → Refresh repos`. Prove it works with
+`@m0saic-starter/basics/hot-reload-canary/v1` (flip its constant, rebuild,
+refresh — the square must change color without an app restart).
 
-1. Compile TypeScript (`tsc`)
-2. Execute `dist/gen-template-manifest.js`
-3. Generate `template-manifest.json`
-
-Build will fail if:
-
-- A registry exportName does not exist in `dist/index.js`
-- A template is not re-exported
-- A templateKey is malformed
-
-This is intentional. The manifest must always be valid.
-
----
-
-## Template Registration
-
-Templates must be added manually to:
+## Repo map
 
 ```
-src/registry.ts
+src/<pack>/<slug>/v1/       one template + its co-located test
+src/<pack>/registry.ts      chapter registry (array order = teaching order)
+src/repo.ts                 repo descriptor + pack (chapter) list
+src/index.ts                entry: exports `repo` + `templates[]`
+template-manifest.json      GENERATED zero-exec browse surface (committed)
+dist/                       GENERATED CommonJS build (committed)
+assets/templates/<id>/      preview.png / preview.mp4 / poster.png per template
+assets/media/               tiny committed media fixtures (see NOTICE.md)
+tools/                      pure-Node checks + founder scripts (no install needed)
 ```
 
-Each entry defines:
+Rules of the road (the long form lands in `docs/`): CommonJS build only;
+export plain template objects — never call `registerTemplate` yourself;
+deterministic renders (seeds as props); size and duration come from
+`ctx.target`; rebuild before committing (`dist/` freshness is CI-checked).
 
-- `templateId` (slug)
-- `displayName`
-- `description`
-- `exportName`
-- `defaultProps`
-- `tags`
+## License
 
-Example:
-
-```ts
-export const templateRegistry = [
-  {
-    templateId: "hello-world",
-    displayName: "Hello World",
-    description: "Minimal template example.",
-    exportName: "HelloWorldV1",
-    defaultProps: { text: "hello" },
-    tags: ["example", "starter"]
-  }
-];
-```
-
----
-
-## Adding a New Template
-
-1. Create:
-
-```
-src/templates/<slug>/v1/
-```
-
-2. Implement your template.
-3. Re-export it from:
-
-```
-src/templates/index.ts
-```
-
-4. Ensure it is re-exported from:
-
-```
-src/index.ts
-```
-
-5. Add it to `registry.ts`.
-6. (Optional) Add preview assets.
-7. Run:
-
-```
-npm run build
-```
-
----
-
-## Preview Asset Convention
-
-Preview assets live under:
-
-```
-assets/templates/<encoded-template-key>/
-```
-
-Encoding rule:
-
-```
-@repo/slug/v1 → @repo__slug__v1
-```
-
-Supported files:
-
-- `preview.png` (preferred static preview)
-- `preview.mp4` (short looping preview)
-- `poster.png` (optional video poster)
-
-The manifest generator automatically detects which files exist.
-
----
-
-## Template Keys
-
-External template repos must use:
-
-```
-<repoId>/<slug>/v<major>
-```
-
-Example:
-
-```
-@m0saic-starter/hello-world/v1
-```
-
-The manifest must explicitly include `templateKey`.  
-Hosts must never derive IDs implicitly.
-
----
-
-## Manifest Contract
-
-`template-manifest.json` is the single entrypoint for this repo.
-
-Hosts use it to:
-
-- List templates
-- Filter by tags
-- Resolve preview assets
-- Load the ESM entry module only when rendering
-
-Browsing must not require importing code.
-
----
-
-## Loading in m0saic Make
-
-This repo can be loaded via:
-
-- Local filesystem path
-- Git clone
-- Future template registry system
-
-Only the manifest is required for browsing.
-
-`entryModule` is imported only when rendering.
-
----
-
-## Publishing
-
-You may:
-
-- Keep this repo public on GitHub
-- Keep it private
-- Publish it to npm (optional)
-
-If publishing:
-
-```
-npm run build
-npm publish
-```
-
----
-
-## Determinism Model
-
-Templates must:
-
-- Read all timing from `ctx.output`
-- Declare capabilities explicitly
-- Avoid hidden side effects
-
-Same:
-
-- Template version
-- Props
-- Dimensions
-- Runtime
-
-→ identical output.
-
----
-
-## Links
-
-- m0saic: https://github.com/m0saic-project/m0saic
-- Docs: https://m0saic.io/docs
-- Templates: https://m0saic.io/templates
-- Discord: https://discord.gg/m88PVvx9
-
----
-
-© 2026 m0saic LLC
+MIT — see `LICENSE`. `assets/media/bbb-2s.mp4` is a Big Buck Bunny excerpt,
+(c) Blender Foundation, CC-BY 3.0 — see `NOTICE.md`.
