@@ -1,3 +1,5 @@
+import { fitSvgText, wrapMeasured } from "../../../_shared/svg-text";
+export { fitSvgText, wrapMeasured };
 /**
  * `@m0saic-starter/basics/aspect-adaptive-card/v1` — size off `ctx.target`.
  *
@@ -34,30 +36,6 @@ export type AspectAdaptiveCardProps = {
     accentColor?: string;
     /** Body panel fill (#rrggbb). */
     panelColor?: string;
-};
-/**
- * Greedy word-wrap measured against the bundled font: each line takes words
- * while it still fits `maxWidthPx` at `fontSize`. Never breaks a word (a
- * single over-long word gets its own line and the caller's size search
- * shrinks until it fits).
- */
-export declare function wrapMeasured(text: string, fontSize: number, maxWidthPx: number): string[];
-/**
- * Fit `text` into a `boxW`×`boxH` pixel box: binary-search the largest font
- * size (12..maxPx) whose measured, wrapped block fits both axes. The width
- * budget is deliberately generous (~28% total side margin): breathing room
- * is good typography on desktop canvases, and it keeps the block safe even
- * on hosts whose preview font runs wider than the bundled render font.
- * Returns the "\n"-joined block ready for one svg layer.
- */
-export declare function fitSvgText(text: string, boxW: number, boxH: number, opts: {
-    maxPx: number;
-    maxLines: number;
-    widthFrac?: number;
-}): {
-    text: string;
-    fontSize: number;
-    lineCount: number;
 };
 export declare const AspectAdaptiveCardV1: import("@m0saic/types").MosaicTemplate<AspectAdaptiveCardProps, import("@m0saic/types").MosaicTemplateOutputs, import("@m0saic/types").MosaicTemplateUpstreamVariables, import("@m0saic/types").MosaicTemplateUpstreamData, import("@m0saic/types").MosaicTemplateSidecars>;
 export default AspectAdaptiveCardV1;

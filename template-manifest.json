@@ -17,11 +17,11 @@
       "slug": "hello-world",
       "templateKey": "@m0saic-starter/basics/hello-world/v1",
       "title": "Hello World",
-      "description": "The smallest correct template: one full-canvas tile, one text source, typed props with deterministic defaults, and a validated m0 string.",
+      "description": "The smallest correct template, wearing the brand: the pixel-M in a square cell over a greeting, typed props with deterministic defaults, and a validated m0 string. The repo's smoke render.",
       "tags": [
         "basics",
         "starter",
-        "text"
+        "brand"
       ],
       "pack": "basics",
       "preview": {
@@ -38,7 +38,10 @@
         "starter",
         "smoke"
       ],
-      "pack": "basics"
+      "pack": "basics",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__basics__hot-reload-canary__v1/preview.png"
+      }
     },
     {
       "slug": "color-tiles",
@@ -50,7 +53,10 @@
         "layout",
         "color"
       ],
-      "pack": "basics"
+      "pack": "basics",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__basics__color-tiles__v1/preview.png"
+      }
     },
     {
       "slug": "aspect-adaptive-card",
@@ -62,7 +68,147 @@
         "ctx",
         "layout"
       ],
-      "pack": "basics"
+      "pack": "basics",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__basics__aspect-adaptive-card__v1/preview.png"
+      }
+    },
+    {
+      "slug": "gcd-collapse",
+      "templateKey": "@m0saic-starter/geometry/gcd-collapse/v1",
+      "title": "GCD Collapse",
+      "description": "Two pixel-identical rows from the same weights: literal keeps 100 slots, the default optimized mode collapses to 4. Same look, fraction of the string.",
+      "tags": [
+        "geometry",
+        "quantization",
+        "lesson"
+      ],
+      "pack": "geometry",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__geometry__gcd-collapse__v1/preview.png"
+      }
+    },
+    {
+      "slug": "ratio-vs-absolute",
+      "templateKey": "@m0saic-starter/geometry/ratio-vs-absolute/v1",
+      "title": "Ratio vs Absolute",
+      "description": "The same 1:2:1 spelled as a ratio split (recomposes anywhere) and as placeRects (exact pixels, baked to THIS canvas). Identical render, opposite promises.",
+      "tags": [
+        "geometry",
+        "drafting-modes",
+        "lesson"
+      ],
+      "pack": "geometry",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__geometry__ratio-vs-absolute__v1/preview.png"
+      }
+    },
+    {
+      "slug": "overlay-stack",
+      "templateKey": "@m0saic-starter/geometry/overlay-stack/v1",
+      "title": "Overlay Stack",
+      "description": "1{3[-,1{1},-]}: base, band on its overlay, badge on the band's overlay. Overlays restore their node's whole rect and paint after it.",
+      "tags": [
+        "geometry",
+        "overlay",
+        "lesson"
+      ],
+      "pack": "geometry",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__geometry__overlay-stack__v1/preview.png"
+      }
+    },
+    {
+      "slug": "lattice-gutters",
+      "templateKey": "@m0saic-starter/geometry/lattice-gutters/v1",
+      "title": "Lattice Gutters",
+      "description": "Base × fiber: a plain gutterless grid as the m0, pixel-exact gutters computed into per-cell placement insets by latticeCellInset. Exact at every canvas, zero DSL cost.",
+      "tags": [
+        "geometry",
+        "gutters",
+        "lesson"
+      ],
+      "pack": "geometry",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__geometry__lattice-gutters__v1/preview.png"
+      }
+    },
+    {
+      "slug": "inset-recovery",
+      "templateKey": "@m0saic-starter/geometry/inset-recovery/v1",
+      "title": "Inset Recovery",
+      "description": "Exact pixels that survive nesting: placeInsetPieces keeps the string coarse (precision bounded at the lattice basis) while placement.inset recovers every chip byte-exact. The caption prints the precision floor placeRects would bake instead — the cost a parent inherits.",
+      "tags": [
+        "geometry",
+        "precision",
+        "lesson"
+      ],
+      "pack": "geometry",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__geometry__inset-recovery__v1/preview.png"
+      }
+    },
+    {
+      "slug": "place-rect-dock",
+      "templateKey": "@m0saic-starter/geometry/place-rect-dock/v1",
+      "title": "PlaceRect Dock",
+      "description": "One pixel-exact rect docked bottom-right via placeRect — margins are null tiles, nothing quantizes into your rect. Head-only: the string bakes THIS canvas.",
+      "tags": [
+        "geometry",
+        "placement",
+        "lesson"
+      ],
+      "pack": "geometry",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__geometry__place-rect-dock__v1/preview.png"
+      }
+    },
+    {
+      "slug": "mask-in-a-cell",
+      "templateKey": "@m0saic-starter/geometry/mask-in-a-cell/v1",
+      "title": "Mask in a Cell",
+      "description": "A diamond as a masked color tile in a plain ratio cell. Mask bounds scale onto the cell per axis — match their aspect or the shape silently smears.",
+      "tags": [
+        "geometry",
+        "masks",
+        "lesson"
+      ],
+      "pack": "geometry",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__geometry__mask-in-a-cell__v1/preview.png"
+      }
+    },
+    {
+      "slug": "quantization-cures",
+      "templateKey": "@m0saic-starter/geometry/quantization-cures/v1",
+      "title": "Quantization: Three Cures",
+      "description": "The capstone: one 12×3 gridded design through four spellings — naive ratio gutters that wobble N/N+1 px, then inset recovery, snapGrid, and placeRects. Flip the Method enum, watch the lines even out, read the receipts.",
+      "tags": [
+        "geometry",
+        "quantization",
+        "lesson"
+      ],
+      "pack": "geometry",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__geometry__quantization-cures__v1/preview.png"
+      }
+    },
+    {
+      "slug": "text-three-ways",
+      "templateKey": "@m0saic-starter/text/text-three-ways/v1",
+      "title": "Text, Three Ways",
+      "description": "The same word through all three text pipelines, side by side: drawtext (ffmpeg, expr-capable, host fonts), the svg rasterizer (bundled font baked to geometry), and mask-carved glyphs (text as a mask any source can wear).",
+      "tags": [
+        "text",
+        "rasterizer",
+        "lesson"
+      ],
+      "pack": "text",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__text__text-three-ways__v1/preview.png",
+        "video": "assets/templates/@m0saic-starter__text__text-three-ways__v1/preview.mp4",
+        "poster": "assets/templates/@m0saic-starter__text__text-three-ways__v1/poster.png"
+      }
     }
   ],
   "packs": [
@@ -70,6 +216,16 @@
       "id": "basics",
       "title": "Basics",
       "description": "Hello world, the hot-reload loop, color tiles, and sizing off ctx.target — the smallest possible templates that still do everything right."
+    },
+    {
+      "id": "geometry",
+      "title": "Geometry",
+      "description": "The m0 geometry contract as runnable lessons: quantization you can predict, GCD collapse, ratio vs absolute, passthrough donation, overlays, lattice gutters (both spellings), inset recovery, placeRect, and masks as fiber."
+    },
+    {
+      "id": "text",
+      "title": "Text",
+      "description": "Text that renders right: the three glyph pipelines side by side (drawtext, svg rasterizer, mask-carved), then the per-technique deep dives — fitting, expressions, and carved type."
     }
   ]
 }

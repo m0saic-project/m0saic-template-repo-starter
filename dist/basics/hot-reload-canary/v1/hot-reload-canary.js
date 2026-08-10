@@ -5,6 +5,7 @@ exports.canaryColorLabel = canaryColorLabel;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const tutorial_1 = require("../../../_shared/tutorial");
 /**
  * `@m0saic-starter/basics/hot-reload-canary/v1` — prove the edit loop works.
  *
@@ -112,5 +113,17 @@ exports.HotReloadCanaryV1 = (0, template_utils_1.defineMosaicTemplate)({
             ],
         };
     },
+    renderTutorial: (0, tutorial_1.lessonTutorial)({
+        title: "Hot-Reload Canary",
+        lines: [
+            "Proves your edit loop works: the fill comes from a CONSTANT in the template source, not a prop default - so a color change can only appear if the app truly re-evaluated your rebuilt code.",
+            "The loop: edit the constant, npm run build, press Refresh repos. No app restart.",
+            "A prop default cannot prove this - the editor may hold a stale prop bag that masks it.",
+        ],
+        explore: [
+            "Flip CANARY_COLOR to CANARY_BLUE in the source, rebuild, Refresh repos",
+            "Set a color override prop, then clear it - the constant returns",
+        ],
+    }),
 });
 exports.default = exports.HotReloadCanaryV1;

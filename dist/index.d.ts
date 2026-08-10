@@ -23,4 +23,6 @@ export declare const repo: import("@m0saic/types").MosaicTemplateRepoDescriptor;
 /** Every template in the curriculum, chapter by chapter, in teaching order. */
 export declare const templates: MosaicTemplate<MosaicTemplateProps>[];
 export * from "./basics";
+export * from "./geometry";
+export * from "./text";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

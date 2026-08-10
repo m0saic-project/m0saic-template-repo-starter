@@ -59,4 +59,18 @@ describe("props-surface conventions (whole repo)", () => {
     }
     expect(violations).toEqual([]);
   });
+
+  it("every template ships a renderTutorial — the lesson's voice in Make", () => {
+    // Make has no prose surface; the tutorial page is how a lesson tells the
+    // user what it teaches and which knobs to poke. Standard page via
+    // _shared/tutorial's lessonTutorial() — except the future
+    // surfaces/render-tutorial unit, whose bespoke tutorial IS its lesson.
+    const missing = templates
+      .filter(
+        (t) =>
+          typeof (t as { renderTutorial?: unknown }).renderTutorial !== "function",
+      )
+      .map((t) => String(t.id));
+    expect(missing).toEqual([]);
+  });
 });

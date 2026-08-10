@@ -10,8 +10,8 @@ exports.basicsRegistry = [
         templateId: "@m0saic-starter/basics/hello-world/v1",
         exportName: "HelloWorldV1",
         title: "Hello World",
-        description: "The smallest correct template: one full-canvas tile, one text source, typed props with deterministic defaults, and a validated m0 string.",
-        tags: ["basics", "starter", "text"],
+        description: "The smallest correct template, wearing the brand: the pixel-M in a square cell over a greeting, typed props with deterministic defaults, and a validated m0 string. The repo's smoke render.",
+        tags: ["basics", "starter", "brand"],
     },
     {
         slug: "hot-reload-canary",

@@ -21,12 +21,16 @@ import type { MosaicTemplate, MosaicTemplateProps } from "@m0saic/types";
 
 import { TEMPLATE_PACKS, TEMPLATE_REPO } from "./repo";
 import { basicsTemplates } from "./basics";
+import { geometryTemplates } from "./geometry";
+import { textTemplates } from "./text";
 
 export const repo = TEMPLATE_REPO;
 
 /** Every template in the curriculum, chapter by chapter, in teaching order. */
 export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...basicsTemplates,
+  ...geometryTemplates,
+  ...textTemplates,
 ];
 
 // Library re-exports for anyone importing this repo as code. `export *`
@@ -34,4 +38,6 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
 // the `export * from` + named-re-export pairing is a trap. The repo
 // descriptors re-export as LOCAL bindings, which is always safe.
 export * from "./basics";
+export * from "./geometry";
+export * from "./text";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

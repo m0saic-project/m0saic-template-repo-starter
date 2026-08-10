@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.templateRegistry = exports.CHAPTERS = void 0;
 const registry_1 = require("./basics/registry");
+const registry_2 = require("./geometry/registry");
+const registry_3 = require("./text/registry");
 /**
  * The whole curriculum, chapter by chapter. ORDER IS THE CURRICULUM —
  * chapters here follow TEMPLATE_PACKS (src/repo.ts), and each chapter's
@@ -12,6 +14,8 @@ const registry_1 = require("./basics/registry");
  */
 exports.CHAPTERS = [
     { pack: "basics", entries: registry_1.basicsRegistry },
+    { pack: "geometry", entries: registry_2.geometryRegistry },
+    { pack: "text", entries: registry_3.textRegistry },
 ];
 /** Flat view over every chapter, in curriculum order. */
 exports.templateRegistry = exports.CHAPTERS.flatMap((chapter) => chapter.entries);

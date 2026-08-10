@@ -12,6 +12,8 @@ import {
   makeColorTile,
 } from "@m0saic/template-utils";
 
+import { lessonTutorial } from "../../../_shared/tutorial";
+
 /**
  * `@m0saic-starter/basics/color-tiles/v1` — tiles, sources, and the canvas.
  *
@@ -119,6 +121,19 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
       sources,
     };
   },
+
+  renderTutorial: lessonTutorial({
+    title: "Color Tiles",
+    lines: [
+      "sources[] maps onto rendered tiles in walk order: first weight, first source.",
+      "Solid tiles are makeColorTile - a free lavfi color source that composes with masks, placement, and per-tile timing.",
+      "Empty canvas shows document.backgroundColor: never burn a base layer just to get a background.",
+    ],
+    explore: [
+      "Add a 4th color - the split follows the array",
+      "Eye menu > Show dimensions for per-tile pixels",
+    ],
+  }),
 });
 
 export default ColorTilesV1;

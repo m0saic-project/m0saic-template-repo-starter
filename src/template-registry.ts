@@ -1,5 +1,7 @@
 import type { StarterChapter, StarterRegistryEntry } from "./registry-types";
 import { basicsRegistry } from "./basics/registry";
+import { geometryRegistry } from "./geometry/registry";
+import { textRegistry } from "./text/registry";
 
 /**
  * The whole curriculum, chapter by chapter. ORDER IS THE CURRICULUM —
@@ -11,6 +13,8 @@ import { basicsRegistry } from "./basics/registry";
  */
 export const CHAPTERS: StarterChapter[] = [
   { pack: "basics", entries: basicsRegistry },
+  { pack: "geometry", entries: geometryRegistry },
+  { pack: "text", entries: textRegistry },
 ];
 
 /** Flat view over every chapter, in curriculum order. */

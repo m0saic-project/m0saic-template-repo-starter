@@ -2,7 +2,6 @@ import type {
   MosaicColor,
   MosaicDocument,
   MosaicEngineContext,
-  MosaicSource,
 } from "@m0saic/types";
 import { asTemplateId } from "@m0saic/types";
 import { weightedSplit } from "@m0saic/dsl-stdlib";
@@ -10,8 +9,14 @@ import {
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
-  measureText,
 } from "@m0saic/template-utils";
+
+import { fitSvgText, svgTextSource, wrapMeasured } from "../../../_shared/svg-text";
+import { lessonTutorial } from "../../../_shared/tutorial";
+
+// Re-exported so the co-located test (and curious readers) can exercise the
+// fitting primitives from this lesson's doorstep.
+export { fitSvgText, wrapMeasured };
 
 /**
  * `@m0saic-starter/basics/aspect-adaptive-card/v1` — size off `ctx.target`.
@@ -89,112 +94,6 @@ const propsSchema = definePropsSchema<AspectAdaptiveCardProps>({
     },
   },
 });
-
-/**
- * Greedy word-wrap measured against the bundled font: each line takes words
- * while it still fits `maxWidthPx` at `fontSize`. Never breaks a word (a
- * single over-long word gets its own line and the caller's size search
- * shrinks until it fits).
- */
-export function wrapMeasured(
-  text: string,
-  fontSize: number,
-  maxWidthPx: number,
-): string[] {
-  const words = text.trim().split(/\s+/).filter((w) => w.length > 0);
-  const lines: string[] = [];
-  let line = "";
-  for (const word of words) {
-    const candidate = line.length === 0 ? word : `${line} ${word}`;
-    if (
-      line.length === 0 ||
-      measureText(candidate, { fontSize }).width <= maxWidthPx
-    ) {
-      line = candidate;
-    } else {
-      lines.push(line);
-      line = word;
-    }
-  }
-  if (line.length > 0) lines.push(line);
-  return lines;
-}
-
-/**
- * Fit `text` into a `boxW`×`boxH` pixel box: binary-search the largest font
- * size (12..maxPx) whose measured, wrapped block fits both axes. The width
- * budget is deliberately generous (~28% total side margin): breathing room
- * is good typography on desktop canvases, and it keeps the block safe even
- * on hosts whose preview font runs wider than the bundled render font.
- * Returns the "\n"-joined block ready for one svg layer.
- */
-export function fitSvgText(
-  text: string,
-  boxW: number,
-  boxH: number,
-  opts: { maxPx: number; maxLines: number; widthFrac?: number },
-): { text: string; fontSize: number; lineCount: number } {
-  const clean = text.trim().replace(/\s+/g, " ");
-  const usableW = boxW * (opts.widthFrac ?? 0.72);
-  const usableH = boxH * 0.66;
-
-  const attempt = (fontSize: number) => {
-    const lines = wrapMeasured(clean, fontSize, usableW);
-    if (lines.length > opts.maxLines) return undefined;
-    const block = lines.join("\n");
-    const m = measureText(block, { fontSize });
-    if (m.width > usableW || m.height > usableH) return undefined;
-    return { text: block, fontSize, lineCount: lines.length };
-  };
-
-  let lo = 12;
-  let hi = Math.max(12, Math.round(opts.maxPx));
-  let best = attempt(lo);
-  while (lo <= hi) {
-    const mid = Math.floor((lo + hi) / 2);
-    const fit = attempt(mid);
-    if (fit) {
-      best = fit;
-      lo = mid + 1;
-    } else {
-      hi = mid - 1;
-    }
-  }
-  // Nothing fits even at 12px (absurd box) — emit at 12px anyway; a clipped
-  // render beats a throw for a purely cosmetic overflow.
-  return best ?? { text: clean, fontSize: 12, lineCount: 1 };
-}
-
-/**
- * SVG-glyph text source: bundled deterministic font, identical app + CLI.
- * NOTE: svg-rasterized text bakes to a masked color tile, so it carries NO
- * background of its own — pair it with a `makeColorTile` base underneath
- * (see render(): base tile + attached `{...}` overlay per panel).
- */
-function svgText(
-  layers: Array<{
-    text: string;
-    fontSize: number;
-    color: MosaicColor;
-    vAlign?: "top" | "middle" | "bottom";
-    padding?: { bottom?: number; top?: number };
-  }>,
-): MosaicSource {
-  return {
-    type: "text",
-    rasterizer: "svg",
-    renderMode: { kind: "image" },
-    layers: layers.map((layer) => ({
-      content: { kind: "literal", text: layer.text },
-      style: { fontSize: layer.fontSize, fontColor: layer.color },
-      placement: {
-        hAlign: "center" as const,
-        vAlign: layer.vAlign ?? ("middle" as const),
-        ...(layer.padding ? { padding: layer.padding } : {}),
-      },
-    })),
-  } as unknown as MosaicSource;
-}
 
 export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps>({
   id: asTemplateId(ID),
@@ -285,7 +184,7 @@ export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps
       // overlay, per panel — so sources bind [fillA, textA, fillB, textB].
       sources: [
         makeColorTile((props.accentColor ?? "#2471a3") as MosaicColor),
-        svgText([
+        svgTextSource([
           {
             text: titleFit.text,
             fontSize: titleFit.fontSize,
@@ -293,7 +192,7 @@ export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps
           },
         ]),
         makeColorTile((props.panelColor ?? "#1c2833") as MosaicColor),
-        svgText([
+        svgTextSource([
           {
             text: bodyFit.text,
             fontSize: bodyFit.fontSize,
@@ -310,6 +209,19 @@ export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps
       ],
     };
   },
+
+  renderTutorial: lessonTutorial({
+    title: "Aspect-Adaptive Card",
+    lines: [
+      "ctx.target is the canvas your pixels actually fill - branch on it and one template serves every aspect.",
+      "Size off ctx.target, NEVER ctx.output: nested, target is the slot your parent gave you; output still describes the final deliverable. Reading output is the classic silent 5x bug.",
+      "Nothing soft-wraps: static text here is svg-rasterized and fitted with measureText against the same bundled font the renderer draws with.",
+    ],
+    explore: [
+      "Switch Device to Portrait - the layout flips and the caption follows",
+      "Feed a long Title - it wraps and shrinks to fit its panel",
+    ],
+  }),
 });
 
 export default AspectAdaptiveCardV1;

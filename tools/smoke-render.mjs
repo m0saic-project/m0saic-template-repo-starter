@@ -51,6 +51,62 @@ const SMOKE_RENDERS = [
     out: "aspect-adaptive-card-portrait.png",
     args: ["-w", "360", "-h", "640", "--format", "image"],
   },
+  {
+    // Two states on purpose: the disease (wobbling ratio gutters), then
+    // the inset cure — the pair IS the lesson.
+    id: "@m0saic-starter/geometry/quantization-cures/v1",
+    out: "quantization-cures-naive.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/geometry/quantization-cures/v1",
+    out: "quantization-cures-inset.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", '{"method":"inset"}'],
+  },
+  {
+    id: "@m0saic-starter/geometry/inset-recovery/v1",
+    out: "inset-recovery.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/geometry/gcd-collapse/v1",
+    out: "gcd-collapse.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    // 1280 wide on purpose: the 240px rails read as PINNED next to the
+    // ratio band's 320px sides (640 wide would clamp the rail).
+    id: "@m0saic-starter/geometry/ratio-vs-absolute/v1",
+    out: "ratio-vs-absolute.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/geometry/overlay-stack/v1",
+    out: "overlay-stack.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/geometry/lattice-gutters/v1",
+    out: "lattice-gutters.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/geometry/place-rect-dock/v1",
+    out: "place-rect-dock.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/geometry/mask-in-a-cell/v1",
+    out: "mask-in-a-cell.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    // mp4 on purpose: the drawtext column's % counter is the lesson's beat,
+    // and a still would freeze it at frame 0.
+    id: "@m0saic-starter/text/text-three-ways/v1",
+    out: "text-three-ways.mp4",
+    args: ["-w", "1280", "-h", "720"],
+  },
 ];
 
 function resolveCli() {

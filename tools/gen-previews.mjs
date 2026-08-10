@@ -26,7 +26,15 @@ const PNG_BUDGET = 150 * 1024;
 const MP4_BUDGET = 1024 * 1024;
 
 /** Ids whose motion is the point — these also get preview.mp4 + poster.png. */
-const ANIMATED_PREVIEW_IDS = new Set([]);
+const ANIMATED_PREVIEW_IDS = new Set([
+  // The drawtext column's % counter is the lesson's beat; a still freezes it.
+  "@m0saic-starter/text/text-three-ways/v1",
+]);
+
+/** Per-id preview canvas when 1280x720 misrepresents the template. */
+const PREVIEW_DIMS = new Map([
+  ["@m0saic-starter/basics/hot-reload-canary/v1", ["720", "720"]],
+]);
 
 /** Per-id overrides when the default flags don't fit (e.g. multi-output pipelines). */
 const PREVIEW_OVERRIDES = new Map([]);
@@ -95,8 +103,9 @@ for (const entry of manifest.templates ?? []) {
   } else {
     fs.mkdirSync(dir, { recursive: true });
     const extra = PREVIEW_OVERRIDES.get(key) ?? [];
+    const [w, h] = PREVIEW_DIMS.get(key) ?? ["1280", "720"];
     const ok = runCli(
-      ["make", key, "--template-repo", ROOT, "-w", "1280", "-h", "720", "--format", "image", "-o", png, "--quiet", ...extra],
+      ["make", key, "--template-repo", ROOT, "-w", w, "-h", h, "--format", "image", "-o", png, "--quiet", ...extra],
       `preview ${key}`,
     );
     if (ok && enforceBudget(png, PNG_BUDGET, `preview.png for ${key}`)) {
@@ -111,8 +120,9 @@ for (const entry of manifest.templates ?? []) {
     const mp4 = path.join(dir, "preview.mp4");
     const poster = path.join(dir, "poster.png");
     if (!fs.existsSync(mp4) || FORCE) {
+      // No duration flag — the CLI's 2s default is exactly the preview length.
       const okMp4 = runCli(
-        ["make", key, "--template-repo", ROOT, "-w", "640", "-h", "360", "--durationMs", "2000", "-o", mp4, "--quiet"],
+        ["make", key, "--template-repo", ROOT, "-w", "640", "-h", "360", "-o", mp4, "--quiet"],
         `preview.mp4 ${key}`,
       );
       if (!okMp4 || !enforceBudget(mp4, MP4_BUDGET, `preview.mp4 for ${key}`)) failures += 1;

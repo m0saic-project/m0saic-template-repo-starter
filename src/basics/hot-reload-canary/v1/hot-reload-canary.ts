@@ -13,6 +13,8 @@ import {
   solidBackground,
 } from "@m0saic/template-utils";
 
+import { lessonTutorial } from "../../../_shared/tutorial";
+
 /**
  * `@m0saic-starter/basics/hot-reload-canary/v1` — prove the edit loop works.
  *
@@ -143,6 +145,19 @@ export const HotReloadCanaryV1 = defineMosaicTemplate<HotReloadCanaryProps>({
       ],
     };
   },
+
+  renderTutorial: lessonTutorial({
+    title: "Hot-Reload Canary",
+    lines: [
+      "Proves your edit loop works: the fill comes from a CONSTANT in the template source, not a prop default - so a color change can only appear if the app truly re-evaluated your rebuilt code.",
+      "The loop: edit the constant, npm run build, press Refresh repos. No app restart.",
+      "A prop default cannot prove this - the editor may hold a stale prop bag that masks it.",
+    ],
+    explore: [
+      "Flip CANARY_COLOR to CANARY_BLUE in the source, rebuild, Refresh repos",
+      "Set a color override prop, then clear it - the constant returns",
+    ],
+  }),
 });
 
 export default HotReloadCanaryV1;

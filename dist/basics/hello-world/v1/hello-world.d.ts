@@ -1,5 +1,6 @@
 /**
- * `@m0saic-starter/basics/hello-world/v1` — the smallest correct template.
+ * `@m0saic-starter/basics/hello-world/v1` — the smallest correct template,
+ * wearing the brand.
  *
  * ONE CONCEPT: the anatomy of a m0saic template. Everything else in this
  * repo is a variation on the five parts you see here:
@@ -15,13 +16,21 @@
  *      and VALIDATES, throwing on a malformed string instead of failing
  *      later, mysteriously, at render time.
  *
- * The layout is `F`: one full-canvas rect. One tile → one source → the text.
- * This template is deliberately static, so it never reads `ctx` — the first
- * template that must (sizing off `ctx.target`) is
- * `@m0saic-starter/basics/aspect-adaptive-card/v1`, two lessons from here.
+ * This is the repo's smoke render, so it says hello the way the brand
+ * does: the pixel-M (a color tile wearing the baked glyph as an
+ * inline-mask — see geometry/mask-in-a-cell for why any source can wear
+ * a mask) over the greeting. The M's cell must be SQUARE — mask bounds
+ * scale onto their cell per axis, so a stretched cell would smear the
+ * glyph — and "square" is a pixel fact the canvas decides. That is why
+ * even hello world reads `ctx.target` and places its three rects with one
+ * `placeInsetPieces` call: exact pixels, coarse string, the same layout
+ * doctrine the whole curriculum runs on.
+ *
+ * (Trivia the test locks in: the simplest possible m0 is one full-canvas
+ * rect, spelled `F` — and `toM0String("F")` canonicalizes it to `"1"`.)
  */
 export type HelloWorldProps = {
-    /** The line of text in the middle of the canvas. */
+    /** The greeting under the M. */
     text?: string;
     /** Canvas fill (#rrggbb). */
     backgroundColor?: string;

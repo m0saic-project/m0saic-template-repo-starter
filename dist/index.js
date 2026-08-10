@@ -19,13 +19,19 @@ const repo_1 = require("./repo");
 Object.defineProperty(exports, "TEMPLATE_PACKS", { enumerable: true, get: function () { return repo_1.TEMPLATE_PACKS; } });
 Object.defineProperty(exports, "TEMPLATE_REPO", { enumerable: true, get: function () { return repo_1.TEMPLATE_REPO; } });
 const basics_1 = require("./basics");
+const geometry_1 = require("./geometry");
+const text_1 = require("./text");
 exports.repo = repo_1.TEMPLATE_REPO;
 /** Every template in the curriculum, chapter by chapter, in teaching order. */
 exports.templates = [
     ...basics_1.basicsTemplates,
+    ...geometry_1.geometryTemplates,
+    ...text_1.textTemplates,
 ];
 // Library re-exports for anyone importing this repo as code. `export *`
 // only for template modules — see the note in src/basics/index.ts for why
 // the `export * from` + named-re-export pairing is a trap. The repo
 // descriptors re-export as LOCAL bindings, which is always safe.
 __exportStar(require("./basics"), exports);
+__exportStar(require("./geometry"), exports);
+__exportStar(require("./text"), exports);

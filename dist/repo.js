@@ -32,4 +32,14 @@ exports.TEMPLATE_PACKS = [
         title: "Basics",
         description: "Hello world, the hot-reload loop, color tiles, and sizing off ctx.target — the smallest possible templates that still do everything right.",
     },
+    {
+        id: "geometry",
+        title: "Geometry",
+        description: "The m0 geometry contract as runnable lessons: quantization you can predict, GCD collapse, ratio vs absolute, passthrough donation, overlays, lattice gutters (both spellings), inset recovery, placeRect, and masks as fiber.",
+    },
+    {
+        id: "text",
+        title: "Text",
+        description: "Text that renders right: the three glyph pipelines side by side (drawtext, svg rasterizer, mask-carved), then the per-technique deep dives — fitting, expressions, and carved type.",
+    },
 ];

@@ -4,12 +4,16 @@ exports.HelloWorldV1 = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const svg_text_1 = require("../../../_shared/svg-text");
+const tutorial_1 = require("../../../_shared/tutorial");
+const ID = "@m0saic-starter/basics/hello-world/v1";
 const HEX = /^#[0-9a-fA-F]{6}$/;
+const INK = "#ecf0f1";
 const propsSchema = (0, template_utils_1.definePropsSchema)({
     text: {
         type: "string",
         required: false,
-        description: "Text rendered in the center of the canvas.",
+        description: "The greeting rendered under the M.",
         meta: { control: { placeholder: "Hello, m0saic" } },
     },
     backgroundColor: {
@@ -20,18 +24,18 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
         // app a real swatch control instead of a bare text field.
         meta: {
             constraints: { isColor: true },
-            control: { colorPicker: true, defaultColor: "#1c2833" },
+            control: { colorPicker: true, defaultColor: "#0d1117" },
             ui: { label: "Background" },
         },
     },
 });
 exports.HelloWorldV1 = (0, template_utils_1.defineMosaicTemplate)({
-    id: (0, types_1.asTemplateId)("@m0saic-starter/basics/hello-world/v1"),
+    id: (0, types_1.asTemplateId)(ID),
     label: "Hello World",
     version: 1,
-    description: "The smallest correct template: one full-canvas tile, one text source, a typed props surface with deterministic defaults, and a validated m0 string. Start here.",
+    description: "The smallest correct template, wearing the brand: the pixel-M in a square cell over a greeting, placed with one placeInsetPieces call. A typed props surface, deterministic defaults, and a validated m0 string. Start here — this is the smoke render.",
     capabilities: { tier: "core" },
-    tags: ["basics", "starter", "text"],
+    tags: ["basics", "starter", "brand"],
     outputHints: {
         width: 1280,
         height: 720,
@@ -42,42 +46,78 @@ exports.HelloWorldV1 = (0, template_utils_1.defineMosaicTemplate)({
     propsSchema,
     defaultProps: {
         text: "Hello, m0saic",
-        backgroundColor: "#1c2833",
+        backgroundColor: "#0d1117",
     },
-    async render(props, _ctx) {
+    async render(props, ctx) {
         var _a, _b;
         // Fail fast on bad input rather than rendering something misleading.
         // The props schema above is DOCUMENTATION — hosts can (and the CLI does)
         // call render() directly with a raw props bag, so render() is the gate.
         if (props.backgroundColor !== undefined &&
             !HEX.test(props.backgroundColor)) {
-            throw new Error(`@m0saic-starter/basics/hello-world/v1: backgroundColor ` +
+            throw new Error(`${ID}: backgroundColor ` +
                 `${JSON.stringify(props.backgroundColor)} must be a #rrggbb hex color.`);
         }
         const text = (_a = props.text) !== null && _a !== void 0 ? _a : "Hello, m0saic";
-        const fill = ((_b = props.backgroundColor) !== null && _b !== void 0 ? _b : "#1c2833");
-        // One layer, no `placement`: hAlign defaults to "center" and vAlign to
-        // "middle", so the text centers itself in its tile.
-        const layers = [
-            {
-                content: { kind: "literal", text },
-                style: { fontSize: 72, fontColor: "#ffffff" },
-            },
-        ];
+        const fill = ((_b = props.backgroundColor) !== null && _b !== void 0 ? _b : "#0d1117");
+        const { width, height } = ctx.target;
+        // The brand square: a pixel size the CANVAS decides (ratios can't
+        // promise squareness — that's ctx.target's job).
+        const side = Math.round(Math.min(width, height) * 0.32);
+        const gx = Math.round((width - side) / 2);
+        const gy = Math.round(height * 0.42 - side / 2);
+        const label = {
+            x: Math.round(width * 0.08),
+            y: gy + side + Math.round(height * 0.05),
+            w: Math.round(width * 0.84),
+            h: Math.round(height * 0.12),
+        };
+        const placed = (0, template_utils_1.placeInsetPieces)({
+            rootW: width,
+            rootH: height,
+            pieces: [
+                {
+                    // Backdrop — the old `F`, now the page the brand sits on.
+                    rect: { x: 0, y: 0, w: width, h: height, importance: 0 },
+                    source: (0, template_utils_1.makeColorTile)(fill),
+                },
+                {
+                    rect: { x: gx, y: gy, w: side, h: side, importance: 2 },
+                    source: (0, template_utils_1.brandGlyphTile)(template_utils_1.HEADER_M_GLYPH, template_utils_1.BRAND_ORANGE),
+                },
+                {
+                    rect: { x: label.x, y: label.y, w: label.w, h: label.h, importance: 1 },
+                    source: (0, svg_text_1.svgLabel)(text, label.w, label.h, {
+                        maxPx: Math.round(height * 0.055),
+                        maxLines: 1,
+                        color: INK,
+                    }),
+                },
+            ],
+        });
         return {
             kind: "mosaic_document",
             version: 1,
-            // "F" = one full-canvas rect — the simplest possible m0 string.
-            m0: (0, dsl_stdlib_1.toM0String)("F", "@m0saic-starter/basics/hello-world/v1"),
+            m0: (0, dsl_stdlib_1.toM0String)(placed.m0, ID),
             assets: {},
-            sources: [
-                {
-                    type: "text",
-                    visual: { backgroundColor: (0, template_utils_1.solidBackground)(fill) },
-                    layers,
-                },
-            ],
+            backgroundColor: fill,
+            sources: placed.sources,
         };
     },
+    renderTutorial: (0, tutorial_1.lessonTutorial)({
+        title: "Hello World",
+        lines: [
+            "The smallest correct template: an id, a typed props schema with deterministic defaults, outputHints, and a render() returning an m0 string plus the sources that fill its tiles in order.",
+            "The m0 goes through toM0String - it canonicalizes and validates, so a bad layout fails at build time, not mid-render. (The simplest m0 is one full-canvas rect: \"F\", which canonicalizes to \"1\".)",
+            "The M is the brand saying hello: a color tile wearing the baked glyph as an inline-mask, in a SQUARE cell - mask bounds scale onto their cell per axis, and square is a pixel fact only ctx.target can decide. One placeInsetPieces call places all three rects.",
+            "Everything else in this repo is a variation of these parts.",
+        ],
+        explore: [
+            "Edit Text and Background in the props panel",
+            "Switch to the Geometry view - a backdrop, a square, a text band",
+            "Select the M: rect is the coarse cell, effective is the exact square the inset recovers (Eye menu > Show inset boxes draws it dashed) - and the MASK's 272x272 bounds are the glyph's own design space, scaled onto that square",
+            "Read the source: src/basics/hello-world/",
+        ],
+    }),
 });
 exports.default = exports.HelloWorldV1;

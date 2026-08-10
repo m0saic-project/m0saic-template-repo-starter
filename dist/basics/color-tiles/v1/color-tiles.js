@@ -4,6 +4,7 @@ exports.ColorTilesV1 = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const tutorial_1 = require("../../../_shared/tutorial");
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const ID = "@m0saic-starter/basics/color-tiles/v1";
 const propsSchema = (0, template_utils_1.definePropsSchema)({
@@ -73,5 +74,17 @@ exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
             sources,
         };
     },
+    renderTutorial: (0, tutorial_1.lessonTutorial)({
+        title: "Color Tiles",
+        lines: [
+            "sources[] maps onto rendered tiles in walk order: first weight, first source.",
+            "Solid tiles are makeColorTile - a free lavfi color source that composes with masks, placement, and per-tile timing.",
+            "Empty canvas shows document.backgroundColor: never burn a base layer just to get a background.",
+        ],
+        explore: [
+            "Add a 4th color - the split follows the array",
+            "Eye menu > Show dimensions for per-tile pixels",
+        ],
+    }),
 });
 exports.default = exports.ColorTilesV1;
