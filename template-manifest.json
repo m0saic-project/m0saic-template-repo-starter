@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "repo": {
+    "schemaVersion": 1,
+    "repoId": "@m0saic-starter",
+    "displayName": "Template Repo Starter",
+    "description": "Golden example 3P template repo for m0saic Make.",
+    "curator": "m0saic",
+    "homepage": "https://github.com/m0saic/template-repo-starter",
+    "assets": {
+      "templatesDir": "assets/templates"
+    }
+  },
+  "entryModule": "./dist/index.js",
+  "templates": [
+    {
+      "slug": "hello-world",
+      "templateKey": "@m0saic-starter/hello-world/v1",
+      "title": "Hello World",
+      "description": "Minimal template that validates 3P loading in Make.",
+      "tags": [
+        "example",
+        "starter",
+        "basic"
+      ],
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__hello-world__v1/preview.png"
+      }
+    }
+  ]
+}
