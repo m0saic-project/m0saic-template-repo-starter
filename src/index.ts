@@ -22,6 +22,7 @@ import type { MosaicTemplate, MosaicTemplateProps } from "@m0saic/types";
 import { TEMPLATE_PACKS, TEMPLATE_REPO } from "./repo";
 import { basicsTemplates } from "./basics";
 import { geometryTemplates } from "./geometry";
+import { propsTemplates } from "./props";
 import { textTemplates } from "./text";
 
 export const repo = TEMPLATE_REPO;
@@ -30,6 +31,7 @@ export const repo = TEMPLATE_REPO;
 export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...basicsTemplates,
   ...geometryTemplates,
+  ...propsTemplates,
   ...textTemplates,
 ];
 
@@ -39,5 +41,6 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
 // descriptors re-export as LOCAL bindings, which is always safe.
 export * from "./basics";
 export * from "./geometry";
+export * from "./props";
 export * from "./text";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

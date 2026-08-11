@@ -44,6 +44,12 @@ export const TEMPLATE_PACKS: MosaicTemplatePackDescriptor[] = [
       "The m0 geometry contract as runnable lessons: quantization you can predict, GCD collapse, ratio vs absolute, passthrough donation, overlays, lattice gutters (both spellings), inset recovery, placeRect, and masks as fiber.",
   },
   {
+    id: "props",
+    title: "Props",
+    description:
+      "The typed props surface as runnable lessons: one knob of every scalar type, seeded determinism, self-declaring color controls, structured json data, the meta/control affordances, and failing usefully with makeErrorMosaic.",
+  },
+  {
     id: "text",
     title: "Text",
     description:

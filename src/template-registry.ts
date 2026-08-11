@@ -1,6 +1,7 @@
 import type { StarterChapter, StarterRegistryEntry } from "./registry-types";
 import { basicsRegistry } from "./basics/registry";
 import { geometryRegistry } from "./geometry/registry";
+import { propsRegistry } from "./props/registry";
 import { textRegistry } from "./text/registry";
 
 /**
@@ -14,6 +15,7 @@ import { textRegistry } from "./text/registry";
 export const CHAPTERS: StarterChapter[] = [
   { pack: "basics", entries: basicsRegistry },
   { pack: "geometry", entries: geometryRegistry },
+  { pack: "props", entries: propsRegistry },
   { pack: "text", entries: textRegistry },
 ];
 

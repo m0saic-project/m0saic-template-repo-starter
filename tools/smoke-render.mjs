@@ -101,6 +101,37 @@ const SMOKE_RENDERS = [
     args: ["-w", "640", "-h", "360", "--format", "image"],
   },
   {
+    id: "@m0saic-starter/props/typed-props-tour/v1",
+    out: "typed-props-tour.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/props/seeded-shuffle/v1",
+    out: "seeded-shuffle.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/props/color-props/v1",
+    out: "color-props.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/props/json-data-prop/v1",
+    out: "json-data-prop.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image"],
+  },
+  {
+    id: "@m0saic-starter/props/control-gallery/v1",
+    out: "control-gallery.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image"],
+  },
+  {
+    // Broken on purpose: the smoke artifact for this unit IS the report card.
+    id: "@m0saic-starter/props/error-mosaic/v1",
+    out: "error-mosaic-report-card.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", '{"ratio":5,"accent":"orange"}'],
+  },
+  {
     // mp4 on purpose: the drawtext column's % counter is the lesson's beat,
     // and a still would freeze it at frame 0.
     id: "@m0saic-starter/text/text-three-ways/v1",

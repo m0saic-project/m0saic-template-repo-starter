@@ -194,6 +194,95 @@
       }
     },
     {
+      "slug": "typed-props-tour",
+      "templateKey": "@m0saic-starter/props/typed-props-tour/v1",
+      "title": "Typed Props Tour",
+      "description": "One prop of each scalar type — string, number, boolean, enum — each visibly driving the render, receipts on the caption. The schema picks the controls; render() is the gate.",
+      "tags": [
+        "props",
+        "lesson"
+      ],
+      "pack": "props",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__props__typed-props-tour__v1/preview.png"
+      }
+    },
+    {
+      "slug": "seeded-shuffle",
+      "templateKey": "@m0saic-starter/props/seeded-shuffle/v1",
+      "title": "Seeded Shuffle",
+      "description": "Randomness the m0saic way: a REQUIRED seed through mulberry32 — identical props render byte-identical documents, and the caption prints the deal.",
+      "tags": [
+        "props",
+        "determinism",
+        "lesson"
+      ],
+      "pack": "props",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__props__seeded-shuffle__v1/preview.png"
+      }
+    },
+    {
+      "slug": "color-props",
+      "templateKey": "@m0saic-starter/props/color-props/v1",
+      "title": "Color Props",
+      "description": "Color props declare themselves: isColor + colorPicker gives the scalar a swatch and the string[] the color-list control. Panel beside palette column.",
+      "tags": [
+        "props",
+        "color",
+        "lesson"
+      ],
+      "pack": "props",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__props__color-props__v1/preview.png"
+      }
+    },
+    {
+      "slug": "json-data-prop",
+      "templateKey": "@m0saic-starter/props/json-data-prop/v1",
+      "title": "JSON Data Prop",
+      "description": "Structured data through one type:\"json\" prop — collect-ALL validation with remedies, then the records become geometry: one proportional bar per row.",
+      "tags": [
+        "props",
+        "data",
+        "lesson"
+      ],
+      "pack": "props",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__props__json-data-prop__v1/preview.png"
+      }
+    },
+    {
+      "slug": "control-gallery",
+      "templateKey": "@m0saic-starter/props/control-gallery/v1",
+      "title": "Control Gallery",
+      "description": "The meta surface, one knob per affordance: placeholder, flavor:\"url\", bounded+stepped numbers, enum select, ui.label. The real demo is the sidebar.",
+      "tags": [
+        "props",
+        "controls",
+        "lesson"
+      ],
+      "pack": "props",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__props__control-gallery__v1/preview.png"
+      }
+    },
+    {
+      "slug": "error-mosaic",
+      "templateKey": "@m0saic-starter/props/error-mosaic/v1",
+      "title": "Error Mosaic",
+      "description": "Failing on-canvas, usefully: collect EVERY problem with a remedy and return makeErrorMosaic — a renderable report card instead of a dead preview.",
+      "tags": [
+        "props",
+        "errors",
+        "lesson"
+      ],
+      "pack": "props",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__props__error-mosaic__v1/preview.png"
+      }
+    },
+    {
       "slug": "text-three-ways",
       "templateKey": "@m0saic-starter/text/text-three-ways/v1",
       "title": "Text, Three Ways",
@@ -221,6 +310,11 @@
       "id": "geometry",
       "title": "Geometry",
       "description": "The m0 geometry contract as runnable lessons: quantization you can predict, GCD collapse, ratio vs absolute, passthrough donation, overlays, lattice gutters (both spellings), inset recovery, placeRect, and masks as fiber."
+    },
+    {
+      "id": "props",
+      "title": "Props",
+      "description": "The typed props surface as runnable lessons: one knob of every scalar type, seeded determinism, self-declaring color controls, structured json data, the meta/control affordances, and failing usefully with makeErrorMosaic."
     },
     {
       "id": "text",

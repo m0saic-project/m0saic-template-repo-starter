@@ -38,6 +38,11 @@ exports.TEMPLATE_PACKS = [
         description: "The m0 geometry contract as runnable lessons: quantization you can predict, GCD collapse, ratio vs absolute, passthrough donation, overlays, lattice gutters (both spellings), inset recovery, placeRect, and masks as fiber.",
     },
     {
+        id: "props",
+        title: "Props",
+        description: "The typed props surface as runnable lessons: one knob of every scalar type, seeded determinism, self-declaring color controls, structured json data, the meta/control affordances, and failing usefully with makeErrorMosaic.",
+    },
+    {
         id: "text",
         title: "Text",
         description: "Text that renders right: the three glyph pipelines side by side (drawtext, svg rasterizer, mask-carved), then the per-technique deep dives — fitting, expressions, and carved type.",

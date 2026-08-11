@@ -24,5 +24,6 @@ export declare const repo: import("@m0saic/types").MosaicTemplateRepoDescriptor;
 export declare const templates: MosaicTemplate<MosaicTemplateProps>[];
 export * from "./basics";
 export * from "./geometry";
+export * from "./props";
 export * from "./text";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };
