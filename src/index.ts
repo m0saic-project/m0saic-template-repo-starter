@@ -23,6 +23,7 @@ import { TEMPLATE_PACKS, TEMPLATE_REPO } from "./repo";
 import { basicsTemplates } from "./basics";
 import { geometryTemplates } from "./geometry";
 import { propsTemplates } from "./props";
+import { mediaTemplates } from "./media";
 import { textTemplates } from "./text";
 
 export const repo = TEMPLATE_REPO;
@@ -32,6 +33,7 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...basicsTemplates,
   ...geometryTemplates,
   ...propsTemplates,
+  ...mediaTemplates,
   ...textTemplates,
 ];
 
@@ -42,5 +44,6 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
 export * from "./basics";
 export * from "./geometry";
 export * from "./props";
+export * from "./media";
 export * from "./text";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

@@ -75,7 +75,8 @@ exports.TypedPropsTourV1 = (0, template_utils_1.defineMosaicTemplate)({
         const markerRow = accent
             ? `3(${ALIGNS.map((a) => (a === align ? "1" : "-")).join(",")})`
             : "-";
-        const tilesRow = `${tiles}(${new Array(tiles).fill("1").join(",")})`;
+        // Grammar: 1-count splits are illegal — one tile IS the row.
+        const tilesRow = tiles === 1 ? "1" : `${tiles}(${new Array(tiles).fill("1").join(",")})`;
         const rows = (0, dsl_stdlib_1.weightedSplit)([2, 1, 3, 1], "row", {
             claimants: ["1", markerRow, tilesRow, "1"],
         });

@@ -31,13 +31,34 @@ const ANIMATED_PREVIEW_IDS = new Set([
   "@m0saic-starter/text/text-three-ways/v1",
 ]);
 
-/** Per-id preview canvas when 1280x720 misrepresents the template. */
+/** Per-id preview canvas when 1280x720 misrepresents the template — or
+ *  (media units showing real video frames) busts the PNG budget. */
 const PREVIEW_DIMS = new Map([
   ["@m0saic-starter/basics/hot-reload-canary/v1", ["720", "720"]],
+  ["@m0saic-starter/media/probe-card/v1", ["640", "360"]],
+  ["@m0saic-starter/media/luma-badge/v1", ["384", "216"]],
+  ["@m0saic-starter/media/time-range-clip/v1", ["426", "240"]],
+  ["@m0saic-starter/media/time-ranges-medley/v1", ["426", "160"]],
+  ["@m0saic-starter/media/play-speed/v1", ["426", "240"]],
 ]);
 
-/** Per-id overrides when the default flags don't fit (e.g. multi-output pipelines). */
-const PREVIEW_OVERRIDES = new Map([]);
+/** Per-id overrides when the default flags don't fit (e.g. multi-output
+ *  pipelines, or media units whose default props render the pick-a-file
+ *  prompt — previews use the repo's committed fixtures instead, absolutized
+ *  against the repo root so ffmpeg's workspace cwd can't lose them).
+ *  url-asset stays on defaults on purpose (its explainer is offline-safe). */
+const FX = (rel) => path.join(ROOT, rel).split(path.sep).join("/");
+const PROPS = (obj) => JSON.stringify(obj);
+const PREVIEW_OVERRIDES = new Map([
+  ["@m0saic-starter/media/image-card/v1", ["--props", PROPS({ image: FX("assets/media/epoch-m-1024x1024.png") })]],
+  ["@m0saic-starter/media/folder-contact-strip/v1", ["--props", PROPS({ images: ["tile-red", "tile-gold", "tile-green", "tile-blue"].map((t) => FX(`assets/media/${t}.png`)) })]],
+  ["@m0saic-starter/media/probe-card/v1", ["--props", PROPS({ media: FX("assets/media/bbb-2s.mp4") })]],
+  ["@m0saic-starter/media/time-range-clip/v1", ["--props", PROPS({ video: FX("assets/media/bbb-2s.mp4"), clipStartMs: 500, clipEndMs: 1500 })]],
+  ["@m0saic-starter/media/time-ranges-medley/v1", ["--props", PROPS({ video: FX("assets/media/bbb-2s.mp4"), ranges: [{ startMs: 0, endMs: 700 }, { startMs: 700, endMs: 1400 }, { startMs: 1400, endMs: 2000 }] })]],
+  ["@m0saic-starter/media/luma-badge/v1", ["--props", PROPS({ image: FX("assets/media/bbb-frame-960x540.jpg") })]],
+  ["@m0saic-starter/media/play-speed/v1", ["--props", PROPS({ video: FX("assets/media/bbb-2s.mp4"), sampleMs: 1000, speed: 1, loopMode: "loop" })]],
+  ["@m0saic-starter/media/audio-mix/v1", ["--props", PROPS({ narration: FX("assets/media/tone-440-320x240-2s.mp4"), narrationVolume: 1 })]],
+]);
 
 function resolveCli() {
   const env = process.env.M0SAIC_CLI;

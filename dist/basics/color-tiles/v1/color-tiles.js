@@ -30,6 +30,12 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
             ui: { label: "Background" },
         },
     },
+    gap: {
+        type: "number",
+        required: false,
+        description: "Gap around and between the tiles, in weight units against a tile's 10 (0-6). The gaps are NULL cells — they paint nothing, so the document background shows through them. Set 0 for edge-to-edge tiles and the background disappears entirely.",
+        meta: { constraints: { min: 0, max: 6 }, control: { step: 1 }, ui: { label: "Gap" } },
+    },
 });
 exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
@@ -49,11 +55,16 @@ exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
     defaultProps: {
         colors: ["#c0392b", "#1e8449", "#2471a3"],
         backgroundColor: "#0b0e11",
+        gap: 1,
     },
     async render(props, _ctx) {
-        var _a, _b;
+        var _a, _b, _c;
         const colors = (_a = props.colors) !== null && _a !== void 0 ? _a : ["#c0392b", "#1e8449", "#2471a3"];
         const backgroundColor = (_b = props.backgroundColor) !== null && _b !== void 0 ? _b : "#0b0e11";
+        const gap = (_c = props.gap) !== null && _c !== void 0 ? _c : 1;
+        if (!Number.isInteger(gap) || gap < 0 || gap > 6) {
+            throw new Error(`${ID}: gap must be an integer 0-6, got ${JSON.stringify(gap)}.`);
+        }
         if (colors.length < 2 || colors.length > 8) {
             throw new Error(`${ID}: colors needs 2-8 entries, got ${colors.length}.`);
         }
@@ -63,7 +74,28 @@ exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
             }
         }
         // One weight per color → one column per color → one source per column.
-        const m0 = (0, dsl_stdlib_1.weightedSplit)(colors.map(() => 1), "col");
+        // With a gap, null cells (`-`) are woven around and between the tiles:
+        // they claim width and paint nothing, so the document background shows
+        // there — and they claim NO source, so `sources` still holds exactly
+        // one entry per color.
+        const TILE_WEIGHT = 10;
+        const m0 = gap === 0
+            ? (0, dsl_stdlib_1.weightedSplit)(colors.map(() => TILE_WEIGHT), "col")
+            : (() => {
+                // Columns with a null on each side and between each pair…
+                const weights = [gap];
+                const claimants = ["-"];
+                for (const _ of colors) {
+                    weights.push(TILE_WEIGHT, gap);
+                    claimants.push("1", "-");
+                }
+                const row = String((0, dsl_stdlib_1.weightedSplit)(weights, "col", { claimants }));
+                // …then a null band above and below, so the background frames
+                // the tiles on all four sides instead of showing as slits.
+                return (0, dsl_stdlib_1.weightedSplit)([gap, TILE_WEIGHT, gap], "row", {
+                    claimants: ["-", row, "-"],
+                });
+            })();
         const sources = colors.map((c) => (0, template_utils_1.makeColorTile)(c));
         return {
             kind: "mosaic_document",
@@ -79,9 +111,12 @@ exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
         lines: [
             "sources[] maps onto rendered tiles in walk order: first weight, first source.",
             "Solid tiles are makeColorTile - a free lavfi color source that composes with masks, placement, and per-tile timing.",
-            "Empty canvas shows document.backgroundColor: never burn a base layer just to get a background.",
+            "Empty canvas shows document.backgroundColor: never burn a base layer just to get a background. The Gap knob is what leaves any canvas empty - it weaves NULL cells around the tiles, and a null paints nothing, so the background shows through it.",
+            "Nulls claim space but never claim a source: widen the gap all you like and sources stays one entry per color.",
         ],
         explore: [
+            "Set Gap to 0 - the tiles go edge to edge and the Background knob stops mattering",
+            "Widen Gap, then change Background - THAT is the document fill",
             "Add a 4th color - the split follows the array",
             "Eye menu > Show dimensions for per-tile pixels",
         ],

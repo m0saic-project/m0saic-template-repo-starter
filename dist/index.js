@@ -21,6 +21,7 @@ Object.defineProperty(exports, "TEMPLATE_REPO", { enumerable: true, get: functio
 const basics_1 = require("./basics");
 const geometry_1 = require("./geometry");
 const props_1 = require("./props");
+const media_1 = require("./media");
 const text_1 = require("./text");
 exports.repo = repo_1.TEMPLATE_REPO;
 /** Every template in the curriculum, chapter by chapter, in teaching order. */
@@ -28,6 +29,7 @@ exports.templates = [
     ...basics_1.basicsTemplates,
     ...geometry_1.geometryTemplates,
     ...props_1.propsTemplates,
+    ...media_1.mediaTemplates,
     ...text_1.textTemplates,
 ];
 // Library re-exports for anyone importing this repo as code. `export *`
@@ -37,4 +39,5 @@ exports.templates = [
 __exportStar(require("./basics"), exports);
 __exportStar(require("./geometry"), exports);
 __exportStar(require("./props"), exports);
+__exportStar(require("./media"), exports);
 __exportStar(require("./text"), exports);

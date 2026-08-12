@@ -105,7 +105,11 @@ export const ColorPropsV1 = defineMosaicTemplate<ColorPropsProps>({
     const { width, height } = ctx.target;
 
     // Panel (2/3) beside the palette column (1/3), caption band below.
-    const column = `${palette.length}[${new Array<string>(palette.length).fill("1").join(",")}]`;
+    // Grammar: 1-count splits are illegal — one swatch IS the column.
+    const column =
+      palette.length === 1
+        ? "1"
+        : `${palette.length}[${new Array<string>(palette.length).fill("1").join(",")}]`;
     const mainRow = String(
       weightedSplit([2, 1], "col", { claimants: ["1", column] }),
     );

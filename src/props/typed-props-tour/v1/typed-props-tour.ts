@@ -125,7 +125,9 @@ export const TypedPropsTourV1 = defineMosaicTemplate<TypedPropsTourProps>({
     const markerRow = accent
       ? `3(${ALIGNS.map((a) => (a === align ? "1" : "-")).join(",")})`
       : "-";
-    const tilesRow = `${tiles}(${new Array<string>(tiles).fill("1").join(",")})`;
+    // Grammar: 1-count splits are illegal — one tile IS the row.
+    const tilesRow =
+      tiles === 1 ? "1" : `${tiles}(${new Array<string>(tiles).fill("1").join(",")})`;
     const rows = weightedSplit([2, 1, 3, 1], "row", {
       claimants: ["1", markerRow, tilesRow, "1"],
     });

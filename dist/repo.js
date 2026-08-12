@@ -43,6 +43,11 @@ exports.TEMPLATE_PACKS = [
         description: "The typed props surface as runnable lessons: one knob of every scalar type, seeded determinism, self-declaring color controls, structured json data, the meta/control affordances, and failing usefully with makeErrorMosaic.",
     },
     {
+        id: "media",
+        title: "Media",
+        description: "Files, folders, probes, and time: the media prop pipeline, ctx.media as the host's ffprobe registry, the time-range scrubber pair, content-aware analysis with stated fallbacks, playSpeed, the audio mix + mute idiom, and the url-asset trade-off.",
+    },
+    {
         id: "text",
         title: "Text",
         description: "Text that renders right: the three glyph pipelines side by side (drawtext, svg rasterizer, mask-carved), then the per-technique deep dives — fitting, expressions, and carved type.",

@@ -19,6 +19,14 @@ describe("@m0saic-starter/props/color-props/v1", () => {
     expect(doc.sources).toHaveLength(1 + 2 + 1);
   });
 
+  it("a one-color palette is a full column, not an illegal 1-split", async () => {
+    const doc = asDocument(
+      await ColorPropsV1.render({ palette: ["#123456"] }, targetCtx(1280, 720)),
+    );
+    expect(doc.m0).not.toContain("1[1]");
+    expect(doc.sources).toHaveLength(3);
+  });
+
   it("fails fast on bad colors, scalar or list entry", async () => {
     await expect(
       ColorPropsV1.render({ panelColor: "blue" }, targetCtx(1280, 720)),

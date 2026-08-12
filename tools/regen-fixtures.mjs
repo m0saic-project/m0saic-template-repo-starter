@@ -17,6 +17,13 @@
  *                           CC-BY 3.0 — see NOTICE.md. Real-world media for
  *                           probe/clip/watermark examples. Transcoded from
  *                           the official download.blender.org source.
+ *   bbb-frame-960x540.jpg   One 16:9 photographic frame, cut from the
+ *                           committed bbb-2s.mp4 above (same CC-BY notice,
+ *                           no second download). The corpus needs ONE
+ *                           real-photo still: the brand-mark PNG is square,
+ *                           so a cover-fit 16:9 demo crops it to nonsense,
+ *                           and solid tiles have no luminance variety for
+ *                           content-aware examples (media/luma-badge).
  */
 import fs from "node:fs";
 import os from "node:os";
@@ -88,6 +95,28 @@ for (const [name, color] of [
   );
 }
 
+// bbb-frame-960x540.jpg — a still cut from the committed clip. Derived, not
+// downloaded: if bbb-2s.mp4 is present this always works offline. t=0.2s
+// catches the "Big Buck Bunny" title at full opacity over the sunlit mound
+// (it fades out across the clip — later seeks get a ghost of it), and its
+// bottom-right badge corner reads bright (~206 luma) — the dark-on-light
+// branch of media/luma-badge.
+function mintBbbFrame() {
+  const src = path.join(MEDIA, "bbb-2s.mp4");
+  if (!fs.existsSync(src)) {
+    console.error("  x bbb-frame-960x540.jpg: needs bbb-2s.mp4 first");
+    return false;
+  }
+  return ffmpeg(
+    [
+      "-ss", "0.2", "-i", src, "-frames:v", "1",
+      "-vf", "scale=960:540:flags=lanczos", "-q:v", "4",
+      path.join(MEDIA, "bbb-frame-960x540.jpg"),
+    ],
+    "bbb-frame-960x540.jpg (from bbb-2s.mp4)",
+  );
+}
+
 // bbb-2s.mp4 — 2s window from the official Big Buck Bunny release, scaled to
 // 480x270. Seek lands at t=29s for visually rich frames (with title content).
 async function downloadTo(url, dest) {
@@ -139,6 +168,9 @@ if (!(await mintBbb())) {
   console.error("x could not fetch any Big Buck Bunny source — check network access");
   process.exit(1);
 }
+
+// Derived from the clip above — must run after it.
+mintBbbFrame();
 
 console.log("\nregen-fixtures: done. Sizes:");
 for (const f of fs.readdirSync(MEDIA).sort()) {

@@ -96,7 +96,7 @@ exports.PlaceRectDockV1 = (0, template_utils_1.defineMosaicTemplate)({
         title: "PlaceRect Dock",
         lines: [
             "placeRect places ONE pixel-exact rect; its margins are null tiles, so nothing quantizes into your rect.",
-            "Head-only by design: the emitted string bakes THIS canvas's pixels. For exact rects that must survive nesting, use inset recovery instead (previous lesson).",
+            "Head-only by design: the emitted string bakes THIS canvas's pixels. For exact rects that must survive nesting, use inset recovery instead.",
         ],
         explore: [
             "Resize the canvas and watch the caption's numbers re-bake",

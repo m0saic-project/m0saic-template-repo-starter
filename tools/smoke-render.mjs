@@ -23,6 +23,10 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_DIR = path.join(ROOT, "test-output");
 const IS_WIN = process.platform === "win32";
+// Fixture paths absolutized against the repo root — relative paths probe
+// fine but break at ffmpeg's workspace cwd.
+const FX = (rel) => path.join(ROOT, rel).split(path.sep).join("/");
+const PROPS = (obj) => JSON.stringify(obj);
 
 /** Tiny real renders for pass 2 — grow this list with the corpus. */
 const SMOKE_RENDERS = [
@@ -130,6 +134,67 @@ const SMOKE_RENDERS = [
     id: "@m0saic-starter/props/error-mosaic/v1",
     out: "error-mosaic-report-card.png",
     args: ["-w", "1280", "-h", "720", "--format", "image", "--props", '{"ratio":5,"accent":"orange"}'],
+  },
+  {
+    // Media units render against the repo's own committed fixtures,
+    // absolutized via FX so any invocation cwd works.
+    id: "@m0saic-starter/media/image-card/v1",
+    out: "image-card.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ image: FX("assets/media/epoch-m-1024x1024.png") })],
+  },
+  {
+    id: "@m0saic-starter/media/folder-contact-strip/v1",
+    out: "folder-contact-strip.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ images: ["tile-red", "tile-gold", "tile-green", "tile-blue"].map((t) => FX(`assets/media/${t}.png`)) })],
+  },
+  {
+    id: "@m0saic-starter/media/probe-card/v1",
+    out: "probe-card.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ media: FX("assets/media/bbb-2s.mp4") })],
+  },
+  {
+    // mp4: the windowed clip is temporal.
+    id: "@m0saic-starter/media/time-range-clip/v1",
+    out: "time-range-clip.mp4",
+    args: ["-w", "1280", "-h", "720", "--props", PROPS({ video: FX("assets/media/bbb-2s.mp4"), clipStartMs: 500, clipEndMs: 1500 })],
+  },
+  {
+    // mp4: three windows of the same source, side by side.
+    id: "@m0saic-starter/media/time-ranges-medley/v1",
+    out: "time-ranges-medley.mp4",
+    args: ["-w", "1280", "-h", "720", "--props", PROPS({ video: FX("assets/media/bbb-2s.mp4"), ranges: [{ startMs: 0, endMs: 700, label: "open" }, { startMs: 700, endMs: 1400 }, { startMs: 1400, endMs: 2000, label: "close" }] })],
+  },
+  {
+    // A 16:9 PHOTO, not the square brand mark: cover-fit crops a square to
+    // nonsense, and the badge needs real luminance variety to have
+    // anything to adapt to.
+    id: "@m0saic-starter/media/luma-badge/v1",
+    out: "luma-badge.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ image: FX("assets/media/bbb-frame-960x540.jpg") })],
+  },
+  {
+    // mp4 at 4s: a 1s sample at 1x loops FOUR times, so the seam (and
+    // therefore loopMode) is visible in the artifact.
+    id: "@m0saic-starter/media/play-speed/v1",
+    out: "play-speed-loop.mp4",
+    args: ["-w", "1280", "-h", "720", "--durationMs", "4000", "--props", PROPS({ video: FX("assets/media/bbb-2s.mp4"), sampleMs: 1000, speed: 1, loopMode: "loop" })],
+  },
+  {
+    // Same window, opposite tail: one play then a frozen last frame.
+    id: "@m0saic-starter/media/play-speed/v1",
+    out: "play-speed-freeze.mp4",
+    args: ["-w", "1280", "-h", "720", "--durationMs", "4000", "--props", PROPS({ video: FX("assets/media/bbb-2s.mp4"), sampleMs: 1000, speed: 1, loopMode: "freeze" })],
+  },
+  {
+    id: "@m0saic-starter/media/audio-mix/v1",
+    out: "audio-mix.mp4",
+    args: ["-w", "1280", "-h", "720", "--props", PROPS({ narration: FX("assets/media/tone-440-320x240-2s.mp4"), narrationVolume: 1 })],
+  },
+  {
+    // url-asset smoke stays OFFLINE-SAFE: the empty-prop explainer card.
+    id: "@m0saic-starter/media/url-asset/v1",
+    out: "url-asset-explainer.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image"],
   },
   {
     // mp4 on purpose: the drawtext column's % counter is the lesson's beat,

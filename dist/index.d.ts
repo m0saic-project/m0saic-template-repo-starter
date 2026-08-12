@@ -25,5 +25,6 @@ export declare const templates: MosaicTemplate<MosaicTemplateProps>[];
 export * from "./basics";
 export * from "./geometry";
 export * from "./props";
+export * from "./media";
 export * from "./text";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

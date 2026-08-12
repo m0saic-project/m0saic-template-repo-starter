@@ -27,9 +27,16 @@ import { lessonTutorial } from "../../../_shared/tutorial";
  *     layer" tile just to get a background — the document field is cheaper,
  *     and preview and render agree on it.
  *
- * The m0 comes from `weightedSplit([1, 1, 1], "col")` → `3(1,1,1)`: three
- * equal columns. Rendered frames appear in paint order, and `sources[i]`
- * fills frame i — first weight, first source.
+ * The m0 comes from `weightedSplit`. With `gap` at 0 that's
+ * `weightedSplit([1,1,1], "col")` → `3(1,1,1)`: three equal columns, edge
+ * to edge. Raise `gap` and NULL cells (`-`) are woven between and around
+ * them — a null claims space and paints nothing, so what shows through is
+ * the document background. That's the only way to SEE the second
+ * convention: a canvas covered by tiles has no empty canvas left.
+ *
+ * Rendered frames appear in paint order and `sources[i]` fills frame i —
+ * but nulls are not frames, so the source list stays exactly one entry per
+ * color no matter how wide the gaps get.
  */
 
 export type ColorTilesProps = {
@@ -37,6 +44,8 @@ export type ColorTilesProps = {
   colors?: string[];
   /** Empty-canvas fill behind everything (#rrggbb). */
   backgroundColor?: string;
+  /** Null-cell gap woven around the tiles, in weight units (0 = edge to edge). */
+  gap?: number;
 };
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
@@ -65,6 +74,13 @@ const propsSchema = definePropsSchema<ColorTilesProps>({
       ui: { label: "Background" },
     },
   },
+  gap: {
+    type: "number",
+    required: false,
+    description:
+      "Gap around and between the tiles, in weight units against a tile's 10 (0-6). The gaps are NULL cells — they paint nothing, so the document background shows through them. Set 0 for edge-to-edge tiles and the background disappears entirely.",
+    meta: { constraints: { min: 0, max: 6 }, control: { step: 1 }, ui: { label: "Gap" } },
+  },
 });
 
 export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
@@ -88,6 +104,7 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
   defaultProps: {
     colors: ["#c0392b", "#1e8449", "#2471a3"],
     backgroundColor: "#0b0e11",
+    gap: 1,
   },
 
   async render(
@@ -96,7 +113,11 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
   ): Promise<MosaicDocument> {
     const colors = props.colors ?? ["#c0392b", "#1e8449", "#2471a3"];
     const backgroundColor = props.backgroundColor ?? "#0b0e11";
+    const gap = props.gap ?? 1;
 
+    if (!Number.isInteger(gap) || gap < 0 || gap > 6) {
+      throw new Error(`${ID}: gap must be an integer 0-6, got ${JSON.stringify(gap)}.`);
+    }
     if (colors.length < 2 || colors.length > 8) {
       throw new Error(`${ID}: colors needs 2-8 entries, got ${colors.length}.`);
     }
@@ -107,7 +128,29 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
     }
 
     // One weight per color → one column per color → one source per column.
-    const m0 = weightedSplit(colors.map(() => 1), "col");
+    // With a gap, null cells (`-`) are woven around and between the tiles:
+    // they claim width and paint nothing, so the document background shows
+    // there — and they claim NO source, so `sources` still holds exactly
+    // one entry per color.
+    const TILE_WEIGHT = 10;
+    const m0 =
+      gap === 0
+        ? weightedSplit(colors.map(() => TILE_WEIGHT), "col")
+        : (() => {
+            // Columns with a null on each side and between each pair…
+            const weights: number[] = [gap];
+            const claimants: string[] = ["-"];
+            for (const _ of colors) {
+              weights.push(TILE_WEIGHT, gap);
+              claimants.push("1", "-");
+            }
+            const row = String(weightedSplit(weights, "col", { claimants }));
+            // …then a null band above and below, so the background frames
+            // the tiles on all four sides instead of showing as slits.
+            return weightedSplit([gap, TILE_WEIGHT, gap], "row", {
+              claimants: ["-", row, "-"],
+            });
+          })();
     const sources: MosaicSource[] = colors.map((c) =>
       makeColorTile(c as MosaicColor),
     );
@@ -127,9 +170,12 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
     lines: [
       "sources[] maps onto rendered tiles in walk order: first weight, first source.",
       "Solid tiles are makeColorTile - a free lavfi color source that composes with masks, placement, and per-tile timing.",
-      "Empty canvas shows document.backgroundColor: never burn a base layer just to get a background.",
+      "Empty canvas shows document.backgroundColor: never burn a base layer just to get a background. The Gap knob is what leaves any canvas empty - it weaves NULL cells around the tiles, and a null paints nothing, so the background shows through it.",
+      "Nulls claim space but never claim a source: widen the gap all you like and sources stays one entry per color.",
     ],
     explore: [
+      "Set Gap to 0 - the tiles go edge to edge and the Background knob stops mattering",
+      "Widen Gap, then change Background - THAT is the document fill",
       "Add a 4th color - the split follows the array",
       "Eye menu > Show dimensions for per-tile pixels",
     ],

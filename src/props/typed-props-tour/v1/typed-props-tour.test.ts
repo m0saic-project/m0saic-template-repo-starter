@@ -26,6 +26,14 @@ describe("@m0saic-starter/props/typed-props-tour/v1", () => {
     expect(left.m0).toContain("3(1,-,-)");
   });
 
+  it("tiles=1 is a full band, not an illegal 1-split", async () => {
+    const doc = asDocument(
+      await TypedPropsTourV1.render({ tiles: 1 }, targetCtx(1280, 720)),
+    );
+    expect(doc.m0).not.toContain("1(1)");
+    expect(doc.sources).toHaveLength(4); // title + marker + 1 tile + caption
+  });
+
   it("the caption is the receipt", async () => {
     const doc = asDocument(
       await TypedPropsTourV1.render({ title: "Hey", tiles: 2 }, targetCtx(1280, 720)),

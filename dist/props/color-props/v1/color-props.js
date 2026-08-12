@@ -64,7 +64,10 @@ exports.ColorPropsV1 = (0, template_utils_1.defineMosaicTemplate)({
         }
         const { width, height } = ctx.target;
         // Panel (2/3) beside the palette column (1/3), caption band below.
-        const column = `${palette.length}[${new Array(palette.length).fill("1").join(",")}]`;
+        // Grammar: 1-count splits are illegal — one swatch IS the column.
+        const column = palette.length === 1
+            ? "1"
+            : `${palette.length}[${new Array(palette.length).fill("1").join(",")}]`;
         const mainRow = String((0, dsl_stdlib_1.weightedSplit)([2, 1], "col", { claimants: ["1", column] }));
         const m0 = (0, dsl_stdlib_1.toM0String)(String((0, dsl_stdlib_1.weightedSplit)([5, 1], "row", { claimants: [mainRow, "1"] })), ID);
         const caption = `scalar panel ${panelColor} - list of ${palette.length}: ${palette.join(" ")}`;
