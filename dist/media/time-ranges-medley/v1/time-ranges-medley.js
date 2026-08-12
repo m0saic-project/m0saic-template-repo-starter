@@ -43,7 +43,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.TimeRangesMedleyV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "Time-Ranges Medley",
+    label: "23 · Time-Ranges Medley",
     version: 1,
     description: "The MULTI-range control: one type:\"json\" prop (Array<{startMs,endMs,label?}>) with picker:\"time-ranges\" — the editor's multi-range studio writes the whole array through it. Every window renders as its own medley column via clipStartMs + clipDurationMs, mapped over the array.",
     capabilities: { tier: "core" },
@@ -159,15 +159,15 @@ exports.TimeRangesMedleyV1 = (0, template_utils_1.defineMosaicTemplate)({
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Time-Ranges Medley",
         lines: [
-            "m0saic has TWO time controls. A SINGLE window is a pair of flat number props ending in StartMs/EndMs (clipStartMs and clipEndMs over in media/time-range-clip, picker:\"time-range\"). MULTIPLE windows are ONE type:\"json\" prop with picker:\"time-ranges\": the multi-range studio reads and writes the whole Array<{startMs, endMs, label?}> through that single prop, in one write.",
-            "constraints.jsonSchema documents the array shape for the editor; render() still gates it for real - collecting EVERY problem across the array before throwing once.",
-            "Each window becomes an ordinary media source with clipStartMs + clipDurationMs (start + LENGTH) - the single-range conversion, mapped. Every column references the SAME assetId: one file, many windows.",
+            "m0saic has TWO time controls: a pair of StartMs/EndMs numbers for ONE window, and a json prop for MANY.",
+            "picker:\"time-ranges\" reads and writes the whole Array<{startMs, endMs, label?}> through that single prop.",
+            "Each window becomes a media source with clipStartMs + clipDurationMs, all referencing the SAME assetId.",
         ],
         explore: [
-            "Mark a second and third range in the studio - the medley resplits per window",
+            "Mark a second and third range - the medley resplits",
             "Drag any range's handles - only its column changes",
-            "Give a range a label and find it on the caption receipt",
-            "Compare the sidebar with time-range-clip's: two flat numbers there, one array prop here",
+            "Give a range a label and find it on the caption",
+            "Compare the sidebar with time-range-clip's",
         ],
     }),
 });

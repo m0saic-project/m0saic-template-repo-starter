@@ -203,6 +203,134 @@ const SMOKE_RENDERS = [
     out: "text-three-ways.mp4",
     args: ["-w", "1280", "-h", "720"],
   },
+  {
+    // The pair IS the lesson: a fitted block, then the same copy unfitted.
+    id: "@m0saic-starter/text/fit-text/v1",
+    out: "fit-text-fitted.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ mode: "fit-block", boxWidthPct: 60 })],
+  },
+  {
+    id: "@m0saic-starter/text/fit-text/v1",
+    out: "fit-text-clipped.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ mode: "unfitted", boxWidthPct: 60 })],
+  },
+  {
+    // mp4: a still freezes the counter at frame 0 — the trap the template's
+    // own toggle demonstrates.
+    id: "@m0saic-starter/text/count-up/v1",
+    out: "count-up.mp4",
+    args: ["-w", "1280", "-h", "720", "-d", "3000"],
+  },
+  {
+    id: "@m0saic-starter/text/carved-type/v1",
+    out: "carved-type.png",
+    args: [
+      "-w", "1280", "-h", "720", "--format", "image",
+      "--props", PROPS({ word: "MOSAIC", media: FX("assets/media/bbb-frame-960x540.jpg") }),
+    ],
+  },
+  {
+    id: "@m0saic-starter/masks/shape-masks/v1",
+    out: "shape-masks-pill.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ shape: "pill" })],
+  },
+  {
+    id: "@m0saic-starter/masks/shape-masks/v1",
+    out: "shape-masks-circle.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ shape: "circle" })],
+  },
+  {
+    // Ring vs disc: the same two subpaths, one sweep flag apart.
+    id: "@m0saic-starter/masks/path-mask/v1",
+    out: "path-mask-ring.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ innerWinding: "opposite" })],
+  },
+  {
+    id: "@m0saic-starter/masks/path-mask/v1",
+    out: "path-mask-filled.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ innerWinding: "same" })],
+  },
+  {
+    // The matte wash is an mp4 on purpose: a still composites onto a
+    // transparent base and drops alpha at encode time, so a partial matte
+    // shows at full strength there. Video blends it correctly.
+    id: "@m0saic-starter/masks/path-mask/v1",
+    out: "path-mask-matte.mp4",
+    args: ["-w", "1280", "-h", "720", "--props", PROPS({ innerWinding: "opposite", matte: 0.35 })],
+  },
+  {
+    id: "@m0saic-starter/compose/child-mosaic/v1",
+    out: "child-mosaic.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ childGrid: 4 })],
+  },
+  {
+    // The A/B this template exists for: same card, one has room to turn.
+    id: "@m0saic-starter/compose/rotate-headroom/v1",
+    out: "rotate-in-place.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ angle: 30, mode: "in-place" })],
+  },
+  {
+    id: "@m0saic-starter/compose/rotate-headroom/v1",
+    out: "rotate-headroom.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ angle: 30, mode: "headroom" })],
+  },
+  {
+    id: "@m0saic-starter/compose/nested-template/v1",
+    out: "nested-template.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ slotPct: 30 })],
+  },
+  {
+    // The child on its own — internal is about intent, not capability.
+    id: "@m0saic-starter/compose/nested-badge/v1",
+    out: "nested-badge.png",
+    args: ["-w", "384", "-h", "720", "--format", "image"],
+  },
+  {
+    // mp4: the walk and the pull-back are the whole point.
+    id: "@m0saic-starter/compose/camera-follow/v1",
+    out: "camera-follow.mp4",
+    args: ["-w", "1280", "-h", "720", "-d", "6000"],
+  },
+  {
+    // The producer half: swatches plus the token block it publishes.
+    id: "@m0saic-starter/compose/theme-provider/v1",
+    out: "theme-provider-light.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ mode: "light" })],
+  },
+  {
+    // The consumer, re-skinned by calling that producer by id — the trio is
+    // the lesson: same template, three palettes, nothing imported.
+    id: "@m0saic-starter/compose/theme-tokens/v1",
+    out: "theme-tokens-dark.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ source: "provider", mode: "dark" })],
+  },
+  {
+    id: "@m0saic-starter/compose/theme-tokens/v1",
+    out: "theme-tokens-light.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ source: "provider", mode: "light" })],
+  },
+  {
+    id: "@m0saic-starter/compose/theme-tokens/v1",
+    out: "theme-tokens-hc.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ source: "provider", mode: "high-contrast" })],
+  },
+  {
+    // And the path you actually ship: no producer, local constants.
+    id: "@m0saic-starter/compose/theme-tokens/v1",
+    out: "theme-tokens-local.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ source: "local" })],
+  },
+  {
+    // These two should look IDENTICAL — that is the claim being smoked.
+    id: "@m0saic-starter/compose/reduce-to-one/v1",
+    out: "reduce-to-one-flat.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ mode: "flat", density: 8 })],
+  },
+  {
+    id: "@m0saic-starter/compose/reduce-to-one/v1",
+    out: "reduce-to-one-reduced.png",
+    args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ mode: "reduced", density: 8 })],
+  },
 ];
 
 function resolveCli() {

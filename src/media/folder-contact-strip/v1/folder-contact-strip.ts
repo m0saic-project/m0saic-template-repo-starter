@@ -49,7 +49,7 @@ const propsSchema = definePropsSchema<FolderContactStripProps>({
 
 export const FolderContactStripV1 = defineMosaicTemplate<FolderContactStripProps>({
   id: asTemplateId(ID),
-  label: "Folder Contact Strip",
+  label: "20 · Folder Contact Strip",
   version: 1,
   description:
     "type:\"media[]\" + the folder picker: the prop arrives as an array of raw paths, each probed by the host — the template maps them to per-file asset entries and media sources, and the strip resplits to the count (first 8).",
@@ -149,12 +149,12 @@ export const FolderContactStripV1 = defineMosaicTemplate<FolderContactStripProps
   renderTutorial: lessonTutorial({
     title: "Folder Contact Strip",
     lines: [
-      "type:\"media[]\" with picker:\"folder\" - the user picks a FOLDER and the prop arrives as an ARRAY of raw paths, each already enumerated and probed by the host.",
-      "The template just maps the array: per path, a probe check against ctx.media, a slugified asset key, a {kind:\"file\"} manifest entry, and a media source. The strip's split count IS the array length (first 8).",
-      "Empty array renders the prompt card. A path without a probe fails fast and names the file.",
+      "picker:\"folder\" hands the prop an ARRAY of raw paths, each already enumerated and probed by the host.",
+      "The template just maps it: probe check, asset key, manifest entry, media source - per path.",
+      "The strip's split count IS the array length, and a path with no probe fails fast by name.",
     ],
     explore: [
-      "Pick a folder with a few images - the strip resplits to the count",
+      "Pick a folder with a few images - the strip resplits",
       "Select any tile: each one carries its OWN assetId",
       "The caption prints how many paths media[] delivered",
     ],

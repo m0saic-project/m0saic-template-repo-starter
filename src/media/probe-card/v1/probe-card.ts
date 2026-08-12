@@ -45,7 +45,7 @@ const propsSchema = definePropsSchema<ProbeCardProps>({
 
 export const ProbeCardV1 = defineMosaicTemplate<ProbeCardProps>({
   id: asTemplateId(ID),
-  label: "Probe Card",
+  label: "21 · Probe Card",
   version: 1,
   description:
     "ctx.media is the host's ffprobe registry, keyed by the RAW prop string — templates read it, never probe. Pick any image or video and the card prints its entry: kind, dimensions, duration; the thumb renders beside the facts.",
@@ -143,14 +143,14 @@ export const ProbeCardV1 = defineMosaicTemplate<ProbeCardProps>({
   renderTutorial: lessonTutorial({
     title: "Probe Card",
     lines: [
-      "Templates do no I/O and spawn no ffprobe. Before render() runs, the HOST probes every media path the props mention and keys the results by the RAW prop string - that registry is ctx.media.",
-      "This card prints the entry for whatever you pick: kind, dimensions, and duration for time-based media. Every downstream layout decision (aspect branches, clip windows, fit choices) is built on exactly these facts.",
-      "A path with no entry fails fast and says why - if the registry is empty, the host never saw your path.",
+      "Templates do no I/O. The host probes every media path in the props first and keys the results by the RAW prop string.",
+      "That registry is ctx.media, and every decision downstream - aspect branches, clip windows, fit - is built on it.",
+      "A path with no entry fails fast: an empty registry means the host never saw your path.",
     ],
     explore: [
-      "Pick a video: the duration line appears; pick an image: it becomes '(still)'",
-      "The thumb beside the facts is an ordinary media source - contain-fit",
-      "Feed the same file to image-card and time-range-clip - same registry, same facts",
+      "Pick a video, then an image - the duration line comes and goes",
+      "The thumb beside the facts is an ordinary media source",
+      "Feed the same file to image-card - same registry, same facts",
     ],
   }),
 });

@@ -75,7 +75,7 @@ const propsSchema = definePropsSchema<RatioVsAbsoluteProps>({
 
 export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
   id: asTemplateId(ID),
-  label: "Ratio vs Absolute",
+  label: "06 · Ratio vs Absolute",
   version: 1,
   description:
     "A proportion contract over a pixel contract: a 1:2:1 ratio split whose sides scale with the canvas, above a placeRects band whose side rails are PINNED in px while the middle absorbs the rest. Resize the canvas and watch them disagree. Default to ratio; pin pixels only at the head canvas.",
@@ -172,16 +172,15 @@ export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
   renderTutorial: lessonTutorial({
     title: "Ratio vs Absolute",
     lines: [
-      "RATIO (weightedSplit [1,2,1]) is a PROPORTION contract: the sides are a quarter of ANY canvas. Resize and they scale; nest it in a parent slot and it recomposes.",
-      "ABSOLUTE (placeRects) is a PIXEL contract: the bottom rails stay railPx wide no matter the canvas - the middle absorbs every extra pixel. Desktop chrome thinks this way: fixed sidebars, fluid content.",
-      "The cost of pinning: a px-baked string only means something AT the canvas it was baked for. Nested into a different slot it quietly degrades. Default to ratio; go absolute only at the head - the final, never-nested canvas.",
-      "At exactly 4x the rail width the contracts collide: a quarter IS 240px at 960 wide, and both bands canonicalize to the SAME string. Ratio says 'a quarter', absolute says '240px' - only sometimes do they agree.",
+      "RATIO (weightedSplit) is a PROPORTION contract: the sides are a quarter of ANY canvas, and they recompose when nested.",
+      "ABSOLUTE (placeRects) is a PIXEL contract: the rails stay railPx wide and the middle absorbs the rest - fixed sidebar, fluid content.",
+      "A px-baked string only means something at the canvas it was baked for. Default to ratio; go absolute only at the head.",
     ],
     explore: [
-      "Drag the canvas width (DEVICE panel): top boundaries move, bottom rails hold still",
-      "Watch the m0 readout in Geometry view: the ratio band's spelling never changes; the absolute band re-bakes every width",
-      "Set the canvas 960 wide at Rail px 240 - the two bands collapse into one spelling",
-      "Push Rail px past 30% of the width and the caption reports the clamp",
+      "Drag the canvas width: top boundaries move, bottom rails hold",
+      "Watch the m0 readout - only the absolute band re-bakes",
+      "Set 960 wide at Rail px 240 - both bands collapse into one",
+      "Push Rail px past 30% and the caption reports the clamp",
     ],
   }),
 });

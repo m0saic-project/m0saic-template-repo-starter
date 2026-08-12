@@ -1,7 +1,7 @@
 import type { MosaicTextSource } from "@m0saic/types";
 
 import { targetCtx } from "../__testutils__/render";
-import { lessonTutorial } from "./tutorial";
+import { TUTORIAL_BUDGET, lessonTutorial } from "./tutorial";
 
 describe("lessonTutorial — the standard curriculum tutorial page", () => {
   const render = lessonTutorial({
@@ -48,5 +48,36 @@ describe("lessonTutorial — the standard curriculum tutorial page", () => {
     const a = await render({}, targetCtx(1280, 720));
     const b = await render({}, targetCtx(1280, 720));
     expect(a).toEqual(b);
+  });
+  it("refuses a tutorial that has grown into documentation", () => {
+    // The budget is a gate, not advice: prose drifts a paragraph per
+    // revision until the page overflows its own box, which is exactly how
+    // this limit came to exist. Failing at IMPORT time means the build and
+    // the test run catch it, not a user pressing "?".
+    const long = "x".repeat(TUTORIAL_BUDGET.maxLineChars + 1);
+    expect(() =>
+      lessonTutorial({ title: "Too Long", lines: [long], explore: ["ok"] }),
+    ).toThrow(/over budget: longest line/);
+
+    expect(() =>
+      lessonTutorial({
+        title: "Too Many",
+        lines: new Array(TUTORIAL_BUDGET.maxLines + 1).fill("short line"),
+        explore: ["ok"],
+      }),
+    ).toThrow(/over budget: \d+ lines/);
+
+    expect(() =>
+      lessonTutorial({
+        title: "Chatty Try",
+        lines: ["fine"],
+        explore: ["y".repeat(TUTORIAL_BUDGET.maxExploreChars + 1)],
+      }),
+    ).toThrow(/longest Try item/);
+
+    // The error names the fix, not just the sin.
+    expect(() =>
+      lessonTutorial({ title: "Too Long", lines: [long], explore: [] }),
+    ).toThrow(/top-level orientation/);
   });
 });

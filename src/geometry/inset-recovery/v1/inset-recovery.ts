@@ -77,7 +77,7 @@ function chipRects(width: number, height: number) {
 
 export const InsetRecoveryV1 = defineMosaicTemplate<InsetRecoveryProps>({
   id: asTemplateId(ID),
-  label: "Inset Recovery",
+  label: "09 · Inset Recovery",
   version: 1,
   description:
     "Three chips at exact pixel rects, placed with placeInsetPieces: the string stays coarse (precision bounded at the lattice basis) while placement.inset recovers every rect byte-exact. The card prints the same layout's precision floor spelled via placeRects — the hereditary cost a parent would inherit. Why nestable templates use inset recovery.",
@@ -165,13 +165,13 @@ export const InsetRecoveryV1 = defineMosaicTemplate<InsetRecoveryProps>({
   renderTutorial: lessonTutorial({
     title: "Inset Recovery",
     lines: [
-      "placeInsetPieces quantizes each chip's cell onto a coarse divisor lattice, then recovers the EXACT rect via placement.inset - coarse string, byte-exact pixels.",
-      "Precision is hereditary: parents inherit your floors. Raw placeRects at these chips demands near-canvas precision; the inset spelling stays bounded at the lattice basis.",
+      "placeInsetPieces quantizes each chip onto a coarse lattice, then recovers the EXACT rect via placement.inset - coarse string, exact pixels.",
+      "Precision is hereditary: raw placeRects here demands near-canvas precision, while the inset spelling stays bounded at the lattice basis.",
       "This is why nestable production templates reach for inset recovery by default.",
     ],
     explore: [
-      "Read the caption's two precision numbers - same pixels, different promises",
-      "Select a chip - the tile card's Geometry shows rect (the quantized cell) AND effective (the painted box the inset recovers)",
+      "Two precision numbers on the caption - same pixels, different promises",
+      "Select a chip: rect is the quantized cell, effective the painted box",
       "Resize the canvas - the chips stay exact",
     ],
   }),

@@ -92,6 +92,16 @@ if (manifest) {
     if (!fs.existsSync(path.join(ROOT, "src", m[1]))) {
       fail(`manifest templateKey "${key}": no src/${m[1]}/ folder`);
     }
+    // EVERY template ships a preview — a browse card with a blank tile is a
+    // template nobody clicks. Minting is a separate step (`npm run previews`
+    // renders through the built dist), so this is checked here rather than in
+    // the generator, which has to be able to build BEFORE the assets exist.
+    if (!entry.preview?.image && !entry.preview?.video) {
+      fail(
+        `"${key}" has no preview asset. Run \`npm run build && npm run previews\`, ` +
+          `then \`npm run build\` again so the manifest picks up the path.`,
+      );
+    }
     for (const field of ["image", "video", "poster"]) {
       const p = entry.preview?.[field];
       if (p && !fs.existsSync(path.join(ROOT, p))) {

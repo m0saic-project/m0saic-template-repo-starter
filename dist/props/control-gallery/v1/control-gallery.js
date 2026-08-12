@@ -36,7 +36,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ControlGalleryV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "Control Gallery",
+    label: "17 · Control Gallery",
     version: 1,
     description: "The meta surface, one knob per affordance: placeholder ghost text, flavor:\"url\", bounded+stepped numbers, an enum select, and ui.label. The real demo is the sidebar; the canvas renders the spec sheet.",
     capabilities: { tier: "core" },
@@ -107,14 +107,14 @@ exports.ControlGalleryV1 = (0, template_utils_1.defineMosaicTemplate)({
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Control Gallery",
         lines: [
-            "The prop TYPE picks the widget; meta refines it. control.placeholder puts ghost text in an empty field; flavor:\"url\" hints a URL-ish field (still a plain string on the wire); constraints.min/max with control.step bounds and steps a number; constraints.oneOf makes an enum select; ui.label names the row.",
-            "The real demo is the SIDEBAR - the canvas just prints the spec sheet, plus a strength meter so one number visibly lands as geometry.",
-            "flavor is an editor hint, not validation: render() still gates the URL shape itself.",
+            "The prop TYPE picks the widget; meta refines it - placeholder, flavor, min/max with step, oneOf, ui.label.",
+            "The real demo is the SIDEBAR; the canvas just prints the spec sheet.",
+            "flavor is an editor hint, not validation - render() still gates the value itself.",
         ],
         explore: [
-            "Focus each sidebar field and match it to its spec-sheet row",
-            "Step Strength with the arrows - it moves by 5 and the meter follows",
-            "Type a non-URL into Homepage and read the gate's remedy",
+            "Match each sidebar field to its spec-sheet row",
+            "Step Strength with the arrows - it moves by 5",
+            "Type a non-URL into Homepage and read the remedy",
         ],
     }),
 });

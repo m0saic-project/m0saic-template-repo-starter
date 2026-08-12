@@ -94,7 +94,7 @@ const propsSchema = definePropsSchema<AudioMixProps>({
 
 export const AudioMixV1 = defineMosaicTemplate<AudioMixProps>({
   id: asTemplateId(ID),
-  label: "Audio Mix",
+  label: "26 · Audio Mix",
   version: 1,
   description:
     "Two audio tracks, one mix: audio sources enter like any media but contribute no pixels — per-source audio.volume sets the blend, and the mute idiom keeps a silenced source IN the document (audio.enabled=false) so tile indices never shift. The canvas is the mixer's meter.",
@@ -242,17 +242,16 @@ export const AudioMixV1 = defineMosaicTemplate<AudioMixProps>({
   renderTutorial: lessonTutorial({
     title: "Audio Mix",
     lines: [
-      "An audio file enters like any media - path prop, host probe, asset entry, media source - but contributes NO pixels: the engine skips it in the video composite and mixes it into the output track. Its audio.volume sets the blend.",
-      "Sources still bind to frames 1:1, so an audio track has to HOLD a frame - and where you put it is a design choice. This template gives each track its own row as an overlay (`<meter>{1}`), so the track shares the rect of the bar it belongs to: select that row and you get the track, and the editor's audio badge lands on the right bar.",
-      "The alternative is parking every track in a TRAILING full-canvas leaf (\"F\", then \"F{F}\" for a second). Prefer that when the tracks aren't tied to anything on screen: at the end of the list, adding or removing one can never shift a visual frame's stableKey.",
-      "THE MUTE IDIOM: to silence a track conditionally, keep the source and set audio.enabled=false. Dropping the source would shift every later tile's index; the toggle must not change the document's shape.",
-      "The canvas is just the mixer's meter - one bar per track. volume is a GAIN FACTOR, not a percentage: 1 leaves a track as recorded, 0.5 halves it, 2 doubles it. The engine refuses only what it cannot render (negative, non-finite) and WARNS past a gain of 4, so 4 is the top of this meter and 1 sits a quarter of the way up.",
+      "An audio file enters like any media but contributes NO pixels: the engine mixes it into the output track.",
+      "Sources still bind to frames 1:1, so a track has to HOLD a frame - here each rides its own meter row.",
+      "THE MUTE IDIOM: keep the source and set audio.enabled=false. Dropping it would shift every later tile's index.",
+      "volume is a GAIN FACTOR, not a percentage: 1 as recorded, 2 double, and past 4 the engine warns.",
     ],
     explore: [
       "Slide both volumes - the meters resplit (full bar = gain 4)",
-      "Toggle Mute music: the meter empties but the SOURCE stays (count is stable)",
-      "Eye menu > Show audio overlays: a speaker badge lands on each track's row - click it to cycle that track's audio",
-      "Pick audio files for both tracks and render - the mix is the output track",
+      "Toggle Mute music: the meter empties, the source stays",
+      "Eye menu > Show audio overlays, then click a badge",
+      "Pick audio files for both tracks and render",
     ],
   }),
 });

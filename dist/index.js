@@ -23,6 +23,8 @@ const geometry_1 = require("./geometry");
 const props_1 = require("./props");
 const media_1 = require("./media");
 const text_1 = require("./text");
+const masks_1 = require("./masks");
+const compose_1 = require("./compose");
 exports.repo = repo_1.TEMPLATE_REPO;
 /** Every template in the curriculum, chapter by chapter, in teaching order. */
 exports.templates = [
@@ -31,6 +33,8 @@ exports.templates = [
     ...props_1.propsTemplates,
     ...media_1.mediaTemplates,
     ...text_1.textTemplates,
+    ...masks_1.masksTemplates,
+    ...compose_1.composeTemplates,
 ];
 // Library re-exports for anyone importing this repo as code. `export *`
 // only for template modules — see the note in src/basics/index.ts for why
@@ -41,3 +45,5 @@ __exportStar(require("./geometry"), exports);
 __exportStar(require("./props"), exports);
 __exportStar(require("./media"), exports);
 __exportStar(require("./text"), exports);
+__exportStar(require("./masks"), exports);
+__exportStar(require("./compose"), exports);

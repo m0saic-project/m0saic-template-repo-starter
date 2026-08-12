@@ -1,8 +1,55 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TUTORIAL_BUDGET = void 0;
 exports.lessonTutorial = lessonTutorial;
 const template_utils_1 = require("@m0saic/template-utils");
 const svg_text_1 = require("./svg-text");
+/**
+ * THE LENGTH BUDGET, enforced rather than suggested.
+ *
+ * A tutorial is a top-level orientation, not documentation: what this
+ * template teaches, in the fewest words that still say something. The detail
+ * belongs in the file's comments, where the person reading it is already
+ * looking at the code that implements it.
+ *
+ * These numbers are a hard gate because prose drifts. Left to taste, every
+ * lesson grows a paragraph per revision until the page overflows its own box
+ * and the lines run off both edges — which is exactly how this budget came
+ * to exist. Over budget is an authoring error, so it throws with the counts.
+ */
+exports.TUTORIAL_BUDGET = {
+    maxLines: 4,
+    maxLineChars: 160,
+    maxTotalChars: 480,
+    maxExplore: 4,
+    maxExploreChars: 72,
+};
+function assertWithinBudget(spec) {
+    const problems = [];
+    const { lines, explore, title } = spec;
+    const total = lines.reduce((n, l) => n + l.length, 0);
+    if (lines.length > exports.TUTORIAL_BUDGET.maxLines) {
+        problems.push(`${lines.length} lines (max ${exports.TUTORIAL_BUDGET.maxLines})`);
+    }
+    const longest = lines.reduce((n, l) => Math.max(n, l.length), 0);
+    if (longest > exports.TUTORIAL_BUDGET.maxLineChars) {
+        problems.push(`longest line ${longest} chars (max ${exports.TUTORIAL_BUDGET.maxLineChars})`);
+    }
+    if (total > exports.TUTORIAL_BUDGET.maxTotalChars) {
+        problems.push(`${total} chars total (max ${exports.TUTORIAL_BUDGET.maxTotalChars})`);
+    }
+    if (explore.length > exports.TUTORIAL_BUDGET.maxExplore) {
+        problems.push(`${explore.length} Try items (max ${exports.TUTORIAL_BUDGET.maxExplore})`);
+    }
+    const longestHint = explore.reduce((n, l) => Math.max(n, l.length), 0);
+    if (longestHint > exports.TUTORIAL_BUDGET.maxExploreChars) {
+        problems.push(`longest Try item ${longestHint} chars (max ${exports.TUTORIAL_BUDGET.maxExploreChars})`);
+    }
+    if (problems.length > 0) {
+        throw new Error(`lessonTutorial("${title}") is over budget: ${problems.join("; ")}. ` +
+            `A tutorial is a top-level orientation — put the detail in the file's comments.`);
+    }
+}
 const PAGE_DURATION_MS = 12000;
 const INK = "#ecf0f1";
 const INK_DIM = "#7f8c9b";
@@ -13,6 +60,10 @@ const HEADER_BG = "#161b22";
  * `renderTutorial: lessonTutorial({ title, lines, explore })`.
  */
 function lessonTutorial(spec) {
+    // At MODULE level on purpose: an over-long tutorial fails the moment the
+    // template is imported (so the build and the tests catch it), not when a
+    // user happens to press "?".
+    assertWithinBudget(spec);
     return async function renderTutorial(_props, ctx) {
         const { width, height } = ctx.target;
         const headerH = Math.round(height * 0.13);

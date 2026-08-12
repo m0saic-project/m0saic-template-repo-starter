@@ -16,10 +16,19 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.textTemplates = void 0;
 const text_three_ways_1 = require("./text-three-ways/v1/text-three-ways");
+const fit_text_1 = require("./fit-text/v1/fit-text");
+const count_up_1 = require("./count-up/v1/count-up");
+const carved_type_1 = require("./carved-type/v1/carved-type");
 /** Chapter `text`, in teaching order (mirrors ./registry.ts). */
 exports.textTemplates = [
     text_three_ways_1.TextThreeWaysV1,
+    fit_text_1.FitTextV1,
+    count_up_1.CountUpV1,
+    carved_type_1.CarvedTypeV1,
 ];
 // `export *` ONLY — see the note in src/basics/index.ts for why the
 // `export * from` + named-re-export pairing is a trap.
 __exportStar(require("./text-three-ways/v1/text-three-ways"), exports);
+__exportStar(require("./fit-text/v1/fit-text"), exports);
+__exportStar(require("./count-up/v1/count-up"), exports);
+__exportStar(require("./carved-type/v1/carved-type"), exports);

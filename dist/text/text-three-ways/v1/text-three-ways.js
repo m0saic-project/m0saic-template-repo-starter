@@ -29,7 +29,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.TextThreeWaysV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "Text, Three Ways",
+    label: "28 · Text, Three Ways",
     version: 1,
     description: "The same word through all three text pipelines, side by side: drawtext (ffmpeg, expr-capable, host fonts), the svg rasterizer (bundled font baked to geometry — identical app/CLI), and mask-carved glyphs (text as a mask any source can wear). All valid; different promises.",
     capabilities: { tier: "core" },
@@ -141,16 +141,16 @@ exports.TextThreeWaysV1 = (0, template_utils_1.defineMosaicTemplate)({
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Text, Three Ways",
         lines: [
-            "DRAWTEXT is ffmpeg's text filter: rendered at encode time with the HOST's font. It is the only path that runs expressions - the % count-up under column one is an expr layer (animateNumbersInText compiles \"100%\" to a %{eif:...} expansion; renderMode \"video\" makes ffmpeg re-evaluate it every frame).",
-            "The SVG RASTERIZER (rasterizer: \"svg\") bakes the bundled font's outlines to geometry: identical in app and CLI, fast, measurable with measureText. Static literals only - give it an expr layer and it silently falls back to drawtext.",
-            "MASK-CARVED text (textToPath -> inline-mask) turns the word into a mask an ordinary source wears - a color today, a gradient or video playing through the letters tomorrow. Most powerful, most manual.",
-            "One asymmetry to remember: drawtext frames paint an OPAQUE background (black unless set); svg and mask text bake to transparent geometry.",
+            "DRAWTEXT is ffmpeg's text filter with the HOST's font - the only path that runs expressions, like column one's counter.",
+            "The SVG RASTERIZER bakes the bundled font to geometry: identical in app and CLI, but static literals only.",
+            "MASK-CARVED turns the word into a mask an ordinary source wears - most powerful, most manual.",
+            "One asymmetry: drawtext frames paint an opaque background; svg and mask text bake to transparent geometry.",
         ],
         explore: [
-            "Press play: only column one's counter ticks - svg and mask text are baked geometry",
-            "Select column one: its rasterizer row is LOCKED (expr layers need ffmpeg); column two's stays editable",
-            "Flip column two's layer content.kind literal -> expr in the panel and watch its lock appear too",
-            "Column three is a lavfi tile - the word lives in its MASK section",
+            "Press play: only column one's counter ticks",
+            "Select column one - its rasterizer row is locked",
+            "Flip column two's content.kind to expr and watch its lock appear",
+            "Column three is a lavfi tile - the word is in its MASK",
         ],
     }),
 });

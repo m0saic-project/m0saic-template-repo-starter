@@ -61,4 +61,16 @@ export const TEMPLATE_PACKS: MosaicTemplatePackDescriptor[] = [
     description:
       "Text that renders right: the three glyph pipelines side by side (drawtext, svg rasterizer, mask-carved), then the per-technique deep dives — fitting, expressions, and carved type.",
   },
+  {
+    id: "masks",
+    title: "Masks",
+    description:
+      "Shapes without shape primitives: the everyday paths (circle, ellipse, rounded rect, pill) authored against their cell, then the hand-written path where winding cuts holes and `matte` turns the leftover box into a translucent wash.",
+  },
+  {
+    id: "compose",
+    title: "Compose",
+    description:
+      "Documents inside documents: children and bottom-up evaluation, real geometry as headroom for rotation, calling another template with a slot, a keyframed camera over a space you own, a theme taken from upstream, and the reduce-to-one refactor all of it enables.",
+  },
 ];

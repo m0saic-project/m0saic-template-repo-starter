@@ -34,7 +34,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ErrorMosaicV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "Error Mosaic",
+    label: "18 · Error Mosaic",
     version: 1,
     description: "Failing on-canvas, usefully: collect EVERY problem with a remedy, then return makeErrorMosaic — a renderable report card instead of a dead preview. Three deliberately breakable knobs to practice on.",
     capabilities: { tier: "core" },
@@ -104,13 +104,13 @@ exports.ErrorMosaicV1 = (0, template_utils_1.defineMosaicTemplate)({
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Error Mosaic",
         lines: [
-            "A thrown error is right for headless callers - but in an editor a throw is a dead preview. The friendlier pattern: collect EVERY problem, each with a REMEDY, then return makeErrorMosaic - a complete renderable document that shows the report card on canvas.",
-            "Collect-all matters because props are wrong in several places at once. One fix-everything list beats five one-at-a-time errors.",
-            "Write remedies, not accusations: 'use a number between 0.1 and 0.9' tells the user what to DO.",
+            "In an editor a throw is a dead preview. Collect EVERY problem with a REMEDY and return makeErrorMosaic - a document that shows the report card.",
+            "Collect-all matters because props are wrong in several places at once.",
+            "Write remedies, not accusations: say what to DO.",
         ],
         explore: [
-            "Set Ratio to 5 - the canvas becomes the report card, the preview never dies",
-            "Also type \"orange\" into Accent - BOTH remedies stack on one card",
+            "Set Ratio to 5 - the canvas becomes the report card",
+            "Also type \"orange\" into Accent - both remedies stack",
             "Fix them and the card gives way to the render",
         ],
     }),

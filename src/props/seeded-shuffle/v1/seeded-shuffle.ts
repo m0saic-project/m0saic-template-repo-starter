@@ -60,7 +60,7 @@ const propsSchema = definePropsSchema<SeededShuffleProps>({
 
 export const SeededShuffleV1 = defineMosaicTemplate<SeededShuffleProps>({
   id: asTemplateId(ID),
-  label: "Seeded Shuffle",
+  label: "14 · Seeded Shuffle",
   version: 1,
   description:
     "Randomness done the m0saic way: a REQUIRED seed prop feeds mulberry32, a Fisher-Yates shuffle deals the palette, and identical props render byte-identical documents. The caption prints the dealt order.",
@@ -134,12 +134,12 @@ export const SeededShuffleV1 = defineMosaicTemplate<SeededShuffleProps>({
   renderTutorial: lessonTutorial({
     title: "Seeded Shuffle",
     lines: [
-      "Templates never call Math.random - determinism is a law. Any random choice flows from a REQUIRED seed prop through a seeded generator (mulberry32 here), so identical props render byte-identical documents.",
-      "The strip is the palette dealt by a Fisher-Yates shuffle driven only by that generator. Same seed, same deal, forever - change the seed and you get a different, equally reproducible order.",
-      "The seed is required on purpose: a default would hide the contract. render() throws with a remedy when it's missing.",
+      "Templates never call Math.random - determinism is a law.",
+      "Randomness flows from a REQUIRED seed through a seeded generator, so identical props render identical bytes.",
+      "The seed is required on purpose: a default would hide the contract.",
     ],
     explore: [
-      "Change Seed and watch the deal reshuffle; set it back and the exact order returns",
+      "Change Seed, then set it back - the exact order returns",
       "Change Tiles - the strip resplits, still seed-stable",
       "Read the caption: the dealt order is the receipt",
     ],

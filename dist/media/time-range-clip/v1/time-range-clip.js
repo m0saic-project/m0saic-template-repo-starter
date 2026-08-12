@@ -35,7 +35,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.TimeRangeClipV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "Time-Range Clip",
+    label: "22 · Time-Range Clip",
     version: 1,
     description: "The time-range picker pair: two number props ending in StartMs/EndMs (here clipStartMs and clipEndMs) with picker:\"time-range\" + videoFromProp render ONE scrubber with two handles — and the window lands on the source as playback.clipStartMs + clipDurationMs (start + LENGTH).",
     capabilities: { tier: "core" },
@@ -121,15 +121,15 @@ exports.TimeRangeClipV1 = (0, template_utils_1.defineMosaicTemplate)({
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Time-Range Clip",
         lines: [
-            "Declare TWO number props whose names share a prefix and end in StartMs and EndMs - this template's clipStartMs and clipEndMs - put picker:\"time-range\" on BOTH, and point control.videoFromProp at the sibling video prop. The editor matches the pair by that name suffix and renders ONE scrubber with two handles - on the wire they stay two flat numbers.",
-            "The window lands on the source as playback.clipStartMs + clipDurationMs - start plus LENGTH, not start plus end. That conversion (end - start) is the template's one line of real work.",
-            "render() gates the window: start < end, and the end can't pass the probed source duration.",
-            "Need SEVERAL windows? That's the sibling control: ONE json prop with picker:\"time-ranges\" carrying the whole array - see media/time-ranges-medley.",
+            "Two number props whose names end in StartMs and EndMs, both with picker:\"time-range\", render as ONE scrubber with two handles.",
+            "On the wire they stay two flat numbers - the editor pairs them by that name suffix.",
+            "The window lands on the source as clipStartMs + clipDurationMs: start plus LENGTH, not start plus end.",
+            "Need several windows? That is one json prop with picker:\"time-ranges\" - see media/time-ranges-medley.",
         ],
         explore: [
-            "Pick a video and drag both scrubber handles - the caption re-bakes the receipt",
+            "Pick a video and drag both handles",
             "Drag the end past the source's duration and read the remedy",
-            "Select the video tile: PLAYBACK carries clipStartMs/clipDurationMs",
+            "Select the tile: PLAYBACK carries clipStartMs/clipDurationMs",
         ],
     }),
 });

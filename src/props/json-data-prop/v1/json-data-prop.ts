@@ -57,7 +57,7 @@ const propsSchema = definePropsSchema<JsonDataPropProps>({
 
 export const JsonDataPropV1 = defineMosaicTemplate<JsonDataPropProps>({
   id: asTemplateId(ID),
-  label: "JSON Data Prop",
+  label: "16 · JSON Data Prop",
   version: 1,
   description:
     "Structured data through one type:\"json\" prop — the host hands render() the parsed value, render() collects EVERY shape problem into one remedy-bearing error, and the records become geometry: one proportional bar per row.",
@@ -165,14 +165,14 @@ export const JsonDataPropV1 = defineMosaicTemplate<JsonDataPropProps>({
   renderTutorial: lessonTutorial({
     title: "JSON Data Prop",
     lines: [
-      "When a knob is a STRUCTURE, declare it type:\"json\" - the host hands render() the parsed value. JSON-in-a-string loses editor introspection and double-escapes; don't do that.",
-      "render() still owns the shape: it walks the records and collects EVERY problem into one remedy-bearing error, instead of dying on the first. Structures are wrong in several places at once.",
-      "The data becomes geometry: each record is a row, and its value claims a weightedSplit share against the max - a bar chart with no chart library, just splits.",
+      "When a knob is a STRUCTURE, declare it type:\"json\" - the host hands render() the parsed value.",
+      "render() still owns the shape, collecting EVERY problem into one remedy-bearing error.",
+      "The data becomes geometry: each record claims a weightedSplit share - a bar chart with no chart library.",
     ],
     explore: [
-      "Edit Data in the sidebar: add a record, watch a row appear",
+      "Edit Data: add a record, watch a row appear",
       "Set two values equal - their bars match to the pixel",
-      "Break two fields at once and read the error: both problems, one message",
+      "Break two fields at once: both problems, one message",
     ],
   }),
 });

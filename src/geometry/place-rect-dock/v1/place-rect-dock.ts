@@ -79,7 +79,7 @@ const propsSchema = definePropsSchema<PlaceRectDockProps>({
 
 export const PlaceRectDockV1 = defineMosaicTemplate<PlaceRectDockProps>({
   id: asTemplateId(ID),
-  label: "PlaceRect Dock",
+  label: "10 · PlaceRect Dock",
   version: 1,
   description:
     "Docks one pixel-exact rect in the bottom-right corner via placeRect: margins are null tiles, so nothing quantizes into your rect. Head-only by design — the emitted string bakes THIS canvas's pixels, and the caption prints them so you can watch it re-bake per size.",

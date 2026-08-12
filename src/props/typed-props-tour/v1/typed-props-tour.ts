@@ -77,7 +77,7 @@ const propsSchema = definePropsSchema<TypedPropsTourProps>({
 
 export const TypedPropsTourV1 = defineMosaicTemplate<TypedPropsTourProps>({
   id: asTemplateId(ID),
-  label: "Typed Props Tour",
+  label: "13 · Typed Props Tour",
   version: 1,
   description:
     "One prop of each scalar type — string, number, boolean, enum — each visibly driving the render, with the received values printed as a caption receipt. The schema picks the sidebar controls; render() is the gate.",
@@ -170,13 +170,13 @@ export const TypedPropsTourV1 = defineMosaicTemplate<TypedPropsTourProps>({
   renderTutorial: lessonTutorial({
     title: "Typed Props Tour",
     lines: [
-      "definePropsSchema declares one knob of each scalar type - string, number, boolean, and enum (a string with constraints.oneOf). The TYPE picks the sidebar control; every optional prop carries a deterministic default.",
-      "The schema is documentation for hosts. render() is the gate: the CLI can call it with any raw props bag, so every value is re-validated here and bad input fails fast with a remedy.",
-      "Each prop drives something visible: the title band, the tile count, the accent row's existence (boolean), and the marker's position (enum). The caption prints exactly what render() received.",
+      "definePropsSchema declares one knob of each scalar type, and the TYPE picks the sidebar control.",
+      "The schema is documentation for hosts; render() is the gate - the CLI can pass any raw props bag.",
+      "Every optional prop carries a deterministic default, and the caption prints what render() received.",
     ],
     explore: [
-      "Change every prop in the sidebar - each one moves a different band",
-      "Toggle Accent row off: its m0 row becomes a null (-) and claims no source",
+      "Change every prop - each one moves a different band",
+      "Toggle Accent row off - its m0 row becomes a null",
       "Set Tiles to 8, then 1 - the middle band resplits",
     ],
   }),

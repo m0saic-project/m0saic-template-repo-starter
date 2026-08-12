@@ -84,7 +84,7 @@ const propsSchema = definePropsSchema<HelloWorldProps>({
 
 export const HelloWorldV1 = defineMosaicTemplate<HelloWorldProps>({
   id: asTemplateId(ID),
-  label: "Hello World",
+  label: "01 · Hello World",
   version: 1,
   description:
     "The smallest correct template, wearing the brand: the pixel-M in a square cell over a greeting, placed with one placeInsetPieces call. A typed props surface, deterministic defaults, and a validated m0 string. Start here — this is the smoke render.",
@@ -176,15 +176,14 @@ export const HelloWorldV1 = defineMosaicTemplate<HelloWorldProps>({
   renderTutorial: lessonTutorial({
     title: "Hello World",
     lines: [
-      "The smallest correct template: an id, a typed props schema with deterministic defaults, outputHints, and a render() returning an m0 string plus the sources that fill its tiles in order.",
-      "The m0 goes through toM0String - it canonicalizes and validates, so a bad layout fails at build time, not mid-render. (The simplest m0 is one full-canvas rect: \"F\", which canonicalizes to \"1\".)",
-      "The M is the brand saying hello: a color tile wearing the baked glyph as an inline-mask, in a SQUARE cell - mask bounds scale onto their cell per axis, and square is a pixel fact only ctx.target can decide. One placeInsetPieces call places all three rects.",
-      "Everything else in this repo is a variation of these parts.",
+      "The smallest correct template: an id, typed props with defaults, and a render() returning an m0 string plus one source per tile, in walk order.",
+      "toM0String canonicalizes and validates, so a bad layout fails at build time instead of mid-render.",
+      "The M is a color tile wearing the brand glyph as a mask, in a square cell - square is a pixel fact, so only ctx.target can decide it.",
     ],
     explore: [
       "Edit Text and Background in the props panel",
-      "Switch to the Geometry view - a backdrop, a square, a text band",
-      "Select the M: rect is the coarse cell, effective is the exact square the inset recovers (Eye menu > Show inset boxes draws it dashed) - and the MASK's 272x272 bounds are the glyph's own design space, scaled onto that square",
+      "Switch to Geometry: a backdrop, a square, a text band",
+      "Select the M and read its rect, effective box and mask bounds",
       "Read the source: src/basics/hello-world/",
     ],
   }),

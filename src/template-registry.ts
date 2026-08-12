@@ -4,6 +4,8 @@ import { geometryRegistry } from "./geometry/registry";
 import { propsRegistry } from "./props/registry";
 import { mediaRegistry } from "./media/registry";
 import { textRegistry } from "./text/registry";
+import { masksRegistry } from "./masks/registry";
+import { composeRegistry } from "./compose/registry";
 
 /**
  * The whole curriculum, chapter by chapter. ORDER IS THE CURRICULUM —
@@ -19,6 +21,8 @@ export const CHAPTERS: StarterChapter[] = [
   { pack: "props", entries: propsRegistry },
   { pack: "media", entries: mediaRegistry },
   { pack: "text", entries: textRegistry },
+  { pack: "masks", entries: masksRegistry },
+  { pack: "compose", entries: composeRegistry },
 ];
 
 /** Flat view over every chapter, in curriculum order. */

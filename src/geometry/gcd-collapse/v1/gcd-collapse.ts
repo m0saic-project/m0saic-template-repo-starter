@@ -63,7 +63,7 @@ const propsSchema = definePropsSchema<GcdCollapseProps>({
 
 export const GcdCollapseV1 = defineMosaicTemplate<GcdCollapseProps>({
   id: asTemplateId(ID),
-  label: "GCD Collapse",
+  label: "05 · GCD Collapse",
   version: 1,
   description:
     "Two rows, same weights: literal mode keeps all 100 slots, the default optimized mode GCD-collapses to 4. At friendly widths they're identical; at hostile widths the 100-slot row's seams visibly drift while the 4-slot row stays tight. Labels print slots, DSL length, and the measured spread at this very canvas.",
@@ -142,10 +142,9 @@ export const GcdCollapseV1 = defineMosaicTemplate<GcdCollapseProps>({
   renderTutorial: lessonTutorial({
     title: "GCD Collapse",
     lines: [
-      "[25,50,25] and [1,2,1] are the same proportions - dividing by the GCD changes nothing visually but drops 100 slots to 4.",
+      "[25,50,25] and [1,2,1] are the same proportions - dividing by the GCD drops 100 slots to 4 and changes nothing visually.",
       "Fewer slots means a shorter string, more pixels per weight unit (keep it >= 4), and a lower precision floor.",
-      "Reading a run: in 4(1,0,1,1) the 0 is a PASSTHROUGH - it renders nothing and donates its slot forward, so the middle tile spans 2 units. That is how weights compress into runs. (Hands-on: Learn > Frame Types.)",
-      "At hostile widths the 100-slot row visibly drifts while the 4-slot row stays tight - each row's label prints its measured spread at this very canvas.",
+      "At hostile widths the 100-slot row visibly drifts while the 4-slot row stays tight.",
     ],
     explore: [
       "Render at width 1031 and find the drifting seams",

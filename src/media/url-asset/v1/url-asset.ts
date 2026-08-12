@@ -54,7 +54,7 @@ const propsSchema = definePropsSchema<UrlAssetProps>({
 
 export const UrlAssetV1 = defineMosaicTemplate<UrlAssetProps>({
   id: asTemplateId(ID),
-  label: "URL Asset",
+  label: "27 · URL Asset",
   version: 1,
   description:
     "The {kind:\"url\"} asset: a manifest entry pointing at remote media the HOST fetches at render time — with the costs stated on canvas: offline fails, bytes can drift, no probe before fetch. Prefer {kind:\"file\"} for anything reproducible.",
@@ -143,14 +143,14 @@ export const UrlAssetV1 = defineMosaicTemplate<UrlAssetProps>({
   renderTutorial: lessonTutorial({
     title: "URL Asset",
     lines: [
-      "A manifest entry can be {kind:\"url\"} instead of {kind:\"file\"} - the HOST fetches the remote bytes at render time; the template still does no I/O.",
-      "The trade is reproducibility: offline hosts FAIL the render, the bytes can change under you, and there is no ctx.media probe before the fetch - so the template declares the media kind itself and can't print probed dimensions.",
-      "Prefer {kind:\"file\"} for anything you need byte-stable. Reach for URLs only when the source is genuinely remote and genuinely current.",
+      "A manifest entry can be {kind:\"url\"} instead of {kind:\"file\"} - the host fetches the bytes; the template still does no I/O.",
+      "The trade is reproducibility: offline hosts fail, the bytes can change, and there is no probe before the fetch.",
+      "Prefer files for anything you need byte-stable. Reach for URLs only when the source is genuinely remote.",
     ],
     explore: [
       "Paste an https image URL and render - the host fetches it",
       "Go offline and render again - read the failure, that's the cost",
-      "Compare with image-card: same source shape, opposite reproducibility story",
+      "Compare with image-card: same shape, opposite promise",
     ],
   }),
 });

@@ -65,7 +65,7 @@ const propsSchema = definePropsSchema<ColorPropsProps>({
 
 export const ColorPropsV1 = defineMosaicTemplate<ColorPropsProps>({
   id: asTemplateId(ID),
-  label: "Color Props",
+  label: "15 · Color Props",
   version: 1,
   description:
     "Color props declare themselves: isColor + colorPicker turns a string prop into a real swatch control, and the same declaration on a string[] prop gets the color-list control. A scalar panel beside a palette column, receipts on the caption.",
@@ -141,13 +141,13 @@ export const ColorPropsV1 = defineMosaicTemplate<ColorPropsProps>({
   renderTutorial: lessonTutorial({
     title: "Color Props",
     lines: [
-      "A color prop is a string prop that DECLARES itself: constraints.isColor plus control.colorPicker. Without the declaration the sidebar shows a bare text field; with it you get a real swatch.",
-      "The SAME declaration on a string[] prop gets the color-LIST control - one swatch row per entry, with add and remove. The panel is the scalar; the right column is the list, one band per entry.",
-      "This repo enforces the declaration with a conventions test: every color-typed prop, scalar or list, must carry it. Undeclared color props are the #1 cause of clunky template forms.",
+      "A color prop is a string that DECLARES itself: constraints.isColor plus control.colorPicker.",
+      "Without the declaration you get a bare text field; with it, a real swatch - and on a string[] prop, a swatch list.",
+      "A conventions test enforces it here, because undeclared color props are the #1 cause of clunky forms.",
     ],
     explore: [
       "Open Panel in the sidebar - a single swatch control",
-      "Open Palette - swatch rows; add a fifth color and the column resplits",
+      "Open Palette - add a fifth color and the column resplits",
       "The caption prints every value render() received",
     ],
   }),

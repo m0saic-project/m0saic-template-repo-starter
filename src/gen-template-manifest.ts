@@ -135,6 +135,29 @@ export function buildStarterManifest(): MosaicTemplateRepoManifest {
   const seenTemplateIds = new Set<string>();
   const seenExports = new Set<string>();
 
+  /* Curriculum ordinals. Browse UIs sort by name or slug, so array order
+   * never reaches the reader — the number in the title is what carries the
+   * reading order across. It is derived from CHAPTERS order here and only
+   * CHECKED against what the files say, so a renumber is a build error
+   * rather than a silent disagreement. */
+  const labelById = new Map(templates.map((t) => [String(t.id), String(t.label ?? "")]));
+  const ordinalOf = (index: number): string => String(index + 1).padStart(2, "0");
+
+  for (const [index, entry] of templateRegistry.entries()) {
+    const expected = `${ordinalOf(index)} · `;
+    assert(
+      entry.title.startsWith(expected),
+      `Entry "${entry.templateId}" is #${ordinalOf(index)} in curriculum order, so its ` +
+        `title must start with "${expected}" — got "${entry.title}"`,
+    );
+    const label = labelById.get(entry.templateId);
+    assert(
+      label === undefined || label.startsWith(expected),
+      `Template "${entry.templateId}" label must start with "${expected}" to match its ` +
+        `registry row — got "${label}"`,
+    );
+  }
+
   for (const entry of templateRegistry) {
     const parsed = STARTER_ID_RE.exec(entry.templateId);
     assert(parsed, `Entry "${entry.templateId}" has an invalid id`);

@@ -84,7 +84,7 @@ const propsSchema = definePropsSchema<PlaySpeedProps>({
 
 export const PlaySpeedV1 = defineMosaicTemplate<PlaySpeedProps>({
   id: asTemplateId(ID),
-  label: "Play Speed",
+  label: "25 · Play Speed",
   version: 1,
   description:
     "playback.playSpeed: source time vs output time. A SMALL source window (1s by default) is re-timed by the speed knob, so it ends before the output does — and loopMode (loop / freeze / cut) visibly fills the rest. The caption does the arithmetic for the current knobs.",
@@ -207,16 +207,16 @@ export const PlaySpeedV1 = defineMosaicTemplate<PlaySpeedProps>({
   renderTutorial: lessonTutorial({
     title: "Play Speed",
     lines: [
-      "playback.playSpeed re-times the source: speed 2 spends TWO seconds of source per second of output; 0.5 spends half a second. Source time and output time are different clocks - most playback confusion is mixing them up.",
-      "Clip windows (clipDurationMs) are SOURCE time, so the window fills clipDurationMs / playSpeed of OUTPUT time. This template samples a small window (1s by default) precisely so it runs out early - that leftover output time is where loopMode lives.",
-      "loopMode fills the remainder three ways: \"loop\" repeats the window, \"freeze\" holds its last frame, \"cut\" goes black. Point a template at a whole movie and you'd never see any of them - the window would outlast the render.",
-      "The caption does the arithmetic for the current knobs: window / speed = output, then how the rest gets filled.",
+      "playSpeed re-times the source: at 2, one second of output spends two seconds of source. Two different clocks.",
+      "Clip windows are SOURCE time, so a window fills clipDurationMs / playSpeed of OUTPUT time.",
+      "This one samples a small window on purpose so it runs out early - that leftover is where loopMode lives.",
+      "loop repeats the window, freeze holds its last frame, cut goes black.",
     ],
     explore: [
-      "Flip Loop mode: loop repeats, freeze holds the last frame, cut goes black",
-      "Step Speed 0.25 -> 4: slower means the window covers more output and loops less",
-      "Raise Sample past the render duration - the loop seam disappears entirely",
-      "Select the tile: PLAYBACK carries clipDurationMs, playSpeed and loopMode",
+      "Flip Loop mode: repeat, hold, or black",
+      "Step Speed 0.25 to 4 and watch the loop count change",
+      "Raise Sample past the render duration - the seam disappears",
+      "Select the tile: PLAYBACK carries all three",
     ],
   }),
 });

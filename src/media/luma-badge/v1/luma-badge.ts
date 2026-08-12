@@ -58,7 +58,7 @@ const propsSchema = definePropsSchema<LumaBadgeProps>({
 
 export const LumaBadgeV1 = defineMosaicTemplate<LumaBadgeProps>({
   id: asTemplateId(ID),
-  label: "Luma Badge",
+  label: "24 · Luma Badge",
   version: 1,
   description:
     "Content-aware with a fallback: ctx.analysis.regionLuminance asks the host how bright the badge corner is, and the badge flips dark-on-light / light-on-dark to stay readable. Analysis is OPTIONAL — no-analysis hosts degrade to a stated default, printed on the caption.",
@@ -170,14 +170,13 @@ export const LumaBadgeV1 = defineMosaicTemplate<LumaBadgeProps>({
   renderTutorial: lessonTutorial({
     title: "Luma Badge",
     lines: [
-      "ctx.analysis lets a template ask about the PIXELS without doing I/O: regionLuminance(path, region) runs host-side and returns an average luma 0-255 for that fractional rect. The badge flips dark-on-light / light-on-dark from the answer.",
-      "THE LAW: ctx.analysis is OPTIONAL. Design mode and lite hosts hand render() none at all - a template that requires it is broken in the editor. Degrade to a stated default and SAY SO on the caption; a silent fallback is a lie.",
-      "The caption is the receipt either way: the measured luma and the choice it drove, or the degradation notice.",
+      "ctx.analysis asks about the PIXELS without doing I/O: regionLuminance returns an average luma for a fractional rect.",
+      "THE LAW: analysis is OPTIONAL. Design mode hands render() none, so degrade to a stated default and SAY SO.",
+      "A silent fallback is a lie - the caption prints the measured luma or the degradation notice.",
     ],
     explore: [
-      "Pick a bright photo, then a dark one - the badge flips contrast",
+      "Pick a bright photo, then a dark one - the badge flips",
       "The caption prints the measured corner luma",
-      "In a host without analysis the same template still renders - read its stated default",
     ],
   }),
 });

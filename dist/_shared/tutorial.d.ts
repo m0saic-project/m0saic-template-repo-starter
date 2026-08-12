@@ -29,6 +29,26 @@ export type LessonTutorialSpec = {
     explore: string[];
 };
 /**
+ * THE LENGTH BUDGET, enforced rather than suggested.
+ *
+ * A tutorial is a top-level orientation, not documentation: what this
+ * template teaches, in the fewest words that still say something. The detail
+ * belongs in the file's comments, where the person reading it is already
+ * looking at the code that implements it.
+ *
+ * These numbers are a hard gate because prose drifts. Left to taste, every
+ * lesson grows a paragraph per revision until the page overflows its own box
+ * and the lines run off both edges — which is exactly how this budget came
+ * to exist. Over budget is an authoring error, so it throws with the counts.
+ */
+export declare const TUTORIAL_BUDGET: {
+    readonly maxLines: 4;
+    readonly maxLineChars: 160;
+    readonly maxTotalChars: 480;
+    readonly maxExplore: 4;
+    readonly maxExploreChars: 72;
+};
+/**
  * Build a standard tutorial page renderer. Assign the result directly:
  * `renderTutorial: lessonTutorial({ title, lines, explore })`.
  */

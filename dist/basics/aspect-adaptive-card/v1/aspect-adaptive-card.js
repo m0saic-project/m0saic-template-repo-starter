@@ -46,7 +46,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.AspectAdaptiveCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "Aspect-Adaptive Card",
+    label: "04 · Aspect-Adaptive Card",
     version: 1,
     description: "One template, every aspect: reads ctx.target, flips columns to rows on portrait, prints its decision live, and fits svg-rasterized text to the panels it computed. Teaches the rule that prevents the classic nested-render bug — size off ctx.target, never ctx.output.",
     capabilities: { tier: "core" },
@@ -150,8 +150,8 @@ exports.AspectAdaptiveCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         title: "Aspect-Adaptive Card",
         lines: [
             "ctx.target is the canvas your pixels actually fill - branch on it and one template serves every aspect.",
-            "Size off ctx.target, NEVER ctx.output: nested, target is the slot your parent gave you; output still describes the final deliverable. Reading output is the classic silent 5x bug.",
-            "Nothing soft-wraps: static text here is svg-rasterized and fitted with measureText against the same bundled font the renderer draws with.",
+            "Size off ctx.target, NEVER ctx.output: nested, target is your slot while output still describes the final deliverable.",
+            "Nothing soft-wraps - the copy is fitted with measureText against the font the renderer draws with.",
         ],
         explore: [
             "Switch Device to Portrait - the layout flips and the caption follows",

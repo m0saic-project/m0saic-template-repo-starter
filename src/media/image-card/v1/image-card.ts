@@ -61,7 +61,7 @@ const propsSchema = definePropsSchema<ImageCardProps>({
 
 export const ImageCardV1 = defineMosaicTemplate<ImageCardProps>({
   id: asTemplateId(ID),
-  label: "Image Card",
+  label: "19 · Image Card",
   version: 1,
   description:
     "One image through the whole media pipeline: raw path prop, host-side probe via ctx.media, slugified asset key, {kind:\"file\"} manifest entry, and a media source — with the contain-vs-cover fit decision on a knob.",
@@ -157,15 +157,15 @@ export const ImageCardV1 = defineMosaicTemplate<ImageCardProps>({
   renderTutorial: lessonTutorial({
     title: "Image Card",
     lines: [
-      "A media prop's value is a RAW PATH STRING - the file picker fills it, and the template does NO I/O. The host probes the file and hands render() the metadata as ctx.media[rawPath].",
-      "From there it's four moves: check the probe, mint an asset key with slugifyAssetKeyFromPath, write the manifest entry {kind:\"file\", path, mediaType}, and emit a type:\"media\" source pointing at that assetId.",
-      "fit is the one placement decision every image needs: contain letterboxes (you see everything), cover fills (it crops). The caption prints the probed dimensions as the receipt.",
+      "A media prop's value is a RAW PATH STRING. The template does no I/O - the host probes the file and hands you ctx.media[rawPath].",
+      "From there it's four moves: check the probe, mint an asset key, write the manifest entry, emit the media source.",
+      "fit is the one placement decision every image needs: contain letterboxes, cover crops.",
       "No image picked renders a PROMPT card, never a dead preview.",
     ],
     explore: [
       "Pick an image with the Image file picker",
       "Flip Fit between contain and cover on a non-16:9 photo",
-      "Select the image tile: its MEDIA section shows the assetId the manifest carries",
+      "Select the tile: MEDIA shows the assetId the manifest carries",
     ],
   }),
 });

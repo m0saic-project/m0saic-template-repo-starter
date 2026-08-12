@@ -43,6 +43,59 @@ export type LessonTutorialSpec = {
   explore: string[];
 };
 
+/**
+ * THE LENGTH BUDGET, enforced rather than suggested.
+ *
+ * A tutorial is a top-level orientation, not documentation: what this
+ * template teaches, in the fewest words that still say something. The detail
+ * belongs in the file's comments, where the person reading it is already
+ * looking at the code that implements it.
+ *
+ * These numbers are a hard gate because prose drifts. Left to taste, every
+ * lesson grows a paragraph per revision until the page overflows its own box
+ * and the lines run off both edges — which is exactly how this budget came
+ * to exist. Over budget is an authoring error, so it throws with the counts.
+ */
+export const TUTORIAL_BUDGET = {
+  maxLines: 4,
+  maxLineChars: 160,
+  maxTotalChars: 480,
+  maxExplore: 4,
+  maxExploreChars: 72,
+} as const;
+
+function assertWithinBudget(spec: LessonTutorialSpec): void {
+  const problems: string[] = [];
+  const { lines, explore, title } = spec;
+  const total = lines.reduce((n, l) => n + l.length, 0);
+
+  if (lines.length > TUTORIAL_BUDGET.maxLines) {
+    problems.push(`${lines.length} lines (max ${TUTORIAL_BUDGET.maxLines})`);
+  }
+  const longest = lines.reduce((n, l) => Math.max(n, l.length), 0);
+  if (longest > TUTORIAL_BUDGET.maxLineChars) {
+    problems.push(`longest line ${longest} chars (max ${TUTORIAL_BUDGET.maxLineChars})`);
+  }
+  if (total > TUTORIAL_BUDGET.maxTotalChars) {
+    problems.push(`${total} chars total (max ${TUTORIAL_BUDGET.maxTotalChars})`);
+  }
+  if (explore.length > TUTORIAL_BUDGET.maxExplore) {
+    problems.push(`${explore.length} Try items (max ${TUTORIAL_BUDGET.maxExplore})`);
+  }
+  const longestHint = explore.reduce((n, l) => Math.max(n, l.length), 0);
+  if (longestHint > TUTORIAL_BUDGET.maxExploreChars) {
+    problems.push(
+      `longest Try item ${longestHint} chars (max ${TUTORIAL_BUDGET.maxExploreChars})`,
+    );
+  }
+  if (problems.length > 0) {
+    throw new Error(
+      `lessonTutorial("${title}") is over budget: ${problems.join("; ")}. ` +
+        `A tutorial is a top-level orientation — put the detail in the file's comments.`,
+    );
+  }
+}
+
 const PAGE_DURATION_MS = 12000;
 
 const INK = "#ecf0f1" as MosaicColor;
@@ -55,6 +108,10 @@ const HEADER_BG = "#161b22" as MosaicColor;
  * `renderTutorial: lessonTutorial({ title, lines, explore })`.
  */
 export function lessonTutorial(spec: LessonTutorialSpec) {
+  // At MODULE level on purpose: an over-long tutorial fails the moment the
+  // template is imported (so the build and the tests catch it), not when a
+  // user happens to press "?".
+  assertWithinBudget(spec);
   return async function renderTutorial(
     _props: unknown,
     ctx: MosaicEngineContext,

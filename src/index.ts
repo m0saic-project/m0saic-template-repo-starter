@@ -25,6 +25,8 @@ import { geometryTemplates } from "./geometry";
 import { propsTemplates } from "./props";
 import { mediaTemplates } from "./media";
 import { textTemplates } from "./text";
+import { masksTemplates } from "./masks";
+import { composeTemplates } from "./compose";
 
 export const repo = TEMPLATE_REPO;
 
@@ -35,6 +37,8 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...propsTemplates,
   ...mediaTemplates,
   ...textTemplates,
+  ...masksTemplates,
+  ...composeTemplates,
 ];
 
 // Library re-exports for anyone importing this repo as code. `export *`
@@ -46,4 +50,6 @@ export * from "./geometry";
 export * from "./props";
 export * from "./media";
 export * from "./text";
+export * from "./masks";
+export * from "./compose";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

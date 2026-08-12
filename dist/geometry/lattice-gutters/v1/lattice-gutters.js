@@ -82,7 +82,7 @@ function axisSegments(cellStarts, cellSizes, axisLen, cellClaimants) {
 }
 exports.LatticeGuttersV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "Lattice Gutters",
+    label: "08 · Lattice Gutters",
     version: 1,
     description: "Base × fiber: a plain gutterless grid with pixel-exact gutters as per-cell placement insets (latticeCellInset) — or flip Gutter mode to spell the SAME lattice as real split cells and watch the string length and precision floor balloon. The caption prints the receipts.",
     capabilities: { tier: "core" },
@@ -219,14 +219,14 @@ exports.LatticeGuttersV1 = (0, template_utils_1.defineMosaicTemplate)({
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Lattice Gutters",
         lines: [
-            "Base x fiber: the m0 stays a plain gutterless grid; the gutters live in per-cell placement insets computed by latticeCellInset. Exact g px gaps, zero DSL cost.",
-            "Flip Gutter mode to \"split\" and the SAME lattice is spelled as real cells - same render, but the string balloons and its precision floor jumps toward canvas scale. Precision is hereditary: a parent nesting the split spelling inherits that floor.",
-            "Where does the raw split's +-1px rounding jitter go? Into CELL WIDTHS - never the gutters. Each lattice line fits a window derived from its raw cells, and a gutter is exactly g wherever its line lands. Even 6px gutters on a 6-column grid stay exact.",
+            "Base x fiber: the m0 stays a plain gutterless grid, and the gutters live in per-cell insets from latticeCellInset.",
+            "Spell the same lattice as real cells and the string balloons while its precision floor jumps toward canvas scale.",
+            "The +-1px rounding lands in CELL WIDTHS, never the gutters - a gutter is exactly g wherever its line falls.",
         ],
         explore: [
             "Flip Gutter mode and watch the caption's chars + precision move",
-            "Set Gutter 6 with 6 columns - gaps stay exact; the +-1px lands in cell widths",
-            "Select a tile in inset mode - Geometry shows rect (raw cell) vs effective (post-inset)",
+            "Set Gutter 6 with 6 columns - the gaps stay exact",
+            "Select a tile in inset mode: rect vs effective",
         ],
     }),
 });

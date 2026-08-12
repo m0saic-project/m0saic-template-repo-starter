@@ -118,7 +118,7 @@ function interleave(
 
 export const QuantizationCuresV1 = defineMosaicTemplate<QuantizationCuresProps>({
   id: asTemplateId(ID),
-  label: "Quantization: Three Cures",
+  label: "12 · Quantization: Three Cures",
   version: 1,
   description:
     "The geometry capstone: one 12x3 gridded design through four spellings. Naive ratio gutters wobble N/N+1 px (thin lines magnify quantization); then the three cures - inset recovery (exact gutters, tiny string), snapGrid (everything exact inside a quantization-free rect, coverage given up), placeRects (exact pixels baked to this canvas). Flip the Method enum and read the receipts.",
@@ -295,17 +295,16 @@ export const QuantizationCuresV1 = defineMosaicTemplate<QuantizationCuresProps>(
   renderTutorial: lessonTutorial({
     title: "Quantization: Three Cures",
     lines: [
-      "The disease: spell a 12x3 grid's gutters as ratio weights and each gutter quantizes independently to N or N+1 px. At 4px line weights that 1px wobble is a 25% difference - thin lines are quantization's magnifying glass. The caption prints the measured min-max.",
-      "Cure 1, INSET RECOVERY (latticeCellInset): the m0 stays a plain grid; exact G-px gutters are carved as per-cell placement insets. Jitter moves into cell widths, the string stays tiny, and it survives nesting.",
-      "Cure 2, SNAPGRID (snapGridFit): refuse the hostile canvas - snap the grid into the largest quantization-FREE inner rect. Every cell and gutter identical; the cost is coverage, a margin handed back.",
-      "Cure 3, PLACERECTS: bake every cell at exact pixels for THIS canvas. Perfect today, meaningless nested tomorrow - and the string carries every number. A head-only move.",
+      "Spell a grid's gutters as ratio weights and each quantizes to N or N+1 px on its own - at 4px lines that wobble is a 25% difference.",
+      "Cure 1, INSET: the m0 stays a plain grid and exact gutters are carved as per-cell insets. Tiny string, survives nesting.",
+      "Cure 2, SNAP: refuse the canvas - snap into the largest quantization-free rect. Everything exact; the cost is coverage.",
+      "Cure 3, RECTS: bake exact pixels for THIS canvas. Perfect today, meaningless nested - a head-only move.",
     ],
     explore: [
-      "Flip Method: naive -> inset and watch the gutter lines even out",
-      "Eye menu > Show dimensions - the cells' dealt pixels put numbers on the spread",
-      "Read the m0 readout in Geometry view after each flip: ratio weights, a plain grid, a snapped rect, a px monster",
-      "Change the canvas width in naive - the wobble re-deals (quantization is canvas-dependent)",
-      "In inset mode, select a cell: rect vs effective shows the recovery inset at work",
+      "Flip Method naive -> inset and watch the gutters even out",
+      "Eye menu > Show dimensions to put numbers on the spread",
+      "Read the m0 readout after each flip - four different strings",
+      "Change the width in naive: the wobble re-deals",
     ],
   }),
 });

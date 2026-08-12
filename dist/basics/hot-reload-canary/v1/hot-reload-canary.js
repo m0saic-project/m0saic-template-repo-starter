@@ -61,7 +61,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.HotReloadCanaryV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)("@m0saic-starter/basics/hot-reload-canary/v1"),
-    label: "Hot-Reload Canary",
+    label: "02 · Hot-Reload Canary",
     version: 1,
     description: "A solid square whose fill comes from a CONSTANT in the template source, not a prop default. Flip the constant, rebuild, hit Refresh repos — the running app must follow without a restart. This is how you verify your edit loop.",
     capabilities: { tier: "core" },
@@ -116,13 +116,13 @@ exports.HotReloadCanaryV1 = (0, template_utils_1.defineMosaicTemplate)({
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Hot-Reload Canary",
         lines: [
-            "Proves your edit loop works: the fill comes from a CONSTANT in the template source, not a prop default - so a color change can only appear if the app truly re-evaluated your rebuilt code.",
+            "The fill comes from a CONSTANT in the source, not a prop default - so the color can only change if the app really re-evaluated your rebuilt code.",
             "The loop: edit the constant, npm run build, press Refresh repos. No app restart.",
-            "A prop default cannot prove this - the editor may hold a stale prop bag that masks it.",
+            "A prop default could not prove it - the editor may hold a stale prop bag that hides your change.",
         ],
         explore: [
-            "Flip CANARY_COLOR to CANARY_BLUE in the source, rebuild, Refresh repos",
-            "Set a color override prop, then clear it - the constant returns",
+            "Flip CANARY_COLOR in the source, rebuild, Refresh repos",
+            "Set a color override, then clear it - the constant returns",
         ],
     }),
 });

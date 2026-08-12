@@ -85,7 +85,7 @@ const propsSchema = definePropsSchema<ColorTilesProps>({
 
 export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
   id: asTemplateId(ID),
-  label: "Color Tiles",
+  label: "03 · Color Tiles",
   version: 1,
   description:
     "Three equal columns, one makeColorTile each — the sources[]-to-tiles mapping, the lavfi color-tile convention, and document.backgroundColor instead of a wasted base layer.",
@@ -168,14 +168,14 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
   renderTutorial: lessonTutorial({
     title: "Color Tiles",
     lines: [
-      "sources[] maps onto rendered tiles in walk order: first weight, first source.",
-      "Solid tiles are makeColorTile - a free lavfi color source that composes with masks, placement, and per-tile timing.",
-      "Empty canvas shows document.backgroundColor: never burn a base layer just to get a background. The Gap knob is what leaves any canvas empty - it weaves NULL cells around the tiles, and a null paints nothing, so the background shows through it.",
-      "Nulls claim space but never claim a source: widen the gap all you like and sources stays one entry per color.",
+      "sources[] maps onto tiles in walk order: first weight, first source.",
+      "Solid tiles are makeColorTile - a free lavfi color source that composes with masks, placement and timing.",
+      "The Gap knob weaves NULL cells between them. A null paints nothing, so the background shows through - never burn a base layer to get one.",
+      "Nulls claim space but never a source: widen the gap and sources stays one entry per color.",
     ],
     explore: [
-      "Set Gap to 0 - the tiles go edge to edge and the Background knob stops mattering",
-      "Widen Gap, then change Background - THAT is the document fill",
+      "Set Gap to 0 - edge to edge, and Background stops mattering",
+      "Widen Gap, then change Background - that is the document fill",
       "Add a 4th color - the split follows the array",
       "Eye menu > Show dimensions for per-tile pixels",
     ],

@@ -29,6 +29,10 @@ const MP4_BUDGET = 1024 * 1024;
 const ANIMATED_PREVIEW_IDS = new Set([
   // The drawtext column's % counter is the lesson's beat; a still freezes it.
   "@m0saic-starter/text/text-three-ways/v1",
+  // The ramp IS the template. A still shows the counter at t=0.
+  "@m0saic-starter/text/count-up/v1",
+  // A camera walk is motion by definition; a still is one arbitrary settle.
+  "@m0saic-starter/compose/camera-follow/v1",
 ]);
 
 /** Per-id preview canvas when 1280x720 misrepresents the template — or
@@ -58,6 +62,9 @@ const PREVIEW_OVERRIDES = new Map([
   ["@m0saic-starter/media/luma-badge/v1", ["--props", PROPS({ image: FX("assets/media/bbb-frame-960x540.jpg") })]],
   ["@m0saic-starter/media/play-speed/v1", ["--props", PROPS({ video: FX("assets/media/bbb-2s.mp4"), sampleMs: 1000, speed: 1, loopMode: "loop" })]],
   ["@m0saic-starter/media/audio-mix/v1", ["--props", PROPS({ narration: FX("assets/media/tone-440-320x240-2s.mp4"), narrationVolume: 1 })]],
+  // Carved type with no file falls back to a flat colour — true, but it hides
+  // the whole point (a picture playing through the letters).
+  ["@m0saic-starter/text/carved-type/v1", ["--props", PROPS({ word: "MOSAIC", media: FX("assets/media/bbb-frame-960x540.jpg") })]],
 ]);
 
 function resolveCli() {
