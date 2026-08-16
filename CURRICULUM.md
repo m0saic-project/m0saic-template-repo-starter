@@ -191,10 +191,27 @@ or tutorial that is not declared simply does not happen, and hosts never
 synthesize one. 57 is the only template in the repo that builds its own
 tutorial instead of using the standard page — doing that is what it teaches.
 
+## quality
+
+Knowing a template is **correct**, not just that it rendered. Two contract
+tripwires that cost nothing until you turn them on.
+
+| # | Template | id |
+|---|---|---|
+| 58 | Layout Contract Card | `quality/layout-contract-card/v1` |
+| 59 | Geometry Contract Card | `quality/geometry-contract-card/v1` |
+
+They sit together because their identities differ, and the difference is the
+lesson: a **label** survives every m0 the template regenerates and carries
+canvas-independent ratios; a **stableKey** addresses one specific string
+exactly and carries pixel assertions. Both wrappers return your document
+untouched when `debug` is falsy, which is what lets the call stay in shipped
+code.
+
 ---
 
 ## What is not here yet
 
-`watermark` and `quality` chapters, and an `examples/http-orchestrator`
-script. The corpus is usable without them; they are additions, not gaps in
-what is already taught.
+The `watermark` chapter and an `examples/http-orchestrator` script. The corpus
+is usable without them; they are additions, not gaps in what is already
+taught.

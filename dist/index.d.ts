@@ -32,4 +32,5 @@ export * from "./compose";
 export * from "./pipelines";
 export * from "./data";
 export * from "./surfaces";
+export * from "./quality";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

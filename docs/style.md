@@ -95,6 +95,36 @@ attached `{...}` overlay is the usual home.
 *and* when measuring, so `"A\n\nB"` measures as `"A\nB"`. Paragraph gaps are
 **geometry** — one rect per paragraph.
 
+## Lifetimes
+
+**Give every short-lived source a declared window.** A chip on screen for one
+second of a ten-second render should say so:
+
+```ts
+overlay: { window: { startSec: 1, endSec: 2 } }   // typed, explicit
+overlay: { enable: "between(t,1,2)" }             // recognized shape
+```
+
+Recognized `enable` shapes are `gte(t,A)`, `lt(t,B)`, `between(t,A,B)`, and
+`gte*lt` products. An `enable` is a scalar per-frame gate — cheap, and the
+right tool for a hard on/off.
+
+Undeclared means alive for the whole timeline, because nothing said otherwise.
+The same end time written into an alpha expression — `if(lt(t,2), fade, 0)` —
+carries identical information and identical pixels, but it is a term inside an
+expression rather than a lifetime the engine can read, so there is nothing to
+trim the source to. It gets worse when nested: a two-second source inside a
+five-minute parent bills for five minutes.
+
+**This is not an argument against fades.** A windowed fade whose alpha is
+canonical (`fadeInExpr` shapes, `exit()` complements, the in/hold/out
+envelope, constants) lowers to a compiled filter and is genuinely cheap. What
+costs is non-canonical alpha with no window: a custom ease, a spatial sweep,
+an unbounded lifetime.
+
+The rule is not "animate less". It is: say when things are alive, in a form
+the engine can read.
+
 ## The m0 string
 
 - Build it with `@m0saic/dsl-stdlib` builders (`weightedSplit`, …) rather than

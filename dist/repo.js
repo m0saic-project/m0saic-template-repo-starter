@@ -77,4 +77,9 @@ exports.TEMPLATE_PACKS = [
         title: "Surfaces",
         description: "The entry points past `render`, all editor-only and all opt-in: a cheap preview stand-in that falls back to render, a welcome cover that lets render stay strict, and a bespoke tutorial that owns its own timing.",
     },
+    {
+        id: "quality",
+        title: "Quality",
+        description: "Knowing a template is correct, not just that it rendered: label-keyed ratio invariants that survive every regenerated m0, and stableKey-keyed pixel assertions that catch a quantization squash the string looks perfectly healthy through. Both cost nothing until you turn them on.",
+    },
 ];

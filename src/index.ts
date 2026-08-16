@@ -30,6 +30,7 @@ import { composeTemplates } from "./compose";
 import { pipelinesTemplates } from "./pipelines";
 import { dataTemplates } from "./data";
 import { surfacesTemplates } from "./surfaces";
+import { qualityTemplates } from "./quality";
 
 export const repo = TEMPLATE_REPO;
 
@@ -45,6 +46,7 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...pipelinesTemplates,
   ...dataTemplates,
   ...surfacesTemplates,
+  ...qualityTemplates,
 ];
 
 // Library re-exports for anyone importing this repo as code. `export *`
@@ -61,4 +63,5 @@ export * from "./compose";
 export * from "./pipelines";
 export * from "./data";
 export * from "./surfaces";
+export * from "./quality";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

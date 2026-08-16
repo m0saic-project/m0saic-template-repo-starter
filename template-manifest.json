@@ -884,6 +884,36 @@
       "preview": {
         "image": "assets/templates/@m0saic-starter__surfaces__render-tutorial__v1/preview.png"
       }
+    },
+    {
+      "slug": "layout-contract-card",
+      "templateKey": "@m0saic-starter/quality/layout-contract-card/v1",
+      "title": "58 · Layout Contract Card",
+      "description": "Ratio invariants authored against LABELS, which survive every m0 the template regenerates — unlike tile order and stableKeys, which do not. Push the sidebar past 40% with the contract on and the render becomes the violation report, at exactly the canvas that broke.",
+      "tags": [
+        "quality",
+        "contracts",
+        "lesson"
+      ],
+      "pack": "quality",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__quality__layout-contract-card__v1/preview.png"
+      }
+    },
+    {
+      "slug": "geometry-contract-card",
+      "templateKey": "@m0saic-starter/quality/geometry-contract-card/v1",
+      "title": "59 · Geometry Contract Card",
+      "description": "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and prove it survived to the pixels at this canvas.",
+      "tags": [
+        "quality",
+        "contracts",
+        "lesson"
+      ],
+      "pack": "quality",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__quality__geometry-contract-card__v1/preview.png"
+      }
     }
   ],
   "packs": [
@@ -936,6 +966,11 @@
       "id": "surfaces",
       "title": "Surfaces",
       "description": "The entry points past `render`, all editor-only and all opt-in: a cheap preview stand-in that falls back to render, a welcome cover that lets render stay strict, and a bespoke tutorial that owns its own timing."
+    },
+    {
+      "id": "quality",
+      "title": "Quality",
+      "description": "Knowing a template is correct, not just that it rendered: label-keyed ratio invariants that survive every regenerated m0, and stableKey-keyed pixel assertions that catch a quantization squash the string looks perfectly healthy through. Both cost nothing until you turn them on."
     }
   ]
 }
