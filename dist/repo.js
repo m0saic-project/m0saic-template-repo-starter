@@ -35,7 +35,7 @@ exports.TEMPLATE_PACKS = [
     {
         id: "geometry",
         title: "Geometry",
-        description: "The m0 geometry contract as runnable lessons: quantization you can predict, GCD collapse, ratio vs absolute, passthrough donation, overlays, lattice gutters (both spellings), inset recovery, placeRect, and masks as fiber.",
+        description: "The m0 geometry contract as runnable lessons: GCD collapse, ratio vs absolute, overlays that restore their node's rect, lattice gutters (both spellings), inset recovery, placeRect docking, masks as fiber, and the three cures for a split the canvas cannot divide.",
     },
     {
         id: "props",

@@ -4,10 +4,13 @@ The m0saic developer curriculum: a repo of **minimal example templates**, each
 exercising exactly one knob of the template-authoring surface. Clone it, load
 it in Mosaic, read the source, fork it into your own template repo.
 
-> **Status: under construction.** The scaffold and the `basics` chapter are
-> in; the remaining curriculum chapters (geometry, props, media, text, masks,
-> composition, pipelines, data, editor surfaces, watermarking, quality) land
-> in batches. The full README, CURRICULUM.md, and docs/ set arrive with them.
+**57 templates across 10 chapters** — see [CURRICULUM.md](CURRICULUM.md) for
+the map and reading order.
+
+> **Status: under construction.** Ten chapters are in: basics, geometry,
+> props, media, text, masks, compose, pipelines, data, surfaces. Two more
+> (watermarking, quality) land in later batches. What is here is complete and
+> tested; the remaining chapters are additions, not holes.
 
 ## Use it (zero build)
 
@@ -61,10 +64,22 @@ assets/media/               tiny committed media fixtures (see NOTICE.md)
 tools/                      pure-Node checks + founder scripts (no install needed)
 ```
 
-Rules of the road (the long form lands in `docs/`): CommonJS build only;
-export plain template objects — never call `registerTemplate` yourself;
-deterministic renders (seeds as props); size and duration come from
-`ctx.target`; rebuild before committing (`dist/` freshness is CI-checked).
+Rules of the road: CommonJS build only; export plain template objects — never
+call `registerTemplate` yourself; deterministic renders (seeds as props); size
+and duration come from `ctx.target`; rebuild before committing.
+
+## Docs
+
+| | |
+|---|---|
+| [CURRICULUM.md](CURRICULUM.md) | the chapter map and reading order |
+| [docs/install.md](docs/install.md) | loading it in the app and rendering from the CLI |
+| [docs/authoring.md](docs/authoring.md) | the loader contract, what `render` returns, the edit loop |
+| [docs/style.md](docs/style.md) | the law — most of it exists because the alternative fails silently |
+| [docs/security.md](docs/security.md) | what executes and when, the dep allowlist, id ownership |
+| [docs/publish.md](docs/publish.md) | verify → commit `dist/` → tag |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | what belongs here, the one-test law, dep policy |
+| [AGENTS.md](AGENTS.md) | entry point for coding agents |
 
 ## License
 
