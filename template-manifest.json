@@ -839,6 +839,51 @@
       "preview": {
         "image": "assets/templates/@m0saic-starter__data__sidecar-text__v1/preview.png"
       }
+    },
+    {
+      "slug": "render-lite",
+      "templateKey": "@m0saic-starter/surfaces/render-lite/v1",
+      "title": "55 · Render Lite",
+      "description": "The preview stand-in. Declares renderLite so the editor draws a cheap card while you poke props, and the real N-by-N grid renders only on Make — the one optional surface that falls back to render when absent instead of simply not happening.",
+      "tags": [
+        "surfaces",
+        "preview",
+        "lesson"
+      ],
+      "pack": "surfaces",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__surfaces__render-lite__v1/preview.png"
+      }
+    },
+    {
+      "slug": "render-cover",
+      "templateKey": "@m0saic-starter/surfaces/render-cover/v1",
+      "title": "56 · Render Cover",
+      "description": "A friendly first frame for a template that fails fast. render() still reports exactly what is missing when it has no clip; renderCover puts a welcome page there on a pure-default open — opt-in, dismissed by the first prop edit, and silently skipped (never synthesized) when absent or broken.",
+      "tags": [
+        "surfaces",
+        "onboarding",
+        "lesson"
+      ],
+      "pack": "surfaces",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__surfaces__render-cover__v1/preview.png"
+      }
+    },
+    {
+      "slug": "render-tutorial",
+      "templateKey": "@m0saic-starter/surfaces/render-tutorial/v1",
+      "title": "57 · Render Tutorial",
+      "description": "The only lesson here that builds its own tutorial instead of using the curriculum's standard page — because building one is what it teaches. Three pages as a pipeline, each declaring its own durationMs, proving that a tutorial owns its timing and never reads ctx.target.durationMs.",
+      "tags": [
+        "surfaces",
+        "tutorial",
+        "lesson"
+      ],
+      "pack": "surfaces",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__surfaces__render-tutorial__v1/preview.png"
+      }
     }
   ],
   "packs": [
@@ -886,6 +931,11 @@
       "id": "data",
       "title": "Data",
       "description": "Facts flowing through a render: publishing a payload on the upstream channel (and what the capability tier buys you), reshaping it with a pure adapter, drawing it, and writing files beside the deliverable — JSON for machines, verbatim text for real formats like captions."
+    },
+    {
+      "id": "surfaces",
+      "title": "Surfaces",
+      "description": "The entry points past `render`, all editor-only and all opt-in: a cheap preview stand-in that falls back to render, a welcome cover that lets render stay strict, and a bespoke tutorial that owns its own timing."
     }
   ]
 }

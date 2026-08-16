@@ -31,4 +31,5 @@ export * from "./masks";
 export * from "./compose";
 export * from "./pipelines";
 export * from "./data";
+export * from "./surfaces";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

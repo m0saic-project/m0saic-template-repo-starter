@@ -85,4 +85,10 @@ export const TEMPLATE_PACKS: MosaicTemplatePackDescriptor[] = [
     description:
       "Facts flowing through a render: publishing a payload on the upstream channel (and what the capability tier buys you), reshaping it with a pure adapter, drawing it, and writing files beside the deliverable — JSON for machines, verbatim text for real formats like captions.",
   },
+  {
+    id: "surfaces",
+    title: "Surfaces",
+    description:
+      "The entry points past `render`, all editor-only and all opt-in: a cheap preview stand-in that falls back to render, a welcome cover that lets render stay strict, and a bespoke tutorial that owns its own timing.",
+  },
 ];

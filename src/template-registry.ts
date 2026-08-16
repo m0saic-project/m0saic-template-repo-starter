@@ -8,6 +8,7 @@ import { masksRegistry } from "./masks/registry";
 import { composeRegistry } from "./compose/registry";
 import { pipelinesRegistry } from "./pipelines/registry";
 import { dataRegistry } from "./data/registry";
+import { surfacesRegistry } from "./surfaces/registry";
 
 /**
  * The whole curriculum, chapter by chapter. ORDER IS THE CURRICULUM —
@@ -27,6 +28,7 @@ export const CHAPTERS: StarterChapter[] = [
   { pack: "compose", entries: composeRegistry },
   { pack: "pipelines", entries: pipelinesRegistry },
   { pack: "data", entries: dataRegistry },
+  { pack: "surfaces", entries: surfacesRegistry },
 ];
 
 /** Flat view over every chapter, in curriculum order. */

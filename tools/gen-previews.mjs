@@ -41,10 +41,16 @@ const ANIMATED_PREVIEW_IDS = new Set([
   "@m0saic-starter/pipelines/nested-pipeline/v1",
 ]);
 
-/** An emit:"single" pipeline cannot produce an image AT ALL — the engine
- *  rejects it ("Image outputs are not supported for mosaic_pipeline
- *  renderables under emit:single"). These mint the mp4 first and cut the
- *  still out of it. Needs an ffmpeg on PATH (or M0SAIC_FFMPEG), same as
+/** Ids whose still must be CUT from the mp4 rather than rendered directly.
+ *  Today that means emit:"single" pipelines, which cannot produce an image
+ *  AT ALL — the engine rejects it ("Image outputs are not supported for
+ *  mosaic_pipeline renderables under emit:single").
+ *
+ *  The other case that belongs here when it next appears: a template that
+ *  renders fine as an image but whose FIRST FRAME is unrepresentative — any
+ *  reveal starting from nothing is blank at t=0, so a direct still is empty.
+ *
+ *  Needs an ffmpeg on PATH (or M0SAIC_FFMPEG), same as
  *  tools/regen-fixtures.mjs. */
 const STILL_FROM_VIDEO = new Set([
   "@m0saic-starter/pipelines/two-scenes/v1",
@@ -89,6 +95,9 @@ const PREVIEW_DIMS = new Map([
   ["@m0saic-starter/media/time-range-clip/v1", ["426", "240"]],
   ["@m0saic-starter/media/time-ranges-medley/v1", ["426", "160"]],
   ["@m0saic-starter/media/play-speed/v1", ["426", "240"]],
+  // Full-bleed video frame: photographic, so it busts the PNG budget at 720p
+  // and still does at 426x240 (176 KB). This is the largest 16:9 that fits.
+  ["@m0saic-starter/surfaces/render-cover/v1", ["384", "216"]],
 ]);
 
 /** Per-id overrides when the default flags don't fit (e.g. multi-output
@@ -112,6 +121,11 @@ const PREVIEW_OVERRIDES = new Map([
   // With variants on, `encodes` renames the master and no preview.png lands.
   ["@m0saic-starter/pipelines/encode-matrix/v1", ["--props", PROPS({ web: false, mobile: false })]],
   ["@m0saic-starter/text/carved-type/v1", ["--props", PROPS({ word: "MOSAIC", media: FX("assets/media/bbb-frame-960x540.jpg") })]],
+  // Its render is STRICT by design, so default props render the "needs a
+  // clip" report card — a rough browse tile for the one template whose
+  // subject is not having a broken first impression. (The friendly page is
+  // its renderCover, which is editor-only and unreachable from `make`.)
+  ["@m0saic-starter/surfaces/render-cover/v1", ["--props", PROPS({ clip: FX("assets/media/bbb-2s.mp4") })]],
 ]);
 
 function resolveCli() {
