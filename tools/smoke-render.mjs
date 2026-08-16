@@ -219,7 +219,7 @@ const SMOKE_RENDERS = [
     // own toggle demonstrates.
     id: "@m0saic-starter/text/count-up/v1",
     out: "count-up.mp4",
-    args: ["-w", "1280", "-h", "720", "-d", "3000"],
+    args: ["-w", "1280", "-h", "720", "--durationMs", "3000"],
   },
   {
     id: "@m0saic-starter/text/carved-type/v1",
@@ -289,7 +289,7 @@ const SMOKE_RENDERS = [
     // mp4: the walk and the pull-back are the whole point.
     id: "@m0saic-starter/compose/camera-follow/v1",
     out: "camera-follow.mp4",
-    args: ["-w", "1280", "-h", "720", "-d", "6000"],
+    args: ["-w", "1280", "-h", "720", "--durationMs", "6000"],
   },
   {
     // The producer half: swatches plus the token block it publishes.
@@ -330,6 +330,91 @@ const SMOKE_RENDERS = [
     id: "@m0saic-starter/compose/reduce-to-one/v1",
     out: "reduce-to-one-reduced.png",
     args: ["-w", "1280", "-h", "720", "--format", "image", "--props", PROPS({ mode: "reduced", density: 8 })],
+  },
+  // ── pipelines ────────────────────────────────────────────────
+  {
+    // Two documents, one file: the output is A + B - d, and the crossfade
+    // only exists at the seam.
+    id: "@m0saic-starter/pipelines/two-scenes/v1",
+    out: "two-scenes.mp4",
+    args: ["-w", "640", "-h", "360", "--durationMs", "1200", "--props", PROPS({ transitionMs: 300 })],
+  },
+  {
+    // One template, two geometries. Lands as fan-out-landscape.mp4 +
+    // fan-out-portrait.mp4 — emit:"multi" never writes the bare name.
+    id: "@m0saic-starter/pipelines/fan-out/v1",
+    out: "fan-out.mp4",
+    args: ["-w", "640", "-h", "360", "--durationMs", "600"],
+  },
+  {
+    // Frames, not video: {base}-{step}.png, zero-padded by the template.
+    id: "@m0saic-starter/pipelines/png-sequence/v1",
+    out: "png-sequence.png",
+    args: ["-w", "320", "-h", "180", "--format", "image", "--props", PROPS({ frames: 3 })],
+  },
+  {
+    // One master, three deliverables — the variants are transcodes, so the
+    // -o path itself is renamed.
+    id: "@m0saic-starter/pipelines/encode-matrix/v1",
+    out: "encode-matrix.mp4",
+    args: ["-w", "480", "-h", "270", "--durationMs", "600"],
+  },
+  {
+    // Three mirrors, one decode. The caption prints the key the m0 handed
+    // out — if it ever reads r/fc0 by hand, the cells go black.
+    id: "@m0saic-starter/pipelines/ref-mirror/v1",
+    out: "ref-mirror.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    // The back-edge: step 1's left cell IS step 0's pixels.
+    id: "@m0saic-starter/pipelines/ref-across-steps/v1",
+    out: "ref-across-steps.mp4",
+    args: ["-w", "640", "-h", "360", "--durationMs", "800"],
+  },
+  {
+    // Same mirror, different slot: fit reframes, loopMode fills the tail.
+    id: "@m0saic-starter/pipelines/ref-reframe/v1",
+    out: "ref-reframe.mp4",
+    args: ["-w", "640", "-h", "360", "--durationMs", "800", "--props", PROPS({ fit: "cover", loopMode: "loop", tailMs: 400 })],
+  },
+  {
+    // A whole pipeline behind one tile, deliberately short so loopMode fires.
+    id: "@m0saic-starter/pipelines/nested-pipeline/v1",
+    out: "nested-pipeline.mp4",
+    args: ["-w", "640", "-h", "360", "--durationMs", "1200", "--props", PROPS({ innerMs: 600, loopMode: "freeze" })],
+  },
+  // ── data ─────────────────────────────────────────────────────
+  {
+    // Publishes upstream data + a .starterData.json sidecar beside the png.
+    id: "@m0saic-starter/data/fixture-fetcher/v1",
+    out: "fixture-fetcher.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    // Standalone on purpose: no upstream, so it reports MISSING and still
+    // publishes a well-shaped empty block.
+    id: "@m0saic-starter/data/pure-adapter/v1",
+    out: "pure-adapter.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    // The fallback path — the card has to be drawable before a chain exists.
+    id: "@m0saic-starter/data/data-card/v1",
+    out: "data-card.png",
+    args: ["-w", "640", "-h", "360", "--format", "image", "--props", PROPS({ title: "Latency" })],
+  },
+  {
+    // Writes sidecar-json.renderFacts.json beside the still.
+    id: "@m0saic-starter/data/sidecar-json/v1",
+    out: "sidecar-json.png",
+    args: ["-w", "640", "-h", "360", "--format", "image"],
+  },
+  {
+    // Writes sidecar-text.captions.srt verbatim next to the still.
+    id: "@m0saic-starter/data/sidecar-text/v1",
+    out: "sidecar-text.png",
+    args: ["-w", "640", "-h", "360", "--format", "image", "--props", PROPS({ format: "srt" })],
   },
 ];
 

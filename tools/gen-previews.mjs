@@ -33,6 +33,51 @@ const ANIMATED_PREVIEW_IDS = new Set([
   "@m0saic-starter/text/count-up/v1",
   // A camera walk is motion by definition; a still is one arbitrary settle.
   "@m0saic-starter/compose/camera-follow/v1",
+  // The crossfade IS the lesson — a still lands on one side of it.
+  "@m0saic-starter/pipelines/two-scenes/v1",
+  // The back-edge only reads as one when you see step 1 inherit step 0.
+  "@m0saic-starter/pipelines/ref-across-steps/v1",
+  // A pipeline inside a tile: the inner scenes have to change to make the point.
+  "@m0saic-starter/pipelines/nested-pipeline/v1",
+]);
+
+/** An emit:"single" pipeline cannot produce an image AT ALL — the engine
+ *  rejects it ("Image outputs are not supported for mosaic_pipeline
+ *  renderables under emit:single"). These mint the mp4 first and cut the
+ *  still out of it. Needs an ffmpeg on PATH (or M0SAIC_FFMPEG), same as
+ *  tools/regen-fixtures.mjs. */
+const STILL_FROM_VIDEO = new Set([
+  "@m0saic-starter/pipelines/two-scenes/v1",
+  "@m0saic-starter/pipelines/ref-across-steps/v1",
+  "@m0saic-starter/pipelines/nested-pipeline/v1",
+]);
+const FFMPEG = process.env.M0SAIC_FFMPEG || "ffmpeg";
+
+/** Cut one frame out of `video` into `still`, `atSec` in. */
+function frameFromVideo(video, still, atSec, label) {
+  const result = spawnSync(
+    FFMPEG,
+    ["-y", "-hide_banner", "-loglevel", "error", "-ss", String(atSec), "-i", video, "-frames:v", "1", still],
+    { stdio: "pipe", encoding: "utf8" },
+  );
+  if (result.error && result.error.code === "ENOENT") {
+    console.error(`x ${label}: ffmpeg not found ("${FFMPEG}"). Set M0SAIC_FFMPEG.`);
+    return false;
+  }
+  if (result.status !== 0) {
+    console.error(`x ${label}`);
+    if (result.stderr) console.error(result.stderr.trim());
+    return false;
+  }
+  return true;
+}
+
+/** emit:"multi" templates write `{base}-{step}.{ext}`, never `{base}.{ext}` —
+ *  so a preview has to name the step it wants and move it into place. */
+const MULTI_OUTPUT_STEP = new Map([
+  ["@m0saic-starter/pipelines/fan-out/v1", "landscape"],
+  ["@m0saic-starter/pipelines/png-sequence/v1", "frame-1"],
+  ["@m0saic-starter/pipelines/ref-reframe/v1", "reframed"],
 ]);
 
 /** Per-id preview canvas when 1280x720 misrepresents the template — or
@@ -64,6 +109,8 @@ const PREVIEW_OVERRIDES = new Map([
   ["@m0saic-starter/media/audio-mix/v1", ["--props", PROPS({ narration: FX("assets/media/tone-440-320x240-2s.mp4"), narrationVolume: 1 })]],
   // Carved type with no file falls back to a flat colour — true, but it hides
   // the whole point (a picture playing through the letters).
+  // With variants on, `encodes` renames the master and no preview.png lands.
+  ["@m0saic-starter/pipelines/encode-matrix/v1", ["--props", PROPS({ web: false, mobile: false })]],
   ["@m0saic-starter/text/carved-type/v1", ["--props", PROPS({ word: "MOSAIC", media: FX("assets/media/bbb-frame-960x540.jpg") })]],
 ]);
 
@@ -101,7 +148,13 @@ function runCli(args, label) {
 }
 
 function enforceBudget(file, budget, label) {
-  if (!fs.existsSync(file)) return true;
+  if (!fs.existsSync(file)) {
+    // Not a no-op: a CLI that "succeeded" while writing its output somewhere
+    // else (encodes renaming the master, emit:"multi" step suffixes) used to
+    // slip through here and report a preview that does not exist.
+    console.error(`x ${label}: the CLI exited 0 but ${path.basename(file)} was never written.`);
+    return false;
+  }
   const size = fs.statSync(file).size;
   if (size <= budget) return true;
   fs.rmSync(file);
@@ -125,17 +178,60 @@ for (const entry of manifest.templates ?? []) {
   const encoded = key.replace(/\//g, "__");
   const dir = path.join(ROOT, "assets", "templates", encoded);
   const png = path.join(dir, "preview.png");
+  const fromVideo = STILL_FROM_VIDEO.has(key);
+
+  // Order matters for `fromVideo` ids: the mp4 is the SOURCE of their still,
+  // so it has to be on disk before the still branch runs.
+  if (ANIMATED_PREVIEW_IDS.has(key)) {
+    const mp4 = path.join(dir, "preview.mp4");
+    if (!fs.existsSync(mp4) || FORCE) {
+      fs.mkdirSync(dir, { recursive: true });
+      // No duration flag — the CLI's 2s default is exactly the preview length.
+      const okMp4 = runCli(
+        ["make", key, "--template-repo", ROOT, "-w", "640", "-h", "360", "-o", mp4, "--quiet"],
+        `preview.mp4 ${key}`,
+      );
+      if (!okMp4 || !enforceBudget(mp4, MP4_BUDGET, `preview.mp4 for ${key}`)) failures += 1;
+    }
+  }
 
   if (fs.existsSync(png) && !FORCE) {
     skipped += 1;
+  } else if (fromVideo) {
+    // 40% in: past a leading transition, before a trailing one.
+    fs.mkdirSync(dir, { recursive: true });
+    const mp4 = path.join(dir, "preview.mp4");
+    const ok =
+      fs.existsSync(mp4) && frameFromVideo(mp4, png, 0.8, `preview.png for ${key} (from preview.mp4)`);
+    if (ok && enforceBudget(png, PNG_BUDGET, `preview.png for ${key}`)) {
+      minted += 1;
+      console.log(`  ok preview ${key} (cut from preview.mp4)`);
+    } else {
+      failures += 1;
+    }
   } else {
     fs.mkdirSync(dir, { recursive: true });
     const extra = PREVIEW_OVERRIDES.get(key) ?? [];
     const [w, h] = PREVIEW_DIMS.get(key) ?? ["1280", "720"];
-    const ok = runCli(
+    const step = MULTI_OUTPUT_STEP.get(key);
+    let ok = runCli(
       ["make", key, "--template-repo", ROOT, "-w", w, "-h", h, "--format", "image", "-o", png, "--quiet", ...extra],
       `preview ${key}`,
     );
+    if (ok && step !== undefined) {
+      // The run wrote preview-<step>.png (and its siblings). Keep the named
+      // one as the preview, drop the rest.
+      const wanted = png.replace(/\.png$/, `-${step}.png`);
+      if (!fs.existsSync(wanted)) {
+        console.error(`x preview ${key}: expected step output ${path.basename(wanted)} — check MULTI_OUTPUT_STEP.`);
+        ok = false;
+      } else {
+        fs.renameSync(wanted, png);
+        for (const sibling of fs.readdirSync(dir)) {
+          if (/^preview-.+\.png$/.test(sibling)) fs.rmSync(path.join(dir, sibling));
+        }
+      }
+    }
     if (ok && enforceBudget(png, PNG_BUDGET, `preview.png for ${key}`)) {
       minted += 1;
       console.log(`  ok preview ${key}`);
@@ -147,15 +243,13 @@ for (const entry of manifest.templates ?? []) {
   if (ANIMATED_PREVIEW_IDS.has(key)) {
     const mp4 = path.join(dir, "preview.mp4");
     const poster = path.join(dir, "poster.png");
-    if (!fs.existsSync(mp4) || FORCE) {
-      // No duration flag — the CLI's 2s default is exactly the preview length.
-      const okMp4 = runCli(
-        ["make", key, "--template-repo", ROOT, "-w", "640", "-h", "360", "-o", mp4, "--quiet"],
-        `preview.mp4 ${key}`,
-      );
-      if (!okMp4 || !enforceBudget(mp4, MP4_BUDGET, `preview.mp4 for ${key}`)) failures += 1;
-    }
-    if (!fs.existsSync(poster) || FORCE) {
+    if (fromVideo) {
+      if (!fs.existsSync(poster) || FORCE) {
+        const okPoster =
+          fs.existsSync(mp4) && frameFromVideo(mp4, poster, 0.8, `poster.png for ${key}`);
+        if (!okPoster || !enforceBudget(poster, PNG_BUDGET, `poster.png for ${key}`)) failures += 1;
+      }
+    } else if (!fs.existsSync(poster) || FORCE) {
       const okPoster = runCli(
         ["make", key, "--template-repo", ROOT, "-w", "640", "-h", "360", "--format", "image", "-o", poster, "--quiet"],
         `poster.png ${key}`,

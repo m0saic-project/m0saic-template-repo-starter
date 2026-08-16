@@ -1,5 +1,7 @@
 import type { MosaicTextSource } from "@m0saic/types";
 
+import { measureText } from "@m0saic/template-utils";
+
 import { targetCtx } from "../__testutils__/render";
 import { TUTORIAL_BUDGET, lessonTutorial } from "./tutorial";
 
@@ -14,8 +16,10 @@ describe("lessonTutorial — the standard curriculum tutorial page", () => {
     const doc = await render({}, targetCtx(1280, 720));
 
     expect(doc.kind).toBe("mosaic_document");
-    // 6 pieces: header band, logo, title, body, try, footer.
-    expect(doc.sources).toHaveLength(6);
+    // Header band, logo, title, ONE PIECE PER PARAGRAPH, try, footer. The
+    // paragraphs are separate rects because the rasterizer drops blank
+    // lines — a "\n\n" gap renders as nothing at all.
+    expect(doc.sources).toHaveLength(5 + 2);
 
     const logo = (doc.sources ?? []).find(
       (s) =>
@@ -79,5 +83,43 @@ describe("lessonTutorial — the standard curriculum tutorial page", () => {
     expect(() =>
       lessonTutorial({ title: "Too Long", lines: [long], explore: [] }),
     ).toThrow(/top-level orientation/);
+  });
+
+  // The failure this guards: at 640x360 the fitters hit their 12px floor,
+  // gave up, and emitted the copy UNWRAPPED — every body line ran off both
+  // edges of the canvas. A tutorial that cannot be read is not a tutorial.
+  it.each([
+    [640, 360],
+    [854, 480],
+    [1280, 720],
+    [1920, 1080],
+  ])("keeps every line inside the canvas at %ix%i", async (w, h) => {
+    // The longest copy the BUDGET allows (4 lines, 480 chars total), which
+    // is the worst case any lesson can hand this page.
+    const line = "word ".repeat(24).trim(); // 119 chars
+    const worstCase = lessonTutorial({
+      title: "A Lesson With A Fairly Long Title",
+      lines: [line, line, line, line],
+      explore: [
+        "An explore hint that runs to the budget limit ok",
+        "Another explore hint of about the same length!!",
+        "A third explore hint of about the same length!!",
+        "A fourth explore hint of about the same length!",
+      ],
+    });
+    const doc = await worstCase({}, targetCtx(w, h));
+    const layers = (doc.sources ?? []).flatMap(
+      (s) => ((s as MosaicTextSource).layers ?? []),
+    );
+    expect(layers.length).toBeGreaterThan(0);
+    for (const layer of layers) {
+      const text = layer.content?.kind === "literal" ? layer.content.text : "";
+      const fontSize = layer.style?.fontSize;
+      if (!text || typeof fontSize !== "number") continue;
+      for (const line of text.split("\n")) {
+        if (line.length === 0) continue;
+        expect(measureText(line, { fontSize }).width).toBeLessThanOrEqual(w);
+      }
+    }
   });
 });

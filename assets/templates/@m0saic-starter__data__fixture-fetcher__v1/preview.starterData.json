@@ -1,0 +1,12 @@
+{
+  "dataset": "starter-fixture",
+  "version": 1,
+  "series": [
+    3,
+    5,
+    8,
+    13,
+    21
+  ],
+  "label": "deterministic fixture payload"
+}

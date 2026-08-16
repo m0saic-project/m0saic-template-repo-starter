@@ -27,6 +27,8 @@ import { mediaTemplates } from "./media";
 import { textTemplates } from "./text";
 import { masksTemplates } from "./masks";
 import { composeTemplates } from "./compose";
+import { pipelinesTemplates } from "./pipelines";
+import { dataTemplates } from "./data";
 
 export const repo = TEMPLATE_REPO;
 
@@ -39,6 +41,8 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...textTemplates,
   ...masksTemplates,
   ...composeTemplates,
+  ...pipelinesTemplates,
+  ...dataTemplates,
 ];
 
 // Library re-exports for anyone importing this repo as code. `export *`
@@ -52,4 +56,6 @@ export * from "./media";
 export * from "./text";
 export * from "./masks";
 export * from "./compose";
+export * from "./pipelines";
+export * from "./data";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

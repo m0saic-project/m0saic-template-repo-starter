@@ -73,4 +73,16 @@ export const TEMPLATE_PACKS: MosaicTemplatePackDescriptor[] = [
     description:
       "Documents inside documents: children and bottom-up evaluation, real geometry as headroom for rotation, calling another template with a slot, a keyframed camera over a space you own, a theme taken from upstream, and the reduce-to-one refactor all of it enables.",
   },
+  {
+    id: "pipelines",
+    title: "Pipelines",
+    description:
+      "More than one document, and more than one file: steps and transitions, emit single vs multi, encodes as a separate axis, ref sources mirroring rendered pixels within a doc and back across steps, and a pipeline living inside a tile.",
+  },
+  {
+    id: "data",
+    title: "Data",
+    description:
+      "Facts flowing through a render: publishing a payload on the upstream channel (and what the capability tier buys you), reshaping it with a pure adapter, drawing it, and writing files beside the deliverable — JSON for machines, verbatim text for real formats like captions.",
+  },
 ];

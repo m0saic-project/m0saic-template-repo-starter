@@ -1,0 +1,77 @@
+{
+  "_comment": "The data chapter, wired end to end \u2014 as a TOP-LEVEL pipeline (kind: \"mosaicx_pipeline\"). Make renders ONE template at a time, so data/pure-adapter and data/data-card open with nothing upstream and honestly say so; a producer has to run FIRST, in the same render. This file is that render. Open it with 'Load .mosaic / .mosaicx instead' in Make, or `m0saic make examples/data-chain/starter-data-chain.mosaicx`. The first two steps are intermediate:true \u2014 they render carriers nobody needs to see, and the flag keeps them out of the deliverable. The COUPLING is the alias, never a template id: fixture-fetcher publishes on \"starterData\", pure-adapter reads that and republishes on \"seriesStats\", data-card draws \"seriesStats\". Rename one and the chain breaks at exactly the step whose alias no longer matches \u2014 which is the lesson. A chain can ALSO be written as a document wrapping a pipeline child; both render identically, but only this root form shows its steps in Make's filmstrip.",
+  "kind": "mosaicx_pipeline",
+  "version": 1,
+  "emit": "single",
+  "size": {
+    "width": 1280,
+    "height": 720
+  },
+  "fps": 30,
+  "durationMs": 2000,
+  "steps": [
+    {
+      "name": "produce",
+      "durationMs": 2000,
+      "intermediate": true,
+      "file": {
+        "kind": "mosaicx_document",
+        "version": 1,
+        "m0": "F",
+        "assets": {},
+        "sources": [
+          {
+            "type": "template_invocation",
+            "templateId": "@m0saic-starter/data/fixture-fetcher/v1",
+            "props": {
+              "alias": "starterData"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "adapt",
+      "durationMs": 2000,
+      "intermediate": true,
+      "file": {
+        "kind": "mosaicx_document",
+        "version": 1,
+        "m0": "F",
+        "assets": {},
+        "sources": [
+          {
+            "type": "template_invocation",
+            "templateId": "@m0saic-starter/data/pure-adapter/v1",
+            "props": {
+              "inputAlias": "starterData",
+              "outputAlias": "seriesStats",
+              "seriesKey": "series"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "consume",
+      "durationMs": 2000,
+      "file": {
+        "kind": "mosaicx_document",
+        "version": 1,
+        "m0": "F",
+        "assets": {},
+        "sources": [
+          {
+            "type": "template_invocation",
+            "templateId": "@m0saic-starter/data/data-card/v1",
+            "props": {
+              "alias": "seriesStats",
+              "title": "Series",
+              "sampleData": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

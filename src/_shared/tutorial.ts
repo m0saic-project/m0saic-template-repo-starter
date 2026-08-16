@@ -7,7 +7,9 @@ import {
   fitSvgParagraphs,
   fitSvgText,
   makeColorTile,
+  measureText,
   placeInsetPieces,
+  wrapMeasured,
 } from "@m0saic/template-utils";
 
 import { svgTextSource } from "./svg-text";
@@ -118,6 +120,13 @@ export function lessonTutorial(spec: LessonTutorialSpec) {
   ): Promise<MosaicDocument> {
     const { width, height } = ctx.target;
 
+    // The page is read at STAGE size, not canvas size: Make scales a 640x360
+    // canvas across a ~1300px stage, so a 9px glyph there reads like 18px on
+    // screen. The floor therefore scales with the canvas — holding a 12px
+    // minimum on a small canvas is what forced the fitters past their box
+    // and ran the copy off both edges.
+    const minFitPx = Math.max(6, Math.round(height * 0.022));
+
     const headerH = Math.round(height * 0.13);
     const logoSide = Math.round(headerH * 0.56);
     const logoX = Math.round(width * 0.03);
@@ -137,44 +146,76 @@ export function lessonTutorial(spec: LessonTutorialSpec) {
     const titleBoxW = width - titleX * 2;
     const titleFit = fitSvgText(spec.title, titleBoxW, headerH, {
       maxPx: Math.round(headerH * 0.42),
+      minPx: minFitPx,
       maxLines: 1,
       widthFrac: 0.6,
     });
 
     const bodyBox = {
-      x: Math.round(width * 0.08),
+      x: Math.round(width * 0.06),
       y: Math.round(height * 0.18),
-      w: Math.round(width * 0.84),
+      w: Math.round(width * 0.88),
       h: Math.round(height * 0.42),
     };
     // Paragraphs WRAP at the fitted size (readable), never one-line-shrink.
-    // heightFrac 0.6: the measured block uses at most 60% of the body box,
-    // so a host preview font that wraps/stacks ~1.5x taller still stays
-    // clear of the Try list below.
+    // The width budget used to reserve ~30% for hosts whose preview font ran
+    // wider than the render font; the preview now loads the SAME bundled
+    // font, so that margin buys nothing and cost the copy a third of its box.
+    //
+    // `heightFrac` leaves room for the paragraph GAPS, which this page draws
+    // as real geometry: the svg rasterizer DROPS blank lines (and so does
+    // `measureText`), so "\n\n" between paragraphs renders as nothing at
+    // all. It only ever looked like spacing in the editor preview, which
+    // draws HTML text where a blank line does take a row — the two disagreed,
+    // and the render was the one telling the truth.
+    const BODY_WIDTH_FRAC = 0.92;
     const bodyFit = fitSvgParagraphs(spec.lines, bodyBox.w, bodyBox.h, {
       maxPx: Math.round(height * 0.038),
-      widthFrac: 0.7,
-      heightFrac: 0.6,
+      minPx: minFitPx,
+      widthFrac: BODY_WIDTH_FRAC,
+      heightFrac: 0.76,
     });
 
+    // Re-wrap at the CHOSEN size so each paragraph can own a rect. One
+    // shared font size keeps the block typographically even; separate rects
+    // make the gaps survive into the render.
+    const paragraphLines = spec.lines.map((line) =>
+      wrapMeasured(line, bodyFit.fontSize, bodyBox.w * BODY_WIDTH_FRAC),
+    );
+    // Rounded: placeInsetPieces takes INTEGER rects, and measureText returns
+    // a float height.
+    const lineH = Math.max(1, Math.round(measureText("Ay", { fontSize: bodyFit.fontSize }).height));
+    const paraGap = Math.round(lineH * 0.55);
+    const paraHeights = paragraphLines.map((lines) => Math.max(1, lines.length) * lineH);
+    const paraTotal =
+      paraHeights.reduce((n, h) => n + h, 0) + paraGap * Math.max(0, paragraphLines.length - 1);
+    // Top-aligned when the block is taller than its box (the fit already
+    // fought for that), centered when there is slack.
+    let paraY = bodyBox.y + Math.max(0, Math.round((bodyBox.h - paraTotal) / 2));
+
     const tryBox = {
-      x: Math.round(width * 0.08),
+      x: Math.round(width * 0.06),
       y: Math.round(height * 0.62),
-      w: Math.round(width * 0.84),
+      w: Math.round(width * 0.88),
       h: Math.round(height * 0.24),
     };
     const tryFit = fitSvgLines(
       ["Try:", ...spec.explore.map((hint) => `- ${hint}`)],
       tryBox.w,
       tryBox.h,
-      { maxPx: Math.round(height * 0.032), widthFrac: 0.7 },
+      { maxPx: Math.round(height * 0.032), widthFrac: 0.9 },
     );
 
     const footerFit = fitSvgText(
       "Close this tutorial, then explore the props on the right.",
-      width * 0.84,
+      width * 0.88,
       height * 0.08,
-      { maxPx: Math.round(height * 0.026), maxLines: 1, widthFrac: 0.7 },
+      {
+        maxPx: Math.round(height * 0.026),
+        minPx: minFitPx,
+        maxLines: 1,
+        widthFrac: 0.9,
+      },
     );
 
     // One placeInsetPieces call owns the whole page: header bar, square logo
@@ -199,12 +240,22 @@ export function lessonTutorial(spec: LessonTutorialSpec) {
             { text: titleFit.text, fontSize: titleFit.fontSize, color: INK },
           ]),
         },
-        {
-          rect: { x: bodyBox.x, y: bodyBox.y, w: bodyBox.w, h: bodyBox.h, importance: 1 },
-          source: svgTextSource([
-            { text: bodyFit.text, fontSize: bodyFit.fontSize, color: INK, vAlign: "top" },
-          ]),
-        },
+        ...paragraphLines.map((lines, i) => {
+          const rect = {
+            x: bodyBox.x,
+            y: paraY,
+            w: bodyBox.w,
+            h: paraHeights[i],
+            importance: 1,
+          };
+          paraY += paraHeights[i] + paraGap;
+          return {
+            rect,
+            source: svgTextSource([
+              { text: lines.join("\n"), fontSize: bodyFit.fontSize, color: INK },
+            ]),
+          };
+        }),
         {
           rect: { x: tryBox.x, y: tryBox.y, w: tryBox.w, h: tryBox.h, importance: 1 },
           source: svgTextSource([
@@ -213,9 +264,9 @@ export function lessonTutorial(spec: LessonTutorialSpec) {
         },
         {
           rect: {
-            x: Math.round(width * 0.08),
+            x: Math.round(width * 0.06),
             y: Math.round(height * 0.9),
-            w: Math.round(width * 0.84),
+            w: Math.round(width * 0.88),
             h: Math.round(height * 0.08),
             importance: 1,
           },

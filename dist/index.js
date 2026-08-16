@@ -25,6 +25,8 @@ const media_1 = require("./media");
 const text_1 = require("./text");
 const masks_1 = require("./masks");
 const compose_1 = require("./compose");
+const pipelines_1 = require("./pipelines");
+const data_1 = require("./data");
 exports.repo = repo_1.TEMPLATE_REPO;
 /** Every template in the curriculum, chapter by chapter, in teaching order. */
 exports.templates = [
@@ -35,6 +37,8 @@ exports.templates = [
     ...text_1.textTemplates,
     ...masks_1.masksTemplates,
     ...compose_1.composeTemplates,
+    ...pipelines_1.pipelinesTemplates,
+    ...data_1.dataTemplates,
 ];
 // Library re-exports for anyone importing this repo as code. `export *`
 // only for template modules — see the note in src/basics/index.ts for why
@@ -47,3 +51,5 @@ __exportStar(require("./media"), exports);
 __exportStar(require("./text"), exports);
 __exportStar(require("./masks"), exports);
 __exportStar(require("./compose"), exports);
+__exportStar(require("./pipelines"), exports);
+__exportStar(require("./data"), exports);

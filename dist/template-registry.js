@@ -8,6 +8,8 @@ const registry_4 = require("./media/registry");
 const registry_5 = require("./text/registry");
 const registry_6 = require("./masks/registry");
 const registry_7 = require("./compose/registry");
+const registry_8 = require("./pipelines/registry");
+const registry_9 = require("./data/registry");
 /**
  * The whole curriculum, chapter by chapter. ORDER IS THE CURRICULUM —
  * chapters here follow TEMPLATE_PACKS (src/repo.ts), and each chapter's
@@ -24,6 +26,8 @@ exports.CHAPTERS = [
     { pack: "text", entries: registry_5.textRegistry },
     { pack: "masks", entries: registry_6.masksRegistry },
     { pack: "compose", entries: registry_7.composeRegistry },
+    { pack: "pipelines", entries: registry_8.pipelinesRegistry },
+    { pack: "data", entries: registry_9.dataRegistry },
 ];
 /** Flat view over every chapter, in curriculum order. */
 exports.templateRegistry = exports.CHAPTERS.flatMap((chapter) => chapter.entries);
