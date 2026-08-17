@@ -5,7 +5,7 @@ Entry point for coding agents working in this repo. Humans want
 
 ## What this repo is
 
-A curriculum of 57 minimal m0saic templates, one concept each, plus a
+A curriculum of 61 minimal m0saic templates, one concept each, plus a
 committed zero-build distribution (`dist/` + `template-manifest.json`) that
 Mosaic hosts load directly.
 

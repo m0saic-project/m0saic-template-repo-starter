@@ -17,12 +17,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.qualityTemplates = void 0;
 const layout_contract_card_1 = require("./layout-contract-card/v1/layout-contract-card");
 const geometry_contract_card_1 = require("./geometry-contract-card/v1/geometry-contract-card");
+const below_the_floor_1 = require("./below-the-floor/v1/below-the-floor");
+const why_the_floors_cross_1 = require("./why-the-floors-cross/v1/why-the-floors-cross");
 /** Chapter `quality`, in teaching order (mirrors ./registry.ts). */
 exports.qualityTemplates = [
     layout_contract_card_1.LayoutContractCardV1,
     geometry_contract_card_1.GeometryContractCardV1,
+    below_the_floor_1.BelowTheFloorV1,
+    why_the_floors_cross_1.WhyTheFloorsCrossV1,
 ];
 // `export *` ONLY — see the note in src/basics/index.ts for why the
 // `export * from` + named-re-export pairing is a trap.
 __exportStar(require("./layout-contract-card/v1/layout-contract-card"), exports);
 __exportStar(require("./geometry-contract-card/v1/geometry-contract-card"), exports);
+__exportStar(require("./below-the-floor/v1/below-the-floor"), exports);
+__exportStar(require("./why-the-floors-cross/v1/why-the-floors-cross"), exports);

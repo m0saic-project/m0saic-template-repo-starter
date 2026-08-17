@@ -200,13 +200,35 @@ tripwires that cost nothing until you turn them on.
 |---|---|---|
 | 58 | Layout Contract Card | `quality/layout-contract-card/v1` |
 | 59 | Geometry Contract Card | `quality/geometry-contract-card/v1` |
+| 60 | Below the Floor | `quality/below-the-floor/v1` |
+| 61 | Why the Floors Cross | `quality/why-the-floors-cross/v1` |
 
-They sit together because their identities differ, and the difference is the
-lesson: a **label** survives every m0 the template regenerates and carries
+58 and 59 sit together because their identities differ, and the difference is
+the lesson: a **label** survives every m0 the template regenerates and carries
 canvas-independent ratios; a **stableKey** addresses one specific string
 exactly and carries pixel assertions. Both wrappers return your document
 untouched when `debug` is falsy, which is what lets the call stay in shipped
 code.
+
+60 is the one to read if you only read one. A layout has **two independent
+minimum sizes** — feasibility (renders at all) and precision (looks right) —
+and missing them fails in opposite ways: the engine refuses loudly, or it
+renders something wrong and says nothing. One design walks all three states.
+
+60 and 61 are a pair the same way 58 and 59 are. 60 shows the two floors and
+how each one fails; 61 answers the question that follows — **for the layouts
+you actually build, which number is the one to watch, and why does it land in
+the hundreds?** It teaches in two registers. Synthetic shapes show the
+mechanism: one stat card is precision-high on its own; six in a strip and
+feasibility multiplies past it — the floors cross at the nesting step, safe
+minimum 680×100. A sidebar speced in design pixels (320 of a 1440 frame)
+bakes the design resolution into the ruler: pixel-true only at 1440, silently
+off at 1280. Then the real thing: **captured production m0, shipped bare as
+sidecars** and rendered as wireframes — the kpi strip's flattened 22,988
+chars measure 934×117 feasibility vs 193×121 precision, theming's measure
+1920×1080 precision vs 663×313 feasibility, and the template's tests lock
+those numbers. The floors belong to the shape, not the canvas — and they are
+the floors of the **flattened** layout, the form render actually runs.
 
 ---
 
