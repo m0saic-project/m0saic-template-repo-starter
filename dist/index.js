@@ -29,6 +29,7 @@ const pipelines_1 = require("./pipelines");
 const data_1 = require("./data");
 const surfaces_1 = require("./surfaces");
 const quality_1 = require("./quality");
+const connections_1 = require("./connections");
 exports.repo = repo_1.TEMPLATE_REPO;
 /** Every template in the curriculum, chapter by chapter, in teaching order. */
 exports.templates = [
@@ -43,6 +44,7 @@ exports.templates = [
     ...data_1.dataTemplates,
     ...surfaces_1.surfacesTemplates,
     ...quality_1.qualityTemplates,
+    ...connections_1.connectionsTemplates,
 ];
 // Library re-exports for anyone importing this repo as code. `export *`
 // only for template modules — see the note in src/basics/index.ts for why
@@ -59,3 +61,4 @@ __exportStar(require("./pipelines"), exports);
 __exportStar(require("./data"), exports);
 __exportStar(require("./surfaces"), exports);
 __exportStar(require("./quality"), exports);
+__exportStar(require("./connections"), exports);

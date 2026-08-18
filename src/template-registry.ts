@@ -10,6 +10,7 @@ import { pipelinesRegistry } from "./pipelines/registry";
 import { dataRegistry } from "./data/registry";
 import { surfacesRegistry } from "./surfaces/registry";
 import { qualityRegistry } from "./quality/registry";
+import { connectionsRegistry } from "./connections/registry";
 
 /**
  * The whole curriculum, chapter by chapter. ORDER IS THE CURRICULUM —
@@ -31,6 +32,7 @@ export const CHAPTERS: StarterChapter[] = [
   { pack: "data", entries: dataRegistry },
   { pack: "surfaces", entries: surfacesRegistry },
   { pack: "quality", entries: qualityRegistry },
+  { pack: "connections", entries: connectionsRegistry },
 ];
 
 /** Flat view over every chapter, in curriculum order. */

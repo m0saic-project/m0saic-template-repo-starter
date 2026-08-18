@@ -33,4 +33,5 @@ export * from "./pipelines";
 export * from "./data";
 export * from "./surfaces";
 export * from "./quality";
+export * from "./connections";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

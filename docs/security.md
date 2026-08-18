@@ -26,10 +26,16 @@ Make page keeps a banner up for third-party templates. Both are real warnings,
 not ceremony. Treat adding a template repo like installing a dependency,
 because it is one.
 
-This repo is first-party to the m0saic project and has no network calls, no
-filesystem writes outside the render workspace, and no dynamic code. You are
-welcome to verify that rather than take it on faith — `src/` is the whole
-story and `dist/` is its build.
+This repo is first-party to the m0saic project, with no filesystem writes
+outside the render workspace and no dynamic code. Its ONE networked surface
+is the `connections` chapter: loading the repo registers the
+`starter-catalog@default` host connection (a module-eval side effect — this
+is exactly the kind of thing the consent prompt is consenting to), and its
+probe and options fetchers make HTTP requests **only to the base URL the
+user configures** in Settings → Integrations, only at edit/probe time —
+never during render. Secrets stay in the OS keychain and are read through a
+scoped resolver. You are welcome to verify all of that rather than take it
+on faith — `src/` is the whole story and `dist/` is its build.
 
 ## The dependency allowlist limits the blast radius
 

@@ -1,6 +1,6 @@
 # Curriculum
 
-Fifty-seven templates in ten chapters. **One template teaches one thing** —
+Sixty-five templates in twelve chapters. **One template teaches one thing** —
 read it top to bottom in a couple of minutes, then go turn its knobs in Make.
 
 Chapter order is the teaching order, and so is the order within a chapter.
@@ -230,10 +230,38 @@ chars measure 934×117 feasibility vs 193×121 precision, theming's measure
 those numbers. The floors belong to the shape, not the canvas — and they are
 the floors of the **flattened** layout, the form render actually runs.
 
+## connections
+
+Teaching the host an upstream backend — and what Make gains from it. The
+neutral upstream is `examples/http-orchestrator` (a zero-dep local catalog
+server; its README shows how to point the connection at YOUR backend
+instead).
+
+| # | Template | id |
+|---|---|---|
+| 62 | Host Connection | `connections/host-connection/v1` |
+| 63 | Options From a Connection | `connections/options-select/v1` |
+| 64 | Cards Picker | `connections/cards-picker/v1` |
+| 65 | Connection Multi-Select | `connections/multi-select/v1` |
+
+62 registers `starter-catalog@default`: the Settings → Integrations form (a
+base URL plus a keychain-stored key) and the Test-connection probe's two
+ticks. Registration is a module-eval side effect — the chapter's one
+deliberate exception to "no self-registration" — and it is part of the
+Add-source consent surface (`docs/security.md`).
+
+63–65 are the pickers, in rising richness: live-fetched options resolved
+through the **`connectionId` sibling wire** (the prop every
+connection-backed control reads its profile from), an artwork card grid
+whose images resolve lazily as data URIs, and cardList chips whose picker
+modal arrives sectioned by an option field. The chapter's through-line:
+**the connection enriches edit time only** — at render every prop is plain
+data, identical whether it was picked from a rich modal or typed by hand.
+
 ---
 
 ## What is not here yet
 
-The `watermark` chapter and an `examples/http-orchestrator` script. The corpus
-is usable without them; they are additions, not gaps in what is already
-taught.
+The `watermark` chapter (decision pending — its techniques are expressions
+of knobs the corpus already teaches, so it may stay cut). The corpus is
+usable without it.

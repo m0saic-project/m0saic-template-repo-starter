@@ -97,4 +97,10 @@ export const TEMPLATE_PACKS: MosaicTemplatePackDescriptor[] = [
     description:
       "Knowing a template is correct, not just that it rendered: label-keyed ratio invariants that survive every regenerated m0, and stableKey-keyed pixel assertions that catch a quantization squash the string looks perfectly healthy through. Both cost nothing until you turn them on.",
   },
+  {
+    id: "connections",
+    title: "Connections",
+    description:
+      "Teaching the host an upstream backend, and making Make richer for it: a registered connection with a keychain secret and a two-tick probe, pickers fetched live through the connectionId sibling wire, artwork card grids with lazily-resolved images, and grouped multi-select chips. The neutral upstream is examples/http-orchestrator; the values that reach render stay plain data either way.",
+  },
 ];

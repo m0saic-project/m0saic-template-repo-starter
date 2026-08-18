@@ -944,6 +944,62 @@
       "preview": {
         "image": "assets/templates/@m0saic-starter__quality__why-the-floors-cross__v1/preview.png"
       }
+    },
+    {
+      "slug": "host-connection",
+      "templateKey": "@m0saic-starter/connections/host-connection/v1",
+      "title": "62 · Host Connection",
+      "description": "A template pack can teach the host a new kind of backend: registerHostConnection declares the Settings → Integrations form (base URL + keychain secret) and the Test-connection probe (reachable / authenticated / named failure). Registration is a module-eval side effect, the publisher half of the id is law, and secrets never leave the keychain. The card renders the REAL registered schema.",
+      "tags": [
+        "connections",
+        "lesson"
+      ],
+      "pack": "connections",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__connections__host-connection__v1/preview.png"
+      }
+    },
+    {
+      "slug": "options-select",
+      "templateKey": "@m0saic-starter/connections/options-select/v1",
+      "title": "63 · Options From a Connection",
+      "description": "A picker whose values live in the upstream backend, and the wire that connects them: optionsFromConnection names a registered fetcher kind, and connectionFromProp names the SIBLING PROP holding the connection id — the control reads the sibling, calls the host IPC, and fills with live rows. No id in the sibling, no fetch, and the control says so. The sibling is a normal prop: switch profiles by editing it. Render never fetches — by then the value is a plain string[].",
+      "tags": [
+        "connections",
+        "lesson"
+      ],
+      "pack": "connections",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__connections__options-select__v1/preview.png"
+      }
+    },
+    {
+      "slug": "cards-picker",
+      "templateKey": "@m0saic-starter/connections/cards-picker/v1",
+      "title": "64 · Cards Picker",
+      "description": "Pick upstream results by their artwork: picker \"cards\" turns a connection-backed string[] into an image-card grid, cardAspect/cardFit are declared by the template because they describe the connection kind, and the heavy art rides a companion images fetcher — lazy, per visible page, data URIs. At render the prop is a plain string[].",
+      "tags": [
+        "connections",
+        "lesson"
+      ],
+      "pack": "connections",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__connections__cards-picker__v1/preview.png"
+      }
+    },
+    {
+      "slug": "multi-select",
+      "templateKey": "@m0saic-starter/connections/multi-select/v1",
+      "title": "65 · Connection Multi-Select",
+      "description": "Cards of chips, each chip a rich pick: flavor cardList renders a json prop as a repeating card editor, and a connectionMultiSelect column backs every card's chips with the connection's options — groupByKey sectioning the picker modal by an option field. The value stays plain Array<{label, itemIds}> JSON, identical picked or typed — why CLI and app renders agree.",
+      "tags": [
+        "connections",
+        "lesson"
+      ],
+      "pack": "connections",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__connections__multi-select__v1/preview.png"
+      }
     }
   ],
   "packs": [
@@ -1001,6 +1057,11 @@
       "id": "quality",
       "title": "Quality",
       "description": "Knowing a template is correct, not just that it rendered: label-keyed ratio invariants that survive every regenerated m0, and stableKey-keyed pixel assertions that catch a quantization squash the string looks perfectly healthy through. Both cost nothing until you turn them on."
+    },
+    {
+      "id": "connections",
+      "title": "Connections",
+      "description": "Teaching the host an upstream backend, and making Make richer for it: a registered connection with a keychain secret and a two-tick probe, pickers fetched live through the connectionId sibling wire, artwork card grids with lazily-resolved images, and grouped multi-select chips. The neutral upstream is examples/http-orchestrator; the values that reach render stay plain data either way."
     }
   ]
 }
