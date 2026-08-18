@@ -98,7 +98,7 @@ const propsSchema = definePropsSchema<CountUpProps>({
 
 export const CountUpV1 = defineMosaicTemplate<CountUpProps>({
   id: asTemplateId(ID),
-  label: "39 · Count Up",
+  label: "42 · Count Up",
   version: 1,
   description:
     "A drawtext counter that ramps 0 → value over the clip: content.kind \"expr\" + eval \"frame\" + renderMode \"video\", the three fields that must agree. Flip Freeze as a still to see the quiet failure when one of them doesn't.",

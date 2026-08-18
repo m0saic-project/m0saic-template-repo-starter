@@ -18,7 +18,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.FolderContactStripV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "29 · Folder Contact Strip",
+    label: "32 · Folder Contact Strip",
     version: 1,
     description: "type:\"media[]\" + the folder picker: the prop arrives as an array of raw paths, each probed by the host — the template maps them to per-file asset entries and media sources, and the strip resplits to the count (first 8).",
     capabilities: { tier: "core" },

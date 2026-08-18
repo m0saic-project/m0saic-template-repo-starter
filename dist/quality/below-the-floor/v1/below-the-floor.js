@@ -82,7 +82,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.BelowTheFloorV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "69 · Below the Floor",
+    label: "72 · Below the Floor",
     version: 1,
     description: "A layout has two independent minimum sizes: feasibility (renders at all) and precision (looks right). One design, three states — clears both, clears only feasibility and quietly squashes, or falls through feasibility and is refused outright. The caption prints all three numbers at your canvas, so the loud failure and the silent one are told apart by arithmetic.",
     capabilities: { tier: "core" },

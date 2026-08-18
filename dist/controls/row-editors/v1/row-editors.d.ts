@@ -10,8 +10,12 @@
  * cell of NEW rows, so added entries arrive on-brand instead of black.
  *
  * The same declaration family drives the richer editors nearby — `cardList`
- * (connections/weighted-cards, lesson 76) is objectRows grown into reorderable cards with composite
+ * (connections/weighted-cards, lesson 79) is objectRows grown into reorderable cards with composite
  * cells — so learning the columns contract once pays four times.
+ *
+ * (Sibling worth knowing: `flavor: "jsonModal"` renders a complex prop as
+ * a compact summary plus an "Edit JSON" modal — the right fallback when a
+ * shape is too rich even for rows.)
  *
  * As always: the editor machinery is EDIT-time sugar. Render receives the
  * plain array (possibly as a JSON string from a hand editor), validates it,

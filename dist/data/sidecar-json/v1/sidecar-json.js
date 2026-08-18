@@ -27,7 +27,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.SidecarJsonV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "62 · Sidecar JSON",
+    label: "65 · Sidecar JSON",
     version: 1,
     description: "doc.sidecars writes files beside the render: each key becomes {output-basename}.{key}.json. sidecarsSchema on the template declares them, doc.sidecars carries the values — a sidecar is a file for what comes after m0saic, where a data source is an in-memory channel for the next template.",
     capabilities: { tier: "core" },

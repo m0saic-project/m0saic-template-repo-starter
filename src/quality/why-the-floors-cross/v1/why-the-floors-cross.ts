@@ -23,7 +23,7 @@ import { THEMING_REAL } from "./real/theming.m0";
  * for the layouts people actually build, shown twice: once with synthetic
  * shapes where the numbers are legible, and once with REAL production m0.
  *
- * ONE CONCEPT: lesson 69 showed the two floors and how each fails. This one
+ * ONE CONCEPT: lesson 72 showed the two floors and how each fails. This one
  * shows which number is the one to watch — and that ordinary, non-math
  * design decisions push it into the hundreds. Five layouts, two registers:
  *
@@ -197,7 +197,7 @@ const propsSchema = definePropsSchema<WhyTheFloorsCrossProps>({
 
 export const WhyTheFloorsCrossV1 = defineMosaicTemplate<WhyTheFloorsCrossProps>({
   id: asTemplateId(ID),
-  label: "70 · Why the Floors Cross",
+  label: "73 · Why the Floors Cross",
   version: 1,
   description:
     "Which floor is the one to watch, for layouts people actually build? Synthetic shapes show the mechanism: one stat card is precision-high alone, six in a strip cross over to feasibility-high (safe minimum 680x100); a sidebar speced in design pixels (320 of 1440) bakes a 1440-slot ruler into the m0 and is silently off at 1280; an even grid stays at 12. Then the real thing: captured production m0, shipped bare and rendered as a wireframe — the kpi strip's flattened 22,988 chars measure 934x117 feasibility vs 193x121 precision, and theming measures 1920x1080 precision vs 663x313 feasibility. All floors are of the FLATTENED layout, the form render actually runs.",

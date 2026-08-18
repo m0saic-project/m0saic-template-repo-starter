@@ -27,7 +27,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.RefMirrorV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "55 · Ref Mirror",
+    label: "58 · Ref Mirror",
     version: 1,
     description: "A ref source mirrors another cell's rendered pixels by flattenedStableKey: the target renders once and every mirror reads the same intermediate, decorating its own copy. N mirrors, one decode.",
     capabilities: { tier: "core" },

@@ -29,6 +29,15 @@ import { lessonTutorial } from "../../../_shared/tutorial";
  * The window lands on the source as `playback.clipStartMs` +
  * `clipDurationMs` (start + LENGTH, not start + end), with
  * `loopMode: "loop"` filling whatever output time remains.
+ *
+ * Two satellites this lesson declares nothing for, but you should know
+ * exist on `picker: "time-range"` props: `targetDurationMsFromProp` names a
+ * sibling prop holding the intended render duration, and the picker then
+ * overlays a target band so the user can aim their selection at the render
+ * envelope; `markersProvider` (today: `kind: "subtitles"`, resolved from a
+ * sibling video prop) draws semantic tick marks above the scrubber. Both
+ * need richer fixtures than this lesson ships — declare them when your
+ * template has a duration prop or subtitle-bearing sources.
  */
 
 export type TimeRangeClipProps = {
@@ -71,7 +80,7 @@ const propsSchema = definePropsSchema<TimeRangeClipProps>({
 
 export const TimeRangeClipV1 = defineMosaicTemplate<TimeRangeClipProps>({
   id: asTemplateId(ID),
-  label: "31 · Time-Range Clip",
+  label: "34 · Time-Range Clip",
   version: 1,
   description:
     "The time-range picker pair: two number props ending in StartMs/EndMs (here clipStartMs and clipEndMs) with picker:\"time-range\" + videoFromProp render ONE scrubber with two handles — and the window lands on the source as playback.clipStartMs + clipDurationMs (start + LENGTH).",

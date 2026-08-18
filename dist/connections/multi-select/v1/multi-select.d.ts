@@ -5,7 +5,7 @@
  * ONE CONCEPT: the `connectionMultiSelect` CELL. A `json` prop with
  * `flavor: "cardList"` renders as a repeating card editor; a column of
  * `kind: "connectionMultiSelect"` gives every card a chips row backed by
- * the SAME options machinery as lessons 72/73 — plus one new knob:
+ * the SAME options machinery as lessons 75/76 — plus one new knob:
  * `groupByKey: "group"` sections the picker modal by an option field, so
  * the 12 catalog items arrive grouped under Shorts / Features / Loops
  * (options without the key fall into "Other").

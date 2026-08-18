@@ -122,7 +122,7 @@ export const LAYOUT_CONSTRAINTS = CONSTRAINTS;
 
 export const LayoutContractCardV1 = defineMosaicTemplate<LayoutContractCardProps>({
   id: asTemplateId(ID),
-  label: "67 · Layout Contract Card",
+  label: "70 · Layout Contract Card",
   version: 1,
   description:
     "Ratio invariants authored against LABELS, which survive every m0 the template regenerates — unlike tile order and stableKeys, which do not. Push the sidebar past 40% with the contract on and the render becomes the violation report, at exactly the canvas that broke.",

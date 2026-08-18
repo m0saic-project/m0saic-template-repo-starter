@@ -98,4 +98,31 @@ export const controlsRegistry: StarterRegistryEntry[] = [
       "The layout itself as a prop: type m0 tells the editor the value is grammar, not prose — and the template treats it like any untrusted input: isValidM0String at the boundary, a report card instead of a dead render when it doesn't parse, and valid layouts framed as a wireframe with one tile per claim. Bring your own geometry; the template supplies the pixels.",
     tags: ["controls", "lesson"],
   },
+  {
+    slug: "panel-organization",
+    templateId: "@m0saic-starter/controls/panel-organization/v1",
+    exportName: "PanelOrganizationV1",
+    title: "28 · Panel Organization",
+    description:
+      "The props panel is authored, not emitted: the top group is required props plus optional ones pinned with ui.primary; ui.visibleWhen skips a control until its sibling gate matches (string-coerced); ui.hidden removes the control while the prop stays fully render-effective — hidden is not dead. Render paints them all regardless: placement is an editor conversation.",
+    tags: ["controls", "lesson"],
+  },
+  {
+    slug: "dual-props",
+    templateId: "@m0saic-starter/controls/dual-props/v1",
+    exportName: "DualPropsV1",
+    title: "29 · Dual Props",
+    description:
+      "One knob for humans, one truth for everyone: canonical props marked consumer \"agent\" hold what render reads (surfaced under the Agent props escape); friendly props marked \"human\" + syncsTo are derived views the editor inverse-maps to position and writes back through (linear with invertible ranges, boolInvert, identity). The human key never reaches render, so dials and files can never disagree.",
+    tags: ["controls", "lesson"],
+  },
+  {
+    slug: "number-display",
+    templateId: "@m0saic-starter/controls/number-display/v1",
+    exportName: "NumberDisplayV1",
+    title: "30 · Number Display",
+    description:
+      "The stored unit and the shown unit are different decisions: unit names the canonical scale, displayUnit converts only the editor's field, lockDisplayUnit freezes the unit chip where a swap could silently rescale a value, and step is authored canonical. Render reads canonical ms and prints it — presentation never leaks into meaning.",
+    tags: ["controls", "lesson"],
+  },
 ];

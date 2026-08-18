@@ -114,7 +114,7 @@ function frameDoc(
 
 export const PngSequenceV1 = defineMosaicTemplate<PngSequenceProps>({
   id: asTemplateId(ID),
-  label: "53 · PNG Sequence",
+  label: "56 · PNG Sequence",
   version: 1,
   description:
     "A frame sequence is emit:\"multi\" where every step is an image: each step declares format {kind:\"image\", container:\"png\"} and the engine writes one PNG per step. Zero-padded step names are the template's job — the engine only guarantees the name it was given.",

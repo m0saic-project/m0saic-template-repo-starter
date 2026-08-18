@@ -96,7 +96,7 @@ const propsSchema = definePropsSchema<HostConnectionProps>({
 
 export const HostConnectionV1 = defineMosaicTemplate<HostConnectionProps>({
   id: asTemplateId(ID),
-  label: "71 · Host Connection",
+  label: "74 · Host Connection",
   version: 1,
   description:
     "A template pack can teach the host a new kind of backend: registerHostConnection declares the Settings → Integrations form (base URL + keychain secret) and the Test-connection probe (reachable / authenticated / named failure). Registration is a module-eval side effect — importing the chapter makes starter-catalog@default exist — and the publisher half of the id must match the schema or registration throws. This card renders the REAL registered schema, not a mockup.",

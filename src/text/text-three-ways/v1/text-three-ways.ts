@@ -85,7 +85,7 @@ const propsSchema = definePropsSchema<TextThreeWaysProps>({
 
 export const TextThreeWaysV1 = defineMosaicTemplate<TextThreeWaysProps>({
   id: asTemplateId(ID),
-  label: "37 · Text, Three Ways",
+  label: "40 · Text, Three Ways",
   version: 1,
   description:
     "The same word through all three text pipelines, side by side: drawtext (ffmpeg, expr-capable, host fonts), the svg rasterizer (bundled font baked to geometry — identical app/CLI), and mask-carved glyphs (text as a mask any source can wear). All valid; different promises.",

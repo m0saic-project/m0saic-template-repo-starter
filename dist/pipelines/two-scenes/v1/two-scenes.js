@@ -53,7 +53,7 @@ function scene(label, color, width, height, durationMs, fps) {
 }
 exports.TwoScenesV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "51 · Two Scenes",
+    label: "54 · Two Scenes",
     version: 1,
     description: "The smallest pipeline: two documents concatenated into one file. Shows that a step IS a document (own m0, own canvas, own exact durationMs) and the transition OVERLAP rule — a d-ms crossfade makes the output A + B − d, not A + B.",
     capabilities: { tier: "core" },
