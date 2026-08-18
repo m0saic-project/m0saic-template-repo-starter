@@ -109,7 +109,7 @@ function centeredRect(
 
 export const RotateHeadroomV1 = defineMosaicTemplate<RotateHeadroomProps>({
   id: asTemplateId(ID),
-  label: "39 · Rotate Headroom",
+  label: "44 · Rotate Headroom",
   version: 1,
   description:
     "effects.rotate spins content inside a buffer that never grows, so corners clip. The cure isn't a bigger inset — it's a child whose declared size is the rotated bounding box (W' = w·|cos θ| + h·|sin θ|), carrying the rotation instead.",

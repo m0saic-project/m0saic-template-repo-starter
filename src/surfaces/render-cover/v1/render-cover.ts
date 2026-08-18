@@ -92,7 +92,7 @@ const propsSchema = definePropsSchema<RenderCoverProps>({
 
 export const RenderCoverV1 = defineMosaicTemplate<RenderCoverProps>({
   id: asTemplateId(ID),
-  label: "60 · Render Cover",
+  label: "65 · Render Cover",
   version: 1,
   description:
     "A friendly first frame for a template that fails fast. render() still reports exactly what is missing when it has no clip; renderCover puts a welcome page there instead on a pure-default open — opt-in, dismissed by the first prop edit, never synthesized by the host.",

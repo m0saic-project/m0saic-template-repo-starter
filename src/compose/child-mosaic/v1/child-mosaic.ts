@@ -78,7 +78,7 @@ const propsSchema = definePropsSchema<ChildMosaicProps>({
 
 export const ChildMosaicV1 = defineMosaicTemplate<ChildMosaicProps>({
   id: asTemplateId(ID),
-  label: "38 · Child Mosaic",
+  label: "43 · Child Mosaic",
   version: 1,
   description:
     "A complete document rendered inside one tile: children + a {type:\"mosaic\", ref} source, evaluated bottom-up. The child's grid grows while the parent's m0 stays two cells — and a procedural child keeps its aspect only if it declares its own size.",

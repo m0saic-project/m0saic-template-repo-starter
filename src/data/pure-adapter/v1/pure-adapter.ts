@@ -108,7 +108,7 @@ const propsSchema = definePropsSchema<PureAdapterProps>({
 
 export const PureAdapterV1 = defineMosaicTemplate<PureAdapterProps>({
   id: asTemplateId(ID),
-  label: "55 · Pure Adapter",
+  label: "60 · Pure Adapter",
   version: 1,
   description:
     "An adapter reads one data block and publishes another — a pure function between channels. Reshaping needs no capability tier and no network, so it stays core tier and testable with a plain object; a missing upstream degrades to an empty result rather than throwing.",

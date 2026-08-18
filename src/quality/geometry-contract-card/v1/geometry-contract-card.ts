@@ -129,7 +129,7 @@ const propsSchema = definePropsSchema<GeometryContractCardProps>({
 
 export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardProps>({
   id: asTemplateId(ID),
-  label: "63 · Geometry Contract Card",
+  label: "68 · Geometry Contract Card",
   version: 1,
   description:
     "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and prove it survived to the pixels at this canvas.",

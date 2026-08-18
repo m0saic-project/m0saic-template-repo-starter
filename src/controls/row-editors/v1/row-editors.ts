@@ -28,7 +28,7 @@ import { lessonTutorial } from "../../../_shared/tutorial";
  * cell of NEW rows, so added entries arrive on-brand instead of black.
  *
  * The same declaration family drives the richer editors nearby — `cardList`
- * (connections/weighted-cards, lesson 70) is objectRows grown into reorderable cards with composite
+ * (connections/weighted-cards, lesson 76) is objectRows grown into reorderable cards with composite
  * cells — so learning the columns contract once pays four times.
  *
  * As always: the editor machinery is EDIT-time sugar. Render receives the
@@ -252,7 +252,7 @@ export const RowEditorsV1 = defineMosaicTemplate<RowEditorsProps>({
     lines: [
       "flavor objectRows + columns turns an array-of-objects json prop into a repeating-row form - one row per entry, add and remove, right widget per cell.",
       "palette seeds the color cell of NEW rows, so additions arrive on-brand instead of black.",
-      "Same columns contract cardList (lesson 70) grows into cards - learn it once. Render gets the plain array either way and draws the breakdown.",
+      "Same columns contract cardList (lesson 76) grows into cards - learn it once. Render gets the plain array either way and draws the breakdown.",
     ],
     explore: [
       "Add a row - watch the palette seed its color",

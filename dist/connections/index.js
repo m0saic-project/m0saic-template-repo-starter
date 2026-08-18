@@ -25,6 +25,7 @@ const host_connection_1 = require("./host-connection/v1/host-connection");
 const options_select_1 = require("./options-select/v1/options-select");
 const cards_picker_1 = require("./cards-picker/v1/cards-picker");
 const multi_select_1 = require("./multi-select/v1/multi-select");
+const criteria_filter_1 = require("./criteria-filter/v1/criteria-filter");
 const weighted_cards_1 = require("./weighted-cards/v1/weighted-cards");
 /** Chapter `connections`, in teaching order (mirrors ./registry.ts). */
 exports.connectionsTemplates = [
@@ -32,6 +33,7 @@ exports.connectionsTemplates = [
     options_select_1.OptionsSelectV1,
     cards_picker_1.CardsPickerV1,
     multi_select_1.MultiSelectV1,
+    criteria_filter_1.CriteriaFilterV1,
     weighted_cards_1.WeightedCardsV1,
 ];
 // `export *` ONLY — see the note in src/basics/index.ts for why the
@@ -42,4 +44,5 @@ __exportStar(require("./host-connection/v1/host-connection"), exports);
 __exportStar(require("./options-select/v1/options-select"), exports);
 __exportStar(require("./cards-picker/v1/cards-picker"), exports);
 __exportStar(require("./multi-select/v1/multi-select"), exports);
+__exportStar(require("./criteria-filter/v1/criteria-filter"), exports);
 __exportStar(require("./weighted-cards/v1/weighted-cards"), exports);

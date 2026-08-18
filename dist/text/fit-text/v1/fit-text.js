@@ -38,7 +38,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.FitTextV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "33 · Fit Text",
+    label: "38 · Fit Text",
     version: 1,
     description: "Nothing soft-wraps — fitting is the template's job. One box, three fitting strategies (wrap the block, force one line, skip fitting and clip), and a caption printing the measured width against the box so the trade is arithmetic instead of vibes.",
     capabilities: { tier: "core" },

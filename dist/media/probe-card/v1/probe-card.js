@@ -18,7 +18,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ProbeCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "25 · Probe Card",
+    label: "30 · Probe Card",
     version: 1,
     description: "ctx.media is the host's ffprobe registry, keyed by the RAW prop string — templates read it, never probe. Pick any image or video and the card prints its entry: kind, dimensions, duration; the thumb renders beside the facts.",
     capabilities: { tier: "core" },

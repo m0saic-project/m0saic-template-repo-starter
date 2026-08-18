@@ -9,4 +9,5 @@ export * from "./host-connection/v1/host-connection";
 export * from "./options-select/v1/options-select";
 export * from "./cards-picker/v1/cards-picker";
 export * from "./multi-select/v1/multi-select";
+export * from "./criteria-filter/v1/criteria-filter";
 export * from "./weighted-cards/v1/weighted-cards";

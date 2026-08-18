@@ -81,7 +81,7 @@ const propsSchema = definePropsSchema<ReduceToOneProps>({
 
 export const ReduceToOneV1 = defineMosaicTemplate<ReduceToOneProps>({
   id: asTemplateId(ID),
-  label: "45 · Reduce to One",
+  label: "50 · Reduce to One",
   version: 1,
   description:
     "The same grid spelled two ways: inline (the parent's m0 grows with the density) or pushed into a child (the parent stays one cell). Identical pixels, and the caption prints both string lengths so the refactor's cost and benefit are numbers.",

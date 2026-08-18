@@ -11,6 +11,7 @@ import { HostConnectionV1 } from "./host-connection/v1/host-connection";
 import { OptionsSelectV1 } from "./options-select/v1/options-select";
 import { CardsPickerV1 } from "./cards-picker/v1/cards-picker";
 import { MultiSelectV1 } from "./multi-select/v1/multi-select";
+import { CriteriaFilterV1 } from "./criteria-filter/v1/criteria-filter";
 import { WeightedCardsV1 } from "./weighted-cards/v1/weighted-cards";
 
 /** Chapter `connections`, in teaching order (mirrors ./registry.ts). */
@@ -19,6 +20,7 @@ export const connectionsTemplates: MosaicTemplate<MosaicTemplateProps>[] = [
   OptionsSelectV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
   CardsPickerV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
   MultiSelectV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
+  CriteriaFilterV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
   WeightedCardsV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
 ];
 
@@ -30,4 +32,5 @@ export * from "./host-connection/v1/host-connection";
 export * from "./options-select/v1/options-select";
 export * from "./cards-picker/v1/cards-picker";
 export * from "./multi-select/v1/multi-select";
+export * from "./criteria-filter/v1/criteria-filter";
 export * from "./weighted-cards/v1/weighted-cards";

@@ -167,7 +167,7 @@ function buildPage(
 
 export const RenderTutorialV1 = defineMosaicTemplate<RenderTutorialProps>({
   id: asTemplateId(ID),
-  label: "61 · Render Tutorial",
+  label: "66 · Render Tutorial",
   version: 1,
   description:
     "The only lesson in this repo that builds its own tutorial instead of using the standard page — because building one is what it teaches. Three pages as a pipeline, each declaring its own durationMs, proving the rule that a tutorial owns its timing and never reads ctx.target.durationMs.",

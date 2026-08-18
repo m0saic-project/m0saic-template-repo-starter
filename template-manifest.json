@@ -339,9 +339,79 @@
       }
     },
     {
+      "slug": "group-fields",
+      "templateKey": "@m0saic-starter/controls/group-fields/v1",
+      "title": "23 · Group Fields",
+      "description": "Related props that travel as one value: type group + fields nests ordinary prop definitions (same types, same controls — the accent is a normal colorPicker) under a single prop, edited as one fieldset and written in one edit, whole or not at all. Render guards the object as a unit: one guard for one idea. Drawn as the lower third this shape most often is.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__group-fields__v1/preview.png"
+      }
+    },
+    {
+      "slug": "range",
+      "templateKey": "@m0saic-starter/controls/range/v1",
+      "title": "24 · Range",
+      "description": "A number allowed to be a range: flavor range gives one prop three intents readable off the value shape — a flat number, { low, high } to sample fresh per use, or { low, high, once: true } to sample once and reuse (once is never written false). The control records intent; what a 'use' means belongs to the template, and sampling belongs to templates with a seed prop.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__range__v1/preview.png"
+      }
+    },
+    {
+      "slug": "draw-regions",
+      "templateKey": "@m0saic-starter/controls/draw-regions/v1",
+      "title": "25 · Draw Regions",
+      "description": "The user marks an area on the LIVE preview and the template receives geometry — the handshake is the product. picker \"regions\" arms draw mode (rect, plus ellipse/brush mask carving); the wire is plain px JSON, identical from draw mode, --props, or an agent. What a template does with the areas — blur, redact, AI target boxes — is its own concern; this lesson shows the receipt, chips in draw order, with zero regions as the working base case.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__draw-regions__v1/preview.png"
+      }
+    },
+    {
+      "slug": "code-handoff",
+      "templateKey": "@m0saic-starter/controls/code-handoff/v1",
+      "title": "26 · Code Handoff",
+      "description": "A prop that flows the OTHER way: type code is a handoff — { language, code } shipped by the author in defaultProps, shown as a read-only, selectable, copyable code window (not an input), ignorable by render. For workflows where the user must run something outside the app; this lesson hands you the CLI command that renders itself headless.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__code-handoff__v1/preview.png"
+      }
+    },
+    {
+      "slug": "m0-prop",
+      "templateKey": "@m0saic-starter/controls/m0-prop/v1",
+      "title": "27 · m0 Prop",
+      "description": "The layout itself as a prop: type m0 tells the editor the value is grammar, not prose — and the template treats it like any untrusted input: isValidM0String at the boundary, a report card instead of a dead render when it doesn't parse, and valid layouts framed as a wireframe with one tile per claim. Bring your own geometry; the template supplies the pixels.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__m0-prop__v1/preview.png"
+      }
+    },
+    {
       "slug": "image-card",
       "templateKey": "@m0saic-starter/media/image-card/v1",
-      "title": "23 · Image Card",
+      "title": "28 · Image Card",
       "description": "One image through the whole media pipeline: raw path prop, ctx.media probe, slugified asset key, {kind:\"file\"} entry, media source — and the contain-vs-cover decision on a knob.",
       "tags": [
         "media",
@@ -356,7 +426,7 @@
     {
       "slug": "folder-contact-strip",
       "templateKey": "@m0saic-starter/media/folder-contact-strip/v1",
-      "title": "24 · Folder Contact Strip",
+      "title": "29 · Folder Contact Strip",
       "description": "type:\"media[]\" + the folder picker: an array of probed paths mapped to per-file assets and sources; the strip resplits to the count.",
       "tags": [
         "media",
@@ -371,7 +441,7 @@
     {
       "slug": "probe-card",
       "templateKey": "@m0saic-starter/media/probe-card/v1",
-      "title": "25 · Probe Card",
+      "title": "30 · Probe Card",
       "description": "ctx.media is the host's ffprobe registry, keyed by the RAW prop string. Pick any file and the card prints its entry — the facts every layout decision is built on.",
       "tags": [
         "media",
@@ -386,7 +456,7 @@
     {
       "slug": "time-range-clip",
       "templateKey": "@m0saic-starter/media/time-range-clip/v1",
-      "title": "26 · Time-Range Clip",
+      "title": "31 · Time-Range Clip",
       "description": "The time-range picker pair (clipStartMs/clipEndMs + videoFromProp) renders ONE two-handle scrubber — and the window lands as playback.clipStartMs + clipDurationMs (start + LENGTH).",
       "tags": [
         "media",
@@ -401,7 +471,7 @@
     {
       "slug": "time-ranges-medley",
       "templateKey": "@m0saic-starter/media/time-ranges-medley/v1",
-      "title": "27 · Time-Ranges Medley",
+      "title": "32 · Time-Ranges Medley",
       "description": "The MULTI-range control: one json prop (Array<{startMs,endMs,label?}>) with picker:\"time-ranges\" — the studio writes the whole array through it, and every window renders as its own medley column off the same assetId.",
       "tags": [
         "media",
@@ -416,7 +486,7 @@
     {
       "slug": "luma-badge",
       "templateKey": "@m0saic-starter/media/luma-badge/v1",
-      "title": "28 · Luma Badge",
+      "title": "33 · Luma Badge",
       "description": "ctx.analysis.regionLuminance picks the badge's contrast from the pixels under it — and the OPTIONAL-analysis law: degrade to a STATED default, never a silent one.",
       "tags": [
         "media",
@@ -431,7 +501,7 @@
     {
       "slug": "play-speed",
       "templateKey": "@m0saic-starter/media/play-speed/v1",
-      "title": "29 · Play Speed",
+      "title": "34 · Play Speed",
       "description": "playback.playSpeed: source time vs output time, with the caption doing the arithmetic — a 2s source at 4x lasts 500ms of output and loop fills the rest.",
       "tags": [
         "media",
@@ -446,7 +516,7 @@
     {
       "slug": "audio-mix",
       "templateKey": "@m0saic-starter/media/audio-mix/v1",
-      "title": "30 · Audio Mix",
+      "title": "35 · Audio Mix",
       "description": "Audio sources contribute no pixels — per-source audio.volume sets the blend, and the mute idiom (audio.enabled=false, source KEPT) keeps the document's shape stable.",
       "tags": [
         "media",
@@ -461,7 +531,7 @@
     {
       "slug": "url-asset",
       "templateKey": "@m0saic-starter/media/url-asset/v1",
-      "title": "31 · URL Asset",
+      "title": "36 · URL Asset",
       "description": "The {kind:\"url\"} manifest entry: host-fetched remote media with the costs stated on canvas — offline fails, bytes drift, no probe before fetch. Prefer files for reproducibility.",
       "tags": [
         "media",
@@ -476,7 +546,7 @@
     {
       "slug": "text-three-ways",
       "templateKey": "@m0saic-starter/text/text-three-ways/v1",
-      "title": "32 · Text, Three Ways",
+      "title": "37 · Text, Three Ways",
       "description": "The same word through all three text pipelines, side by side: drawtext (ffmpeg, expr-capable, host fonts), the svg rasterizer (bundled font baked to geometry), and mask-carved glyphs (text as a mask any source can wear).",
       "tags": [
         "text",
@@ -493,7 +563,7 @@
     {
       "slug": "fit-text",
       "templateKey": "@m0saic-starter/text/fit-text/v1",
-      "title": "33 · Fit Text",
+      "title": "38 · Fit Text",
       "description": "Nothing soft-wraps — fitting is the template's job. One box, three strategies (wrap the block, force one line, skip fitting and clip), and a caption printing the measured width against the box.",
       "tags": [
         "text",
@@ -508,7 +578,7 @@
     {
       "slug": "count-up",
       "templateKey": "@m0saic-starter/text/count-up/v1",
-      "title": "34 · Count Up",
+      "title": "39 · Count Up",
       "description": "A drawtext counter ramping 0 → value over the clip: content.kind \"expr\" + eval \"frame\" + renderMode \"video\", the three fields that must agree. Flip Freeze as a still to see the quiet failure.",
       "tags": [
         "text",
@@ -526,7 +596,7 @@
     {
       "slug": "carved-type",
       "templateKey": "@m0saic-starter/text/carved-type/v1",
-      "title": "35 · Carved Type",
+      "title": "40 · Carved Type",
       "description": "The word becomes an inline-mask and the picture plays through it: textToPath makes glyphs into a path, the path clips an ordinary media source, and the source underneath can be anything.",
       "tags": [
         "text",
@@ -542,7 +612,7 @@
     {
       "slug": "shape-masks",
       "templateKey": "@m0saic-starter/masks/shape-masks/v1",
-      "title": "36 · Shape Masks",
+      "title": "41 · Shape Masks",
       "description": "There are no shape primitives — every shape is a color tile wearing an SVG path. Circle, ellipse, rounded rect and pill, each authored against the cell's own box, with the caption printing the path math.",
       "tags": [
         "masks",
@@ -557,7 +627,7 @@
     {
       "slug": "path-mask",
       "templateKey": "@m0saic-starter/masks/path-mask/v1",
-      "title": "37 · Path Mask",
+      "title": "42 · Path Mask",
       "description": "A donut, and the two rules behind it: a shape inside another cuts a hole only when it is DRAWN the other way round (the two directions cancel; draw them the same way and the middle fills in silently), and `matte` renders the area outside the path at a chosen alpha instead of clipping it away.",
       "tags": [
         "masks",
@@ -572,7 +642,7 @@
     {
       "slug": "child-mosaic",
       "templateKey": "@m0saic-starter/compose/child-mosaic/v1",
-      "title": "38 · Child Mosaic",
+      "title": "43 · Child Mosaic",
       "description": "A complete document rendered inside one tile: children + a {type:\"mosaic\", ref} source, evaluated bottom-up. The child's grid grows while the parent's m0 stays two cells — and a procedural child keeps its aspect only if it declares its own size.",
       "tags": [
         "compose",
@@ -587,7 +657,7 @@
     {
       "slug": "rotate-headroom",
       "templateKey": "@m0saic-starter/compose/rotate-headroom/v1",
-      "title": "39 · Rotate Headroom",
+      "title": "44 · Rotate Headroom",
       "description": "effects.rotate spins content inside a buffer that never grows, so corners clip. The cure isn't a bigger inset — it's a child whose declared size is the rotated bounding box, carrying the rotation instead.",
       "tags": [
         "compose",
@@ -602,7 +672,7 @@
     {
       "slug": "nested-template",
       "templateKey": "@m0saic-starter/compose/nested-template/v1",
-      "title": "40 · Nested Template",
+      "title": "45 · Nested Template",
       "description": "renderNestedTemplate calls another registered template and returns a document to drop into children. The slot option is the lesson: hand the child its real pixel box and it lays itself out for that box instead of for your canvas.",
       "tags": [
         "compose",
@@ -617,7 +687,7 @@
     {
       "slug": "nested-badge",
       "templateKey": "@m0saic-starter/compose/nested-badge/v1",
-      "title": "41 · Nested Badge (internal)",
+      "title": "46 · Nested Badge (internal)",
       "description": "The child half of compose/nested-template: a badge that sizes everything off ctx.target, so it fills whatever slot the caller gives it. Marked internal — not a top-level pick, but it renders standalone, which is how you debug a child.",
       "tags": [
         "compose",
@@ -632,7 +702,7 @@
     {
       "slug": "camera-follow",
       "templateKey": "@m0saic-starter/compose/camera-follow/v1",
-      "title": "42 · Camera Follow",
+      "title": "47 · Camera Follow",
       "description": "A keyframed camera walk described as rects and times: followCamera turns targets into per-frame focus expressions over a child mosaic's own coordinate space, with an optional pull-back — and viewport rects showing exactly what each settle will frame.",
       "tags": [
         "compose",
@@ -650,7 +720,7 @@
     {
       "slug": "theme-provider",
       "templateKey": "@m0saic-starter/compose/theme-provider/v1",
-      "title": "43 · Theme Provider",
+      "title": "48 · Theme Provider",
       "description": "The PRODUCER half of theming: publishTheme(tokens, { alias }) emits a data source carrying a token set, and every downstream template reading that alias picks it up. One mode prop re-skins the whole chain.",
       "tags": [
         "compose",
@@ -666,7 +736,7 @@
     {
       "slug": "theme-tokens",
       "templateKey": "@m0saic-starter/compose/theme-tokens/v1",
-      "title": "44 · Theme Tokens",
+      "title": "49 · Theme Tokens",
       "description": "The CONSUMER half of theming, and the three places tokens come from: local constants, a pipeline producer on ctx.upstreamData, or a provider called by id right here. applyTheme overlays whatever arrived, per key.",
       "tags": [
         "compose",
@@ -681,7 +751,7 @@
     {
       "slug": "reduce-to-one",
       "templateKey": "@m0saic-starter/compose/reduce-to-one/v1",
-      "title": "45 · Reduce to One",
+      "title": "50 · Reduce to One",
       "description": "The same grid spelled two ways: inline (the parent's m0 grows with the density) or pushed into a child (the parent stays one cell). Identical pixels, with both string lengths printed so the refactor is a number.",
       "tags": [
         "compose",
@@ -696,7 +766,7 @@
     {
       "slug": "two-scenes",
       "templateKey": "@m0saic-starter/pipelines/two-scenes/v1",
-      "title": "46 · Two Scenes",
+      "title": "51 · Two Scenes",
       "description": "The smallest pipeline: two documents concatenated into one file. A step IS a document (own m0, own canvas, own exact durationMs), and a d-ms transition OVERLAPS them — the output is A + B − d.",
       "tags": [
         "pipelines",
@@ -713,7 +783,7 @@
     {
       "slug": "fan-out",
       "templateKey": "@m0saic-starter/pipelines/fan-out/v1",
-      "title": "47 · Fan Out",
+      "title": "52 · Fan Out",
       "description": "emit:\"multi\" writes one file per output step, each at its own canvas — the only way one template delivers several geometries. The variants re-LAY OUT rather than scaling.",
       "tags": [
         "pipelines",
@@ -728,7 +798,7 @@
     {
       "slug": "png-sequence",
       "templateKey": "@m0saic-starter/pipelines/png-sequence/v1",
-      "title": "48 · PNG Sequence",
+      "title": "53 · PNG Sequence",
       "description": "A frame sequence is emit:\"multi\" where every step is an image. Files land as {base}-{step.name}.png, so zero-padded names are the template's job — the engine only guarantees the name it was given.",
       "tags": [
         "pipelines",
@@ -743,7 +813,7 @@
     {
       "slug": "encode-matrix",
       "templateKey": "@m0saic-starter/pipelines/encode-matrix/v1",
-      "title": "49 · Encode Matrix",
+      "title": "54 · Encode Matrix",
       "description": "One render, many deliverables, no pipeline: `encodes` declares post-render transcode passes off a single master. Codec, container, even size (as a stretching scale pass) — never fps, duration or layout.",
       "tags": [
         "pipelines",
@@ -758,7 +828,7 @@
     {
       "slug": "ref-mirror",
       "templateKey": "@m0saic-starter/pipelines/ref-mirror/v1",
-      "title": "50 · Ref Mirror",
+      "title": "55 · Ref Mirror",
       "description": "A ref source mirrors another cell's rendered pixels by flattenedStableKey: the target renders once and every mirror decorates its own copy. N mirrors, one decode.",
       "tags": [
         "pipelines",
@@ -773,7 +843,7 @@
     {
       "slug": "ref-across-steps",
       "templateKey": "@m0saic-starter/pipelines/ref-across-steps/v1",
-      "title": "51 · Ref Across Steps",
+      "title": "56 · Ref Across Steps",
       "description": "A ref with stepIndex is a BACK-EDGE: a later step shows an earlier step's exact pixels, no re-render. Back-edges only, plus the handoff idiom where the producer self-stamps its own coordinates.",
       "tags": [
         "pipelines",
@@ -790,7 +860,7 @@
     {
       "slug": "ref-reframe",
       "templateKey": "@m0saic-starter/pipelines/ref-reframe/v1",
-      "title": "52 · Ref Reframe",
+      "title": "57 · Ref Reframe",
       "description": "A mirror whose slot differs in shape and length: placement.fit reframes the pixels, playback.loopMode fills the tail. Nothing is re-rendered — one intermediate, per-consumer decoration.",
       "tags": [
         "pipelines",
@@ -805,7 +875,7 @@
     {
       "slug": "nested-pipeline",
       "templateKey": "@m0saic-starter/pipelines/nested-pipeline/v1",
-      "title": "53 · Nested Pipeline",
+      "title": "58 · Nested Pipeline",
       "description": "A children entry may be a PIPELINE: it renders first and the parent consumes its stitched output as one tile. The slot's duration and canvas win, emit:\"multi\" downgrades, and loopMode fills any shortfall.",
       "tags": [
         "pipelines",
@@ -822,7 +892,7 @@
     {
       "slug": "fixture-fetcher",
       "templateKey": "@m0saic-starter/data/fixture-fetcher/v1",
-      "title": "54 · Fixture Fetcher",
+      "title": "59 · Fixture Fetcher",
       "description": "Where data enters: a type:\"data\" source publishes a payload downstream templates read as ctx.upstreamData[alias]. tier:\"capability\" is what makes ctx.secrets exist, and only a derived marker is published — never the value.",
       "tags": [
         "data",
@@ -838,7 +908,7 @@
     {
       "slug": "pure-adapter",
       "templateKey": "@m0saic-starter/data/pure-adapter/v1",
-      "title": "55 · Pure Adapter",
+      "title": "60 · Pure Adapter",
       "description": "A pure function between channels: read one block, publish another. Reshaping needs no capability tier and no network, so it stays core tier — and a missing upstream degrades to an empty result rather than throwing.",
       "tags": [
         "data",
@@ -853,7 +923,7 @@
     {
       "slug": "data-card",
       "templateKey": "@m0saic-starter/data/data-card/v1",
-      "title": "56 · Data Card",
+      "title": "61 · Data Card",
       "description": "The consumer end: read ctx.upstreamData[alias] and draw it. The three links agree on an alias and a shape, never on each other's ids, and the card names what it read so a broken chain shows in the picture.",
       "tags": [
         "data",
@@ -868,7 +938,7 @@
     {
       "slug": "sidecar-json",
       "templateKey": "@m0saic-starter/data/sidecar-json/v1",
-      "title": "57 · Sidecar JSON",
+      "title": "62 · Sidecar JSON",
       "description": "doc.sidecars writes files beside the render — each key becomes {output-basename}.{key}.json. Declared on the template, attached to the document: a file for what comes after m0saic, where a data source is a channel for the next template.",
       "tags": [
         "data",
@@ -883,7 +953,7 @@
     {
       "slug": "sidecar-text",
       "templateKey": "@m0saic-starter/data/sidecar-text/v1",
-      "title": "58 · Sidecar Text",
+      "title": "63 · Sidecar Text",
       "description": "{ kind: \"text\", ext, content } writes the string verbatim, which is how real formats ship. Captions prove the point: burned-in subtitles are pixels, a .vtt beside the video is a track a player can style.",
       "tags": [
         "data",
@@ -899,7 +969,7 @@
     {
       "slug": "render-lite",
       "templateKey": "@m0saic-starter/surfaces/render-lite/v1",
-      "title": "59 · Render Lite",
+      "title": "64 · Render Lite",
       "description": "The preview stand-in. Declares renderLite so the editor draws a cheap card while you poke props, and the real N-by-N grid renders only on Make — the one optional surface that falls back to render when absent instead of simply not happening.",
       "tags": [
         "surfaces",
@@ -914,7 +984,7 @@
     {
       "slug": "render-cover",
       "templateKey": "@m0saic-starter/surfaces/render-cover/v1",
-      "title": "60 · Render Cover",
+      "title": "65 · Render Cover",
       "description": "A friendly first frame for a template that fails fast. render() still reports exactly what is missing when it has no clip; renderCover puts a welcome page there on a pure-default open — opt-in, dismissed by the first prop edit, and silently skipped (never synthesized) when absent or broken.",
       "tags": [
         "surfaces",
@@ -929,7 +999,7 @@
     {
       "slug": "render-tutorial",
       "templateKey": "@m0saic-starter/surfaces/render-tutorial/v1",
-      "title": "61 · Render Tutorial",
+      "title": "66 · Render Tutorial",
       "description": "The only lesson here that builds its own tutorial instead of using the curriculum's standard page — because building one is what it teaches. Three pages as a pipeline, each declaring its own durationMs, proving that a tutorial owns its timing and never reads ctx.target.durationMs.",
       "tags": [
         "surfaces",
@@ -944,7 +1014,7 @@
     {
       "slug": "layout-contract-card",
       "templateKey": "@m0saic-starter/quality/layout-contract-card/v1",
-      "title": "62 · Layout Contract Card",
+      "title": "67 · Layout Contract Card",
       "description": "Ratio invariants authored against LABELS, which survive every m0 the template regenerates — unlike tile order and stableKeys, which do not. Push the sidebar past 40% with the contract on and the render becomes the violation report, at exactly the canvas that broke.",
       "tags": [
         "quality",
@@ -959,7 +1029,7 @@
     {
       "slug": "geometry-contract-card",
       "templateKey": "@m0saic-starter/quality/geometry-contract-card/v1",
-      "title": "63 · Geometry Contract Card",
+      "title": "68 · Geometry Contract Card",
       "description": "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and prove it survived to the pixels at this canvas.",
       "tags": [
         "quality",
@@ -974,7 +1044,7 @@
     {
       "slug": "below-the-floor",
       "templateKey": "@m0saic-starter/quality/below-the-floor/v1",
-      "title": "64 · Below the Floor",
+      "title": "69 · Below the Floor",
       "description": "A layout has two independent minimum sizes: feasibility (renders at all) and precision (looks right). One design, three states — clears both, clears only feasibility and quietly squashes, or falls through feasibility and is refused outright. The caption prints all three numbers at your canvas, so the loud failure and the silent one are told apart by arithmetic.",
       "tags": [
         "quality",
@@ -989,7 +1059,7 @@
     {
       "slug": "why-the-floors-cross",
       "templateKey": "@m0saic-starter/quality/why-the-floors-cross/v1",
-      "title": "65 · Why the Floors Cross",
+      "title": "70 · Why the Floors Cross",
       "description": "Which floor is the one to watch, for layouts people actually build? Synthetic shapes show the mechanism: a title bar + six stat cards where one card is precision-high alone and six nested cross over to feasibility-high (safe minimum 680x100); a sidebar speced in design pixels (320 of 1440) that bakes a 1440-slot ruler into the m0; an even grid that stays at 12. Then the real thing, shipped as sidecars and rendered as wireframes: the kpi strip's flattened 22,988-char production m0 (feasibility 934x117 vs precision 193x121) and theming's (precision 1920x1080 vs feasibility 663x313). All floors are of the FLATTENED layout, the form render actually runs — read them live in Make's safe-minimum callout.",
       "tags": [
         "quality",
@@ -1004,7 +1074,7 @@
     {
       "slug": "host-connection",
       "templateKey": "@m0saic-starter/connections/host-connection/v1",
-      "title": "66 · Host Connection",
+      "title": "71 · Host Connection",
       "description": "A template pack can teach the host a new kind of backend: registerHostConnection declares the Settings → Integrations form (base URL + keychain secret) and the Test-connection probe (reachable / authenticated / named failure). Registration is a module-eval side effect, the publisher half of the id is law, and secrets never leave the keychain. The card renders the REAL registered schema.",
       "tags": [
         "connections",
@@ -1018,7 +1088,7 @@
     {
       "slug": "options-select",
       "templateKey": "@m0saic-starter/connections/options-select/v1",
-      "title": "67 · Options From a Connection",
+      "title": "72 · Options From a Connection",
       "description": "A picker whose values live in the upstream backend, and the wire that connects them: optionsFromConnection names a registered fetcher kind, and connectionFromProp names the SIBLING PROP holding the connection id — the control reads the sibling, calls the host IPC, and fills with live rows. No id in the sibling, no fetch, and the control says so. The sibling is a normal prop: switch profiles by editing it. Render never fetches — by then the value is a plain string[].",
       "tags": [
         "connections",
@@ -1032,7 +1102,7 @@
     {
       "slug": "cards-picker",
       "templateKey": "@m0saic-starter/connections/cards-picker/v1",
-      "title": "68 · Cards Picker",
+      "title": "73 · Cards Picker",
       "description": "Pick upstream results by their artwork: picker \"cards\" turns a connection-backed string[] into an image-card grid, cardAspect/cardFit are declared by the template because they describe the connection kind, and the heavy art rides a companion images fetcher — lazy, per visible page, data URIs. At render the prop is a plain string[].",
       "tags": [
         "connections",
@@ -1046,7 +1116,7 @@
     {
       "slug": "multi-select",
       "templateKey": "@m0saic-starter/connections/multi-select/v1",
-      "title": "69 · Connection Multi-Select",
+      "title": "74 · Connection Multi-Select",
       "description": "Cards of chips, each chip a rich pick: flavor cardList renders a json prop as a repeating card editor, and a connectionMultiSelect column backs every card's chips with the connection's options — groupByKey sectioning the picker modal by an option field. The value stays plain Array<{label, itemIds}> JSON, identical picked or typed — why CLI and app renders agree.",
       "tags": [
         "connections",
@@ -1058,9 +1128,24 @@
       }
     },
     {
+      "slug": "criteria-filter",
+      "templateKey": "@m0saic-starter/connections/criteria-filter/v1",
+      "title": "75 · Criteria Filter",
+      "description": "A query as a prop: flavor criteriaFilter + a criteria catalog declares which criteria exist (search / number / boolean / idSet with modifiers) and the editor renders the filter builder by KIND — opaque keys, any catalog. The idSet's options ride optionsFromConnection through the connectionId wire. The value is a flat AND-object, absent key = unset, drawn as the saved-search card it is; executing the query belongs to the data chapter.",
+      "tags": [
+        "connections",
+        "controls",
+        "lesson"
+      ],
+      "pack": "connections",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__connections__criteria-filter__v1/preview.png"
+      }
+    },
+    {
       "slug": "weighted-cards",
       "templateKey": "@m0saic-starter/connections/weighted-cards/v1",
-      "title": "70 · Weighted Cards",
+      "title": "76 · Weighted Cards",
       "description": "Weights at both depths: a weights column SHARING the multi-select's key gives each card an auto-balancing share group over its own chips (two cells, one array — even sets round-trip string[], customized {id,weight}[]), and interWeightProp names a sibling number[] weighing the cards against each other. Rows and chips in the render ARE those values.",
       "tags": [
         "controls",

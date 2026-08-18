@@ -54,7 +54,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.PureAdapterV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "55 · Pure Adapter",
+    label: "60 · Pure Adapter",
     version: 1,
     description: "An adapter reads one data block and publishes another — a pure function between channels. Reshaping needs no capability tier and no network, so it stays core tier and testable with a plain object; a missing upstream degrades to an empty result rather than throwing.",
     capabilities: { tier: "core" },

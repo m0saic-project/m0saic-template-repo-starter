@@ -57,7 +57,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 exports.LAYOUT_CONSTRAINTS = CONSTRAINTS;
 exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "62 · Layout Contract Card",
+    label: "67 · Layout Contract Card",
     version: 1,
     description: "Ratio invariants authored against LABELS, which survive every m0 the template regenerates — unlike tile order and stableKeys, which do not. Push the sidebar past 40% with the contract on and the render becomes the violation report, at exactly the canvas that broke.",
     capabilities: { tier: "core" },

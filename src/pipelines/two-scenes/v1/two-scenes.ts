@@ -110,7 +110,7 @@ function scene(
 
 export const TwoScenesV1 = defineMosaicTemplate<TwoScenesProps>({
   id: asTemplateId(ID),
-  label: "46 · Two Scenes",
+  label: "51 · Two Scenes",
   version: 1,
   description:
     "The smallest pipeline: two documents concatenated into one file. Shows that a step IS a document (own m0, own canvas, own exact durationMs) and the transition OVERLAP rule — a d-ms crossfade makes the output A + B − d, not A + B.",

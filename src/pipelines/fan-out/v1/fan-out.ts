@@ -120,7 +120,7 @@ function variant(
 
 export const FanOutV1 = defineMosaicTemplate<FanOutProps>({
   id: asTemplateId(ID),
-  label: "47 · Fan Out",
+  label: "52 · Fan Out",
   version: 1,
   description:
     "emit:\"multi\" writes one file per output step, each at its own canvas — the only way one template delivers several geometries. Landscape and portrait re-LAY OUT rather than scaling, which is the reason to fan out instead of adding an encode.",

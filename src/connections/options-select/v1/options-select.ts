@@ -129,7 +129,7 @@ const propsSchema = definePropsSchema<OptionsSelectProps>({
 
 export const OptionsSelectV1 = defineMosaicTemplate<OptionsSelectProps>({
   id: asTemplateId(ID),
-  label: "67 · Options From a Connection",
+  label: "72 · Options From a Connection",
   version: 1,
   description:
     "A picker whose values live in the upstream backend, and the wire that connects them: optionsFromConnection names a registered fetcher kind, and connectionFromProp names the SIBLING PROP holding the connection id. The control reads the sibling, calls the host IPC, and fills with live rows — no id in the sibling, no fetch, and the control says so. The sibling is a normal prop: switch profiles by editing it, and it travels in saved files. Render never fetches: by then the value is a plain string[].",

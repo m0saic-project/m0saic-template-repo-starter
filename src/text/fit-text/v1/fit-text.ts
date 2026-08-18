@@ -92,7 +92,7 @@ const propsSchema = definePropsSchema<FitTextProps>({
 
 export const FitTextV1 = defineMosaicTemplate<FitTextProps>({
   id: asTemplateId(ID),
-  label: "33 · Fit Text",
+  label: "38 · Fit Text",
   version: 1,
   description:
     "Nothing soft-wraps — fitting is the template's job. One box, three fitting strategies (wrap the block, force one line, skip fitting and clip), and a caption printing the measured width against the box so the trade is arithmetic instead of vibes.",

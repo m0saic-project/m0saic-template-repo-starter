@@ -54,7 +54,7 @@ const propsSchema = definePropsSchema<UrlAssetProps>({
 
 export const UrlAssetV1 = defineMosaicTemplate<UrlAssetProps>({
   id: asTemplateId(ID),
-  label: "31 · URL Asset",
+  label: "36 · URL Asset",
   version: 1,
   description:
     "The {kind:\"url\"} asset: a manifest entry pointing at remote media the HOST fetches at render time — with the costs stated on canvas: offline fails, bytes can drift, no probe before fetch. Prefer {kind:\"file\"} for anything reproducible.",

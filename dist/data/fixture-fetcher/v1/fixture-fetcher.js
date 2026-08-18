@@ -54,7 +54,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.FixtureFetcherV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "54 · Fixture Fetcher",
+    label: "59 · Fixture Fetcher",
     version: 1,
     description: "Where data enters: a fetcher publishes a JSON payload as a type:\"data\" source and downstream templates read it as ctx.upstreamData[alias]. Declares tier:\"capability\" so ctx.secrets exists at all, and publishes a derived marker rather than the secret.",
     // The tier is the ASK. Drop it and ctx.secrets is undefined — by design.

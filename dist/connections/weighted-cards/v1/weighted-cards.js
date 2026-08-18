@@ -83,7 +83,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     connectionId: {
         type: "string",
         required: false,
-        description: "The sibling wire (lesson 67): which configured connection profile the chip pickers read.",
+        description: "The sibling wire (lesson 72): which configured connection profile the chip pickers read.",
         meta: {
             ui: { label: "Connection", order: 1 },
         },
@@ -182,7 +182,7 @@ function shade(hex) {
 const titleCase = (slug) => slug.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 exports.WeightedCardsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "70 · Weighted Cards",
+    label: "76 · Weighted Cards",
     version: 1,
     description: "Weights at both depths: a weights column SHARING the multi-select's key gives every card an auto-balancing share group over its own chips (two cells, one array — even sets round-trip as string[], customized as {id,weight}[]), and interWeightProp names a sibling number[] the strip drags to weigh the CARDS against each other. Render is the values wearing rectangles: row heights from mixWeights, chip widths from item shares.",
     capabilities: { tier: "core" },

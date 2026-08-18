@@ -23,7 +23,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ImageCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "23 · Image Card",
+    label: "28 · Image Card",
     version: 1,
     description: "One image through the whole media pipeline: raw path prop, host-side probe via ctx.media, slugified asset key, {kind:\"file\"} manifest entry, and a media source — with the contain-vs-cover fit decision on a knob.",
     capabilities: { tier: "core" },

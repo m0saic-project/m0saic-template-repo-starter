@@ -38,7 +38,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.CarvedTypeV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "35 · Carved Type",
+    label: "40 · Carved Type",
     version: 1,
     description: "The word becomes an inline-mask and the picture plays through it. textToPath makes glyphs into a path, the path clips an ordinary media source, and the source underneath can be anything — same mask, different wearer.",
     capabilities: { tier: "core" },

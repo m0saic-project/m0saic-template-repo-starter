@@ -49,7 +49,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ShapeMasksV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "36 · Shape Masks",
+    label: "41 · Shape Masks",
     version: 1,
     description: "There are no shape primitives — every shape is a color tile wearing an SVG path. Circle, ellipse, rounded rect and pill, each authored against the cell's own box, with the caption printing the path the engine actually gets.",
     capabilities: { tier: "core" },

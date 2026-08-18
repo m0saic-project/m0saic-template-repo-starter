@@ -80,7 +80,7 @@ const propsSchema = definePropsSchema<RefMirrorProps>({
 
 export const RefMirrorV1 = defineMosaicTemplate<RefMirrorProps>({
   id: asTemplateId(ID),
-  label: "50 · Ref Mirror",
+  label: "55 · Ref Mirror",
   version: 1,
   description:
     "A ref source mirrors another cell's rendered pixels by flattenedStableKey: the target renders once and every mirror reads the same intermediate, decorating its own copy. N mirrors, one decode.",
