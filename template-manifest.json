@@ -1000,6 +1000,77 @@
       "preview": {
         "image": "assets/templates/@m0saic-starter__connections__multi-select__v1/preview.png"
       }
+    },
+    {
+      "slug": "static-options",
+      "templateKey": "@m0saic-starter/controls/static-options/v1",
+      "title": "66 · Static Options",
+      "description": "The static option list: rows of value/label/description turn a string prop into segmented pills or a dropdown and a string[] into toggle pills. The lesson is the distinction — options is PRESENTATION, constraints.oneOf is VALIDATION, and they are independent: declare both for a true closed set, options alone to keep values open (the posture connection-backed props need).",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__static-options__v1/preview.png"
+      }
+    },
+    {
+      "slug": "row-editors",
+      "templateKey": "@m0saic-starter/controls/row-editors/v1",
+      "title": "67 · Row Editors",
+      "description": "An array-of-objects prop that edits like a form: flavor objectRows + columns (text / number / color cells) renders repeating rows with add and remove, and palette seeds new rows' colors so additions arrive on-brand. Same columns contract cardList grows into cards. Render gets the plain array and draws the breakdown bar this pattern most often feeds.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__row-editors__v1/preview.png"
+      }
+    },
+    {
+      "slug": "number-series",
+      "templateKey": "@m0saic-starter/controls/number-series/v1",
+      "title": "68 · Number Series",
+      "description": "Chart data edited as tabs of numeric rows: flavor numberSeries gives a json prop one tab per series, and the value round-trips flat (number[]) for one series and nested (number[][]) for several — render normalizes both, the tolerance that keeps hand-authored files working. numberList is the tab-less single-series sibling.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__number-series__v1/preview.png"
+      }
+    },
+    {
+      "slug": "weights",
+      "templateKey": "@m0saic-starter/controls/weights/v1",
+      "title": "69 · Weights",
+      "description": "A distribution the user drags: flavor weights + a schema-declared label set renders a number[] as an auto-balancing slider group holding a constant 100, one weight per label by order. Field and render both normalize forgiving-ly, and the render's bands are a weightedSplit fed directly by the prop — drag a slider, move a wall.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__weights__v1/preview.png"
+      }
+    },
+    {
+      "slug": "weighted-cards",
+      "templateKey": "@m0saic-starter/controls/weighted-cards/v1",
+      "title": "70 · Weighted Cards",
+      "description": "Weights at both depths: a weights column SHARING the multi-select's key gives each card an auto-balancing share group over its own chips (two cells, one array — even sets round-trip string[], customized {id,weight}[]), and interWeightProp names a sibling number[] weighing the cards against each other. Rows and chips in the render ARE those values.",
+      "tags": [
+        "controls",
+        "connections",
+        "lesson"
+      ],
+      "pack": "controls",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__controls__weighted-cards__v1/preview.png"
+      }
     }
   ],
   "packs": [
@@ -1062,6 +1133,11 @@
       "id": "connections",
       "title": "Connections",
       "description": "Teaching the host an upstream backend, and making Make richer for it: a registered connection with a keychain secret and a two-tick probe, pickers fetched live through the connectionId sibling wire, artwork card grids with lazily-resolved images, and grouped multi-select chips. The neutral upstream is examples/http-orchestrator; the values that reach render stay plain data either way."
+    },
+    {
+      "id": "controls",
+      "title": "Controls",
+      "description": "The rich editor tier — everything past a text box: option pills, repeating-row forms, tabbed number series, auto-balancing weight groups, and the weighted card editor that composes them with the connections chapter's pickers. Every lesson repeats one law: the control is edit-time sugar, and render must accept the plain data a hand editor would produce."
     }
   ]
 }

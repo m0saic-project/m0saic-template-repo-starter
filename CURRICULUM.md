@@ -1,6 +1,6 @@
 # Curriculum
 
-Sixty-five templates in twelve chapters. **One template teaches one thing** —
+Seventy templates in thirteen chapters. **One template teaches one thing** —
 read it top to bottom in a couple of minutes, then go turn its knobs in Make.
 
 Chapter order is the teaching order, and so is the order within a chapter.
@@ -257,6 +257,32 @@ whose images resolve lazily as data URIs, and cardList chips whose picker
 modal arrives sectioned by an option field. The chapter's through-line:
 **the connection enriches edit time only** — at render every prop is plain
 data, identical whether it was picked from a rich modal or typed by hand.
+
+## controls
+
+The rich editor tier — everything past a text box. The props chapter taught
+the scalar surface; this one teaches the controls that make complex values
+editable, and repeats one law in every lesson: **the control is edit-time
+sugar** — render receives plain data, often in more than one legal shape,
+and must normalize before drawing, because a hand-authored file deserves
+exactly what the rich editor produces.
+
+| # | Template | id |
+|---|---|---|
+| 66 | Static Options | `controls/static-options/v1` |
+| 67 | Row Editors | `controls/row-editors/v1` |
+| 68 | Number Series | `controls/number-series/v1` |
+| 69 | Weights | `controls/weights/v1` |
+| 70 | Weighted Cards | `controls/weighted-cards/v1` |
+
+66 draws the sharpest line in the chapter: `options` is presentation,
+`constraints.oneOf` is validation, and they are independent — declare both
+for a true closed set, options alone to keep values open. 67 and 68 are the
+form-instead-of-JSON pair (repeating rows; tabbed series with the
+flat-vs-nested round-trip). 69 and 70 are the weight pair: a fixed label
+set's auto-balancing group, then weights at both depths in the card editor —
+chips against chips and cards against cards, composed with the connections
+chapter's pickers.
 
 ---
 

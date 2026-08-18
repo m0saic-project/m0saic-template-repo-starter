@@ -32,6 +32,7 @@ import { dataTemplates } from "./data";
 import { surfacesTemplates } from "./surfaces";
 import { qualityTemplates } from "./quality";
 import { connectionsTemplates } from "./connections";
+import { controlsTemplates } from "./controls";
 
 export const repo = TEMPLATE_REPO;
 
@@ -49,6 +50,7 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...surfacesTemplates,
   ...qualityTemplates,
   ...connectionsTemplates,
+  ...controlsTemplates,
 ];
 
 // Library re-exports for anyone importing this repo as code. `export *`
@@ -67,4 +69,5 @@ export * from "./data";
 export * from "./surfaces";
 export * from "./quality";
 export * from "./connections";
+export * from "./controls";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };
