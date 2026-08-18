@@ -37,6 +37,7 @@ exports.templates = [
     ...basics_1.basicsTemplates,
     ...geometry_1.geometryTemplates,
     ...props_1.propsTemplates,
+    ...controls_1.controlsTemplates,
     ...media_1.mediaTemplates,
     ...text_1.textTemplates,
     ...masks_1.masksTemplates,
@@ -46,7 +47,6 @@ exports.templates = [
     ...surfaces_1.surfacesTemplates,
     ...quality_1.qualityTemplates,
     ...connections_1.connectionsTemplates,
-    ...controls_1.controlsTemplates,
 ];
 // Library re-exports for anyone importing this repo as code. `export *`
 // only for template modules — see the note in src/basics/index.ts for why

@@ -41,6 +41,7 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...basicsTemplates,
   ...geometryTemplates,
   ...propsTemplates,
+  ...controlsTemplates,
   ...mediaTemplates,
   ...textTemplates,
   ...masksTemplates,
@@ -50,7 +51,6 @@ export const templates: MosaicTemplate<MosaicTemplateProps>[] = [
   ...surfacesTemplates,
   ...qualityTemplates,
   ...connectionsTemplates,
-  ...controlsTemplates,
 ];
 
 // Library re-exports for anyone importing this repo as code. `export *`

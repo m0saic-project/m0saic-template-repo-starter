@@ -54,7 +54,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.CameraFollowV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "38 · Camera Follow",
+    label: "42 · Camera Follow",
     version: 1,
     description: "A keyframed camera walk described as rects and times: followCamera turns targets into per-frame focus expressions over a child mosaic's own coordinate space, with an optional pull-back — and viewport rects showing exactly what each settle will frame.",
     capabilities: { tier: "core" },

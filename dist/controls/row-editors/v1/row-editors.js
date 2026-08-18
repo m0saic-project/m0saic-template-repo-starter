@@ -85,7 +85,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.RowEditorsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "67 · Row Editors",
+    label: "20 · Row Editors",
     version: 1,
     description: "An array-of-objects prop that edits like a form: flavor objectRows + columns (text / number / color cells) renders a json prop as repeating rows with add and remove, and palette seeds new rows' colors so additions arrive on-brand. The columns contract is the same one cardList grows into cards — learn it once, use it four times. At render the prop is the plain array either way; here it draws the breakdown bar this pattern most often feeds.",
     capabilities: { tier: "core" },
@@ -178,7 +178,7 @@ exports.RowEditorsV1 = (0, template_utils_1.defineMosaicTemplate)({
         lines: [
             "flavor objectRows + columns turns an array-of-objects json prop into a repeating-row form - one row per entry, add and remove, right widget per cell.",
             "palette seeds the color cell of NEW rows, so additions arrive on-brand instead of black.",
-            "Same columns contract as cardList (lesson 65) - learn it once. Render gets the plain array either way and draws the breakdown.",
+            "Same columns contract cardList (lesson 70) grows into cards - learn it once. Render gets the plain array either way and draws the breakdown.",
         ],
         explore: [
             "Add a row - watch the palette seed its color",

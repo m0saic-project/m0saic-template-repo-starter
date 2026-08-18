@@ -129,7 +129,7 @@ const propsSchema = definePropsSchema<StaticOptionsProps>({
 
 export const StaticOptionsV1 = defineMosaicTemplate<StaticOptionsProps>({
   id: asTemplateId(ID),
-  label: "66 · Static Options",
+  label: "19 · Static Options",
   version: 1,
   description:
     "The static option list: declare rows of value/label/description and a string prop becomes segmented pills or a dropdown, a string[] becomes toggle pills. The lesson is the distinction — options is PRESENTATION, constraints.oneOf is VALIDATION, and they are independent: preset declares both (a true closed set), tracks declares options only (pills as convenience, values open — the same posture connection-backed props need). Choose per prop, on purpose.",

@@ -26,6 +26,7 @@ exports.CHAPTERS = [
     { pack: "basics", entries: registry_1.basicsRegistry },
     { pack: "geometry", entries: registry_2.geometryRegistry },
     { pack: "props", entries: registry_3.propsRegistry },
+    { pack: "controls", entries: registry_13.controlsRegistry },
     { pack: "media", entries: registry_4.mediaRegistry },
     { pack: "text", entries: registry_5.textRegistry },
     { pack: "masks", entries: registry_6.masksRegistry },
@@ -35,7 +36,6 @@ exports.CHAPTERS = [
     { pack: "surfaces", entries: registry_10.surfacesRegistry },
     { pack: "quality", entries: registry_11.qualityRegistry },
     { pack: "connections", entries: registry_12.connectionsRegistry },
-    { pack: "controls", entries: registry_13.controlsRegistry },
 ];
 /** Flat view over every chapter, in curriculum order. */
 exports.templateRegistry = exports.CHAPTERS.flatMap((chapter) => chapter.entries);

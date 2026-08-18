@@ -79,7 +79,7 @@ const propsSchema = definePropsSchema<NestedTemplateProps>({
 
 export const NestedTemplateV1 = defineMosaicTemplate<NestedTemplateProps>({
   id: asTemplateId(ID),
-  label: "36 · Nested Template",
+  label: "40 · Nested Template",
   version: 1,
   description:
     "renderNestedTemplate calls another registered template and returns a document to drop into children. The slot option is the lesson: hand the child its real pixel box and it lays itself out for that box instead of for your canvas.",

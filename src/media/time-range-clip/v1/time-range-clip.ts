@@ -71,7 +71,7 @@ const propsSchema = definePropsSchema<TimeRangeClipProps>({
 
 export const TimeRangeClipV1 = defineMosaicTemplate<TimeRangeClipProps>({
   id: asTemplateId(ID),
-  label: "22 · Time-Range Clip",
+  label: "26 · Time-Range Clip",
   version: 1,
   description:
     "The time-range picker pair: two number props ending in StartMs/EndMs (here clipStartMs and clipEndMs) with picker:\"time-range\" + videoFromProp render ONE scrubber with two handles — and the window lands on the source as playback.clipStartMs + clipDurationMs (start + LENGTH).",

@@ -73,6 +73,31 @@ declare themselves to the app, and failing usefully instead of silently.
 18 is the one to read before you ship anything: a thrown error is right for
 headless, but a renderable report card is right for a person.
 
+## controls
+
+The rich editor tier — everything past a text box. The props chapter taught
+the scalar surface; this one teaches the controls that make complex values
+editable, and repeats one law in every lesson: **the control is edit-time
+sugar** — render receives plain data, often in more than one legal shape,
+and must normalize before drawing, because a hand-authored file deserves
+exactly what the rich editor produces.
+
+| # | Template | id |
+|---|---|---|
+| 19 | Static Options | `controls/static-options/v1` |
+| 20 | Row Editors | `controls/row-editors/v1` |
+| 21 | Number Series | `controls/number-series/v1` |
+| 22 | Weights | `controls/weights/v1` |
+
+19 draws the sharpest line in the chapter: `options` is presentation,
+`constraints.oneOf` is validation, and they are independent — declare both
+for a true closed set, options alone to keep values open. 20 and 21 are the
+form-instead-of-JSON pair (repeating rows; tabbed series with the
+flat-vs-nested round-trip). 22 is the auto-balancing weight group over a
+fixed label set — and its grown-up sibling, weights composed with
+connection-backed pickers, deliberately lives at the END of the curriculum
+(`connections/weighted-cards`), where the upstream context it needs exists.
+
 ## media
 
 Files, folders, probes, and time — the whole media prop pipeline, plus the
@@ -80,27 +105,27 @@ host's `ctx.media` ffprobe registry.
 
 | # | Template | id |
 |---|---|---|
-| 19 | Image Card | `media/image-card/v1` |
-| 20 | Folder Contact Strip | `media/folder-contact-strip/v1` |
-| 21 | Probe Card | `media/probe-card/v1` |
-| 22 | Time-Range Clip | `media/time-range-clip/v1` |
-| 23 | Time-Ranges Medley | `media/time-ranges-medley/v1` |
-| 24 | Luma Badge | `media/luma-badge/v1` |
-| 25 | Play Speed | `media/play-speed/v1` |
-| 26 | Audio Mix | `media/audio-mix/v1` |
-| 27 | URL Asset | `media/url-asset/v1` |
+| 23 | Image Card | `media/image-card/v1` |
+| 24 | Folder Contact Strip | `media/folder-contact-strip/v1` |
+| 25 | Probe Card | `media/probe-card/v1` |
+| 26 | Time-Range Clip | `media/time-range-clip/v1` |
+| 27 | Time-Ranges Medley | `media/time-ranges-medley/v1` |
+| 28 | Luma Badge | `media/luma-badge/v1` |
+| 29 | Play Speed | `media/play-speed/v1` |
+| 30 | Audio Mix | `media/audio-mix/v1` |
+| 31 | URL Asset | `media/url-asset/v1` |
 
 ## text
 
-Text that renders identically in the app and the CLI. 28 puts the three glyph
+Text that renders identically in the app and the CLI. 32 puts the three glyph
 pipelines side by side; the rest go deep on one each.
 
 | # | Template | id |
 |---|---|---|
-| 28 | Text, Three Ways | `text/text-three-ways/v1` |
-| 29 | Fit Text | `text/fit-text/v1` |
-| 30 | Count Up | `text/count-up/v1` |
-| 31 | Carved Type | `text/carved-type/v1` |
+| 32 | Text, Three Ways | `text/text-three-ways/v1` |
+| 33 | Fit Text | `text/fit-text/v1` |
+| 34 | Count Up | `text/count-up/v1` |
+| 35 | Carved Type | `text/carved-type/v1` |
 
 Nothing soft-wraps. Read 29 before you put a user-supplied string on a canvas.
 
@@ -111,8 +136,8 @@ path, authored against its own cell.
 
 | # | Template | id |
 |---|---|---|
-| 32 | Shape Masks | `masks/shape-masks/v1` |
-| 33 | Path Mask | `masks/path-mask/v1` |
+| 36 | Shape Masks | `masks/shape-masks/v1` |
+| 37 | Path Mask | `masks/path-mask/v1` |
 
 ## compose
 
@@ -120,17 +145,17 @@ Documents inside documents, and the refactor all of it enables.
 
 | # | Template | id |
 |---|---|---|
-| 34 | Child Mosaic | `compose/child-mosaic/v1` |
-| 35 | Rotate Headroom | `compose/rotate-headroom/v1` |
-| 36 | Nested Template | `compose/nested-template/v1` |
-| 37 | Nested Badge (internal) | `compose/nested-badge/v1` |
-| 38 | Camera Follow | `compose/camera-follow/v1` |
-| 39 | Theme Provider | `compose/theme-provider/v1` |
-| 40 | Theme Tokens | `compose/theme-tokens/v1` |
-| 41 | Reduce to One | `compose/reduce-to-one/v1` |
+| 38 | Child Mosaic | `compose/child-mosaic/v1` |
+| 39 | Rotate Headroom | `compose/rotate-headroom/v1` |
+| 40 | Nested Template | `compose/nested-template/v1` |
+| 41 | Nested Badge (internal) | `compose/nested-badge/v1` |
+| 42 | Camera Follow | `compose/camera-follow/v1` |
+| 43 | Theme Provider | `compose/theme-provider/v1` |
+| 44 | Theme Tokens | `compose/theme-tokens/v1` |
+| 45 | Reduce to One | `compose/reduce-to-one/v1` |
 
-39 and 40 are a pair — the provider hands a theme down, the consumer takes it.
-37 is a sub-template of 36 rather than a standalone lesson.
+43 and 44 are a pair — the provider hands a theme down, the consumer takes it.
+41 is a sub-template of 40 rather than a standalone lesson.
 
 ## pipelines
 
@@ -139,16 +164,16 @@ single vs multi, encodes as a separate axis, and ref sources.
 
 | # | Template | id |
 |---|---|---|
-| 42 | Two Scenes | `pipelines/two-scenes/v1` |
-| 43 | Fan Out | `pipelines/fan-out/v1` |
-| 44 | PNG Sequence | `pipelines/png-sequence/v1` |
-| 45 | Encode Matrix | `pipelines/encode-matrix/v1` |
-| 46 | Ref Mirror | `pipelines/ref-mirror/v1` |
-| 47 | Ref Across Steps | `pipelines/ref-across-steps/v1` |
-| 48 | Ref Reframe | `pipelines/ref-reframe/v1` |
-| 49 | Nested Pipeline | `pipelines/nested-pipeline/v1` |
+| 46 | Two Scenes | `pipelines/two-scenes/v1` |
+| 47 | Fan Out | `pipelines/fan-out/v1` |
+| 48 | PNG Sequence | `pipelines/png-sequence/v1` |
+| 49 | Encode Matrix | `pipelines/encode-matrix/v1` |
+| 50 | Ref Mirror | `pipelines/ref-mirror/v1` |
+| 51 | Ref Across Steps | `pipelines/ref-across-steps/v1` |
+| 52 | Ref Reframe | `pipelines/ref-reframe/v1` |
+| 53 | Nested Pipeline | `pipelines/nested-pipeline/v1` |
 
-46–48 are a run on ref sources: mirror pixels inside a document, carry them
+50–52 are a run on ref sources: mirror pixels inside a document, carry them
 across a step boundary, then wear them differently. **Never hand-write a
 `flattenedStableKey`** — compute it with `findStableKeys`. A wrong key renders
 silently black and exits 0.
@@ -160,14 +185,14 @@ write files beside the deliverable.
 
 | # | Template | id |
 |---|---|---|
-| 50 | Fixture Fetcher | `data/fixture-fetcher/v1` |
-| 51 | Pure Adapter | `data/pure-adapter/v1` |
-| 52 | Data Card | `data/data-card/v1` |
-| 53 | Sidecar JSON | `data/sidecar-json/v1` |
-| 54 | Sidecar Text | `data/sidecar-text/v1` |
+| 54 | Fixture Fetcher | `data/fixture-fetcher/v1` |
+| 55 | Pure Adapter | `data/pure-adapter/v1` |
+| 56 | Data Card | `data/data-card/v1` |
+| 57 | Sidecar JSON | `data/sidecar-json/v1` |
+| 58 | Sidecar Text | `data/sidecar-text/v1` |
 
-50 → 51 → 52 is a chain, and **Make invokes one template at a time**, so
-opening 51 or 52 alone shows them with nothing upstream — by construction.
+54 → 55 → 56 is a chain, and **Make invokes one template at a time**, so
+opening 55 or 56 alone shows them with nothing upstream — by construction.
 `examples/data-chain/starter-data-chain.mosaicx` is the only way to see the
 lesson whole:
 
@@ -182,13 +207,13 @@ dispatch, all editor-only and all opt-in.
 
 | # | Template | id |
 |---|---|---|
-| 55 | Render Lite | `surfaces/render-lite/v1` |
-| 56 | Render Cover | `surfaces/render-cover/v1` |
-| 57 | Render Tutorial | `surfaces/render-tutorial/v1` |
+| 59 | Render Lite | `surfaces/render-lite/v1` |
+| 60 | Render Cover | `surfaces/render-cover/v1` |
+| 61 | Render Tutorial | `surfaces/render-tutorial/v1` |
 
 `renderLite` is the only one that falls back to `render` when absent; a cover
 or tutorial that is not declared simply does not happen, and hosts never
-synthesize one. 57 is the only template in the repo that builds its own
+synthesize one. 61 is the only template in the repo that builds its own
 tutorial instead of using the standard page — doing that is what it teaches.
 
 ## quality
@@ -198,25 +223,25 @@ tripwires that cost nothing until you turn them on.
 
 | # | Template | id |
 |---|---|---|
-| 58 | Layout Contract Card | `quality/layout-contract-card/v1` |
-| 59 | Geometry Contract Card | `quality/geometry-contract-card/v1` |
-| 60 | Below the Floor | `quality/below-the-floor/v1` |
-| 61 | Why the Floors Cross | `quality/why-the-floors-cross/v1` |
+| 62 | Layout Contract Card | `quality/layout-contract-card/v1` |
+| 63 | Geometry Contract Card | `quality/geometry-contract-card/v1` |
+| 64 | Below the Floor | `quality/below-the-floor/v1` |
+| 65 | Why the Floors Cross | `quality/why-the-floors-cross/v1` |
 
-58 and 59 sit together because their identities differ, and the difference is
+62 and 63 sit together because their identities differ, and the difference is
 the lesson: a **label** survives every m0 the template regenerates and carries
 canvas-independent ratios; a **stableKey** addresses one specific string
 exactly and carries pixel assertions. Both wrappers return your document
 untouched when `debug` is falsy, which is what lets the call stay in shipped
 code.
 
-60 is the one to read if you only read one. A layout has **two independent
+64 is the one to read if you only read one. A layout has **two independent
 minimum sizes** — feasibility (renders at all) and precision (looks right) —
 and missing them fails in opposite ways: the engine refuses loudly, or it
 renders something wrong and says nothing. One design walks all three states.
 
-60 and 61 are a pair the same way 58 and 59 are. 60 shows the two floors and
-how each one fails; 61 answers the question that follows — **for the layouts
+64 and 65 are a pair the same way 62 and 63 are. 64 shows the two floors and
+how each one fails; 65 answers the question that follows — **for the layouts
 you actually build, which number is the one to watch, and why does it land in
 the hundreds?** It teaches in two registers. Synthetic shapes show the
 mechanism: one stat card is precision-high on its own; six in a strip and
@@ -239,50 +264,27 @@ instead).
 
 | # | Template | id |
 |---|---|---|
-| 62 | Host Connection | `connections/host-connection/v1` |
-| 63 | Options From a Connection | `connections/options-select/v1` |
-| 64 | Cards Picker | `connections/cards-picker/v1` |
-| 65 | Connection Multi-Select | `connections/multi-select/v1` |
+| 66 | Host Connection | `connections/host-connection/v1` |
+| 67 | Options From a Connection | `connections/options-select/v1` |
+| 68 | Cards Picker | `connections/cards-picker/v1` |
+| 69 | Connection Multi-Select | `connections/multi-select/v1` |
+| 70 | Weighted Cards | `connections/weighted-cards/v1` |
 
-62 registers `starter-catalog@default`: the Settings → Integrations form (a
+66 registers `starter-catalog@default`: the Settings → Integrations form (a
 base URL plus a keychain-stored key) and the Test-connection probe's two
 ticks. Registration is a module-eval side effect — the chapter's one
 deliberate exception to "no self-registration" — and it is part of the
 Add-source consent surface (`docs/security.md`).
 
-63–65 are the pickers, in rising richness: live-fetched options resolved
-through the **`connectionId` sibling wire** (the prop every
-connection-backed control reads its profile from), an artwork card grid
-whose images resolve lazily as data URIs, and cardList chips whose picker
-modal arrives sectioned by an option field. The chapter's through-line:
-**the connection enriches edit time only** — at render every prop is plain
-data, identical whether it was picked from a rich modal or typed by hand.
-
-## controls
-
-The rich editor tier — everything past a text box. The props chapter taught
-the scalar surface; this one teaches the controls that make complex values
-editable, and repeats one law in every lesson: **the control is edit-time
-sugar** — render receives plain data, often in more than one legal shape,
-and must normalize before drawing, because a hand-authored file deserves
-exactly what the rich editor produces.
-
-| # | Template | id |
-|---|---|---|
-| 66 | Static Options | `controls/static-options/v1` |
-| 67 | Row Editors | `controls/row-editors/v1` |
-| 68 | Number Series | `controls/number-series/v1` |
-| 69 | Weights | `controls/weights/v1` |
-| 70 | Weighted Cards | `controls/weighted-cards/v1` |
-
-66 draws the sharpest line in the chapter: `options` is presentation,
-`constraints.oneOf` is validation, and they are independent — declare both
-for a true closed set, options alone to keep values open. 67 and 68 are the
-form-instead-of-JSON pair (repeating rows; tabbed series with the
-flat-vs-nested round-trip). 69 and 70 are the weight pair: a fixed label
-set's auto-balancing group, then weights at both depths in the card editor —
-chips against chips and cards against cards, composed with the connections
-chapter's pickers.
+The pickers rise in richness: live-fetched options resolved through the
+**`connectionId` sibling wire** (the prop every connection-backed control
+reads its profile from), an artwork card grid whose images resolve lazily
+as data URIs, cardList chips whose picker modal arrives sectioned by an
+option field, and finally weighted cards — the controls chapter's weight
+machinery composed with the connection pickers, weighing chips within a
+card and cards against each other. The chapter's through-line: **the
+connection enriches edit time only** — at render every prop is plain data,
+identical whether it was picked from a rich modal or typed by hand.
 
 ---
 

@@ -25,6 +25,7 @@ export const CHAPTERS: StarterChapter[] = [
   { pack: "basics", entries: basicsRegistry },
   { pack: "geometry", entries: geometryRegistry },
   { pack: "props", entries: propsRegistry },
+  { pack: "controls", entries: controlsRegistry },
   { pack: "media", entries: mediaRegistry },
   { pack: "text", entries: textRegistry },
   { pack: "masks", entries: masksRegistry },
@@ -34,7 +35,6 @@ export const CHAPTERS: StarterChapter[] = [
   { pack: "surfaces", entries: surfacesRegistry },
   { pack: "quality", entries: qualityRegistry },
   { pack: "connections", entries: connectionsRegistry },
-  { pack: "controls", entries: controlsRegistry },
 ];
 
 /** Flat view over every chapter, in curriculum order. */

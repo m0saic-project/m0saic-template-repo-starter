@@ -19,8 +19,9 @@
  *                                   never rides the options list itself
  *
  * Failure model: fetchers THROW on any upstream problem. The host IPC turns
- * that into `{ ok:false, reason }`, and the editor falls back to the prop's
- * static `options` list — lessons 63-65 lean on exactly that degrade path.
+ * that into `{ ok:false, reason }` and the control surfaces the error state
+ * (the documented static-`options` swap-in is not implemented yet — see the
+ * monorepo drift candidate). Values already picked keep rendering.
  * Registration is a module-eval side effect, same as ./connection.ts.
  */
 

@@ -32,7 +32,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ReduceToOneV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "41 · Reduce to One",
+    label: "45 · Reduce to One",
     version: 1,
     description: "The same grid spelled two ways: inline (the parent's m0 grows with the density) or pushed into a child (the parent stays one cell). Identical pixels, and the caption prints both string lengths so the refactor's cost and benefit are numbers.",
     capabilities: { tier: "core" },

@@ -82,7 +82,7 @@ const propsSchema = definePropsSchema<TimeRangesMedleyProps>({
 
 export const TimeRangesMedleyV1 = defineMosaicTemplate<TimeRangesMedleyProps>({
   id: asTemplateId(ID),
-  label: "23 · Time-Ranges Medley",
+  label: "27 · Time-Ranges Medley",
   version: 1,
   description:
     "The MULTI-range control: one type:\"json\" prop (Array<{startMs,endMs,label?}>) with picker:\"time-ranges\" — the editor's multi-range studio writes the whole array through it. Every window renders as its own medley column via clipStartMs + clipDurationMs, mapped over the array.",

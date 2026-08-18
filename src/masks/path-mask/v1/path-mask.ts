@@ -122,7 +122,7 @@ const propsSchema = definePropsSchema<PathMaskProps>({
 
 export const PathMaskV1 = defineMosaicTemplate<PathMaskProps>({
   id: asTemplateId(ID),
-  label: "33 · Path Mask",
+  label: "37 · Path Mask",
   version: 1,
   description:
     "A donut, and the two rules behind it: a shape inside another cuts a hole only when it is DRAWN the other way round (the two directions cancel; draw them the same way and the middle fills in silently), and `matte` renders the area outside the path at a chosen alpha instead of clipping it away.",

@@ -84,7 +84,7 @@ const propsSchema = definePropsSchema<EncodeMatrixProps>({
 
 export const EncodeMatrixV1 = defineMosaicTemplate<EncodeMatrixProps>({
   id: asTemplateId(ID),
-  label: "45 · Encode Matrix",
+  label: "49 · Encode Matrix",
   version: 1,
   description:
     "One render, many deliverables, no pipeline: `encodes` declares post-render transcode passes off a single workspace master. Codec, container and even size (as a stretching scale pass) — but never fps, duration or layout.",

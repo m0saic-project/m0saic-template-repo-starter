@@ -61,7 +61,7 @@ const propsSchema = definePropsSchema<ImageCardProps>({
 
 export const ImageCardV1 = defineMosaicTemplate<ImageCardProps>({
   id: asTemplateId(ID),
-  label: "19 · Image Card",
+  label: "23 · Image Card",
   version: 1,
   description:
     "One image through the whole media pipeline: raw path prop, host-side probe via ctx.media, slugified asset key, {kind:\"file\"} manifest entry, and a media source — with the contain-vs-cover fit decision on a knob.",

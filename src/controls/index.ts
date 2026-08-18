@@ -4,7 +4,6 @@ import { StaticOptionsV1 } from "./static-options/v1/static-options";
 import { RowEditorsV1 } from "./row-editors/v1/row-editors";
 import { NumberSeriesV1 } from "./number-series/v1/number-series";
 import { WeightsV1 } from "./weights/v1/weights";
-import { WeightedCardsV1 } from "./weighted-cards/v1/weighted-cards";
 
 /** Chapter `controls`, in teaching order (mirrors ./registry.ts). */
 export const controlsTemplates: MosaicTemplate<MosaicTemplateProps>[] = [
@@ -12,7 +11,6 @@ export const controlsTemplates: MosaicTemplate<MosaicTemplateProps>[] = [
   RowEditorsV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
   NumberSeriesV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
   WeightsV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
-  WeightedCardsV1 as unknown as MosaicTemplate<MosaicTemplateProps>,
 ];
 
 // `export *` ONLY — see the note in src/basics/index.ts for why the
@@ -21,4 +19,3 @@ export * from "./static-options/v1/static-options";
 export * from "./row-editors/v1/row-editors";
 export * from "./number-series/v1/number-series";
 export * from "./weights/v1/weights";
-export * from "./weighted-cards/v1/weighted-cards";

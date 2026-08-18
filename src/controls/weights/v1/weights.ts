@@ -122,7 +122,7 @@ function shade(hex: string): MosaicColor {
 
 export const WeightsV1 = defineMosaicTemplate<WeightsProps>({
   id: asTemplateId(ID),
-  label: "69 · Weights",
+  label: "22 · Weights",
   version: 1,
   description:
     "A distribution the user drags, not numbers the user types: flavor weights plus a schema-declared label set renders a number[] prop as an auto-balancing slider group holding a constant 100. One weight per label, order-paired — the labels live in the schema so the value stays pure numbers. Both the field and this render normalize forgiving-ly (stale or hand-typed values become a sane distribution), and the bands below are a weightedSplit fed directly by the prop: drag a slider, move a wall.",

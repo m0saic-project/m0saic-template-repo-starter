@@ -64,7 +64,7 @@ function resolve(props) {
 }
 exports.RenderLiteV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "55 · Render Lite",
+    label: "59 · Render Lite",
     version: 1,
     description: "The preview stand-in. Declares renderLite so the editor draws a cheap card while you poke props, and the real N-by-N grid renders only on Make — the one surface that falls back to render when absent, instead of vanishing.",
     capabilities: { tier: "core" },

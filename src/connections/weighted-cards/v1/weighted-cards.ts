@@ -15,13 +15,13 @@ import {
 
 import { fitSvgLines, fitSvgText, svgTextSource } from "../../../_shared/svg-text";
 import { lessonTutorial } from "../../../_shared/tutorial";
-import { ITEMS_KIND } from "../../../connections/fetchers";
+import { ITEMS_KIND } from "../../fetchers";
 
 /**
- * `@m0saic-starter/controls/weighted-cards/v1` — weights at BOTH depths:
+ * `@m0saic-starter/connections/weighted-cards/v1` — weights at BOTH depths:
  * chips against chips inside a card, and cards against each other.
  *
- * ONE CONCEPT: the weighted `cardList`. Two declarations extend lesson 65's
+ * ONE CONCEPT: the weighted `cardList`. Two declarations extend lesson 69's
  * card editor into a proportion instrument:
  *
  *  - a `weights` COLUMN sharing the multi-select's key ("itemIds") — two
@@ -57,7 +57,7 @@ export type WeightedCardsProps = {
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const SLUG = /^[a-z0-9-]+$/;
-const ID = "@m0saic-starter/controls/weighted-cards/v1";
+const ID = "@m0saic-starter/connections/weighted-cards/v1";
 const MAX_MIXES = 3;
 const MAX_CHIPS = 5;
 
@@ -136,7 +136,7 @@ const propsSchema = definePropsSchema<WeightedCardsProps>({
     type: "string",
     required: false,
     description:
-      "The sibling wire (lesson 63): which configured connection profile the chip pickers read.",
+      "The sibling wire (lesson 67): which configured connection profile the chip pickers read.",
     meta: {
       ui: { label: "Connection", order: 1 },
     },

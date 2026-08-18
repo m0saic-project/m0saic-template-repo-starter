@@ -116,7 +116,7 @@ const propsSchema = definePropsSchema<FixtureFetcherProps>({
 
 export const FixtureFetcherV1 = defineMosaicTemplate<FixtureFetcherProps>({
   id: asTemplateId(ID),
-  label: "50 · Fixture Fetcher",
+  label: "54 · Fixture Fetcher",
   version: 1,
   description:
     "Where data enters: a fetcher publishes a JSON payload as a type:\"data\" source and downstream templates read it as ctx.upstreamData[alias]. Declares tier:\"capability\" so ctx.secrets exists at all, and publishes a derived marker rather than the secret.",

@@ -20,7 +20,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.UrlAssetV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "27 · URL Asset",
+    label: "31 · URL Asset",
     version: 1,
     description: "The {kind:\"url\"} asset: a manifest entry pointing at remote media the HOST fetches at render time — with the costs stated on canvas: offline fails, bytes can drift, no probe before fetch. Prefer {kind:\"file\"} for anything reproducible.",
     capabilities: { tier: "core" },

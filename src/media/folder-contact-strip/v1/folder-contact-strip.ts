@@ -49,7 +49,7 @@ const propsSchema = definePropsSchema<FolderContactStripProps>({
 
 export const FolderContactStripV1 = defineMosaicTemplate<FolderContactStripProps>({
   id: asTemplateId(ID),
-  label: "20 · Folder Contact Strip",
+  label: "24 · Folder Contact Strip",
   version: 1,
   description:
     "type:\"media[]\" + the folder picker: the prop arrives as an array of raw paths, each probed by the host — the template maps them to per-file asset entries and media sources, and the strip resplits to the count (first 8).",

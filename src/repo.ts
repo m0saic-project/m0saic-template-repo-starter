@@ -50,6 +50,12 @@ export const TEMPLATE_PACKS: MosaicTemplatePackDescriptor[] = [
       "The typed props surface as runnable lessons: one knob of every scalar type, seeded determinism, self-declaring color controls, structured json data, the meta/control affordances, and failing usefully with makeErrorMosaic.",
   },
   {
+    id: "controls",
+    title: "Controls",
+    description:
+      "The rich editor tier — everything past a text box: option pills, repeating-row forms, tabbed number series, auto-balancing weight groups, and the weighted card editor that composes them with the connections chapter's pickers. Every lesson repeats one law: the control is edit-time sugar, and render must accept the plain data a hand editor would produce.",
+  },
+  {
     id: "media",
     title: "Media",
     description:
@@ -102,11 +108,5 @@ export const TEMPLATE_PACKS: MosaicTemplatePackDescriptor[] = [
     title: "Connections",
     description:
       "Teaching the host an upstream backend, and making Make richer for it: a registered connection with a keychain secret and a two-tick probe, pickers fetched live through the connectionId sibling wire, artwork card grids with lazily-resolved images, and grouped multi-select chips. The neutral upstream is examples/http-orchestrator; the values that reach render stay plain data either way.",
-  },
-  {
-    id: "controls",
-    title: "Controls",
-    description:
-      "The rich editor tier — everything past a text box: option pills, repeating-row forms, tabbed number series, auto-balancing weight groups, and the weighted card editor that composes them with the connections chapter's pickers. Every lesson repeats one law: the control is edit-time sugar, and render must accept the plain data a hand editor would produce.",
   },
 ];

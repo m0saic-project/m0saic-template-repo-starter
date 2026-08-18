@@ -65,7 +65,7 @@ function frameDoc(index, total, width, height, fps) {
 }
 exports.PngSequenceV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "44 · PNG Sequence",
+    label: "48 · PNG Sequence",
     version: 1,
     description: "A frame sequence is emit:\"multi\" where every step is an image: each step declares format {kind:\"image\", container:\"png\"} and the engine writes one PNG per step. Zero-padded step names are the template's job — the engine only guarantees the name it was given.",
     capabilities: { tier: "core" },

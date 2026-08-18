@@ -155,7 +155,7 @@ function producerStep(
 
 export const RefReframeV1 = defineMosaicTemplate<RefReframeProps>({
   id: asTemplateId(ID),
-  label: "48 · Ref Reframe",
+  label: "52 · Ref Reframe",
   version: 1,
   description:
     "A mirror whose slot differs in shape and length: placement.fit reframes the pixels and playback.loopMode fills the tail (loop, freeze or cut). Nothing is re-rendered — one intermediate, per-consumer decoration.",

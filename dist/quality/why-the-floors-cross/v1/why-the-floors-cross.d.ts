@@ -3,7 +3,7 @@
  * for the layouts people actually build, shown twice: once with synthetic
  * shapes where the numbers are legible, and once with REAL production m0.
  *
- * ONE CONCEPT: lesson 60 showed the two floors and how each fails. This one
+ * ONE CONCEPT: lesson 64 showed the two floors and how each fails. This one
  * shows which number is the one to watch — and that ordinary, non-math
  * design decisions push it into the hundreds. Five layouts, two registers:
  *

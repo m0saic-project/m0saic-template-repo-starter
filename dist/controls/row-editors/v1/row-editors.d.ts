@@ -10,7 +10,7 @@
  * cell of NEW rows, so added entries arrive on-brand instead of black.
  *
  * The same declaration family drives the richer editors nearby — `cardList`
- * (lesson 65) is objectRows grown into reorderable cards with composite
+ * (connections/weighted-cards, lesson 70) is objectRows grown into reorderable cards with composite
  * cells — so learning the columns contract once pays four times.
  *
  * As always: the editor machinery is EDIT-time sugar. Render receives the

@@ -52,7 +52,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.AudioMixV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "26 · Audio Mix",
+    label: "30 · Audio Mix",
     version: 1,
     description: "Two audio tracks, one mix: audio sources enter like any media but contribute no pixels — per-source audio.volume sets the blend, and the mute idiom keeps a silenced source IN the document (audio.enabled=false) so tile indices never shift. The canvas is the mixer's meter.",
     capabilities: { tier: "core" },

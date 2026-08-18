@@ -83,7 +83,7 @@ const propsSchema = definePropsSchema<CardsPickerProps>({
     type: "string",
     required: false,
     description:
-      "The sibling wire (lesson 63): which configured connection profile the artwork picker resolves against.",
+      "The sibling wire (lesson 67): which configured connection profile the artwork picker resolves against.",
     meta: {
       ui: { label: "Connection", order: 1 },
     },
@@ -118,7 +118,7 @@ const propsSchema = definePropsSchema<CardsPickerProps>({
 
 export const CardsPickerV1 = defineMosaicTemplate<CardsPickerProps>({
   id: asTemplateId(ID),
-  label: "64 · Cards Picker",
+  label: "68 · Cards Picker",
   version: 1,
   description:
     "Pick upstream results by their artwork: picker \"cards\" turns a string[] prop's connection-backed multi-select into an image-card grid. cardAspect and cardFit are declared by the template because they are properties of the connection kind being queried (wide cover-fit for catalog stills); the heavy art itself rides a companion images fetcher, resolved lazily per visible page as data URIs, never inlined into the options list. At render the prop is a plain string[] — the artwork's only job was making the pick rich.",
