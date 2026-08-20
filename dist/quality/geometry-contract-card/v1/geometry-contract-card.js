@@ -8,10 +8,12 @@ const svg_text_1 = require("../../../_shared/svg-text");
 const tutorial_1 = require("../../../_shared/tutorial");
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const ID = "@m0saic-starter/quality/geometry-contract-card/v1";
-/** The chip is the bottom band: one sixth of the canvas height. */
+/** The chip is a MID-canvas band, one sixth of the height — mid, not bottom,
+ *  so the contract view's amber intended-ghost has room to outgrow it. */
 const CHIP_ROWS = 1;
-const CARD_ROWS = 5;
-const TOTAL_ROWS = CHIP_ROWS + CARD_ROWS;
+const ABOVE_ROWS = 3;
+const BELOW_ROWS = 2;
+const TOTAL_ROWS = ABOVE_ROWS + CHIP_ROWS + BELOW_ROWS;
 /**
  * The checker's own default, restated here so the caption can name it. A
  * realized edge may sit 1px off its intent without that being a defect — an
@@ -61,7 +63,7 @@ exports.GeometryContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
     label: "71 · Geometry Contract Card",
     version: 1,
-    description: "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and prove it survived to the pixels at this canvas.",
+    description: "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and debug on DRAWS the verdict: the chip green when intent survived, or realized-red vs intended-amber-ghost with the drift visible as the gap.",
     capabilities: { tier: "core" },
     tags: ["quality", "contracts", "lesson"],
     outputHints: {
@@ -69,7 +71,7 @@ exports.GeometryContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
-        note: "Debug geometry on + a contract offset of 2 or more = the contract fires. 1 is inside tolerance.",
+        note: "Debug geometry on = the chip drawn green. Offset 2+ = realized red vs intended amber ghost. 1 is inside tolerance.",
     },
     propsSchema,
     defaultProps: {
@@ -93,13 +95,14 @@ exports.GeometryContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
             throw new Error(`${ID}: contractOffsetPx ${offset} out of range 0-40.`);
         }
         const { width, height } = ctx.target;
-        // A card band over a chip band, 5:1. Built with the splitter rather than
-        // hand-written: a `0` donates to the NEXT tile, so the literal that LOOKS
-        // like "card first" (`6[1{1},0,0,0,0,1]`) actually hands five sixths to
-        // the chip. This lesson's own contract caught that while it was being
-        // written, which is as good an argument for the contract as any.
-        const m0 = (0, dsl_stdlib_1.weightedSplit)([CARD_ROWS, CHIP_ROWS], "row", {
-            claimants: ["1{1}", "1"],
+        // Card band, chip band, empty space — 3:1:2. Built with the splitter
+        // rather than hand-written: a `0` donates to the NEXT tile, so a literal
+        // that LOOKS right can hand its share to the wrong band. This lesson's
+        // own contract caught exactly that while it was being written, which is
+        // as good an argument for the contract as any. The trailing `-` band is
+        // deliberate: it is where the amber intended-ghost shows on a violation.
+        const m0 = (0, dsl_stdlib_1.weightedSplit)([ABOVE_ROWS, CHIP_ROWS, BELOW_ROWS], "row", {
+            claimants: ["1{1}", "1", "-"],
         });
         // THE INTENT, in pixels. The engine distributes an equal row split
         // outside-in, so the chip's height is what integer division leaves.
@@ -162,11 +165,13 @@ exports.GeometryContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         lines: [
             "A template computes rects in JS and throws the intent away at return - so a quantization squash gives a healthy m0 and a wrong picture.",
             "Declare the box you meant and check it survived AT THIS CANVAS. Select it by a stableKey you COMPUTE with findStableKeys - never one you typed.",
-            "tolerancePx defaults to 1: an exact ratio still lands on integers, so a 1px gap is healthy rounding and passes on purpose.",
+            "Debug on DRAWS the verdict: a green chip when intent survived; realized RED vs intended AMBER ghost when not.",
+            "A 1px gap stays green on purpose - tolerancePx defaults to 1, healthy rounding.",
         ],
         explore: [
-            "Debug geometry on, Contract offset 1 - nothing, that is tolerance",
-            "Raise it to 2 - now the contract fires",
+            "Debug geometry on - the chip goes green, 1 element exact",
+            "Contract offset 1 - still green, that is tolerance",
+            "Raise it to 2 - red chip, amber ghost poking out below",
         ],
     }),
 });

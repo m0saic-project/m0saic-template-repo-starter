@@ -24,7 +24,7 @@ exports.qualityRegistry = [
         templateId: "@m0saic-starter/quality/layout-contract-card/v1",
         exportName: "LayoutContractCardV1",
         title: "70 · Layout Contract Card",
-        description: "Ratio invariants authored against LABELS, which survive every m0 the template regenerates — unlike tile order and stableKeys, which do not. Push the sidebar past 40% with the contract on and the render becomes the violation report, at exactly the canvas that broke.",
+        description: "Ratio invariants authored against LABELS, which survive every m0 the template regenerates. One relation makes four cards equal; debug on DRAWS the contract — green members with the measured rule, or the stretched card red among them.",
         tags: ["quality", "contracts", "lesson"],
     },
     {
@@ -32,7 +32,7 @@ exports.qualityRegistry = [
         templateId: "@m0saic-starter/quality/geometry-contract-card/v1",
         exportName: "GeometryContractCardV1",
         title: "71 · Geometry Contract Card",
-        description: "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and prove it survived to the pixels at this canvas.",
+        description: "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and debug on DRAWS the verdict: the chip green when intent survived, or realized-red vs intended-amber-ghost with the drift visible as the gap.",
         tags: ["quality", "contracts", "lesson"],
     },
     {

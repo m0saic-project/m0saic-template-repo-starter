@@ -27,9 +27,13 @@
  * for canvas-independent ratios that outlive the string; STABLEKEYS are for
  * exact px assertions against one specific string. Different jobs.)
  *
- * THE GATE: `debug` falsy returns the document UNTOUCHED at zero cost — same
- * reference, no parse. On a violation the render SURVIVES and becomes a
- * GEOMETRY_CONTRACT card telling you where and why.
+ * THE GATE, now visual: `debug` falsy returns the document UNTOUCHED at zero
+ * cost — same reference, no parse. Turn it on and the render becomes the
+ * CONTRACT VIEW, in both directions:
+ *
+ *   - intent survived -> the chip drawn GREEN, banner "1 element exact".
+ *   - intent broken   -> the REALIZED box red and the INTENDED box an amber
+ *     ghost outline — the drift is the visible gap between the two.
  *
  * TOLERANCE IS PART OF THE CONTRACT: `tolerancePx` defaults to 1, because an
  * exact ratio still has to land on integers and ±1px is what healthy
@@ -37,11 +41,12 @@
  * to 0 only where byte-exactness really is the contract (inset recovery).
  *
  * Watch it fire: turn Debug geometry on, then raise "Contract offset" to 2 or
- * more. The chip never moves — it is always a sixth of the canvas. The knob
- * moves what the CONTRACT ASKS FOR, because manufacturing the mismatch on the
- * expectation side is the only way to demonstrate it without faking engine
- * behavior. At 1 you will see nothing happen, and that is the tolerance
- * doing its job.
+ * more — the amber intended box grows past the red chip by exactly the
+ * offset. The chip never moves; the knob moves what the CONTRACT ASKS FOR,
+ * because manufacturing the mismatch on the expectation side is the only way
+ * to demonstrate it without faking engine behavior. At 1 you will see the
+ * green view — that is the tolerance doing its job. (The chip sits
+ * mid-canvas so the ghost has room to show below it.)
  */
 export type GeometryContractCardProps = {
     /** Run the geometry contract and render violations. */

@@ -248,7 +248,12 @@ the lesson: a **label** survives every m0 the template regenerates and carries
 canvas-independent ratios; a **stableKey** addresses one specific string
 exactly and carries pixel assertions. Both wrappers return your document
 untouched when `debug` is falsy, which is what lets the call stay in shipped
-code.
+code — and with `debug` on, both DRAW their verdict instead of describing it:
+rule members green with the measured result on a pass, the offender red on a
+violation (71 also draws the INTENDED rect as an amber ghost outline, so the
+drift is visible as the gap between the boxes). A contract that silently
+no-ops on success is indistinguishable from one that never ran; the green
+view is the proof it ran.
 
 72 is the one to read if you only read one. A layout has **two independent
 minimum sizes** — feasibility (renders at all) and precision (looks right) —

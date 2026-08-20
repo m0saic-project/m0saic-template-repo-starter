@@ -24,8 +24,9 @@ import { svgTextSource } from "./svg-text";
  * teaching, a "try" list, and the hand-off line.
  *
  * renderTutorial contract notes (the parts that bite):
- *   - EDITOR-ONLY: hosts call it behind an explicit affordance; it never
- *     runs on the CLI render path.
+ *   - Behind an explicit affordance ONLY: the Make "?" pill in the editor,
+ *     or `m0saic make <id> --tutorial` on the CLI. Never the default
+ *     render path.
  *   - It receives the template's own defaultProps and owns its OWN duration
  *     (never derive length from ctx.target.durationMs — geometry from
  *     ctx.target is fine, and is exactly what we do).

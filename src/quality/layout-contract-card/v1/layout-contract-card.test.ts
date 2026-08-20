@@ -1,7 +1,11 @@
 import { assertLayout } from "@m0saic/template-utils";
 
 import { asDocument, targetCtx } from "../../../__testutils__/render";
-import { LayoutContractCardV1, LAYOUT_CONSTRAINTS } from "./layout-contract-card";
+import {
+  LayoutContractCardV1,
+  LAYOUT_CONSTRAINTS,
+  LAYOUT_RELATIONS,
+} from "./layout-contract-card";
 
 const ctx = targetCtx(1280, 720);
 
@@ -12,37 +16,44 @@ const render = (
 
 type Stamped = { editor?: { layoutContract?: { ok: boolean; violations: { detail: string }[] } } };
 const contract = (doc: unknown) => (doc as Stamped).editor?.layoutContract;
+const colorsOf = (doc: unknown) =>
+  ((doc as { sources?: Array<{ color?: string }> }).sources ?? []).map((s) => s?.color);
+
+// The contract view's palette (from template-utils' contract wireframe).
+const GREEN = "#2ea043@0.30";
+const RED = "#f85149@0.35";
 
 describe("@m0saic-starter/quality/layout-contract-card/v1", () => {
   it("is FREE when debug is off — the document comes back untouched", async () => {
-    // Weight 9 breaks both constraints; with the gate off nothing runs, so
-    // there is no stamp and no error card. That is what makes it shippable.
-    const doc = await render({ sidebarWeight: 9 });
+    // Stretch 2 breaks the relation; with the gate off nothing runs, so
+    // there is no stamp and no contract view. That is what makes it shippable.
+    const doc = await render({ stretchCard: 2 });
     expect(doc.kind).toBe("mosaic_document");
     expect(contract(doc)).toBeUndefined();
-    expect(doc.labels).toBeUndefined();
+    expect(colorsOf(doc)).not.toContain(GREEN);
   });
 
-  it("passes inside the contract and stamps the result", async () => {
-    const doc = await render({ sidebarWeight: 3, debugLayout: true });
+  it("PASS is drawn: four green cards + the header, stamped ok", async () => {
+    const doc = await render({ stretchCard: 1, debugLayout: true });
     expect(contract(doc)?.ok).toBe(true);
-    // The stamp backfills the label map from the source tags.
-    expect(Object.values(doc.labels ?? {})).toEqual(
-      expect.arrayContaining(["sidebar", "body"]),
-    );
+    // Every rule member renders green — 4 cards + the header constraint.
+    expect(colorsOf(doc).filter((c) => c === GREEN)).toHaveLength(5);
+    expect(colorsOf(doc)).not.toContain(RED);
   });
 
-  it("fires past the line, naming the label and the number", async () => {
-    const doc = await render({ sidebarWeight: 5, debugLayout: true });
+  it("FAIL is drawn: the stretched card red AMONG the green survivors", async () => {
+    const doc = await render({ stretchCard: 1.5, debugLayout: true });
     const stamp = contract(doc);
     expect(stamp?.ok).toBe(false);
-    expect(stamp?.violations[0].detail).toContain("sidebar");
-    expect(stamp?.violations[0].detail).toContain("40.0%");
+    expect(stamp?.violations[0].detail).toContain("card");
+    // One offender red; the other members stay green around it.
+    expect(colorsOf(doc)).toContain(RED);
+    expect(colorsOf(doc)).toContain(GREEN);
   });
 
-  it("holds at the boundary — 40% is allowed, 50% is not", async () => {
-    expect(contract(await render({ sidebarWeight: 4, debugLayout: true }))?.ok).toBe(true);
-    expect(contract(await render({ sidebarWeight: 5, debugLayout: true }))?.ok).toBe(false);
+  it("holds at the boundary — uniform passes, a 1.5x card does not", async () => {
+    expect(contract(await render({ stretchCard: 1, debugLayout: true }))?.ok).toBe(true);
+    expect(contract(await render({ stretchCard: 1.5, debugLayout: true }))?.ok).toBe(false);
   });
 
   it("is canvas-INDEPENDENT — one declaration, every size", async () => {
@@ -53,33 +64,33 @@ describe("@m0saic-starter/quality/layout-contract-card/v1", () => {
       [3840, 2160],
     ] as const) {
       const c = targetCtx(w, h);
-      expect(contract(await render({ sidebarWeight: 3, debugLayout: true }, c))?.ok).toBe(true);
-      expect(contract(await render({ sidebarWeight: 7, debugLayout: true }, c))?.ok).toBe(false);
+      expect(contract(await render({ stretchCard: 1, debugLayout: true }, c))?.ok).toBe(true);
+      expect(contract(await render({ stretchCard: 2, debugLayout: true }, c))?.ok).toBe(false);
     }
   });
 
   it("assertLayout is the CI sibling — same contract, throws instead", async () => {
     // This is how a test suite enforces a layout invariant without rendering
-    // an error card: the pure check, wired to fail the run.
-    const good = await render({ sidebarWeight: 3 });
+    // a contract view: the pure check, wired to fail the run.
+    const good = await render({ stretchCard: 1 });
     expect(() =>
-      assertLayout(good, ctx, "test", { constraints: LAYOUT_CONSTRAINTS }),
+      assertLayout(good, ctx, "test", { constraints: LAYOUT_CONSTRAINTS, relations: LAYOUT_RELATIONS }),
     ).not.toThrow();
 
-    const bad = await render({ sidebarWeight: 7 });
+    const bad = await render({ stretchCard: 2 });
     expect(() =>
-      assertLayout(bad, ctx, "test", { constraints: LAYOUT_CONSTRAINTS }),
+      assertLayout(bad, ctx, "test", { constraints: LAYOUT_CONSTRAINTS, relations: LAYOUT_RELATIONS }),
     ).toThrow(/layout contract violated/);
   });
 
   it("rejects bad props", async () => {
-    await expect(render({ sidebarWeight: 99 })).rejects.toThrow(/out of range/);
-    await expect(render({ sidebarColor: "purple" })).rejects.toThrow(/#rrggbb/);
+    await expect(render({ stretchCard: 99 })).rejects.toThrow(/out of range/);
+    await expect(render({ cardColor: "blue" })).rejects.toThrow(/#rrggbb/);
   });
 
   it("is deterministic", async () => {
-    const a = await render({ sidebarWeight: 3, debugLayout: true });
-    const b = await render({ sidebarWeight: 3, debugLayout: true });
+    const a = await render({ stretchCard: 1, debugLayout: true });
+    const b = await render({ stretchCard: 1, debugLayout: true });
     expect(a).toEqual(b);
   });
 });

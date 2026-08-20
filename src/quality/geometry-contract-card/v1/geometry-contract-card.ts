@@ -45,9 +45,13 @@ import { lessonTutorial } from "../../../_shared/tutorial";
  * for canvas-independent ratios that outlive the string; STABLEKEYS are for
  * exact px assertions against one specific string. Different jobs.)
  *
- * THE GATE: `debug` falsy returns the document UNTOUCHED at zero cost — same
- * reference, no parse. On a violation the render SURVIVES and becomes a
- * GEOMETRY_CONTRACT card telling you where and why.
+ * THE GATE, now visual: `debug` falsy returns the document UNTOUCHED at zero
+ * cost — same reference, no parse. Turn it on and the render becomes the
+ * CONTRACT VIEW, in both directions:
+ *
+ *   - intent survived -> the chip drawn GREEN, banner "1 element exact".
+ *   - intent broken   -> the REALIZED box red and the INTENDED box an amber
+ *     ghost outline — the drift is the visible gap between the two.
  *
  * TOLERANCE IS PART OF THE CONTRACT: `tolerancePx` defaults to 1, because an
  * exact ratio still has to land on integers and ±1px is what healthy
@@ -55,11 +59,12 @@ import { lessonTutorial } from "../../../_shared/tutorial";
  * to 0 only where byte-exactness really is the contract (inset recovery).
  *
  * Watch it fire: turn Debug geometry on, then raise "Contract offset" to 2 or
- * more. The chip never moves — it is always a sixth of the canvas. The knob
- * moves what the CONTRACT ASKS FOR, because manufacturing the mismatch on the
- * expectation side is the only way to demonstrate it without faking engine
- * behavior. At 1 you will see nothing happen, and that is the tolerance
- * doing its job.
+ * more — the amber intended box grows past the red chip by exactly the
+ * offset. The chip never moves; the knob moves what the CONTRACT ASKS FOR,
+ * because manufacturing the mismatch on the expectation side is the only way
+ * to demonstrate it without faking engine behavior. At 1 you will see the
+ * green view — that is the tolerance doing its job. (The chip sits
+ * mid-canvas so the ghost has room to show below it.)
  */
 
 export type GeometryContractCardProps = {
@@ -75,10 +80,12 @@ export type GeometryContractCardProps = {
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const ID = "@m0saic-starter/quality/geometry-contract-card/v1";
-/** The chip is the bottom band: one sixth of the canvas height. */
+/** The chip is a MID-canvas band, one sixth of the height — mid, not bottom,
+ *  so the contract view's amber intended-ghost has room to outgrow it. */
 const CHIP_ROWS = 1;
-const CARD_ROWS = 5;
-const TOTAL_ROWS = CHIP_ROWS + CARD_ROWS;
+const ABOVE_ROWS = 3;
+const BELOW_ROWS = 2;
+const TOTAL_ROWS = ABOVE_ROWS + CHIP_ROWS + BELOW_ROWS;
 /**
  * The checker's own default, restated here so the caption can name it. A
  * realized edge may sit 1px off its intent without that being a defect — an
@@ -132,7 +139,7 @@ export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardP
   label: "71 · Geometry Contract Card",
   version: 1,
   description:
-    "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and prove it survived to the pixels at this canvas.",
+    "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and debug on DRAWS the verdict: the chip green when intent survived, or realized-red vs intended-amber-ghost with the drift visible as the gap.",
   capabilities: { tier: "core" },
   tags: ["quality", "contracts", "lesson"],
 
@@ -141,7 +148,7 @@ export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardP
     height: 720,
     fps: 30,
     durationMs: 2000,
-    note: "Debug geometry on + a contract offset of 2 or more = the contract fires. 1 is inside tolerance.",
+    note: "Debug geometry on = the chip drawn green. Offset 2+ = realized red vs intended amber ghost. 1 is inside tolerance.",
   },
 
   propsSchema,
@@ -170,13 +177,14 @@ export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardP
     }
     const { width, height } = ctx.target;
 
-    // A card band over a chip band, 5:1. Built with the splitter rather than
-    // hand-written: a `0` donates to the NEXT tile, so the literal that LOOKS
-    // like "card first" (`6[1{1},0,0,0,0,1]`) actually hands five sixths to
-    // the chip. This lesson's own contract caught that while it was being
-    // written, which is as good an argument for the contract as any.
-    const m0 = weightedSplit([CARD_ROWS, CHIP_ROWS], "row", {
-      claimants: ["1{1}", "1"],
+    // Card band, chip band, empty space — 3:1:2. Built with the splitter
+    // rather than hand-written: a `0` donates to the NEXT tile, so a literal
+    // that LOOKS right can hand its share to the wrong band. This lesson's
+    // own contract caught exactly that while it was being written, which is
+    // as good an argument for the contract as any. The trailing `-` band is
+    // deliberate: it is where the amber intended-ghost shows on a violation.
+    const m0 = weightedSplit([ABOVE_ROWS, CHIP_ROWS, BELOW_ROWS], "row", {
+      claimants: ["1{1}", "1", "-"],
     });
 
     // THE INTENT, in pixels. The engine distributes an equal row split
@@ -252,11 +260,13 @@ export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardP
     lines: [
       "A template computes rects in JS and throws the intent away at return - so a quantization squash gives a healthy m0 and a wrong picture.",
       "Declare the box you meant and check it survived AT THIS CANVAS. Select it by a stableKey you COMPUTE with findStableKeys - never one you typed.",
-      "tolerancePx defaults to 1: an exact ratio still lands on integers, so a 1px gap is healthy rounding and passes on purpose.",
+      "Debug on DRAWS the verdict: a green chip when intent survived; realized RED vs intended AMBER ghost when not.",
+      "A 1px gap stays green on purpose - tolerancePx defaults to 1, healthy rounding.",
     ],
     explore: [
-      "Debug geometry on, Contract offset 1 - nothing, that is tolerance",
-      "Raise it to 2 - now the contract fires",
+      "Debug geometry on - the chip goes green, 1 element exact",
+      "Contract offset 1 - still green, that is tolerance",
+      "Raise it to 2 - red chip, amber ghost poking out below",
     ],
   }),
 });

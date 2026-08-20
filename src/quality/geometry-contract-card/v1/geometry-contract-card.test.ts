@@ -18,6 +18,13 @@ type Stamped = {
   };
 };
 const contract = (doc: unknown) => (doc as Stamped).editor?.geometryContract;
+const colorsOf = (doc: unknown) =>
+  ((doc as { sources?: Array<{ color?: string }> }).sources ?? []).map((s) => s?.color);
+
+// The contract view's palette (from template-utils' contract wireframe).
+const GREEN = "#2ea043@0.30";
+const RED = "#f85149@0.35";
+const GHOST = "#d29922@0.10";
 
 describe("@m0saic-starter/quality/geometry-contract-card/v1", () => {
   it("is FREE when debug is off — the document comes back untouched", async () => {
@@ -26,7 +33,7 @@ describe("@m0saic-starter/quality/geometry-contract-card/v1", () => {
     expect(contract(doc)).toBeUndefined();
   });
 
-  it("the honest declaration holds at every canvas", async () => {
+  it("the honest declaration holds at every canvas — and the PASS is drawn green", async () => {
     for (const [w, h] of [
       [1280, 720],
       [1080, 1920],
@@ -35,16 +42,22 @@ describe("@m0saic-starter/quality/geometry-contract-card/v1", () => {
     ] as const) {
       const doc = await render({ debugGeometry: true }, targetCtx(w, h));
       expect(contract(doc)?.ok).toBe(true);
+      // The chip renders green in the contract view — proof the check RAN.
+      expect(colorsOf(doc)).toContain(GREEN);
+      expect(colorsOf(doc)).not.toContain(RED);
     }
   });
 
-  it("a mismatch past tolerance is caught, with both numbers in the message", async () => {
+  it("a mismatch past tolerance is caught — realized red, intended amber ghost", async () => {
     const doc = await render({ debugGeometry: true, contractOffsetPx: 8 });
     const stamp = contract(doc);
     expect(stamp?.ok).toBe(false);
     // 720 / 6 = 120 realized; the contract asks for 8 more.
     expect(stamp?.violations[0].detail).toContain("intended 128");
     expect(stamp?.violations[0].detail).toContain("realized 120");
+    // The drift is drawn: realized box red, intended box an amber ghost.
+    expect(colorsOf(doc)).toContain(RED);
+    expect(colorsOf(doc)).toContain(GHOST);
   });
 
   /**
@@ -75,14 +88,18 @@ describe("@m0saic-starter/quality/geometry-contract-card/v1", () => {
    * m0 as `6[1{1},0,0,0,0,1]`, forgetting that a `0` donates to the NEXT
    * tile. The chip got five sixths of the canvas and the contract caught it.
    */
-  it("selects the CHIP — the band that is one sixth of the canvas", async () => {
-    const doc = await render({ debugGeometry: true });
-    const match = contract(doc)?.matched?.[0];
+  it("selects the CHIP — the mid-canvas band that is one sixth of the height", async () => {
+    const doc = await render({ debugGeometry: false });
+    // Debug off returns the real document — pin the shipped string.
+    // Card band (3), chip (1), then a deliberate empty `-` band (2) where the
+    // contract view's intended-ghost shows on a violation.
+    expect(doc.m0).toBe("6[0,0,1{1},1,0,-]");
+
+    const checked = await render({ debugGeometry: true });
+    const match = contract(checked)?.matched?.[0];
     expect(match?.name).toBe("chip");
     // sources = [card, card-text, chip] — the chip is the last.
     expect(match?.sourceIndex).toBe(2);
-    // And the split really does put the small band last.
-    expect(doc.m0).toBe("6[0,0,0,0,1{1},1]");
   });
 
   it("the caption names both numbers and says where the line is", async () => {

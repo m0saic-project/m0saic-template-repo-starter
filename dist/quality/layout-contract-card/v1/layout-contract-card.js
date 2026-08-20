@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LayoutContractCardV1 = exports.LAYOUT_CONSTRAINTS = void 0;
+exports.LayoutContractCardV1 = exports.LAYOUT_CONSTRAINTS = exports.LAYOUT_RELATIONS = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
@@ -8,58 +8,60 @@ const svg_text_1 = require("../../../_shared/svg-text");
 const tutorial_1 = require("../../../_shared/tutorial");
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const ID = "@m0saic-starter/quality/layout-contract-card/v1";
-const TOTAL = 10;
-const MIN_W = 1;
-const MAX_W = 9;
-/** The contract. Fractions of the canvas, so it holds at any size. */
-const CONSTRAINTS = [
-    { label: "sidebar", maxWidthFrac: 0.4 },
-    { label: "body", minWidthFrac: 0.5 },
-];
+const CARDS = 4;
+const MIN_S = 1;
+const MAX_S = 3;
+/** Card weight in rail units; gaps are 1 unit. */
+const CARD_W = 10;
+/** The contract. One relation covers all four cards; one constraint, the header. */
+const RELATIONS = [{ label: "card", equal: "size" }];
+const CONSTRAINTS = [{ label: "header", maxHeightFrac: 0.35 }];
 const propsSchema = (0, template_utils_1.definePropsSchema)({
-    sidebarWeight: {
+    stretchCard: {
         type: "number",
         required: false,
-        description: `Sidebar share in tenths of the width (${MIN_W}-${MAX_W}). Past 4 it breaks the contract.`,
+        description: `Width multiplier on the third card (${MIN_S}-${MAX_S}). 1 keeps the rail uniform; anything past ~1.02 breaks the equal-size rule (tolerance 2%).`,
         meta: {
-            constraints: { min: MIN_W, max: MAX_W },
-            ui: { label: "Sidebar weight", order: 1 },
+            constraints: { min: MIN_S, max: MAX_S },
+            control: { flavor: "slider", step: 0.1 },
+            ui: { label: "Stretch card", order: 1 },
         },
     },
     debugLayout: {
         type: "boolean",
         required: false,
-        description: "Run the layout contract. Off (default) returns the document untouched.",
+        description: "Run the layout contract and render the CONTRACT VIEW: members green with the measured rule when it holds, the offender red among them when it breaks. Off (default) returns the document untouched.",
         meta: { ui: { label: "Debug layout", order: 2 } },
     },
-    sidebarColor: {
+    cardColor: {
         type: "string",
         required: false,
-        description: "Sidebar fill as #rrggbb.",
+        description: "Card fill as #rrggbb.",
+        meta: {
+            constraints: { isColor: true },
+            control: { colorPicker: true, defaultColor: "#2e86c1" },
+            ui: { label: "Card color", order: 3 },
+        },
+    },
+    headerColor: {
+        type: "string",
+        required: false,
+        description: "Header fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#8e44ad" },
-            ui: { label: "Sidebar color", order: 3 },
-        },
-    },
-    bodyColor: {
-        type: "string",
-        required: false,
-        description: "Body fill as #rrggbb.",
-        meta: {
-            constraints: { isColor: true },
-            control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Body color", order: 4 },
+            ui: { label: "Header color", order: 4 },
         },
     },
 });
 /** Exported so the test can assert the same contract the template ships. */
+exports.LAYOUT_RELATIONS = RELATIONS;
 exports.LAYOUT_CONSTRAINTS = CONSTRAINTS;
 exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
     label: "70 · Layout Contract Card",
     version: 1,
-    description: "Ratio invariants authored against LABELS, which survive every m0 the template regenerates — unlike tile order and stableKeys, which do not. Push the sidebar past 40% with the contract on and the render becomes the violation report, at exactly the canvas that broke.",
+    description: "Ratio invariants authored against LABELS, which survive every m0 the template regenerates. One relation makes four cards equal; debug on DRAWS the contract — green members with the measured rule, or the stretched card red among them.",
     capabilities: { tier: "core" },
     tags: ["quality", "contracts", "lesson"],
     outputHints: {
@@ -67,47 +69,74 @@ exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
-        note: "Sidebar weight 5 + Debug layout on = the contract fires. Any canvas.",
+        note: "Debug layout on = four green cards + the measured rule. Stretch card 1.5 = one red among green. Any canvas.",
     },
     propsSchema,
     defaultProps: {
-        sidebarWeight: 3,
+        stretchCard: 1,
         debugLayout: false,
-        sidebarColor: "#8e44ad",
-        bodyColor: "#1c2833",
+        cardColor: "#2e86c1",
+        headerColor: "#8e44ad",
     },
     async render(props, ctx) {
-        var _a, _b, _c;
+        var _a, _b;
         for (const [key, value] of [
-            ["sidebarColor", props.sidebarColor],
-            ["bodyColor", props.bodyColor],
+            ["cardColor", props.cardColor],
+            ["headerColor", props.headerColor],
         ]) {
             if (value !== undefined && !HEX.test(value)) {
                 throw new Error(`${ID}: ${key} ${JSON.stringify(value)} must be #rrggbb.`);
             }
         }
-        const weight = Math.round((_a = props.sidebarWeight) !== null && _a !== void 0 ? _a : 3);
-        if (weight < MIN_W || weight > MAX_W) {
-            throw new Error(`${ID}: sidebarWeight ${weight} out of range ${MIN_W}-${MAX_W}.`);
+        const stretch = Math.round(((_a = props.stretchCard) !== null && _a !== void 0 ? _a : 1) * 10) / 10;
+        if (stretch < MIN_S || stretch > MAX_S) {
+            throw new Error(`${ID}: stretchCard ${stretch} out of range ${MIN_S}-${MAX_S}.`);
         }
         const { width, height } = ctx.target;
-        const m0 = (0, dsl_stdlib_1.weightedSplit)([weight, TOTAL - weight], "col", {
-            claimants: ["1", "1{1}"],
+        // The rail: four cards, gaps between. The THIRD card carries the stretch.
+        // Weights are rail units, not pixels — the same string reflows anywhere.
+        const railWeights = [];
+        const railClaimants = [];
+        for (let i = 0; i < CARDS; i++) {
+            if (i > 0) {
+                railWeights.push(1);
+                railClaimants.push("-");
+            }
+            railWeights.push(i === 2 ? Math.round(CARD_W * stretch) : CARD_W);
+            railClaimants.push("1");
+        }
+        const railM0 = (0, dsl_stdlib_1.weightedSplit)(railWeights, "col", { claimants: railClaimants });
+        // Header band (tile + caption overlay), a gap, the card rail, breathing room.
+        const m0 = (0, dsl_stdlib_1.weightedSplit)([4, 1, 7, 2], "row", {
+            claimants: ["1{1}", "-", String(railM0), "-"],
         });
-        const frac = weight / TOTAL;
-        const caption = (0, svg_text_1.fitSvgText)(`sidebar ${(frac * 100).toFixed(0)}% of width - contract allows up to 40%`, width * 0.5, height * 0.2, { maxPx: Math.round(height * 0.035), maxLines: 2 });
+        const heading = (0, svg_text_1.fitSvgText)("One label, one rule, four cards", width * 0.86, height * 0.16, {
+            maxPx: Math.round(height * 0.07),
+            maxLines: 1,
+        });
+        const spreadPct = ((stretch - 1) / stretch) * 100;
+        const note = (0, svg_text_1.fitSvgText)(stretch === 1
+            ? 'all four tiles are tagged "card" - equal size holds everywhere'
+            : `third card ${stretch.toFixed(1)}x wide - spread ${spreadPct.toFixed(0)}% breaks the 2% rule`, width * 0.86, height * 0.12, { maxPx: Math.round(height * 0.032), maxLines: 2 });
         // The LABEL is the durable identity. Everything else about this document
         // is re-derived the moment a prop or the canvas changes.
+        const cardTile = () => { var _a; return ({ ...(0, template_utils_1.makeColorTile)(((_a = props.cardColor) !== null && _a !== void 0 ? _a : "#2e86c1")), editor: { label: "card" } }); };
         const sources = [
-            { ...(0, template_utils_1.makeColorTile)(((_b = props.sidebarColor) !== null && _b !== void 0 ? _b : "#8e44ad")), editor: { label: "sidebar" } },
-            { ...(0, template_utils_1.makeColorTile)(((_c = props.bodyColor) !== null && _c !== void 0 ? _c : "#1c2833")), editor: { label: "body" } },
+            { ...(0, template_utils_1.makeColorTile)(((_b = props.headerColor) !== null && _b !== void 0 ? _b : "#8e44ad")), editor: { label: "header" } },
             (0, svg_text_1.svgTextSource)([
+                { text: heading.text, fontSize: heading.fontSize, color: "#eaeef2" },
                 {
-                    text: caption.text,
-                    fontSize: caption.fontSize,
+                    text: note.text,
+                    fontSize: note.fontSize,
                     color: "#d5dbdb",
+                    vAlign: "bottom",
+                    padding: { bottom: 0.1 },
                 },
             ]),
+            cardTile(),
+            cardTile(),
+            cardTile(),
+            cardTile(),
         ];
         const doc = {
             kind: "mosaic_document",
@@ -115,12 +144,14 @@ exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
             m0,
             assets: {},
             sources,
+            backgroundColor: "#1c2833",
         };
-        // Debug off → `doc` comes back by reference, untouched. Debug on → the
-        // contract runs, stamps `editor.layoutContract`, and replaces the
-        // document with a violation card if an invariant broke.
+        // Debug off -> `doc` comes back by reference, untouched. Debug on -> the
+        // contract runs, stamps `editor.layoutContract`, and the render becomes
+        // the contract view: green members + measured rules, or the offender red.
         return (0, template_utils_1.withLayoutContract)(doc, ctx, {
             templateId: ID,
+            relations: RELATIONS,
             constraints: CONSTRAINTS,
             debug: props.debugLayout,
         });
@@ -129,12 +160,13 @@ exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         title: "Layout Contract Card",
         lines: [
             "The m0 is disposable - it re-addresses every node on any change - so intent rides on the LABEL you stamp, the one identity that survives.",
-            "Constraints are canvas-INDEPENDENT fractions, so one line holds at every size. That matters: the bug you are hunting only shows at some sizes.",
-            "debug falsy returns your document untouched, same reference - so the call can stay in a shipped template at zero cost.",
+            "A rule targets a KIND, not a node: tag four tiles \"card\" and one equal-size line constrains all four, at every canvas.",
+            "Debug on DRAWS the contract: members green with the measured rule when it holds, the offender red among them when it breaks.",
+            "Off returns your document untouched, same reference - zero cost in shipped code.",
         ],
         explore: [
-            "Set Sidebar weight to 5, turn Debug layout on",
-            "Resize the canvas - the same contract still holds",
+            "Turn Debug layout on - four green cards + the measured spread",
+            "Set Stretch card to 1.5 - one red card among the green",
         ],
     }),
 });
