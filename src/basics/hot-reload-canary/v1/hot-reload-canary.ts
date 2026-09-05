@@ -74,7 +74,7 @@ const propsSchema = definePropsSchema<HotReloadCanaryProps>({
     // `color`, which is what keeps this template a reload canary.
     meta: {
       constraints: { isColor: true },
-      control: { colorPicker: true, defaultColor: CANARY_RED },
+      control: { placeholder: "module constant CANARY_COLOR", colorPicker: true, defaultColor: CANARY_RED },
       ui: { label: "Override fill" },
     },
   },

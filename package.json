@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist template-manifest.json",
-    "build": "tsc -p tsconfig.build.json && node tools/copy-assets.mjs && node dist/gen-template-manifest.js",
+    "build": "tsc -p tsconfig.build.json && node tools/copy-assets.mjs && node dist/gen-template-manifest.js && node tools/check-registry.mjs",
     "manifest": "node dist/gen-template-manifest.js",
     "test": "jest",
     "test:contract": "node tools/contract-check.mjs",

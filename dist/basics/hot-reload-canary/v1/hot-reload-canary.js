@@ -54,7 +54,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
         // `color`, which is what keeps this template a reload canary.
         meta: {
             constraints: { isColor: true },
-            control: { colorPicker: true, defaultColor: exports.CANARY_RED },
+            control: { placeholder: "module constant CANARY_COLOR", colorPicker: true, defaultColor: exports.CANARY_RED },
             ui: { label: "Override fill" },
         },
     },

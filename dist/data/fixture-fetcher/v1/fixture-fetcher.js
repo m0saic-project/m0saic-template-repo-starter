@@ -68,7 +68,7 @@ exports.FixtureFetcherV1 = (0, template_utils_1.defineMosaicTemplate)({
         note: "Publishes upstream data; the tile is a carrier so you can see the payload. Feed it to data/data-card.",
     },
     propsSchema,
-    defaultProps: { alias: "starterData" },
+    defaultProps: { secretField: "token", alias: "starterData" },
     async render(props, ctx) {
         var _a, _b, _c, _d, _e;
         const alias = ((_a = props.alias) !== null && _a !== void 0 ? _a : "starterData").trim();

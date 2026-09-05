@@ -133,7 +133,7 @@ export const FixtureFetcherV1 = defineMosaicTemplate<FixtureFetcherProps>({
   },
 
   propsSchema,
-  defaultProps: { alias: "starterData" },
+  defaultProps: { secretField: "token", alias: "starterData" },
 
   async render(
     props: FixtureFetcherProps,
