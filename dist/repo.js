@@ -92,4 +92,9 @@ exports.TEMPLATE_PACKS = [
         title: "Connections",
         description: "Teaching the host an upstream backend, and making Make richer for it: a registered connection with a keychain secret and a two-tick probe, pickers fetched live through the connectionId sibling wire, artwork card grids with lazily-resolved images, and grouped multi-select chips. The neutral upstream is examples/http-orchestrator; the values that reach render stay plain data either way.",
     },
+    {
+        id: "make",
+        title: "Make",
+        description: "What Make does with your template once it loads: the rects you draw are bound to the knobs in the panel (bindProp and its siblings), so a double-click on the preview edits the prop in place. Provenance is authored on the source, derived per render, and checked by the build gate.",
+    },
 ];

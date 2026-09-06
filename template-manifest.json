@@ -1198,6 +1198,20 @@
       "preview": {
         "image": "assets/templates/@m0saic-starter__connections__weighted-cards__v1/preview.png"
       }
+    },
+    {
+      "slug": "prop-bindings",
+      "templateKey": "@m0saic-starter/make/prop-bindings/v1",
+      "title": "80 · Prop Bindings",
+      "description": "Provenance: the rect that shows a prop is bound to it, so Make's double-click edits that knob in place - and every bindable kind is on one card. bindProp for free text and a number, bindProps for a header over a subtitle (one rect, two knobs), a colour swatch whose binding opens a picker, bindProp with an index for one element of a string[] or number[], bindPropPath (path AND kind) for string / number / colour leaves of a row list, bindPropRange (line span + focus token) for one line of a multi-line string - plus a closed picker drawn as a chip that gets no pencil on purpose. Which props are bindable is decided once, in the platform; the lesson's test uses the same predicate Make does.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "pack": "make",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__make__prop-bindings__v1/preview.png"
+      }
     }
   ],
   "packs": [
@@ -1265,6 +1279,11 @@
       "id": "connections",
       "title": "Connections",
       "description": "Teaching the host an upstream backend, and making Make richer for it: a registered connection with a keychain secret and a two-tick probe, pickers fetched live through the connectionId sibling wire, artwork card grids with lazily-resolved images, and grouped multi-select chips. The neutral upstream is examples/http-orchestrator; the values that reach render stay plain data either way."
+    },
+    {
+      "id": "make",
+      "title": "Make",
+      "description": "What Make does with your template once it loads: the rects you draw are bound to the knobs in the panel (bindProp and its siblings), so a double-click on the preview edits the prop in place. Provenance is authored on the source, derived per render, and checked by the build gate."
     }
   ]
 }

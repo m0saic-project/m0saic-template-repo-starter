@@ -28,6 +28,10 @@ const DEFAULT_MIXES = [
     { label: "Loops", itemIds: ["ember-glow", "soft-gradient"] },
 ];
 const DEFAULT_MIX_WEIGHTS = [2, 1];
+/** Slot budget the mix rows share — bounds the row split's precision floor
+ *  (≈ (10 + budget + 4·cards) · 1.28 slots ≈ 110 at 2 cards) regardless of
+ *  the scale the sliders write. */
+const MIX_ROW_BUDGET = 60;
 /** Normalize a card's items to `{id, weight}[]` — both shapes arrive. */
 function normalizeItems(raw, at) {
     if (!Array.isArray(raw) || raw.length < 1 || raw.length > MAX_CHIPS) {
@@ -226,7 +230,15 @@ exports.WeightedCardsV1 = (0, template_utils_1.defineMosaicTemplate)({
                 claimants: ["-", "1{1}", "-", chips, "-"],
             }));
         };
-        const rowWeights = [10, ...mixes.flatMap((_, i) => [Math.max(1, Math.round(mixWeights[i] * 10)), 4])];
+        // Rows sized by mixWeights — NORMALIZED onto a fixed slot budget. The
+        // inter-card sliders write whatever scale they like (2:1, 58:42, 320:680);
+        // scaling the raw numbers straight into slots made the row split's total
+        // track the slider's scale, and a total like 1303 (a prime — no GCD
+        // relief) pinned the layout's safe minimum to 1303px TALL: below it, at
+        // the template's own 720p hint, cells fell under 1px and were culled.
+        // A budget keeps the precision floor constant whatever the values are.
+        const totalMixW = mixWeights.reduce((a, b) => a + b, 0);
+        const rowWeights = [10, ...mixes.flatMap((_, i) => [Math.max(1, Math.round((mixWeights[i] / totalMixW) * MIX_ROW_BUDGET)), 4])];
         const rowClaimants = ["-", ...mixes.flatMap((m) => [mixRow(m), "-"])];
         // Reserve the caption strip's fifth: relative weights make the exact
         // remainder unimportant, only the reservation matters.
@@ -234,7 +246,6 @@ exports.WeightedCardsV1 = (0, template_utils_1.defineMosaicTemplate)({
         rowClaimants.push("-");
         const rows = String((0, dsl_stdlib_1.weightedSplit)(rowWeights, "row", { mode: "literal", claimants: rowClaimants }));
         const m0 = (0, dsl_stdlib_1.toM0String)(`${rows}{6[-,-,-,-,-,1]}`, ID);
-        const totalMixW = mixWeights.reduce((a, b) => a + b, 0);
         const sources = [];
         for (const [i, m] of mixes.entries()) {
             sources.push((0, template_utils_1.makeColorTile)(band));

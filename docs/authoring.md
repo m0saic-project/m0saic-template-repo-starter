@@ -118,6 +118,60 @@ template exists for exactly this.
 Templates hot-reload from `dist/`. The Electron main process does not — if you
 are hacking on a host, that needs a restart.
 
+## The Make handshake — prop bindings
+
+Make's preview is an editor: double-click a rect and the prop it displays
+opens for editing right there. The template says which rect shows which
+prop, on the source, once:
+
+```ts
+bindProp(svgLabel(props.title, w, h, opts), "title");          // free text (or a number)
+bindProp(makeColorTile(props.accent), "accent");               // a colour string: Make opens a picker
+bindProps(svgTextSource([head, sub]), [                        // one rect, two knobs (a stacked form)
+  { propKey: "title", layer: 0 },
+  { propKey: "subtitle", layer: 1 },
+]);
+bindProp(src, "bullets", i);                                   // one element of a string[] / number[]
+bindPropPath(src, "rows", [i, "value"], "number");             // a leaf of a json / list prop, with its kind
+bindPropRange(src, "code", undefined, lineSpan, tokenSpan);    // one line of a multi-line string
+```
+
+That is **provenance**: the rect knows which knob drew it. Make derives the
+prop -> rect map from the bindings on every render, so the per-render
+`stableKey` is never authored (the geometry may re-key; the binding rides
+the source). Which props are bindable is decided once, in the platform —
+free text, numbers, colours, one element of a list, a typed leaf of a
+structured prop. Closed pickers (`oneOf`, `options`, connection-backed
+selects), media, booleans and whole lists are not, and a rect bound to one
+gets no pencil.
+
+Rules the build gate enforces (`tools/check-registry.mjs`, stage 2):
+
+- **`bindingsSound` (error):** every binding resolves — the prop exists, is
+  bindable, a list binding carries an index, a structured binding a path AND
+  a kind.
+- **`bindingsCover` (warning):** a free-text prop whose value is drawn as
+  text is bound to the rect that shows it. Bind the rect that SHOWS the
+  value, not derived text, and bind it even when the value is empty — the
+  empty rect is the "add" handle.
+
+Lock it in the lesson's test with `resolvePropBindings(doc, w, h,
+{ propsSchema })`: `rejected` is empty, `byProp` has every knob you bound.
+Lesson: `make/prop-bindings/v1`.
+
+## Auditing the shelf
+
+`npm run audit` renders every core-tier template at its defaults and writes
+one markdown report (`--write` → `TEMPLATE-AUDIT.md`): the build gate's
+render-time conventions on the hinted canvas AND the standard 1080p
+landscape / portrait / square canvases, plus a positioning probe across
+square / portrait / desktop × 240p–4K. Each cell is the layout's **safe
+canvas** (the smallest size that renders and looks right); a cell marked ⚠
+is a probe canvas below it. A safe canvas that climbs with the canvas means
+absolute positioning (a head — it does not nest); one that stays flat means
+ratio (it composes). Read the "⚠ Attention" table first; it is the to-do
+list. `--only <substring> --fast` scopes it while you iterate.
+
 ## Rendering from the CLI
 
 ```

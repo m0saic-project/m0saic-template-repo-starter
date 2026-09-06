@@ -5,7 +5,7 @@ Entry point for coding agents working in this repo. Humans want
 
 ## What this repo is
 
-A curriculum of 79 minimal m0saic templates, one concept each, plus a
+A curriculum of 80 minimal m0saic templates, one concept each, plus a
 committed zero-build distribution (`dist/` + `template-manifest.json`) that
 Mosaic hosts load directly.
 
@@ -45,7 +45,18 @@ npm run verify     # build + lint + jest + contract-check + dep policy
 Run `verify` before you claim anything works. It is the same gate a human
 reviewer runs, and it catches the failures this codebase actually has:
 manifest drift, a template registered but not exported, a disallowed import,
-an ordinal that no longer matches its position.
+an ordinal that no longer matches its position. The build step itself runs
+every template through the platform's **template conventions** twice
+(`tools/check-registry.mjs`): at definition time — every optional knob shows
+its default, colour props carry `isColor` + `colorPicker`, no absolute path
+in `defaultProps`, a description and a tag, a `ui.label` per prop (warning)
+— and again after rendering it at its defaults — it renders, every
+`editor.binding` resolves against the schema, a free-text prop drawn as text
+is bound to its rect (warning: "bind what you show"), every svg-drawn
+character has a glyph, and the layout clears its safe minimum at its own
+hinted canvas (warning; `npm run conventions:sweep` also walks the 1080p
+canvases). Errors fail the build and name the fix; warnings print. Read
+them.
 
 **`tsc --noEmit` is a weaker signal than `npm run build`** here — the build
 config differs, and things have passed the former while failing the latter.
@@ -58,6 +69,16 @@ npm run build && npm run previews && npm run build
 
 (`previews` skips templates that already have assets, so it only mints yours.
 The second build is what puts the new preview path into the manifest.)
+
+For the whole shelf's health in one place — every render-time convention on
+every standard canvas, plus a positioning probe (does the layout's safe
+minimum track the canvas, i.e. absolute, or stay flat, i.e. ratio?):
+
+```
+npm run audit                 # markdown to stdout; read "⚠ Attention" first
+npm run audit:write           # writes TEMPLATE-AUDIT.md
+node tools/audit-templates.mjs --only <id-substring> --fast   # while iterating
+```
 
 ## Adding a template — the whole checklist
 

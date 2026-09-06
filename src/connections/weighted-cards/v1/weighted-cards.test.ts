@@ -1,3 +1,5 @@
+import { evaluateM0 } from "@m0saic/dsl-stdlib";
+
 import { asDocument, targetCtx } from "../../../__testutils__/render";
 import { WeightedCardsV1, parseWeighted } from "./weighted-cards";
 
@@ -62,5 +64,18 @@ describe("@m0saic-starter/controls/weighted-cards/v1", () => {
 
   it("is deterministic", async () => {
     expect(await render()).toEqual(await render());
+  });
+
+  it("stays above its safe minimum at its own 720p hint for ANY slider scale (a prime total once pinned it to 1303px)", async () => {
+    // The inter-card sliders write percentages, ratios, or raw numbers; the
+    // row split's slot total must not follow their scale.
+    for (const mixWeights of [[2, 1], [58, 42], [32, 68], [320, 680], [1, 99], [50, 50]]) {
+      const doc = await render({ mixWeights }, 1280, 720);
+      const ev = evaluateM0(String(doc.m0), { width: 1280, height: 720 });
+      expect(ev.recommendedMin.height).toBeLessThanOrEqual(720);
+      expect(ev.recommendedMin.width).toBeLessThanOrEqual(1280);
+      expect(ev.feasible && ev.meetsPrecision).toBe(true);
+      expect(ev.precision.maxSplitY).toBeLessThanOrEqual(160);
+    }
   });
 });

@@ -4,7 +4,12 @@ House style for template code. It is short on taste and long on the rules that
 are load-bearing: most entries here exist because breaking them fails
 *silently*, not loudly.
 
-`npm run verify` enforces the mechanical ones. The rest are review rules.
+`npm run verify` enforces the mechanical ones — the build gate
+(`tools/check-registry.mjs`) runs every template through the platform's
+template conventions at definition time (defaults, colour props, no local
+paths, description + tags, labels) and again after rendering it at its
+defaults (renders, bindings resolve, displayed props are bound, svg glyphs
+exist). The rest are review rules.
 
 ---
 
@@ -64,13 +69,28 @@ duration is not. See `surfaces/render-tutorial/v1`.
 - **Color props declare themselves.** Any `string` / `string[]` prop that is a
   color needs `constraints: { isColor: true }` **and**
   `control: { colorPicker: true }`. The app renders a swatch picker from
-  those; without them the user gets a bare text box. Enforced repo-wide by
-  `src/props-conventions.test.ts`.
+  those; without them the user gets a bare text box. Enforced at definition
+  time by the platform (`colorProps` convention) — the build fails on it.
 - **File props are file props.** Use `type: "media"` with
   `control: { picker: "file", accept: ["video"] }` — not a `string` the user
   has to paste a path into.
-- Give every prop `ui: { label, order }`. Control order is authored, not
-  alphabetical.
+- Give every prop `ui: { label }` (the build warns without one — the panel
+  would fall back to the raw key). `order` is optional: schema order is
+  already authored order.
+- **Bind what you display.** The rect that shows a prop carries a binding
+  to it — `bindProp(src, "title")` for text, a number, or a colour string
+  (a colour binding opens a picker), `bindProps(src, [{ propKey, layer }])`
+  for a multi-layer text (header over subtitle: one rect, two knobs),
+  `bindProp(src, "items", i)` for one element of a `string[]` / `number[]`,
+  `bindPropPath(src, "rows", [i, "name"], "string")` for a leaf of a
+  structured prop (kind `"string"` / `"number"` / `"color"`), `bindPropRange`
+  for one line of a multi-line string. Make derives "double-click this rect -> edit that knob" from the
+  binding on every render; the per-render `stableKey` is output, never
+  authored. Bind the rect that SHOWS the value, not derived text, and bind
+  it even when the value is empty. The build gate warns when a template
+  draws a free-text prop it never bound (`bindingsCover`) and FAILS when a
+  binding names a prop that does not exist or is not bindable
+  (`bindingsSound`). Lesson: `make/prop-bindings/v1`.
 
 ## Drawing
 
@@ -84,9 +104,12 @@ from the bundled deterministic font, baked to geometry, identical in the app
 preview and the CLI. Fit it with the measured helpers — **nothing
 soft-wraps**.
 
-**Keep rendered copy ASCII.** The bundled glyph font draws `→ · — ×` as tofu.
-Write `->`, not `→`. (Prose in *this* repo's markdown and in template `label`
-fields is UI text and may use anything.)
+**Only draw characters the font has.** The bundled Roboto carries the
+typographic set (`… “ ” · × – —`) but NOT arrows or ticks (`→ ✓` draw as
+tofu). Write `->`, not `→`. The build gate checks every svg-drawn character
+against the real font file (`svgGlyphCoverage`) and fails on a missing
+glyph. (Prose in *this* repo's markdown and in template `label` fields is UI
+text and may use anything.)
 
 **Svg text has no background.** Pair it with a `makeColorTile` base — the
 attached `{...}` overlay is the usual home.
@@ -133,6 +156,17 @@ the engine can read.
   it names your template in the error when it does not.
 - **Never guess a `flattenedStableKey`.** Compute it with `findStableKeys`. A
   wrong key renders **silently black** and exits 0.
+- **Never scale raw prop values into split slots.** A slider that writes
+  58/42 (or 320/680) must not become `weightedSplit([…580, 4, 420…])` —
+  the slot total then tracks the slider's scale, and a total like 1303 (a
+  prime, no GCD relief) pins the layout's safe minimum to 1303 px on a
+  720 px hint: at the template's own default size cells fall under 1 px
+  and are culled. Normalise onto a fixed budget (`w / total * BUDGET`) or
+  pass `precision:` to `weightedSplit`, so the floor is constant whatever
+  the values. The build gate warns when a template is below its own floor
+  at its hinted canvas (`safeMinimumCanvas`); `npm run conventions:sweep`
+  also checks the standard 1080p canvases (`canvasEnvelope`); and the CLI
+  prints `LAYOUT_BELOW_SAFE_MIN` on any headless render below the floor.
 
 ## Module structure
 

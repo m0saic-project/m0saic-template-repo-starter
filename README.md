@@ -4,13 +4,13 @@ The m0saic developer curriculum: a repo of **minimal example templates**, each
 exercising exactly one knob of the template-authoring surface. Clone it, load
 it in Mosaic, read the source, fork it into your own template repo.
 
-**57 templates across 10 chapters** — see [CURRICULUM.md](CURRICULUM.md) for
+**80 templates across 14 chapters** — see [CURRICULUM.md](CURRICULUM.md) for
 the map and reading order.
 
-> **Status: under construction.** Ten chapters are in: basics, geometry,
-> props, media, text, masks, compose, pipelines, data, surfaces. Two more
-> (watermarking, quality) land in later batches. What is here is complete and
-> tested; the remaining chapters are additions, not holes.
+> **Status.** Fourteen chapters are in: basics, geometry, props, controls,
+> media, text, masks, compose, pipelines, data, surfaces, quality,
+> connections, make. What is here is complete and tested; further chapters
+> are additions, not holes.
 
 ## Use it (zero build)
 

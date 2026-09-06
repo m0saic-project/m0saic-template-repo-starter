@@ -12,6 +12,7 @@ import { surfacesRegistry } from "./surfaces/registry";
 import { qualityRegistry } from "./quality/registry";
 import { connectionsRegistry } from "./connections/registry";
 import { controlsRegistry } from "./controls/registry";
+import { makeRegistry } from "./make/registry";
 
 /**
  * The whole curriculum, chapter by chapter. ORDER IS THE CURRICULUM —
@@ -35,6 +36,7 @@ export const CHAPTERS: StarterChapter[] = [
   { pack: "surfaces", entries: surfacesRegistry },
   { pack: "quality", entries: qualityRegistry },
   { pack: "connections", entries: connectionsRegistry },
+  { pack: "make", entries: makeRegistry },
 ];
 
 /** Flat view over every chapter, in curriculum order. */

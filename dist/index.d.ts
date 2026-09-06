@@ -35,4 +35,5 @@ export * from "./surfaces";
 export * from "./quality";
 export * from "./connections";
 export * from "./controls";
+export * from "./make";
 export { TEMPLATE_PACKS, TEMPLATE_REPO };

@@ -1,6 +1,6 @@
 # Curriculum
 
-Seventy-nine templates in thirteen chapters. **One template teaches one thing** —
+Eighty templates in fourteen chapters. **One template teaches one thing** —
 read it top to bottom in a couple of minutes, then go turn its knobs in Make.
 
 Chapter order is the teaching order, and so is the order within a chapter.
@@ -307,6 +307,31 @@ composed with the connection pickers, weighing chips within a card and
 cards against each other. The chapter's through-line: **the
 connection enriches edit time only** — at render every prop is plain data,
 identical whether it was picked from a rich modal or typed by hand.
+
+
+## make
+
+What Make does with your template once it loads — the handshake between
+the rects you draw and the knobs in the panel.
+
+| # | Template | id |
+|---|---|---|
+| 80 | Prop Bindings | `make/prop-bindings/v1` |
+
+80 is the **provenance** lesson: a rect that displays a prop is *bound* to
+it (`bindProp` and its siblings), and Make derives "double-click this rect
+-> edit that knob" from the binding on every render. The per-render
+`stableKey` is output, never authored. Every bindable kind is on one card:
+free text and a number (`bindProp`), a header over a subtitle in ONE rect
+(`bindProps`, one entry per text layer - Make opens a stacked form), a
+colour swatch whose binding opens a picker, one element of a `string[]` or
+`number[]` (`bindProp` with an index), string / number / colour leaves of a
+structured row list (`bindPropPath` with a path AND a kind), and one line of
+a multi-line string (`bindPropRange` with a focus token). A closed picker
+drawn as a chip gets no pencil on purpose: which props are bindable is
+decided once, in the platform, and the template's test uses the same
+predicate Make does. The build gate warns when a template draws a prop it
+never bound ("bind what you show").
 
 ---
 
