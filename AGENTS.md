@@ -38,8 +38,10 @@ To change what they contain, change `src/` and rebuild.
 ## The loop
 
 ```
-npm run build      # tsc → dist/, then regenerate the manifest
+npm run build      # tsc → dist/, then regenerate the manifest (the gate runs here)
 npm run verify     # build + lint + jest + contract-check + dep policy
+node tools/check-registry.mjs --json     # the gate's findings as JSON — loop on your own errors
+node tools/check-registry.mjs --sweep    # + the standard 1080p canvases
 ```
 
 Run `verify` before you claim anything works. It is the same gate a human
@@ -53,10 +55,12 @@ in `defaultProps`, a description and a tag, a `ui.label` per prop (warning)
 — and again after rendering it at its defaults — it renders, every
 `editor.binding` resolves against the schema, a free-text prop drawn as text
 is bound to its rect (warning: "bind what you show"), every svg-drawn
-character has a glyph, and the layout clears its safe minimum at its own
-hinted canvas (warning; `npm run conventions:sweep` also walks the 1080p
-canvases). Errors fail the build and name the fix; warnings print. Read
-them.
+character has a glyph, every svg text layer FITS its cell, rendering the
+defaults twice gives the same document, the defaults pass their own schema,
+and the layout clears its safe minimum at its own hinted canvas (warning;
+`npm run conventions:sweep` also walks the 1080p canvases). Errors fail the
+build and name the fix; warnings print. `--json` gives you every finding
+with its fix as one object — read that instead of scraping the log.
 
 **`tsc --noEmit` is a weaker signal than `npm run build`** here — the build
 config differs, and things have passed the former while failing the latter.

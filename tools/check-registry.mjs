@@ -29,6 +29,22 @@ process.env.M0SAIC_CLI ??= "/usr/bin/false";
 // landscape / portrait / square) for the `canvasEnvelope` rule. Off by
 // default — a build gate renders once; the sweep is a few times the cost.
 const SWEEP = process.argv.includes("--sweep");
+// `--json`: one machine-readable report on stdout (every finding with its
+// convention, severity, keys, details and the fix), no human log lines —
+// for agents looping on their own errors. Exit code is unchanged.
+const JSON_OUT = process.argv.includes("--json");
+const log0 = console.log.bind(console);
+const warn0 = console.warn.bind(console);
+const err0 = console.error.bind(console);
+const say = (...a) => { if (!JSON_OUT) log0(...a); };
+const warn = (...a) => { if (!JSON_OUT) warn0(...a); };
+const fail = (...a) => { if (!JSON_OUT) err0(...a); };
+const report = { ok: true, mode: SWEEP ? "sweep" : "gate", templates: 0, rendered: 0, skipped: [], errors: [], warnings: [], notes: [] };
+const toJson = (f) => ({ templateId: f.templateId, convention: f.convention, severity: f.severity, violations: f.violations, fix: templateUtils.TEMPLATE_CONVENTION_FIX?.[f.convention] ?? null });
+const finish = (code) => {
+  if (JSON_OUT) { report.ok = code === 0; process.stdout.write(JSON.stringify(report, null, 2) + "\n"); }
+  process.exit(code);
+};
 
 let templates;
 let templateUtils;
@@ -37,39 +53,42 @@ try {
   templateUtils = require("@m0saic/template-utils");
 } catch (err) {
   const message = err && err.message ? err.message : String(err);
-  console.error(`\n[check-registry] ✗ the built templates refused to load:\n\n${message}\n`);
-  console.error("[check-registry] Fix the template above, then rebuild. (tools/check-registry.mjs)");
-  process.exit(1);
+  fail(`\n[check-registry] ✗ the built templates refused to load:\n\n${message}\n`);
+  fail("[check-registry] Fix the template above, then rebuild. (tools/check-registry.mjs)");
+  finish(1);
 }
 
 const count = Array.isArray(templates) ? templates.length : 0;
 const printFindings = (label, findings) => {
   for (const f of findings) {
-    console.error(`  ${label} ${f.templateId} — ${f.convention}: ${f.violations.map((v) => v.key).join(", ")}`);
-    for (const v of f.violations.slice(0, 4)) console.error(`      ${v.detail}`);
-    if (f.violations.length > 4) console.error(`      …+${f.violations.length - 4} more`);
+    fail(`  ${label} ${f.templateId} — ${f.convention}: ${f.violations.map((v) => v.key).join(", ")}`);
+    for (const v of f.violations.slice(0, 4)) fail(`      ${v.detail}`);
+    if (f.violations.length > 4) fail(`      …+${f.violations.length - 4} more`);
   }
 };
 
+report.templates = typeof ids !== "undefined" ? ids.length : (typeof count !== "undefined" ? count : 0);
 // ── Stage 1: definition time ───────────────────────────────────────────────
 const recorded = typeof templateUtils.listTemplateConventionFindings === "function"
   ? templateUtils.listTemplateConventionFindings().filter((f) => !f.external)
   : [];
 const errors1 = recorded.filter((f) => f.severity === "error");
+report.errors.push(...errors1.map(toJson));
 const warnings1 = recorded.filter((f) => f.severity === "warning");
+report.warnings.push(...warnings1.map(toJson));
 if (count === 0 || errors1.length > 0) {
-  console.error(`[check-registry] ✗ ${count} templates exported, ${errors1.length} convention error(s) recorded.`);
+  fail(`[check-registry] ✗ ${count} templates exported, ${errors1.length} convention error(s) recorded.`);
   printFindings("✗", errors1);
-  process.exit(1);
+  finish(1);
 }
 const warnedKnobs = warnings1.reduce((n, f) => n + f.violations.length, 0);
-console.log(`[check-registry] ✓ ${count} templates — definition-time conventions hold` +
+say(`[check-registry] ✓ ${count} templates — definition-time conventions hold` +
   (warnings1.length ? ` (${warnings1.length} template(s) carry ${warnedKnobs} warning knob(s): ${[...new Set(warnings1.map((f) => f.convention))].join(", ")})` : "") + ".");
 
 // ── Stage 2: render time ───────────────────────────────────────────────────
 if (typeof templateUtils.auditRenderedTemplate !== "function") {
-  console.warn("[check-registry] ⚠ this @m0saic/template-utils has no auditRenderedTemplate — render-time conventions not checked.");
-  process.exit(0);
+  warn("[check-registry] ⚠ this @m0saic/template-utils has no auditRenderedTemplate — render-time conventions not checked.");
+  finish(0);
 }
 // A host registers every template of a repo before rendering any of them
 // (a lesson may invoke a sibling by id through the registry). Do the same
@@ -84,21 +103,25 @@ for (const template of templates) {
   const audit = await templateUtils.auditRenderedTemplate(template, SWEEP ? { sweepCanvases: templateUtils.STANDARD_SWEEP_CANVASES } : {});
   if (audit.skipped) {
     skipped.push(`${audit.templateId}: ${audit.skipped}`);
+    report.skipped.push({ templateId: audit.templateId, reason: audit.skipped });
     continue;
   }
   rendered++;
-  for (const f of audit.findings) (f.severity === "error" ? errors2 : warnings2).push(f);
-  for (const note of audit.notes) console.warn(`  ⚠ ${audit.templateId}: ${note}`);
+  report.rendered = rendered;
+  for (const f of audit.findings) { (f.severity === "error" ? errors2 : warnings2).push(f); (f.severity === "error" ? report.errors : report.warnings).push(toJson(f)); }
+  for (const note of audit.notes) report.notes.push({ templateId: audit.templateId, note });
+  for (const note of audit.notes) warn(`  ⚠ ${audit.templateId}: ${note}`);
 }
 if (warnings2.length) {
-  console.warn(`[check-registry] ⚠ ${warnings2.length} render-time warning(s) (record posture — fix when you touch the template):`);
+  warn(`[check-registry] ⚠ ${warnings2.length} render-time warning(s) (record posture — fix when you touch the template):`);
   printFindings("⚠", warnings2);
 }
 if (errors2.length) {
-  console.error(`[check-registry] ✗ ${errors2.length} render-time convention error(s):`);
+  fail(`[check-registry] ✗ ${errors2.length} render-time convention error(s):`);
   printFindings("✗", errors2);
-  console.error("[check-registry] Fix the template(s) above, then rebuild. (tools/check-registry.mjs)");
-  process.exit(1);
+  fail("[check-registry] Fix the template(s) above, then rebuild. (tools/check-registry.mjs)");
+  finish(1);
 }
-if (SWEEP) console.log(`[check-registry] (sweep) each template was also rendered on ${templateUtils.STANDARD_SWEEP_CANVASES.length} standard canvases for the canvasEnvelope rule.`);
-console.log(`[check-registry] ✓ ${rendered} templates rendered at their defaults — render-time conventions hold (${skipped.length} skipped: inputs required).`);
+if (SWEEP) say(`[check-registry] (sweep) each template was also rendered on ${templateUtils.STANDARD_SWEEP_CANVASES.length} standard canvases for the canvasEnvelope rule.`);
+say(`[check-registry] ✓ ${rendered} templates rendered at their defaults — render-time conventions hold (${skipped.length} skipped: inputs required).`);
+finish(0);

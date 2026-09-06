@@ -45,7 +45,9 @@ The module defines an object; the host decides what to do with it.
 Same inputs, same bytes. Every time.
 
 - Never call `Math.random()` or read the clock. Randomness takes a **seed
-  prop**; identical seeds produce identical output.
+  prop**; identical seeds produce identical output. The build gate renders
+  the defaults twice and FAILS on any difference (`deterministic`), naming
+  the first path that changed.
 - Never read ambient state — env vars, cwd, the filesystem.
 - `ctx.target` is the **only** source of size and duration.
 
@@ -62,7 +64,10 @@ duration is not. See `surfaces/render-tutorial/v1`.
 ## Props
 
 - Every template declares a `propsSchema` via `definePropsSchema`. Optional
-  props get deterministic defaults.
+  props get deterministic defaults — and the defaults must pass the schema
+  (`defaultsValidate`, a build error): a default outside its `oneOf`,
+  beyond `min`/`max`, or of the wrong type is a knob that shows one thing
+  and renders another. A required input with no default is fine.
 - **The schema is documentation; `render()` is the gate.** Validate in
   `render` and fail with a message naming the prop and the remedy. Do not
   assume the host validated anything.
@@ -103,6 +108,13 @@ rects.
 from the bundled deterministic font, baked to geometry, identical in the app
 preview and the CLI. Fit it with the measured helpers — **nothing
 soft-wraps**.
+
+**It must fit.** The build gate measures every svg text layer with the
+rasterizer's own font, after the placement's `inset` and `padding` and any
+plain-number `xExpr` / `yExpr` offset, and FAILS when a layer needs more
+than its cell offers at the hinted canvas (`textFits`). Svg text never
+wraps or scales itself; an unfitted string clips silently. `svgLabel` and
+`fitSvgText` fit for you.
 
 **Only draw characters the font has.** The bundled Roboto carries the
 typographic set (`… “ ” · × – —`) but NOT arrows or ticks (`→ ✓` draw as
