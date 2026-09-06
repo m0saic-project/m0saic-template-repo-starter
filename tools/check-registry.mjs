@@ -63,6 +63,9 @@ let templateUtils;
 try {
   ({ templates } = require("../dist/index.js")); // side effect: defineMosaicTemplate() for every template
   templateUtils = require("@m0saic/template-utils");
+  // The filesystem half of layout fingerprints lives in the node-only entry
+  // (the root barrel is walked by the web bundle and must stay free of node:fs).
+  templateUtils = { ...templateUtils, ...require("@m0saic/template-utils/dist/dev/index.js") };
 } catch (err) {
   const message = err && err.message ? err.message : String(err);
   fail(`\n[check-registry] ✗ the built templates refused to load:\n\n${message}\n`);
