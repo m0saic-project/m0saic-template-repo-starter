@@ -10,6 +10,8 @@
     "clean": "rimraf dist template-manifest.json",
     "build": "tsc -p tsconfig.build.json && node tools/copy-assets.mjs && node dist/gen-template-manifest.js && node tools/check-registry.mjs",
     "conventions:sweep": "node tools/check-registry.mjs --sweep",
+    "fingerprints:update": "node tools/check-registry.mjs --update-fingerprints",
+    "new": "node tools/new-template.mjs",
     "audit": "node tools/audit-templates.mjs",
     "audit:write": "node tools/audit-templates.mjs --write",
     "manifest": "node dist/gen-template-manifest.js",

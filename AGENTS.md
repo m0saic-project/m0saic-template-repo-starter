@@ -84,6 +84,37 @@ npm run audit:write           # writes TEMPLATE-AUDIT.md
 node tools/audit-templates.mjs --only <id-substring> --fast   # while iterating
 ```
 
+## Scaffold, don't hand-roll
+
+```
+npm run new -- <pack>/<slug> --title "Human Title"
+```
+
+writes the template (typed props with defaults, a bound title, fitted copy,
+deterministic geometry), its test (bindings, floors, determinism), the
+registry row and the pack wiring — a NEW pack gets its files, the descriptor
+in `src/repo.ts`, the chapter in `src/template-registry.ts` / `src/index.ts`
+and a `## <pack>` section in CURRICULUM.md. It passes every gate convention
+as generated; replace the body, keep the shape. Then
+`npm run build && npm run previews && npm run build && npm run verify`.
+
+## Layout fingerprints
+
+Each template's flattened layout at its hinted canvas is committed as a
+native `.m0` sidecar beside its source — `src/<pack>/<slug>/v1/<slug>.layout.m0`
+(`# size:` is the canvas, `# title:` the id; it opens in the Layout page and
+diffs line-for-line, in the same folder as the code that produced it). A
+pipeline with several inline documents adds `<slug>.layout.step2.m0`, …. The build FAILS when a layout differs from its
+fingerprint — so an edit to a shared helper shows its blast radius as a
+diff, not a surprise. Intended change: `npm run fingerprints:update`, review
+the diff, commit it with the change.
+
+## From outside the build
+
+`m0saic doctor <repo-dir> [--json] [--sweep]` runs the same conventions over
+any template repo folder the way a host loads it — for a reviewer with a
+fresh clone, a CI job, or an agent that does not own the build.
+
 ## Adding a template — the whole checklist
 
 1. `src/<pack>/<slug>/v1/<slug>.ts` — read a neighbour in the same chapter

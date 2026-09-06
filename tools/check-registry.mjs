@@ -20,9 +20,13 @@
  *
  * Same gate as the m0saic monorepo's `packages/templates/tools/check-registry.mjs`.
  */
+import fs from "node:fs";
+import path from "node:path";
 import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 process.env.M0SAIC_CLI ??= "/usr/bin/false";
 
 // `--sweep`: also render every template on the standard canvases (1080p
@@ -33,13 +37,21 @@ const SWEEP = process.argv.includes("--sweep");
 // convention, severity, keys, details and the fix), no human log lines —
 // for agents looping on their own errors. Exit code is unchanged.
 const JSON_OUT = process.argv.includes("--json");
+// `--update-fingerprints`: (re)write layout-fingerprints/*.fingerprint from
+// the current flattened layouts instead of comparing against them. Commit
+// the result: the diff IS the review of a layout change.
+const UPDATE_FP = process.argv.includes("--update-fingerprints");
+// Fingerprints are SIDECARS: `<srcRoot>/<pack>/<slug>/vN/<slug>.layout.m0`
+// next to the template source; a template whose id has no source folder
+// falls back to `layout-fingerprints/<key>.m0`.
+const FP_OPTS = { srcRoot: 'src' };
 const log0 = console.log.bind(console);
 const warn0 = console.warn.bind(console);
 const err0 = console.error.bind(console);
 const say = (...a) => { if (!JSON_OUT) log0(...a); };
 const warn = (...a) => { if (!JSON_OUT) warn0(...a); };
 const fail = (...a) => { if (!JSON_OUT) err0(...a); };
-const report = { ok: true, mode: SWEEP ? "sweep" : "gate", templates: 0, rendered: 0, skipped: [], errors: [], warnings: [], notes: [] };
+const report = { ok: true, mode: SWEEP ? "sweep" : "gate", templates: 0, rendered: 0, skipped: [], errors: [], warnings: [], notes: [], fingerprints: { srcRoot: FP_OPTS.srcRoot, fallbackDir: "layout-fingerprints", minted: 0, unchanged: 0, missing: 0, changed: 0 } };
 const toJson = (f) => ({ templateId: f.templateId, convention: f.convention, severity: f.severity, violations: f.violations, fix: templateUtils.TEMPLATE_CONVENTION_FIX?.[f.convention] ?? null });
 const finish = (code) => {
   if (JSON_OUT) { report.ok = code === 0; process.stdout.write(JSON.stringify(report, null, 2) + "\n"); }
@@ -98,6 +110,7 @@ for (const template of templates) templateUtils.registerTemplate(template);
 const errors2 = [];
 const warnings2 = [];
 const skipped = [];
+const layouts = [];
 let rendered = 0;
 for (const template of templates) {
   const audit = await templateUtils.auditRenderedTemplate(template, SWEEP ? { sweepCanvases: templateUtils.STANDARD_SWEEP_CANVASES } : {});
@@ -108,6 +121,7 @@ for (const template of templates) {
   }
   rendered++;
   report.rendered = rendered;
+  if (audit.layout) layouts.push({ id: audit.templateId, layout: audit.layout });
   for (const f of audit.findings) { (f.severity === "error" ? errors2 : warnings2).push(f); (f.severity === "error" ? report.errors : report.warnings).push(toJson(f)); }
   for (const note of audit.notes) report.notes.push({ templateId: audit.templateId, note });
   for (const note of audit.notes) warn(`  ⚠ ${audit.templateId}: ${note}`);
@@ -116,6 +130,32 @@ if (warnings2.length) {
   warn(`[check-registry] ⚠ ${warnings2.length} render-time warning(s) (record posture — fix when you touch the template):`);
   printFindings("⚠", warnings2);
 }
+// ── Stage 3: layout fingerprints ───────────────────────────────────────────
+// The flattened layout at the hinted canvas, committed per template as a
+// native `.m0` sidecar next to its source (`# size:` = the canvas, `# title:`
+// = the id). A change is a build ERROR until re-minted with
+// --update-fingerprints — so an edit to a shared helper shows its blast
+// radius as a diff, not a surprise.
+for (const { id, layout } of layouts) {
+  if (UPDATE_FP) {
+    if (templateUtils.writeLayoutFingerprint(ROOT, id, layout, FP_OPTS) > 0) report.fingerprints.minted++; else report.fingerprints.unchanged++;
+    continue;
+  }
+  const result = templateUtils.checkLayoutFingerprint(ROOT, id, layout, false, FP_OPTS);
+  if (result === "missing") {
+    report.fingerprints.missing++;
+    const where = templateUtils.layoutFingerprintLocation(ROOT, id, FP_OPTS);
+    const f = { templateId: id, convention: "layoutFingerprint", severity: "warning", violations: [{ key: "missing", detail: `no committed fingerprint at ${path.relative(ROOT, path.join(where.dir, templateUtils.layoutFingerprintFileName(where.base)))} — run \`node tools/check-registry.mjs --update-fingerprints\` and commit it.` }] };
+    warnings2.push(f); report.warnings.push(toJson(f));
+  } else if (result) {
+    report.fingerprints.changed++; errors2.push(result); report.errors.push(toJson(result));
+  } else {
+    report.fingerprints.unchanged++;
+  }
+}
+if (UPDATE_FP) say(`[check-registry] ✎ layout fingerprints: ${report.fingerprints.minted} written, ${report.fingerprints.unchanged} unchanged → <template folder>/<slug>.layout.m0 (commit them).`);
+else say(`[check-registry] ✓ layout fingerprints: ${report.fingerprints.unchanged} unchanged, ${report.fingerprints.missing} missing, ${report.fingerprints.changed} changed.`);
+
 if (errors2.length) {
   fail(`[check-registry] ✗ ${errors2.length} render-time convention error(s):`);
   printFindings("✗", errors2);

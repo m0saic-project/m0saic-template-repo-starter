@@ -159,6 +159,31 @@ Lock it in the lesson's test with `resolvePropBindings(doc, w, h,
 { propsSchema })`: `rejected` is empty, `byProp` has every knob you bound.
 Lesson: `make/prop-bindings/v1`.
 
+## Scaffolding a template
+
+`npm run new -- <pack>/<slug> --title "Human Title"` writes a template that
+already passes every build-gate convention, its test, and all the wiring
+(registry row, pack index, and for a new pack the descriptor, chapter and
+curriculum section). Edit the body; the header comment is the lesson.
+
+## Layout fingerprints
+
+Every template's flattened layout at its hinted canvas is committed as a
+native `.m0` sidecar beside its source, `src/<pack>/<slug>/v1/<slug>.layout.m0`
+(the `# size:` header is the canvas, `# title:` the template id; a pipeline
+with several inline documents adds `<slug>.layout.step2.m0`, …). A template
+whose id has no matching source folder falls back to `layout-fingerprints/`. The build compares and FAILS on a change, so a
+refactor of a shared helper cannot silently move a hundred rects. When the
+change is intended, `npm run fingerprints:update` re-mints the files; commit
+them with the change and the diff is the review.
+
+## Checking from outside the build
+
+`m0saic doctor <repo-dir>` (add `--json` for tooling, `--sweep` for the
+standard canvases) loads a repo the way Mosaic does and prints every
+convention finding with its fix, fingerprints included. Same law as
+`npm run build`, no build required.
+
 ## Auditing the shelf
 
 `npm run audit` renders every core-tier template at its defaults and writes
