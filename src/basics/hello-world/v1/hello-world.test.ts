@@ -37,6 +37,12 @@ describe(HELLO_WORLD_ID, () => {
     expect(byProp.caption).toHaveLength(1);
   });
 
+  it("ships a tutorial page — the repo's law: every lesson has a voice in Make", async () => {
+    expect(typeof HelloWorldV1.renderTutorial).toBe("function");
+    const page = await HelloWorldV1.renderTutorial!(HelloWorldV1.defaultProps ?? {}, defaultCtx);
+    expect(page).toBeTruthy();
+  });
+
   it("is deterministic — identical props, identical document", async () => {
     const a = await HelloWorldV1.render({}, defaultCtx);
     const b = await HelloWorldV1.render({}, defaultCtx);
