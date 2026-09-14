@@ -102,18 +102,15 @@ const MULTI_OUTPUT_STEP = new Map([
   ["@m0saic-starter/pipelines/ref-reframe/v1", "reframed"],
 ]);
 
-/** Per-id preview canvas when 1920x1080 misrepresents the template — or
- *  (media units showing real video frames) busts the PNG budget. */
+/** Per-id preview canvas when 1920x1080 misrepresents the template's ASPECT.
+ *  (The old entries that shrank photographic media units to fit a 150 KB
+ *  still budget are gone — the budget is soft now, and previews should look
+ *  like the product. 2026-09-14.) */
 const PREVIEW_DIMS = new Map([
-  ["@m0saic-starter/basics/hot-reload-canary/v1", ["720", "720"]],
-  ["@m0saic-starter/media/probe-card/v1", ["640", "360"]],
-  ["@m0saic-starter/media/luma-badge/v1", ["384", "216"]],
-  ["@m0saic-starter/media/time-range-clip/v1", ["426", "240"]],
-  ["@m0saic-starter/media/time-ranges-medley/v1", ["426", "160"]],
-  ["@m0saic-starter/media/play-speed/v1", ["426", "240"]],
-  // Full-bleed video frame: photographic, so it busts the PNG budget at 720p
-  // and still does at 426x240 (176 KB). This is the largest 16:9 that fits.
-  ["@m0saic-starter/surfaces/render-cover/v1", ["384", "216"]],
+  // Square by design — the canary's fill is the whole lesson.
+  ["@m0saic-starter/basics/hot-reload-canary/v1", ["1080", "1080"]],
+  // A wide strip of ranges — 8:3, at full height.
+  ["@m0saic-starter/media/time-ranges-medley/v1", ["1920", "720"]],
 ]);
 
 /** Per-id overrides when the default flags don't fit (e.g. multi-output

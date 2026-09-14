@@ -2,8 +2,8 @@
   "templateId": "@m0saic-starter/data/sidecar-json/v1",
   "note": "rendered by the starter repo",
   "canvas": {
-    "width": 1280,
-    "height": 720
+    "width": 1920,
+    "height": 1080
   },
   "timing": {
     "fps": 30,
