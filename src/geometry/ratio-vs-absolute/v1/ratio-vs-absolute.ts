@@ -87,6 +87,7 @@ export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Render at several widths: the ratio band's string never changes; the absolute band re-bakes its pixels every time.",
   },
 

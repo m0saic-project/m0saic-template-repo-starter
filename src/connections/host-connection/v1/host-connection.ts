@@ -108,6 +108,7 @@ export const HostConnectionV1 = defineMosaicTemplate<HostConnectionProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Start the example upstream (node examples/http-orchestrator/server.cjs), then Settings → Integrations → Starter Catalog → Test connection.",
   },
 

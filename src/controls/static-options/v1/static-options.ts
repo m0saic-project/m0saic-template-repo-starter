@@ -141,6 +141,7 @@ export const StaticOptionsV1 = defineMosaicTemplate<StaticOptionsProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Preset renders as three pills (options + oneOf); Tracks as toggle pills (options only). Try typing an off-list track into the saved file — it renders; an off-list preset is refused.",
   },
 

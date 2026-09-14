@@ -69,6 +69,7 @@ export const JsonDataPropV1 = defineMosaicTemplate<JsonDataPropProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Edit the Data prop's JSON — rows and bars follow the records.",
   },
 

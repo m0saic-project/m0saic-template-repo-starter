@@ -65,6 +65,7 @@ exports.FixtureFetcherV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Publishes upstream data; the tile is a carrier so you can see the payload. Feed it to data/data-card.",
     },
     propsSchema,

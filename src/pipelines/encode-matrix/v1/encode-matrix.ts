@@ -96,6 +96,7 @@ export const EncodeMatrixV1 = defineMosaicTemplate<EncodeMatrixProps>({
     height: 720,
     fps: 30,
     durationMs: 1000,
+    format: { kind: "video", container: "mp4" },
     note: "Render it and count the files: one master plus one per encode entry.",
   },
 

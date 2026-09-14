@@ -37,6 +37,7 @@ exports.RefMirrorV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "The three right-hand cells are the left one's pixels — flip Mirror fit and only they change.",
     },
     propsSchema,

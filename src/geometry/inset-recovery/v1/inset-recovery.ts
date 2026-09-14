@@ -89,6 +89,7 @@ export const InsetRecoveryV1 = defineMosaicTemplate<InsetRecoveryProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Read the two precision numbers on the caption — same pixels, different promises to a parent.",
   },
 

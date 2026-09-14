@@ -63,6 +63,7 @@ exports.M0PropV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Paste any m0 into Layout — a valid string is framed as a wireframe; an invalid one gets a report card naming the problem, never a dead preview.",
     },
     propsSchema,

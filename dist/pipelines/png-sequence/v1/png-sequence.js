@@ -75,6 +75,7 @@ exports.PngSequenceV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 360,
         fps: 30,
         durationMs: 600,
+        format: { kind: "image", container: "png" },
         note: "Render it and read the folder: frame-001.png, frame-002.png, …",
     },
     propsSchema,

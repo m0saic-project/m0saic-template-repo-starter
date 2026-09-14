@@ -183,6 +183,7 @@ export const MultiSelectV1 = defineMosaicTemplate<MultiSelectProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Edit Mixes: add a card, open its Items chips — the modal arrives sectioned Shorts / Features / Loops via groupByKey.",
   },
 

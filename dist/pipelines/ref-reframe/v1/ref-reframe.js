@@ -107,6 +107,7 @@ exports.RefReframeV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 1600,
+        format: { kind: "video", container: "mp4" },
         note: "The second step outlives its target on purpose — loopMode decides what fills the tail.",
     },
     propsSchema,

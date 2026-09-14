@@ -97,6 +97,7 @@ export const TextThreeWaysV1 = defineMosaicTemplate<TextThreeWaysProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "video", container: "mp4" },
     note: "Select each column's tile — the rasterizer row and the MASK section tell the three apart.",
   },
 

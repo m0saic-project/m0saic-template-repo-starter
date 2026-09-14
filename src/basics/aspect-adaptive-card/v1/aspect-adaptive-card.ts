@@ -109,6 +109,7 @@ export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Try 1080x1920 too — the layout flips to a stack and the caption follows.",
   },
 

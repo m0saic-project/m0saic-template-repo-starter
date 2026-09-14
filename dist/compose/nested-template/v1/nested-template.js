@@ -41,6 +41,7 @@ exports.NestedTemplateV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Drag Slot % and watch the badge re-fit — it is re-rendering, not re-scaling.",
     },
     propsSchema,

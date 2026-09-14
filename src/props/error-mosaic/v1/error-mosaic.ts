@@ -83,6 +83,7 @@ export const ErrorMosaicV1 = defineMosaicTemplate<ErrorMosaicProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Break a prop (Ratio 5, Accent \"orange\") and the canvas becomes the report card.",
   },
 

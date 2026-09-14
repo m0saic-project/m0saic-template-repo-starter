@@ -104,6 +104,7 @@ export const FitTextV1 = defineMosaicTemplate<FitTextProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Drag Box width % down to 40 and step through the three modes.",
   },
 

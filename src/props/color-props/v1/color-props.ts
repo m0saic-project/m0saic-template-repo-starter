@@ -77,6 +77,7 @@ export const ColorPropsV1 = defineMosaicTemplate<ColorPropsProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Open both controls in the sidebar — a swatch for the scalar, swatch ROWS for the list.",
   },
 

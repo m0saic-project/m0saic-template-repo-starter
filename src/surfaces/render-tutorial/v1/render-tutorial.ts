@@ -179,6 +179,7 @@ export const RenderTutorialV1 = defineMosaicTemplate<RenderTutorialProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Press the ? pill - the walkthrough is three pages long, and it decides how long.",
   },
 

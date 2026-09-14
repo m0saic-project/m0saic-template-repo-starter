@@ -127,6 +127,7 @@ export const CodeHandoffV1 = defineMosaicTemplate<CodeHandoffProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Open 'Run it yourself' — a copyable window, not an input. Copy the command into a terminal and render this template without the app.",
   },
 

@@ -151,6 +151,7 @@ exports.PropBindingsV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Static card. Double-click the header, the subtitle, the swatch, a number, a bullet, a row cell, or a code line; the mode chip has no pencil.",
     },
     propsSchema,

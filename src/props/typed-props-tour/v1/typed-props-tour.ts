@@ -89,6 +89,7 @@ export const TypedPropsTourV1 = defineMosaicTemplate<TypedPropsTourProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Change every prop in the sidebar and watch its band move.",
   },
 

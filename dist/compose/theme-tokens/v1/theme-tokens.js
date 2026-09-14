@@ -95,6 +95,7 @@ exports.ThemeTokensV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Set Token source to \"provider\" and flip Mode — the swatches re-skin from another template.",
     },
     propsSchema,

@@ -81,6 +81,7 @@ export const MaskInACellV1 = defineMosaicTemplate<MaskInACellProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Flip Match cell aspect off and re-render — same string, smeared shape.",
   },
 

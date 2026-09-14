@@ -167,6 +167,7 @@ export const RefReframeV1 = defineMosaicTemplate<RefReframeProps>({
     height: 720,
     fps: 30,
     durationMs: 1600,
+    format: { kind: "video", container: "mp4" },
     note: "The second step outlives its target on purpose — loopMode decides what fills the tail.",
   },
 

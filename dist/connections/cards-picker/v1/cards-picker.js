@@ -76,6 +76,7 @@ exports.CardsPickerV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Open the Items picker with the example server running — an artwork grid, sectioned and searchable. Kill the server: same picker, text rows.",
     },
     propsSchema,

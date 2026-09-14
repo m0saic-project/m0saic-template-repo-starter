@@ -140,6 +140,7 @@ export const LayoutContractCardV1 = defineMosaicTemplate<LayoutContractCardProps
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Debug layout on = four green cards + the measured rule. Stretch card 1.5 = one red among green. Any canvas.",
   },
 

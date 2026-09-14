@@ -130,6 +130,7 @@ export const QuantizationCuresV1 = defineMosaicTemplate<QuantizationCuresProps>(
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Flip Method and watch the gutter lines even out — then read the caption and the m0 readout.",
   },
 

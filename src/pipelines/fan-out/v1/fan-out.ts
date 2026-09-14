@@ -132,6 +132,7 @@ export const FanOutV1 = defineMosaicTemplate<FanOutProps>({
     height: 720,
     fps: 30,
     durationMs: 1000,
+    format: { kind: "video", container: "mp4" },
     note: "Render it and look at the output folder: one file per step, named from step.name.",
   },
 

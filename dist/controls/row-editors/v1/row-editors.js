@@ -95,6 +95,7 @@ exports.RowEditorsV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Edit Segments: rows, not JSON. Add a row — its color arrives from the palette. The bar re-proportions from the plain array.",
     },
     propsSchema,

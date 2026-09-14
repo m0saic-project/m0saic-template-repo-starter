@@ -28,6 +28,7 @@ exports.ProbeCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Pick a video, then an image — watch the duration line appear and vanish.",
     },
     propsSchema,

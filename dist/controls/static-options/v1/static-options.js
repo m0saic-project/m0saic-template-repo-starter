@@ -82,6 +82,7 @@ exports.StaticOptionsV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Preset renders as three pills (options + oneOf); Tracks as toggle pills (options only). Try typing an off-list track into the saved file — it renders; an off-list preset is refused.",
     },
     propsSchema,

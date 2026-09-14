@@ -64,6 +64,7 @@ exports.CameraFollowV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 6000,
+        format: { kind: "video", container: "mp4" },
         note: "Press play: the camera settles on three cells in turn. Turn Show viewport rects on to see why.",
     },
     propsSchema,

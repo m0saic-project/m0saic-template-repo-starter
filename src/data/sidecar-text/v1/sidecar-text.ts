@@ -127,6 +127,7 @@ export const SidecarTextV1 = defineMosaicTemplate<SidecarTextProps>({
     height: 720,
     fps: 30,
     durationMs: 2400,
+    format: { kind: "video", container: "mp4" },
     note: "Render to out.mp4 and open out.captions.vtt beside it.",
   },
 

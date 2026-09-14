@@ -53,6 +53,7 @@ exports.CountUpV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 3000,
+        format: { kind: "video", container: "mp4" },
         note: "Press play — the number ramps over the whole clip. Then flip Freeze as a still.",
     },
     propsSchema,

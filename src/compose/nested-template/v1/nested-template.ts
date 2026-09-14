@@ -91,6 +91,7 @@ export const NestedTemplateV1 = defineMosaicTemplate<NestedTemplateProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Drag Slot % and watch the badge re-fit — it is re-rendering, not re-scaling.",
   },
 

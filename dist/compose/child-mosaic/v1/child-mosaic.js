@@ -42,6 +42,7 @@ exports.ChildMosaicV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Drag Child grid 2→5: the parent's m0 never changes. Then flip Declare child size.",
     },
     propsSchema,

@@ -102,6 +102,7 @@ export const AnatomyV1 = defineMosaicTemplate<AnatomyProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Static content — any canvas and any duration render cleanly.",
   },
 

@@ -44,6 +44,7 @@ exports.ErrorMosaicV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Break a prop (Ratio 5, Accent \"orange\") and the canvas becomes the report card.",
     },
     propsSchema,

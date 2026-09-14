@@ -75,6 +75,7 @@ export const GcdCollapseV1 = defineMosaicTemplate<GcdCollapseProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Render at an odd width (1031, 1279…) and watch the top row's seams drift off the bottom row's.",
   },
 

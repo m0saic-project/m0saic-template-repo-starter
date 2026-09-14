@@ -130,6 +130,7 @@ export const DrawRegionsV1 = defineMosaicTemplate<DrawRegionsProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Open Marked areas and draw on the preview — rectangles land as numbered chips in draw order. Delete them all: the scene invites you again.",
   },
 

@@ -66,6 +66,7 @@ export const UrlAssetV1 = defineMosaicTemplate<UrlAssetProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Renders offline as the explainer card; paste an https image URL to fetch one at render time.",
   },
 

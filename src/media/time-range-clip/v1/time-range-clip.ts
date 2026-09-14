@@ -92,6 +92,7 @@ export const TimeRangeClipV1 = defineMosaicTemplate<TimeRangeClipProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "video", container: "mp4" },
     note: "Pick a video, then drag the scrubber's two handles — the render plays only that window.",
   },
 

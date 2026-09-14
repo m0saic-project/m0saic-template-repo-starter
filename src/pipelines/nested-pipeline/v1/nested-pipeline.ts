@@ -121,6 +121,7 @@ export const NestedPipelineV1 = defineMosaicTemplate<NestedPipelineProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "video", container: "mp4" },
     note: "The left tile is a whole pipeline. Make Inner ms shorter than Slot ms and flip Loop mode.",
   },
 

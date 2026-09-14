@@ -73,6 +73,7 @@ export const ImageCardV1 = defineMosaicTemplate<ImageCardProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Pick an image, then flip Fit between contain and cover.",
   },
 

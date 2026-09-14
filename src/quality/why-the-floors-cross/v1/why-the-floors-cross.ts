@@ -216,6 +216,7 @@ export const WhyTheFloorsCrossV1 = defineMosaicTemplate<WhyTheFloorsCrossProps>(
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Flip Layout and read Make's safe-minimum callout — it measures the same flattened string this template ships. real-kpi-strip jumps it to 934x117.",
   },
 

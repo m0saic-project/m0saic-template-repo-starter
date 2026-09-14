@@ -81,6 +81,7 @@ exports.DualPropsV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Drag Speed and watch holdSec move inversely under Agent props. Flip Animate — reduceMotion flips the other way. Render only ever saw the canonical pair.",
     },
     propsSchema,

@@ -43,6 +43,7 @@ exports.ColorPropsV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Open both controls in the sidebar — a swatch for the scalar, swatch ROWS for the list.",
     },
     propsSchema,

@@ -57,6 +57,7 @@ export const ProbeCardV1 = defineMosaicTemplate<ProbeCardProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Pick a video, then an image — watch the duration line appear and vanish.",
   },
 

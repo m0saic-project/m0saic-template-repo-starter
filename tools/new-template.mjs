@@ -150,6 +150,7 @@ export const ${exportName} = defineMosaicTemplate<${pascal(slug)}Props>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Static card - any canvas and any duration render cleanly.",
   },
 

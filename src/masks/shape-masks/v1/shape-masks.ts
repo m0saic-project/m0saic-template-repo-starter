@@ -111,6 +111,7 @@ export const ShapeMasksV1 = defineMosaicTemplate<ShapeMasksProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Step through the four shapes, then push Corner % to 50 on rounded-rect.",
   },
 

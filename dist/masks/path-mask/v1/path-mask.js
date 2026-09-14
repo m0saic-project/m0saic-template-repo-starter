@@ -62,6 +62,7 @@ exports.PathMaskV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Flip Inner circle drawn to \"same\" — the hole fills in with no error at all.",
     },
     propsSchema,

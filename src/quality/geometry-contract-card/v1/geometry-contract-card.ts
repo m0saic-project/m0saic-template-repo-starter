@@ -148,6 +148,7 @@ export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardP
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Debug geometry on = the chip drawn green. Offset 2+ = realized red vs intended amber ghost. 1 is inside tolerance.",
   },
 

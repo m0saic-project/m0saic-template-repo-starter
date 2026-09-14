@@ -182,6 +182,7 @@ exports.CriteriaFilterV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Open Filter: set Search, pick Collections from the live connection, give Duration a modifier. Unset everything — the card says 'matching everything'.",
     },
     propsSchema,

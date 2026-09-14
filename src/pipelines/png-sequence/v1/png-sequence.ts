@@ -126,6 +126,7 @@ export const PngSequenceV1 = defineMosaicTemplate<PngSequenceProps>({
     height: 360,
     fps: 30,
     durationMs: 600,
+    format: { kind: "image", container: "png" },
     note: "Render it and read the folder: frame-001.png, frame-002.png, …",
   },
 

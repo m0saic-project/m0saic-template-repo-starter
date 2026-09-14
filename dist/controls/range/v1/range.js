@@ -98,6 +98,7 @@ exports.RangeV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Toggle Hold between flat and range, then flip Pick once — the value shape changes in the saved file, and the scale re-draws the intent.",
     },
     propsSchema,

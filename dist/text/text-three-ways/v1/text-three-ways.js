@@ -39,6 +39,7 @@ exports.TextThreeWaysV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "video", container: "mp4" },
         note: "Select each column's tile — the rasterizer row and the MASK section tell the three apart.",
     },
     propsSchema,

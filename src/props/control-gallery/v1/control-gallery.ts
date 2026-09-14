@@ -87,6 +87,7 @@ export const ControlGalleryV1 = defineMosaicTemplate<ControlGalleryProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Look RIGHT: every row of the form is one meta affordance. The canvas is just the spec sheet.",
   },
 

@@ -56,6 +56,7 @@ exports.AspectAdaptiveCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Try 1080x1920 too — the layout flips to a stack and the caption follows.",
     },
     propsSchema,

@@ -72,6 +72,7 @@ export const SeededShuffleV1 = defineMosaicTemplate<SeededShuffleProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Re-render with the same seed — nothing changes. That's the point.",
   },
 

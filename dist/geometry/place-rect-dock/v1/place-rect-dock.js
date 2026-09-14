@@ -50,6 +50,7 @@ exports.PlaceRectDockV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Render at two widths and diff the saved m0 — the dock's numbers move, the design doesn't.",
     },
     propsSchema,

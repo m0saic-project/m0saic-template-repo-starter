@@ -123,6 +123,7 @@ export const M0PropV1 = defineMosaicTemplate<M0PropProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Paste any m0 into Layout — a valid string is framed as a wireframe; an invalid one gets a report card naming the problem, never a dead preview.",
   },
 

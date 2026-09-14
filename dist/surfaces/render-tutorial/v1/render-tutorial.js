@@ -111,6 +111,7 @@ exports.RenderTutorialV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Press the ? pill - the walkthrough is three pages long, and it decides how long.",
     },
     propsSchema,

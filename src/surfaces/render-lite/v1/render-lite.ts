@@ -137,6 +137,7 @@ export const RenderLiteV1 = defineMosaicTemplate<RenderLiteProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Preview shows the lite card; Make renders the grid. The difference is the lesson.",
   },
 

@@ -162,6 +162,7 @@ export const ThemeTokensV1 = defineMosaicTemplate<ThemeTokensProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Set Token source to \"provider\" and flip Mode — the swatches re-skin from another template.",
   },
 

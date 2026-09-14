@@ -98,6 +98,7 @@ export const DataCardV1 = defineMosaicTemplate<DataCardProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Standalone it draws the sample. Chain it after data/pure-adapter for real numbers.",
   },
 

@@ -94,6 +94,7 @@ export const HotReloadCanaryV1 = defineMosaicTemplate<HotReloadCanaryProps>({
     height: 720,
     fps: 30,
     durationMs: 1000,
+    format: { kind: "image", container: "png" },
     note: "Square canvas — the canary is a solid fill, so the aspect only has to be unmistakable.",
   },
 

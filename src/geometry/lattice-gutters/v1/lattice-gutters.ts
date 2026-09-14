@@ -168,6 +168,7 @@ export const LatticeGuttersV1 = defineMosaicTemplate<LatticeGuttersProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Flip Gutter mode and read the caption — same pixels, wildly different strings.",
   },
 

@@ -90,6 +90,7 @@ export const ChildMosaicV1 = defineMosaicTemplate<ChildMosaicProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Drag Child grid 2→5: the parent's m0 never changes. Then flip Declare child size.",
   },
 

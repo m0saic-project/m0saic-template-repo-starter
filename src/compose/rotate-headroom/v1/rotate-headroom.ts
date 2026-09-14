@@ -121,6 +121,7 @@ export const RotateHeadroomV1 = defineMosaicTemplate<RotateHeadroomProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Set Angle to 30 and flip between the two modes — same card, one keeps its corners.",
   },
 

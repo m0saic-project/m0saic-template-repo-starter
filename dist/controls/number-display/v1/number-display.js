@@ -56,6 +56,7 @@ exports.NumberDisplayV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Hold shows seconds — cycle its unit chip. Fade's chip won't cycle (locked). Save the file: both stored in plain ms either way.",
     },
     propsSchema,

@@ -37,6 +37,7 @@ exports.SeededShuffleV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Re-render with the same seed — nothing changes. That's the point.",
     },
     propsSchema,

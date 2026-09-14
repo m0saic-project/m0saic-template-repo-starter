@@ -42,6 +42,7 @@ exports.InsetRecoveryV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Read the two precision numbers on the caption — same pixels, different promises to a parent.",
     },
     propsSchema,

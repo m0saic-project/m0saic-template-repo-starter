@@ -122,6 +122,7 @@ export const TwoScenesV1 = defineMosaicTemplate<TwoScenesProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "video", container: "mp4" },
     note: "Render it: two scenes, one file. Raise Overlap ms and the output gets SHORTER.",
   },
 

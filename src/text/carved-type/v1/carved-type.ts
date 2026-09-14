@@ -102,6 +102,7 @@ export const CarvedTypeV1 = defineMosaicTemplate<CarvedTypeProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "video", container: "mp4" },
     note: "Pick a video for Media and press play — the footage moves inside the letters.",
   },
 

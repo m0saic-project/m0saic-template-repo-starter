@@ -53,6 +53,7 @@ exports.PlaySpeedV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 4000,
+        format: { kind: "video", container: "mp4" },
         note: "4s of output on purpose: a 1s sample at 1x loops four times, so loopMode is obvious.",
     },
     propsSchema,

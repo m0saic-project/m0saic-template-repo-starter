@@ -48,6 +48,7 @@ exports.CarvedTypeV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "video", container: "mp4" },
         note: "Pick a video for Media and press play — the footage moves inside the letters.",
     },
     propsSchema,

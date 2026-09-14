@@ -95,6 +95,7 @@ exports.GroupFieldsV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Edit Speaker: one fieldset, three fields, one value. Save the file and look — the props carry a single speaker object.",
     },
     propsSchema,

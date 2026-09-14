@@ -110,6 +110,7 @@ export const CountUpV1 = defineMosaicTemplate<CountUpProps>({
     height: 720,
     fps: 30,
     durationMs: 3000,
+    format: { kind: "video", container: "mp4" },
     note: "Press play — the number ramps over the whole clip. Then flip Freeze as a still.",
   },
 

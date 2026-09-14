@@ -195,6 +195,7 @@ export const RefAcrossStepsV1 = defineMosaicTemplate<RefAcrossStepsProps>({
     height: 720,
     fps: 30,
     durationMs: 1400,
+    format: { kind: "video", container: "mp4" },
     note: "Two steps: the second one's left cell IS the first one's pixels.",
   },
 

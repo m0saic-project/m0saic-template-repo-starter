@@ -63,6 +63,7 @@ exports.RotateHeadroomV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Set Angle to 30 and flip between the two modes — same card, one keeps its corners.",
     },
     propsSchema,

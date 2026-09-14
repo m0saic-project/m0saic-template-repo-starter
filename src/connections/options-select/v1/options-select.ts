@@ -141,6 +141,7 @@ export const OptionsSelectV1 = defineMosaicTemplate<OptionsSelectProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "With the example server running, open Collections — live rows with item counts, resolved through the connectionId sibling. Blank the Connection prop and watch the control explain itself.",
   },
 

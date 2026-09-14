@@ -106,6 +106,7 @@ export const AudioMixV1 = defineMosaicTemplate<AudioMixProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "video", container: "mp4" },
     note: "Slide the two volumes; toggle Mute music and note the source count never changes.",
   },
 

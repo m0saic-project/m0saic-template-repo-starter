@@ -93,6 +93,7 @@ export const ReduceToOneV1 = defineMosaicTemplate<ReduceToOneProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Raise Density with mode \"flat\", then flip to \"reduced\" and compare the m0 lengths.",
   },
 

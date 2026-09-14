@@ -85,6 +85,7 @@ exports.WeightsV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
+        format: { kind: "image", container: "png" },
         note: "Drag one Mix slider — the others give way, the bands move. Hand-type numbers that don't sum to 100 into a saved file: normalized, not refused.",
     },
     propsSchema,

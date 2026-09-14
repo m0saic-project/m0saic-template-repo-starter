@@ -182,6 +182,7 @@ export const BelowTheFloorV1 = defineMosaicTemplate<BelowTheFloorProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Walk Mode through all three, then resize — the state belongs to (design, canvas), not the design.",
   },
 

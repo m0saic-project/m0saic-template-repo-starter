@@ -104,6 +104,7 @@ export const RenderCoverV1 = defineMosaicTemplate<RenderCoverProps>({
     height: 720,
     fps: 30,
     durationMs: 3000,
+    format: { kind: "video", container: "mp4" },
     note: "Open with no props to see the cover. Set Clip, and render plays it.",
   },
 

@@ -80,6 +80,7 @@ export const NestedBadgeV1 = defineMosaicTemplate<NestedBadgeProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Usually rendered as a child. Opening it directly is the way to debug one.",
   },
 

@@ -97,6 +97,7 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Static tiles — any canvas and duration render cleanly.",
   },
 

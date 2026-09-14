@@ -172,6 +172,7 @@ export const ThemeProviderV1 = defineMosaicTemplate<ThemeProviderProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Switch Mode and watch the published palette change — then point compose/theme-tokens at this id.",
   },
 

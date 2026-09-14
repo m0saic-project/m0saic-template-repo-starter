@@ -134,6 +134,7 @@ export const PathMaskV1 = defineMosaicTemplate<PathMaskProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
+    format: { kind: "image", container: "png" },
     note: "Flip Inner circle drawn to \"same\" — the hole fills in with no error at all.",
   },
 
