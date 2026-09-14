@@ -136,18 +136,18 @@ exports.PanelOrganizationV1 = (0, template_utils_1.defineMosaicTemplate)({
         if (frame)
             sources.push((0, template_utils_1.makeColorTile)(accent));
         sources.push((0, template_utils_1.makeColorTile)(accent));
-        sources.push((0, template_utils_1.svgLabel)(title, width * 0.55, height * 0.2, {
+        sources.push((0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(title, width * 0.55, height * 0.2, {
             color: "#eaeef2",
             maxPx: Math.round(height * 0.08),
             vAlign: "middle",
-        }));
+        }), "title"));
         if (showBadge) {
             sources.push((0, template_utils_1.makeColorTile)("#c0392b"));
-            sources.push((0, template_utils_1.svgLabel)(badgeText, width * 0.3, height * 0.12, {
+            sources.push((0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(badgeText, width * 0.3, height * 0.12, {
                 color: "#eaeef2",
                 maxPx: Math.round(height * 0.036),
                 vAlign: "middle",
-            }));
+            }), "badgeText"));
         }
         sources.push((0, template_utils_1.svgLabel)(`watermarkTag: ${watermarkTag}`, width * 0.3, height * 0.05, {
             color: "#5d6d7e",

@@ -142,11 +142,11 @@ exports.CodeHandoffV1 = (0, template_utils_1.defineMosaicTemplate)({
             }));
         }
         sources.push((0, template_utils_1.makeColorTile)("#1d5378"));
-        sources.push((0, template_utils_1.svgLabel)(label, width * 0.7, height * 0.09, {
+        sources.push((0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(label, width * 0.7, height * 0.09, {
             color: "#eaeef2",
             maxPx: Math.round(height * 0.034),
             vAlign: "middle",
-        }));
+        }), "label"));
         const heading = (0, svg_text_1.fitSvgText)("CODE HANDOFF - the template talking back, read-only and copyable", width * 0.9, height * 0.07, { maxPx: Math.round(height * 0.032), maxLines: 1 });
         const readout = (0, svg_text_1.fitSvgLines)([
             "type code = a handoff: shipped in defaultProps, shown as a copyable window (no onChange), ignorable by render",

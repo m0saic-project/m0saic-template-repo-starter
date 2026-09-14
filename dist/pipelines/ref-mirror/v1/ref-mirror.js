@@ -81,6 +81,7 @@ exports.RefMirrorV1 = (0, template_utils_1.defineMosaicTemplate)({
                 },
             ],
         };
+        (0, template_utils_1.bindProp)(hero, "word");
         const mirror = () => ({
             type: "ref",
             // The coordinate, not a name: the m0 above decides it.

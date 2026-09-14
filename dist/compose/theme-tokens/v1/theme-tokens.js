@@ -195,7 +195,7 @@ exports.ThemeTokensV1 = (0, template_utils_1.defineMosaicTemplate)({
                 padding: { bottom: 0.06 },
             }));
         }
-        sources.push((0, svg_text_1.svgLabel)(`${note} - ${overridden.length}/${SHOWN_KEYS.length} shown keys came from the channel`, width, Math.round(height / 5), { maxPx: Math.round(height * 0.028), maxLines: 2, color: INK_DIM }));
+        sources.push((0, template_utils_1.bindProps)((0, svg_text_1.svgLabel)(`${note} - ${overridden.length}/${SHOWN_KEYS.length} shown keys came from the channel`, width, Math.round(height / 5), { maxPx: Math.round(height * 0.028), maxLines: 2, color: INK_DIM }), [{ propKey: "providerId" }, { propKey: "alias" }]));
         return {
             kind: "mosaic_document",
             version: 1,

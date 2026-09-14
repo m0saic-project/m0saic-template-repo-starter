@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -156,11 +157,11 @@ export const EncodeMatrixV1 = defineMosaicTemplate<EncodeMatrixProps>({
       ...(names.length > 0 ? { encodes } : {}),
       sources: [
         makeColorTile(BRAND),
-        svgLabel(title, width, Math.round((height * 4) / 5), {
+        bindProp(svgLabel(title, width, Math.round((height * 4) / 5), {
           maxPx: Math.round(height * 0.14),
           maxLines: 1,
           color: PANEL,
-        }),
+        }), "title"),
         svgLabel(caption, width, Math.round(height / 5), {
           maxPx: Math.round(height * 0.03),
           maxLines: 2,

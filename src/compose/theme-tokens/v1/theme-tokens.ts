@@ -9,6 +9,7 @@ import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
   applyTheme,
+  bindProps,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -284,12 +285,12 @@ export const ThemeTokensV1 = defineMosaicTemplate<ThemeTokensProps>({
       );
     }
     sources.push(
-      svgLabel(
+      bindProps(svgLabel(
         `${note} - ${overridden.length}/${SHOWN_KEYS.length} shown keys came from the channel`,
         width,
         Math.round(height / 5),
         { maxPx: Math.round(height * 0.028), maxLines: 2, color: INK_DIM },
-      ),
+      ), [{ propKey: "providerId" }, { propKey: "alias" }]),
     );
 
     return {

@@ -56,11 +56,11 @@ function variant(title, width, height, durationMs, fps) {
         backgroundColor: PANEL,
         sources: [
             (0, template_utils_1.makeColorTile)(BRAND),
-            (0, svg_text_1.svgLabel)(`${title}\n${width}x${height}`, titleBox.w, titleBox.h, {
+            (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(`${title}\n${width}x${height}`, titleBox.w, titleBox.h, {
                 maxPx: Math.round(Math.min(titleBox.w, titleBox.h) * 0.16),
                 maxLines: 2,
                 color: INK,
-            }),
+            }), "title"),
         ],
     };
 }

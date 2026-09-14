@@ -92,11 +92,11 @@ exports.EncodeMatrixV1 = (0, template_utils_1.defineMosaicTemplate)({
             ...(names.length > 0 ? { encodes } : {}),
             sources: [
                 (0, template_utils_1.makeColorTile)(BRAND),
-                (0, svg_text_1.svgLabel)(title, width, Math.round((height * 4) / 5), {
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(title, width, Math.round((height * 4) / 5), {
                     maxPx: Math.round(height * 0.14),
                     maxLines: 1,
                     color: PANEL,
-                }),
+                }), "title"),
                 (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 5), {
                     maxPx: Math.round(height * 0.03),
                     maxLines: 2,

@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -75,6 +76,7 @@ const propsSchema = definePropsSchema<PngSequenceProps>({
 function frameDoc(
   index: number,
   total: number,
+  name: string,
   width: number,
   height: number,
   fps: number,
@@ -103,11 +105,16 @@ function frameDoc(
         maxLines: 1,
         color: INK,
       }),
-      svgLabel(`frame ${index + 1} of ${total}`, width, Math.round(height / 5), {
-        maxPx: Math.round(height * 0.06),
-        maxLines: 1,
-        color: INK_DIM,
-      }),
+      // The step's NAME, which is the file's name — naming IS the deliverable.
+      // The prefix is a prop, and this is the rect that shows it.
+      bindProp(
+        svgLabel(`${name} - ${index + 1} of ${total}`, width, Math.round(height / 5), {
+          maxPx: Math.round(height * 0.06),
+          maxLines: 1,
+          color: INK_DIM,
+        }),
+        "prefix",
+      ),
     ],
   };
 }
@@ -161,12 +168,15 @@ export const PngSequenceV1 = defineMosaicTemplate<PngSequenceProps>({
       version: 1,
       emit: "multi",
       fps,
-      steps: Array.from({ length: frames }, (_unused, i) => ({
-        name: `${prefix}-${String(i + 1).padStart(pad, "0")}`,
-        label: prefix,
-        durationMs: FRAME_MS,
-        file: frameDoc(i, frames, width, height, fps),
-      })),
+      steps: Array.from({ length: frames }, (_unused, i) => {
+        const name = `${prefix}-${String(i + 1).padStart(pad, "0")}`;
+        return {
+          name,
+          label: prefix,
+          durationMs: FRAME_MS,
+          file: frameDoc(i, frames, name, width, height, fps),
+        };
+      }),
     };
   },
 

@@ -9,6 +9,7 @@ import { asTemplateId } from "@m0saic/types";
 import { toM0String } from "@m0saic/dsl-stdlib";
 import {
   animateNumbersInText,
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   fitSvgText,
@@ -179,6 +180,11 @@ export const TextThreeWaysV1 = defineMosaicTemplate<TextThreeWaysProps>({
         bounds: { x: 0, y: 0, width: maskCanvas.width, height: maskCanvas.height },
       },
     });
+    // Provenance: every column SHOWS the word, so every column is a handle
+    // to edit it — Make's double-click on any of the three lands on `word`.
+    bindProp(drawtextCol, "word");
+    bindProp(svgCol, "word");
+    bindProp(maskCol, "word");
 
     // Three panel columns, each content on its attached overlay; captions
     // bound to a bottom band split per column (tight text binding).

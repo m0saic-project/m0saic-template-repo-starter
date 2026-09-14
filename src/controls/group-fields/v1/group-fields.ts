@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -186,20 +187,20 @@ export const GroupFieldsV1 = defineMosaicTemplate<GroupFieldsProps>({
     sources.push(makeColorTile(accent));
     sources.push(makeColorTile(shade("#1c2833")));
     sources.push(
-      svgLabel(speaker.name, width * 0.5, height * 0.11, {
+      bindProp(svgLabel(speaker.name, width * 0.5, height * 0.11, {
         color: "#eaeef2" as MosaicColor,
         maxPx: Math.round(height * 0.05),
         vAlign: "middle",
-      }),
+      }), "speaker.name"),
     );
     sources.push(makeColorTile(accent));
     sources.push(makeColorTile(shade("#1c2833")));
     sources.push(
-      svgLabel(speaker.role, width * 0.38, height * 0.075, {
+      bindProp(svgLabel(speaker.role, width * 0.38, height * 0.075, {
         color: "#b9c4cf" as MosaicColor,
         maxPx: Math.round(height * 0.03),
         vAlign: "middle",
-      }),
+      }), "speaker.role"),
     );
 
     const heading = fitSvgText(

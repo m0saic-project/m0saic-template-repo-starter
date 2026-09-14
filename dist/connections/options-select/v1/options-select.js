@@ -145,11 +145,11 @@ exports.OptionsSelectV1 = (0, template_utils_1.defineMosaicTemplate)({
             }));
         }
         sources.push((0, template_utils_1.makeColorTile)(shade(bandHex)));
-        sources.push((0, template_utils_1.svgLabel)(`wire: connectionId = ${connectionId}`, width * 0.46, height * 0.08, {
+        sources.push((0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(`wire: connectionId = ${connectionId}`, width * 0.46, height * 0.08, {
             color: "#b9c4cf",
             maxPx: Math.round(height * 0.024),
             vAlign: "middle",
-        }));
+        }), "connectionId"));
         const heading = (0, svg_text_1.fitSvgText)("OPTIONS FROM A CONNECTION - live rows through the connectionId sibling", width * 0.9, height * 0.07, { maxPx: Math.round(height * 0.034), maxLines: 1 });
         const readout = (0, svg_text_1.fitSvgLines)([
             `optionsFromConnection { kind: "${fetchers_1.COLLECTIONS_KIND}", connectionFromProp: "connectionId" } - the sibling holds the id`,

@@ -98,10 +98,10 @@ exports.TypedPropsTourV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                (0, svg_text_1.svgLabel)(title, width, Math.round((height * 2) / 7), {
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(title, width, Math.round((height * 2) / 7), {
                     maxPx: Math.round(height * 0.07),
                     maxLines: 1,
-                }),
+                }), "title"),
                 ...(accent ? [(0, template_utils_1.makeColorTile)("#EF7525")] : []),
                 ...tileSources,
                 (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 7), {

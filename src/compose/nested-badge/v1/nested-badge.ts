@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -123,11 +124,11 @@ export const NestedBadgeV1 = defineMosaicTemplate<NestedBadgeProps>({
       sources: [
         makeColorTile(accent as MosaicColor),
         makeColorTile(PANEL),
-        svgLabel(text, labelBoxW, height, {
+        bindProp(svgLabel(text, labelBoxW, height, {
           maxPx: Math.round(Math.min(labelBoxW, height) * 0.2),
           maxLines: 3,
           color: INK,
-        }),
+        }), "text"),
       ],
     };
   },

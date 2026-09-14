@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -206,20 +207,20 @@ export const PanelOrganizationV1 = defineMosaicTemplate<PanelOrganizationProps>(
     if (frame) sources.push(makeColorTile(accent));
     sources.push(makeColorTile(accent));
     sources.push(
-      svgLabel(title, width * 0.55, height * 0.2, {
+      bindProp(svgLabel(title, width * 0.55, height * 0.2, {
         color: "#eaeef2" as MosaicColor,
         maxPx: Math.round(height * 0.08),
         vAlign: "middle",
-      }),
+      }), "title"),
     );
     if (showBadge) {
       sources.push(makeColorTile("#c0392b" as MosaicColor));
       sources.push(
-        svgLabel(badgeText, width * 0.3, height * 0.12, {
+        bindProp(svgLabel(badgeText, width * 0.3, height * 0.12, {
           color: "#eaeef2" as MosaicColor,
           maxPx: Math.round(height * 0.036),
           vAlign: "middle",
-        }),
+        }), "badgeText"),
       );
     }
     sources.push(

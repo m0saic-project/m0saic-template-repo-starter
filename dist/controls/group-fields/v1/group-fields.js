@@ -134,18 +134,18 @@ exports.GroupFieldsV1 = (0, template_utils_1.defineMosaicTemplate)({
         const sources = [];
         sources.push((0, template_utils_1.makeColorTile)(accent));
         sources.push((0, template_utils_1.makeColorTile)(shade("#1c2833")));
-        sources.push((0, template_utils_1.svgLabel)(speaker.name, width * 0.5, height * 0.11, {
+        sources.push((0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(speaker.name, width * 0.5, height * 0.11, {
             color: "#eaeef2",
             maxPx: Math.round(height * 0.05),
             vAlign: "middle",
-        }));
+        }), "speaker.name"));
         sources.push((0, template_utils_1.makeColorTile)(accent));
         sources.push((0, template_utils_1.makeColorTile)(shade("#1c2833")));
-        sources.push((0, template_utils_1.svgLabel)(speaker.role, width * 0.38, height * 0.075, {
+        sources.push((0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(speaker.role, width * 0.38, height * 0.075, {
             color: "#b9c4cf",
             maxPx: Math.round(height * 0.03),
             vAlign: "middle",
-        }));
+        }), "speaker.role"));
         const heading = (0, svg_text_1.fitSvgText)("GROUP FIELDS - three fields, one value, one edit", width * 0.9, height * 0.07, { maxPx: Math.round(height * 0.036), maxLines: 1 });
         const readout = (0, svg_text_1.fitSvgLines)([
             "type group + fields: nested ordinary definitions (the accent is a normal colorPicker) rendered as one fieldset",

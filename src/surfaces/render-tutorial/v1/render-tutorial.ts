@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -221,7 +222,7 @@ export const RenderTutorialV1 = defineMosaicTemplate<RenderTutorialProps>({
       backgroundColor: pageBg,
       sources: [
         makeColorTile(pageBg),
-        svgTextSource([
+        bindProp(svgTextSource([
           { text: title.text, fontSize: title.fontSize, color: ACCENT as MosaicColor },
           {
             text: note.text,
@@ -230,7 +231,7 @@ export const RenderTutorialV1 = defineMosaicTemplate<RenderTutorialProps>({
             vAlign: "bottom",
             padding: { bottom: 0.26 },
           },
-        ]),
+        ]), "title"),
       ],
     };
   },

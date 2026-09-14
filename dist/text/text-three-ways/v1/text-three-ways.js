@@ -112,6 +112,11 @@ exports.TextThreeWaysV1 = (0, template_utils_1.defineMosaicTemplate)({
                 bounds: { x: 0, y: 0, width: maskCanvas.width, height: maskCanvas.height },
             },
         });
+        // Provenance: every column SHOWS the word, so every column is a handle
+        // to edit it — Make's double-click on any of the three lands on `word`.
+        (0, template_utils_1.bindProp)(drawtextCol, "word");
+        (0, template_utils_1.bindProp)(svgCol, "word");
+        (0, template_utils_1.bindProp)(maskCol, "word");
         // Three panel columns, each content on its attached overlay; captions
         // bound to a bottom band split per column (tight text binding).
         const m0 = (0, dsl_stdlib_1.toM0String)("3(1{1},1{1},1{1}){6[-,-,-,-,-,3(1,1,1)]}", ID);

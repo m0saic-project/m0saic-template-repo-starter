@@ -116,11 +116,11 @@ exports.CountUpV1 = (0, template_utils_1.defineMosaicTemplate)({
             backgroundColor: "#0b0e11",
             sources: [
                 counter,
-                (0, svg_text_1.svgLabel)(label, width, Math.round(height / 6), {
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(label, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.06),
                     maxLines: 1,
                     color: INK,
-                }),
+                }), "label"),
                 (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.03),
                     maxLines: 2,

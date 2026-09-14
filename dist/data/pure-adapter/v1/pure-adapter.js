@@ -120,11 +120,11 @@ exports.PureAdapterV1 = (0, template_utils_1.defineMosaicTemplate)({
             backgroundColor: PANEL,
             sources: [
                 (0, template_utils_1.makeColorTile)(arrived ? OK : MISSING),
-                (0, svg_text_1.svgLabel)(headline, width, Math.round(height / 3), {
+                (0, template_utils_1.bindProps)((0, svg_text_1.svgLabel)(headline, width, Math.round(height / 3), {
                     maxPx: Math.round(height * 0.05),
                     maxLines: 2,
                     color: INK,
-                }),
+                }), [{ propKey: "inputAlias" }, { propKey: "seriesKey" }, { propKey: "outputAlias" }]),
                 (0, template_utils_1.makeColorTile)(PANEL),
                 (0, svg_text_1.svgLabel)(detail, width, Math.round((height * 2) / 3), {
                     maxPx: Math.round(height * 0.04),

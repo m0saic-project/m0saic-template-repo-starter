@@ -38,6 +38,7 @@ function producerStep(word, width, height, fps, stepIndex, durationMs) {
             },
         ],
     };
+    (0, template_utils_1.bindProp)(hero, "word");
     const m0 = (0, dsl_stdlib_1.toM0String)(String((0, dsl_stdlib_1.weightedSplit)([4, 1], "row", { claimants: ["1", "1"] })), `${ID}:producer`);
     // The producer ASKS its own m0 which cell the hero landed in — the first
     // painted frame in walk order — so the handle stays right even if this

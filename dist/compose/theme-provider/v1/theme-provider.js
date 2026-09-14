@@ -159,7 +159,7 @@ exports.ThemeProviderV1 = (0, template_utils_1.defineMosaicTemplate)({
                 padding: { bottom: 0.06 },
             }));
         }
-        sources.push((0, svg_text_1.svgLabel)(`publishing ${mode} tokens on alias "${alias}" - consumers read ctx.upstreamData["${alias}"]`, width, Math.round(height / 5), { maxPx: Math.round(height * 0.03), maxLines: 2, color: INK_DIM }));
+        sources.push((0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(`publishing ${mode} tokens on alias "${alias}" - consumers read ctx.upstreamData["${alias}"]`, width, Math.round(height / 5), { maxPx: Math.round(height * 0.03), maxLines: 2, color: INK_DIM }), "alias"));
         // THE payload. A data source paints nothing AND claims no frame: the
         // planner filters data sources out before it assigns cells, so the m0
         // above covers only the visual tiles. Giving it a frame is the classic

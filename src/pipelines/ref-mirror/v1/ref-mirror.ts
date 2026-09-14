@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { findStableKeys, toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   solidBackground,
@@ -149,6 +150,7 @@ export const RefMirrorV1 = defineMosaicTemplate<RefMirrorProps>({
         },
       ],
     } as MosaicTextSource;
+    bindProp(hero, "word");
 
     const mirror = (): MosaicSource =>
       ({

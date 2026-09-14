@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -226,12 +227,12 @@ export const ThemeProviderV1 = defineMosaicTemplate<ThemeProviderProps>({
       );
     }
     sources.push(
-      svgLabel(
+      bindProp(svgLabel(
         `publishing ${mode} tokens on alias "${alias}" - consumers read ctx.upstreamData["${alias}"]`,
         width,
         Math.round(height / 5),
         { maxPx: Math.round(height * 0.03), maxLines: 2, color: INK_DIM },
-      ),
+      ), "alias"),
     );
     // THE payload. A data source paints nothing AND claims no frame: the
     // planner filters data sources out before it assigns cells, so the m0

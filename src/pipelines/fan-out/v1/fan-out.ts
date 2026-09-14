@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -109,11 +110,11 @@ function variant(
     backgroundColor: PANEL,
     sources: [
       makeColorTile(BRAND),
-      svgLabel(`${title}\n${width}x${height}`, titleBox.w, titleBox.h, {
+      bindProp(svgLabel(`${title}\n${width}x${height}`, titleBox.w, titleBox.h, {
         maxPx: Math.round(Math.min(titleBox.w, titleBox.h) * 0.16),
         maxLines: 2,
         color: INK,
-      }),
+      }), "title"),
     ],
   };
 }

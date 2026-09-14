@@ -9,6 +9,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { findStableKeys, toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -108,6 +109,7 @@ function producerStep(
       },
     ],
   } as MosaicTextSource;
+  bindProp(hero, "word");
 
   const m0 = toM0String(
     String(weightedSplit([4, 1], "row", { claimants: ["1", "1"] })),

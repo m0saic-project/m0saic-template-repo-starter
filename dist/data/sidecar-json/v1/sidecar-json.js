@@ -80,11 +80,11 @@ exports.SidecarJsonV1 = (0, template_utils_1.defineMosaicTemplate)({
                     color: PANEL,
                 }),
                 (0, template_utils_1.makeColorTile)(PANEL),
-                (0, svg_text_1.svgLabel)(lines.join("   "), width, Math.round((height * 3) / 4), {
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(lines.join("   "), width, Math.round((height * 3) / 4), {
                     maxPx: Math.round(height * 0.032),
                     maxLines: 5,
                     color: lines.length > 1 ? INK : INK_DIM,
-                }),
+                }), "note"),
             ],
             // HALF TWO: the values for THIS render.
             sidecars: { renderFacts: facts },

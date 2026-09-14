@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -214,11 +215,11 @@ export const CodeHandoffV1 = defineMosaicTemplate<CodeHandoffProps>({
     }
     sources.push(makeColorTile("#1d5378" as MosaicColor));
     sources.push(
-      svgLabel(label, width * 0.7, height * 0.09, {
+      bindProp(svgLabel(label, width * 0.7, height * 0.09, {
         color: "#eaeef2" as MosaicColor,
         maxPx: Math.round(height * 0.034),
         vAlign: "middle",
-      }),
+      }), "label"),
     );
 
     const heading = fitSvgText(

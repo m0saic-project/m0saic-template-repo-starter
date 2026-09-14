@@ -104,11 +104,11 @@ exports.DataCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         const keyH = Math.round((height * 5) / 8 * 0.25);
         const sources = [
             (0, template_utils_1.makeColorTile)(arrived ? ACCENT : sampleData ? INK_DIM : MISSING),
-            (0, svg_text_1.svgLabel)(title, width, Math.round(height / 4), {
+            (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(title, width, Math.round(height / 4), {
                 maxPx: Math.round(height * 0.09),
                 maxLines: 1,
                 color: PANEL,
-            }),
+            }), "title"),
         ];
         for (const cell of cells) {
             sources.push((0, template_utils_1.makeColorTile)(PANEL));
@@ -127,11 +127,11 @@ exports.DataCardV1 = (0, template_utils_1.defineMosaicTemplate)({
             }));
         }
         sources.push((0, template_utils_1.makeColorTile)(PANEL));
-        sources.push((0, svg_text_1.svgLabel)(status, width, Math.round(height / 8), {
+        sources.push((0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(status, width, Math.round(height / 8), {
             maxPx: Math.round(height * 0.03),
             maxLines: 1,
             color: INK_DIM,
-        }));
+        }), "alias"));
         return {
             kind: "mosaic_document",
             version: 1,

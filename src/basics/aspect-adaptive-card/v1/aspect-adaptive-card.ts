@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -193,7 +194,7 @@ export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps
           },
         ]),
         makeColorTile((props.panelColor ?? "#1c2833") as MosaicColor),
-        svgTextSource([
+        bindProp(svgTextSource([
           {
             text: bodyFit.text,
             fontSize: bodyFit.fontSize,
@@ -206,7 +207,7 @@ export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps
             vAlign: "bottom",
             padding: { bottom: 0.06 },
           },
-        ]),
+        ]), "body"),
       ],
     };
   },

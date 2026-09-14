@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -168,11 +169,11 @@ export const DataCardV1 = defineMosaicTemplate<DataCardProps>({
     const keyH = Math.round((height * 5) / 8 * 0.25);
     const sources: MosaicSource[] = [
       makeColorTile(arrived ? ACCENT : sampleData ? INK_DIM : MISSING),
-      svgLabel(title, width, Math.round(height / 4), {
+      bindProp(svgLabel(title, width, Math.round(height / 4), {
         maxPx: Math.round(height * 0.09),
         maxLines: 1,
         color: PANEL,
-      }),
+      }), "title"),
     ];
     for (const cell of cells) {
       sources.push(makeColorTile(PANEL));
@@ -196,11 +197,11 @@ export const DataCardV1 = defineMosaicTemplate<DataCardProps>({
     }
     sources.push(makeColorTile(PANEL));
     sources.push(
-      svgLabel(status, width, Math.round(height / 8), {
+      bindProp(svgLabel(status, width, Math.round(height / 8), {
         maxPx: Math.round(height * 0.03),
         maxLines: 1,
         color: INK_DIM,
-      }),
+      }), "alias"),
     );
 
     return {

@@ -140,7 +140,7 @@ exports.RenderTutorialV1 = (0, template_utils_1.defineMosaicTemplate)({
             backgroundColor: pageBg,
             sources: [
                 (0, template_utils_1.makeColorTile)(pageBg),
-                (0, svg_text_1.svgTextSource)([
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgTextSource)([
                     { text: title.text, fontSize: title.fontSize, color: ACCENT },
                     {
                         text: note.text,
@@ -149,7 +149,7 @@ exports.RenderTutorialV1 = (0, template_utils_1.defineMosaicTemplate)({
                         vAlign: "bottom",
                         padding: { bottom: 0.26 },
                     },
-                ]),
+                ]), "title"),
             ],
         };
     },

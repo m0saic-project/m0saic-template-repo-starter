@@ -31,7 +31,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     },
 });
 /** One frame: its index, big, on a ramped background. */
-function frameDoc(index, total, width, height, fps) {
+function frameDoc(index, total, name, width, height, fps) {
     // A visible ramp across the sequence, so the files are distinguishable at
     // a glance in a folder.
     const t = total > 1 ? index / (total - 1) : 0;
@@ -55,11 +55,13 @@ function frameDoc(index, total, width, height, fps) {
                 maxLines: 1,
                 color: INK,
             }),
-            (0, svg_text_1.svgLabel)(`frame ${index + 1} of ${total}`, width, Math.round(height / 5), {
+            // The step's NAME, which is the file's name — naming IS the deliverable.
+            // The prefix is a prop, and this is the rect that shows it.
+            (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(`${name} - ${index + 1} of ${total}`, width, Math.round(height / 5), {
                 maxPx: Math.round(height * 0.06),
                 maxLines: 1,
                 color: INK_DIM,
-            }),
+            }), "prefix"),
         ],
     };
 }
@@ -102,12 +104,15 @@ exports.PngSequenceV1 = (0, template_utils_1.defineMosaicTemplate)({
             version: 1,
             emit: "multi",
             fps,
-            steps: Array.from({ length: frames }, (_unused, i) => ({
-                name: `${prefix}-${String(i + 1).padStart(pad, "0")}`,
-                label: prefix,
-                durationMs: FRAME_MS,
-                file: frameDoc(i, frames, width, height, fps),
-            })),
+            steps: Array.from({ length: frames }, (_unused, i) => {
+                const name = `${prefix}-${String(i + 1).padStart(pad, "0")}`;
+                return {
+                    name,
+                    label: prefix,
+                    durationMs: FRAME_MS,
+                    file: frameDoc(i, frames, name, width, height, fps),
+                };
+            }),
         };
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({

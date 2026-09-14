@@ -130,7 +130,7 @@ exports.AspectAdaptiveCardV1 = (0, template_utils_1.defineMosaicTemplate)({
                     },
                 ]),
                 (0, template_utils_1.makeColorTile)(((_d = props.panelColor) !== null && _d !== void 0 ? _d : "#1c2833")),
-                (0, svg_text_1.svgTextSource)([
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgTextSource)([
                     {
                         text: bodyFit.text,
                         fontSize: bodyFit.fontSize,
@@ -143,7 +143,7 @@ exports.AspectAdaptiveCardV1 = (0, template_utils_1.defineMosaicTemplate)({
                         vAlign: "bottom",
                         padding: { bottom: 0.06 },
                     },
-                ]),
+                ]), "body"),
             ],
         };
     },

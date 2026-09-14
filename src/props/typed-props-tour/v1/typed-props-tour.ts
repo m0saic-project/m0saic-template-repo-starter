@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -153,10 +154,10 @@ export const TypedPropsTourV1 = defineMosaicTemplate<TypedPropsTourProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        svgLabel(title, width, Math.round((height * 2) / 7), {
+        bindProp(svgLabel(title, width, Math.round((height * 2) / 7), {
           maxPx: Math.round(height * 0.07),
           maxLines: 1,
-        }),
+        }), "title"),
         ...(accent ? [makeColorTile("#EF7525" as MosaicColor)] : []),
         ...tileSources,
         svgLabel(caption, width, Math.round(height / 7), {

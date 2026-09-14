@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -219,11 +220,11 @@ export const OptionsSelectV1 = defineMosaicTemplate<OptionsSelectProps>({
     }
     sources.push(makeColorTile(shade(bandHex)));
     sources.push(
-      svgLabel(`wire: connectionId = ${connectionId}`, width * 0.46, height * 0.08, {
+      bindProp(svgLabel(`wire: connectionId = ${connectionId}`, width * 0.46, height * 0.08, {
         color: "#b9c4cf" as MosaicColor,
         maxPx: Math.round(height * 0.024),
         vAlign: "middle",
-      }),
+      }), "connectionId"),
     );
 
     const heading = fitSvgText(

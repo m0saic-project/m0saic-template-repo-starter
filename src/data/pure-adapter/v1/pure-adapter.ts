@@ -7,6 +7,7 @@ import type {
 import { asAliasId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProps,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -187,11 +188,11 @@ export const PureAdapterV1 = defineMosaicTemplate<PureAdapterProps>({
       backgroundColor: PANEL,
       sources: [
         makeColorTile(arrived ? OK : MISSING),
-        svgLabel(headline, width, Math.round(height / 3), {
+        bindProps(svgLabel(headline, width, Math.round(height / 3), {
           maxPx: Math.round(height * 0.05),
           maxLines: 2,
           color: INK,
-        }),
+        }), [{ propKey: "inputAlias" }, { propKey: "seriesKey" }, { propKey: "outputAlias" }]),
         makeColorTile(PANEL),
         svgLabel(detail, width, Math.round((height * 2) / 3), {
           maxPx: Math.round(height * 0.04),

@@ -14,7 +14,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
         type: "string",
         required: false,
         description: "The greeting rendered under the M.",
-        meta: { control: { placeholder: "Hello, m0saic" } },
+        meta: { control: { placeholder: "Hello, m0saic" }, ui: { label: "Text" } },
     },
     backgroundColor: {
         type: "string",
@@ -88,11 +88,11 @@ exports.AnatomyV1 = (0, template_utils_1.defineMosaicTemplate)({
                 },
                 {
                     rect: { x: label.x, y: label.y, w: label.w, h: label.h, importance: 1 },
-                    source: (0, svg_text_1.svgLabel)(text, label.w, label.h, {
+                    source: (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(text, label.w, label.h, {
                         maxPx: Math.round(height * 0.055),
                         maxLines: 1,
                         color: INK,
-                    }),
+                    }), "text"),
                 },
             ],
         });

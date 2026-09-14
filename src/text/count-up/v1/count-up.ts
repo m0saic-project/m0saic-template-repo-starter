@@ -9,6 +9,7 @@ import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
   animateNumbersInText,
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   solidBackground,
@@ -183,11 +184,11 @@ export const CountUpV1 = defineMosaicTemplate<CountUpProps>({
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
         counter,
-        svgLabel(label, width, Math.round(height / 6), {
+        bindProp(svgLabel(label, width, Math.round(height / 6), {
           maxPx: Math.round(height * 0.06),
           maxLines: 1,
           color: INK,
-        }),
+        }), "label"),
         svgLabel(caption, width, Math.round(height / 6), {
           maxPx: Math.round(height * 0.03),
           maxLines: 2,

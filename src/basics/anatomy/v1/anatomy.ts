@@ -12,11 +12,12 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   BRAND_ORANGE,
-  HEADER_M_GLYPH,
   brandGlyphTile,
   defineMosaicTemplate,
   definePropsSchema,
+  HEADER_M_GLYPH,
   makeColorTile,
   placeInsetPieces,
 } from "@m0saic/template-utils";
@@ -72,7 +73,7 @@ const propsSchema = definePropsSchema<AnatomyProps>({
     type: "string",
     required: false,
     description: "The greeting rendered under the M.",
-    meta: { control: { placeholder: "Hello, m0saic" } },
+    meta: { control: { placeholder: "Hello, m0saic" }, ui: { label: "Text" } },
   },
   backgroundColor: {
     type: "string",
@@ -161,11 +162,11 @@ export const AnatomyV1 = defineMosaicTemplate<AnatomyProps>({
         },
         {
           rect: { x: label.x, y: label.y, w: label.w, h: label.h, importance: 1 },
-          source: svgLabel(text, label.w, label.h, {
+          source: bindProp(svgLabel(text, label.w, label.h, {
             maxPx: Math.round(height * 0.055),
             maxLines: 1,
             color: INK,
-          }),
+          }), "text"),
         },
       ],
     });

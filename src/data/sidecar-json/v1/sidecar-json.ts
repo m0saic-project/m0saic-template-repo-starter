@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -137,11 +138,11 @@ export const SidecarJsonV1 = defineMosaicTemplate<SidecarJsonProps>({
           color: PANEL,
         }),
         makeColorTile(PANEL),
-        svgLabel(lines.join("   "), width, Math.round((height * 3) / 4), {
+        bindProp(svgLabel(lines.join("   "), width, Math.round((height * 3) / 4), {
           maxPx: Math.round(height * 0.032),
           maxLines: 5,
           color: lines.length > 1 ? INK : INK_DIM,
-        }),
+        }), "note"),
       ],
       // HALF TWO: the values for THIS render.
       sidecars: { renderFacts: facts },
