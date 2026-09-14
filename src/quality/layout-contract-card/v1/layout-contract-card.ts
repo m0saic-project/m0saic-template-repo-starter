@@ -128,7 +128,7 @@ export const LAYOUT_CONSTRAINTS = CONSTRAINTS;
 
 export const LayoutContractCardV1 = defineMosaicTemplate<LayoutContractCardProps>({
   id: asTemplateId(ID),
-  label: "70 · Layout Contract Card",
+  label: "71 · Layout Contract Card",
   version: 1,
   description:
     "Ratio invariants authored against LABELS, which survive every m0 the template regenerates. One relation makes four cards equal; debug on DRAWS the contract — green members with the measured rule, or the stretched card red among them.",

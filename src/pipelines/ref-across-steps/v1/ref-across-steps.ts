@@ -183,7 +183,7 @@ function consumerStep(
 
 export const RefAcrossStepsV1 = defineMosaicTemplate<RefAcrossStepsProps>({
   id: asTemplateId(ID),
-  label: "59 · Ref Across Steps",
+  label: "60 · Ref Across Steps",
   version: 1,
   description:
     "A ref with stepIndex is a BACK-EDGE: a later step shows an earlier step's exact rendered pixels, no re-render. Back-edges only (forward refs are an error), plus the handoff idiom where the producer self-stamps {stepIndex, flattenedStableKey} for the consumer to spread.",

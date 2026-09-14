@@ -65,7 +65,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.CodeHandoffV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "26 · Code Handoff",
+    label: "27 · Code Handoff",
     version: 1,
     description: "A prop that flows the other way: type code is a HANDOFF — { language, code } shipped by the author in defaultProps, rendered by the editor as a read-only, selectable, copyable code window (no onChange; not an input), which render() may ignore entirely. For workflows where the user must run something outside the app — the production first-adopter hands the user a browser capture snippet whose output returns through other props. This lesson hands you the CLI command that renders itself headless.",
     capabilities: { tier: "core" },

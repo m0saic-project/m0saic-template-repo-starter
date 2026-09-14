@@ -1,39 +1,22 @@
 /**
- * `@m0saic-starter/basics/hello-world/v1` — the smallest correct template,
- * wearing the brand.
+ * `@m0saic-starter/basics/hello-world/v1` — the repo's FRONT DOOR.
  *
- * ONE CONCEPT: the anatomy of a m0saic template. Everything else in this
- * repo is a variation on the five parts you see here:
+ * The canonical m0saic hello-world card — the brand-pattern field wiping in,
+ * the M assembling from its own rectangles, the wordmark, a greeting — with
+ * THIS repo's subline under it. It is one call to `defineHelloWorldTemplate`
+ * from `@m0saic/template-utils`; nothing here is hand-drawn, which is the
+ * point: every template repo ships the same card, so `m0saic hello-world
+ * --template-repo .` and Make's "Start here" land on something a newcomer
+ * already recognises. Lesson 02 (`basics/anatomy`) is the smallest template
+ * written by hand.
  *
- *   1. A typed props surface (`definePropsSchema`) where every optional prop
- *      has a deterministic default — same inputs, same output, always.
- *   2. An id, minted with `asTemplateId`, that encodes repo/pack/slug/version.
- *   3. `outputHints` — the SUGGESTED canvas. The host may render any size;
- *      hints are what the app preselects, not a promise you can rely on.
- *   4. A `render(props, ctx)` that returns a `MosaicDocument`: an `m0` layout
- *      string plus `sources[]` that fill its tiles in order.
- *   5. The m0 string branded through `toM0String(...)` — it canonicalizes
- *      and VALIDATES, throwing on a malformed string instead of failing
- *      later, mysteriously, at render time.
- *
- * This is the repo's smoke render, so it says hello the way the brand
- * does: the pixel-M (a color tile wearing the baked glyph as an
- * inline-mask — see geometry/mask-in-a-cell for why any source can wear
- * a mask) over the greeting. The M's cell must be SQUARE — mask bounds
- * scale onto their cell per axis, so a stretched cell would smear the
- * glyph — and "square" is a pixel fact the canvas decides. That is why
- * even hello world reads `ctx.target` and places its three rects with one
- * `placeInsetPieces` call: exact pixels, coarse string, the same layout
- * doctrine the whole curriculum runs on.
- *
- * (Trivia the test locks in: the simplest possible m0 is one full-canvas
- * rect, spelled `F` — and `toM0String("F")` canonicalizes it to `"1"`.)
+ * The convention (`repo.helloWorld` in src/repo.ts names this id):
+ *   · default chrome — keep this call; edit the subline in ONE place
+ *     (`TEMPLATE_REPO.displayName`, or pass your own string below);
+ *   · your own look — write your own template and point `repo.helloWorld`
+ *     at it. The gate warns (never fails) while a repo names no front door.
  */
-export type HelloWorldProps = {
-    /** The greeting under the M. */
-    text?: string;
-    /** Canvas fill (#rrggbb). */
-    backgroundColor?: string;
-};
+import type { HelloWorldProps } from "@m0saic/template-utils";
+export declare const HELLO_WORLD_ID = "@m0saic-starter/basics/hello-world/v1";
 export declare const HelloWorldV1: import("@m0saic/types").MosaicTemplate<HelloWorldProps, import("@m0saic/types").MosaicTemplateOutputs, import("@m0saic/types").MosaicTemplateUpstreamVariables, import("@m0saic/types").MosaicTemplateUpstreamData, import("@m0saic/types").MosaicTemplateSidecars>;
 export default HelloWorldV1;

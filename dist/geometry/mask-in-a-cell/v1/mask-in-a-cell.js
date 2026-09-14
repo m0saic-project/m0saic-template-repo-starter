@@ -28,7 +28,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.MaskInACellV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "11 · Mask in a Cell",
+    label: "12 · Mask in a Cell",
     version: 1,
     description: "A diamond as it should be built: a color tile with an inline SVG-path mask inside a plain ratio cell. Bounds scale onto the cell PER AXIS — match their aspect to the cell or the shape silently smears. Flip the toggle to see both.",
     capabilities: { tier: "core" },

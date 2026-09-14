@@ -115,7 +115,7 @@ const propsSchema = definePropsSchema<SidecarTextProps>({
 
 export const SidecarTextV1 = defineMosaicTemplate<SidecarTextProps>({
   id: asTemplateId(ID),
-  label: "66 · Sidecar Text",
+  label: "67 · Sidecar Text",
   version: 1,
   description:
     "A sidecar value of { kind: \"text\", ext, content } writes the string verbatim as {output-basename}.{key}.{ext} — the way real formats ship. Captions are the case that proves it: burned-in subtitles are pixels, a .vtt beside the video is a track a player can style and a search engine can read.",

@@ -61,7 +61,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.HotReloadCanaryV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)("@m0saic-starter/basics/hot-reload-canary/v1"),
-    label: "02 · Hot-Reload Canary",
+    label: "03 · Hot-Reload Canary",
     version: 1,
     description: "A solid square whose fill comes from a CONSTANT in the template source, not a prop default. Flip the constant, rebuild, hit Refresh repos — the running app must follow without a restart. This is how you verify your edit loop.",
     capabilities: { tier: "core" },

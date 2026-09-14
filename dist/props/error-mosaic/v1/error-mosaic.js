@@ -34,7 +34,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ErrorMosaicV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "18 · Error Mosaic",
+    label: "19 · Error Mosaic",
     version: 1,
     description: "Failing on-canvas, usefully: collect EVERY problem with a remedy, then return makeErrorMosaic — a renderable report card instead of a dead preview. Three deliberately breakable knobs to practice on.",
     capabilities: { tier: "core" },

@@ -59,7 +59,7 @@ exports.LAYOUT_RELATIONS = RELATIONS;
 exports.LAYOUT_CONSTRAINTS = CONSTRAINTS;
 exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "70 · Layout Contract Card",
+    label: "71 · Layout Contract Card",
     version: 1,
     description: "Ratio invariants authored against LABELS, which survive every m0 the template regenerates. One relation makes four cards equal; debug on DRAWS the contract — green members with the measured rule, or the stretched card red among them.",
     capabilities: { tier: "core" },

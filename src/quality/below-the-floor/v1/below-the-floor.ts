@@ -154,7 +154,7 @@ const propsSchema = definePropsSchema<BelowTheFloorProps>({
 
 export const BelowTheFloorV1 = defineMosaicTemplate<BelowTheFloorProps>({
   id: asTemplateId(ID),
-  label: "72 · Below the Floor",
+  label: "73 · Below the Floor",
   version: 1,
   description:
     "A layout has two independent minimum sizes: feasibility (renders at all) and precision (looks right). One design, three states — clears both, clears only feasibility and quietly squashes, or falls through feasibility and is refused outright. The caption prints all three numbers at your canvas, so the loud failure and the silent one are told apart by arithmetic.",

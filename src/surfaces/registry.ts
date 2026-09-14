@@ -20,7 +20,7 @@ export const surfacesRegistry: StarterRegistryEntry[] = [
     slug: "render-lite",
     templateId: "@m0saic-starter/surfaces/render-lite/v1",
     exportName: "RenderLiteV1",
-    title: "67 · Render Lite",
+    title: "68 · Render Lite",
     description:
       "The preview stand-in. Declares renderLite so the editor draws a cheap card while you poke props, and the real N-by-N grid renders only on Make — the one optional surface that falls back to render when absent instead of simply not happening.",
     tags: ["surfaces", "preview", "lesson"],
@@ -29,7 +29,7 @@ export const surfacesRegistry: StarterRegistryEntry[] = [
     slug: "render-cover",
     templateId: "@m0saic-starter/surfaces/render-cover/v1",
     exportName: "RenderCoverV1",
-    title: "68 · Render Cover",
+    title: "69 · Render Cover",
     description:
       "A friendly first frame for a template that fails fast. render() still reports exactly what is missing when it has no clip; renderCover puts a welcome page there on a pure-default open — opt-in, dismissed by the first prop edit, and silently skipped (never synthesized) when absent or broken.",
     tags: ["surfaces", "onboarding", "lesson"],
@@ -38,7 +38,7 @@ export const surfacesRegistry: StarterRegistryEntry[] = [
     slug: "render-tutorial",
     templateId: "@m0saic-starter/surfaces/render-tutorial/v1",
     exportName: "RenderTutorialV1",
-    title: "69 · Render Tutorial",
+    title: "70 · Render Tutorial",
     description:
       "The only lesson here that builds its own tutorial instead of using the curriculum's standard page — because building one is what it teaches. Three pages as a pipeline, each declaring its own durationMs, proving that a tutorial owns its timing and never reads ctx.target.durationMs.",
     tags: ["surfaces", "tutorial", "lesson"],

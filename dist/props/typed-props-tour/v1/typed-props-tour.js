@@ -36,7 +36,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.TypedPropsTourV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "13 · Typed Props Tour",
+    label: "14 · Typed Props Tour",
     version: 1,
     description: "One prop of each scalar type — string, number, boolean, enum — each visibly driving the render, with the received values printed as a caption receipt. The schema picks the sidebar controls; render() is the gate.",
     capabilities: { tier: "core" },

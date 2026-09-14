@@ -141,7 +141,7 @@ function lineSpans(code) {
 const isFiniteIn = (n, lo, hi) => typeof n === "number" && Number.isFinite(n) && n >= lo && n <= hi;
 exports.PropBindingsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "80 · Prop Bindings",
+    label: "81 · Prop Bindings",
     version: 1,
     description: "Provenance: the rect that shows a prop is bound to it, so Make's double-click edits that knob in place - and every bindable kind is on one card. bindProp for free text and a number, bindProps for a header over a subtitle (one rect, two knobs), a colour swatch whose binding opens a picker, bindProp with an index for one element of a string[] or number[], bindPropPath (path AND kind) for string / number / colour leaves of a row list, bindPropRange (line span + focus token) for one line of a multi-line string - plus a closed picker drawn as a chip that gets no pencil on purpose. Which props are bindable is decided once, in the platform; the lesson's test uses the same predicate Make does.",
     capabilities: { tier: "core" },

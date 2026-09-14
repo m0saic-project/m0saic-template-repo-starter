@@ -2,7 +2,7 @@
  * `@m0saic-starter/connections/weighted-cards/v1` — weights at BOTH depths:
  * chips against chips inside a card, and cards against each other.
  *
- * ONE CONCEPT: the weighted `cardList`. Two declarations extend lesson 77's
+ * ONE CONCEPT: the weighted `cardList`. Two declarations extend lesson 78's
  * card editor into a proportion instrument:
  *
  *  - a `weights` COLUMN sharing the multi-select's key ("itemIds") — two

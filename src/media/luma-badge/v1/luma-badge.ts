@@ -58,7 +58,7 @@ const propsSchema = definePropsSchema<LumaBadgeProps>({
 
 export const LumaBadgeV1 = defineMosaicTemplate<LumaBadgeProps>({
   id: asTemplateId(ID),
-  label: "36 · Luma Badge",
+  label: "37 · Luma Badge",
   version: 1,
   description:
     "Content-aware with a fallback: ctx.analysis.regionLuminance asks the host how bright the badge corner is, and the badge flips dark-on-light / light-on-dark to stay readable. Analysis is OPTIONAL — no-analysis hosts degrade to a stated default, printed on the caption.",

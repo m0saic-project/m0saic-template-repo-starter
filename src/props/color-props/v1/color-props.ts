@@ -65,7 +65,7 @@ const propsSchema = definePropsSchema<ColorPropsProps>({
 
 export const ColorPropsV1 = defineMosaicTemplate<ColorPropsProps>({
   id: asTemplateId(ID),
-  label: "15 · Color Props",
+  label: "16 · Color Props",
   version: 1,
   description:
     "Color props declare themselves: isColor + colorPicker turns a string prop into a real swatch control, and the same declaration on a string[] prop gets the color-list control. A scalar panel beside a palette column, receipts on the caption.",

@@ -95,7 +95,7 @@ const propsSchema = definePropsSchema<NumberDisplayProps>({
 
 export const NumberDisplayV1 = defineMosaicTemplate<NumberDisplayProps>({
   id: asTemplateId(ID),
-  label: "30 · Number Display",
+  label: "31 · Number Display",
   version: 1,
   description:
     "The stored unit and the shown unit are different decisions: unit names the canonical scale (ms here — what props, files, and render carry), displayUnit converts only the editor's field (2400 shows as 2.4 s), lockDisplayUnit freezes the unit chip where a swap could silently rescale a value, and step is authored in the canonical unit. Render reads canonical ms and prints it — presentation never leaks into meaning.",

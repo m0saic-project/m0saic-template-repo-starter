@@ -85,7 +85,7 @@ function shade(hex) {
 }
 exports.GroupFieldsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "23 · Group Fields",
+    label: "24 · Group Fields",
     version: 1,
     description: "Related props that travel as one value: type group + fields nests ordinary prop definitions (same types, same controls — the accent is a normal colorPicker) under a single prop, the editor renders one fieldset, and the value is one object written in one edit — whole or not at all. Render validates it as a unit too: one guard for one idea. Drawn as the lower third this shape most often is.",
     capabilities: { tier: "core" },

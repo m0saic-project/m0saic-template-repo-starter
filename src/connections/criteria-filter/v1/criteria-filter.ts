@@ -143,7 +143,7 @@ const propsSchema = definePropsSchema<CriteriaFilterProps>({
     type: "string",
     required: false,
     description:
-      "The sibling wire (lesson 75): which configured connection profile the Collections idSet picker reads.",
+      "The sibling wire (lesson 76): which configured connection profile the Collections idSet picker reads.",
     meta: {
       ui: { label: "Connection", order: 1 },
     },
@@ -238,7 +238,7 @@ export function describeFilter(f: CriteriaFilterValue): Array<{ label: string; c
 
 export const CriteriaFilterV1 = defineMosaicTemplate<CriteriaFilterProps>({
   id: asTemplateId(ID),
-  label: "78 · Criteria Filter",
+  label: "79 · Criteria Filter",
   version: 1,
   description:
     "A query as a prop: flavor criteriaFilter + a criteria catalog declares which criteria exist (search / number / boolean / idSet with modifiers), and the editor renders the filter builder by KIND — keys and labels stay opaque, so the control works for any catalog. The idSet's options ride the same optionsFromConnection machinery as the chapter's other pickers, through the connectionId wire. The value is a flat AND-object, absent key = unset, drawn here as the saved-search card it is — carrying intent precisely is the prop's whole job; executing the query belongs to the data chapter.",

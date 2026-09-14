@@ -97,7 +97,7 @@ const propsSchema = definePropsSchema<AspectAdaptiveCardProps>({
 
 export const AspectAdaptiveCardV1 = defineMosaicTemplate<AspectAdaptiveCardProps>({
   id: asTemplateId(ID),
-  label: "04 · Aspect-Adaptive Card",
+  label: "05 · Aspect-Adaptive Card",
   version: 1,
   description:
     "One template, every aspect: reads ctx.target, flips columns to rows on portrait, prints its decision live, and fits svg-rasterized text to the panels it computed. Teaches the rule that prevents the classic nested-render bug — size off ctx.target, never ctx.output.",

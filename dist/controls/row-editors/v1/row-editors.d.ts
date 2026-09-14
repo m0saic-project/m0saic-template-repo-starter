@@ -10,7 +10,7 @@
  * cell of NEW rows, so added entries arrive on-brand instead of black.
  *
  * The same declaration family drives the richer editors nearby — `cardList`
- * (connections/weighted-cards, lesson 79) is objectRows grown into reorderable cards with composite
+ * (connections/weighted-cards, lesson 80) is objectRows grown into reorderable cards with composite
  * cells — so learning the columns contract once pays four times.
  *
  * (Sibling worth knowing: `flavor: "jsonModal"` renders a complex prop as

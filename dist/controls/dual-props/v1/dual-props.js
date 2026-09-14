@@ -71,7 +71,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.DualPropsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "29 · Dual Props",
+    label: "30 · Dual Props",
     version: 1,
     description: "One knob for humans, one truth for everyone: canonical props marked ui.consumer \"agent\" hold the exact values render reads (surfaced under the panel's Agent props escape), while friendly props marked \"human\" + control.syncsTo are derived views — the editor inverse-maps the canonical value to position the dial and writes changes back through the map (linear with invertible ranges, boolInvert, identity). The human key never reaches render, so dials and files can never disagree: only one of them is real.",
     capabilities: { tier: "core" },

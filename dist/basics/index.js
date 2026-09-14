@@ -16,12 +16,14 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.basicsTemplates = void 0;
 const hello_world_1 = require("./hello-world/v1/hello-world");
+const anatomy_1 = require("./anatomy/v1/anatomy");
 const hot_reload_canary_1 = require("./hot-reload-canary/v1/hot-reload-canary");
 const color_tiles_1 = require("./color-tiles/v1/color-tiles");
 const aspect_adaptive_card_1 = require("./aspect-adaptive-card/v1/aspect-adaptive-card");
 /** Chapter `basics`, in teaching order (mirrors ./registry.ts). */
 exports.basicsTemplates = [
     hello_world_1.HelloWorldV1,
+    anatomy_1.AnatomyV1,
     hot_reload_canary_1.HotReloadCanaryV1,
     color_tiles_1.ColorTilesV1,
     aspect_adaptive_card_1.AspectAdaptiveCardV1,
@@ -32,6 +34,7 @@ exports.basicsTemplates = [
 // silently filling template arrays with `undefined`. (Direct `import` +
 // `export *`, as here, is the safe pairing.)
 __exportStar(require("./hello-world/v1/hello-world"), exports);
+__exportStar(require("./anatomy/v1/anatomy"), exports);
 __exportStar(require("./hot-reload-canary/v1/hot-reload-canary"), exports);
 __exportStar(require("./color-tiles/v1/color-tiles"), exports);
 __exportStar(require("./aspect-adaptive-card/v1/aspect-adaptive-card"), exports);

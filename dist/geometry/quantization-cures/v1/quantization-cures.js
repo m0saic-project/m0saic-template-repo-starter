@@ -55,7 +55,7 @@ function interleave(count, cellWeight, cellClaimants) {
 }
 exports.QuantizationCuresV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "12 · Quantization: Three Cures",
+    label: "13 · Quantization: Three Cures",
     version: 1,
     description: "The geometry capstone: one 12x3 gridded design through four spellings. Naive ratio gutters wobble N/N+1 px (thin lines magnify quantization); then the three cures - inset recovery (exact gutters, tiny string), snapGrid (everything exact inside a quantization-free rect, coverage given up), placeRects (exact pixels baked to this canvas). Flip the Method enum and read the receipts.",
     capabilities: { tier: "core" },

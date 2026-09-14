@@ -61,7 +61,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.GeometryContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "71 · Geometry Contract Card",
+    label: "72 · Geometry Contract Card",
     version: 1,
     description: "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and debug on DRAWS the verdict: the chip green when intent survived, or realized-red vs intended-amber-ghost with the drift visible as the gap.",
     capabilities: { tier: "core" },

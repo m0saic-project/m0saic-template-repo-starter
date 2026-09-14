@@ -109,7 +109,7 @@ function scene(
 
 export const NestedPipelineV1 = defineMosaicTemplate<NestedPipelineProps>({
   id: asTemplateId(ID),
-  label: "61 · Nested Pipeline",
+  label: "62 · Nested Pipeline",
   version: 1,
   description:
     "A children entry may be a PIPELINE: it renders first and the parent consumes its stitched output as one tile — scene-within-scene without time in the m0. The slot's duration and canvas win, emit:\"multi\" downgrades, and loopMode fills any shortfall.",

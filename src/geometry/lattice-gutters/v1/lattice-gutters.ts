@@ -156,7 +156,7 @@ function axisSegments(
 
 export const LatticeGuttersV1 = defineMosaicTemplate<LatticeGuttersProps>({
   id: asTemplateId(ID),
-  label: "08 · Lattice Gutters",
+  label: "09 · Lattice Gutters",
   version: 1,
   description:
     "Base × fiber: a plain gutterless grid with pixel-exact gutters as per-cell placement insets (latticeCellInset) — or flip Gutter mode to spell the SAME lattice as real split cells and watch the string length and precision floor balloon. The caption prints the receipts.",

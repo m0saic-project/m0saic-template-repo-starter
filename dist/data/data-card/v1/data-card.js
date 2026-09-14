@@ -39,7 +39,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.DataCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "64 · Data Card",
+    label: "65 · Data Card",
     version: 1,
     description: "The consumer end of a data chain: read ctx.upstreamData[alias] and draw it. Producer, adapter and consumer agree on an alias and a shape — never on each other's ids — and the card says which alias it read so a broken chain is visible in the picture.",
     capabilities: { tier: "core" },

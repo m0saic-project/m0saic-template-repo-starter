@@ -86,7 +86,7 @@ const propsSchema = definePropsSchema<DataCardProps>({
 
 export const DataCardV1 = defineMosaicTemplate<DataCardProps>({
   id: asTemplateId(ID),
-  label: "64 · Data Card",
+  label: "65 · Data Card",
   version: 1,
   description:
     "The consumer end of a data chain: read ctx.upstreamData[alias] and draw it. Producer, adapter and consumer agree on an alias and a shape — never on each other's ids — and the card says which alias it read so a broken chain is visible in the picture.",

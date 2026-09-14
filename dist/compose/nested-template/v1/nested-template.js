@@ -31,7 +31,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.NestedTemplateV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "48 · Nested Template",
+    label: "49 · Nested Template",
     version: 1,
     description: "renderNestedTemplate calls another registered template and returns a document to drop into children. The slot option is the lesson: hand the child its real pixel box and it lays itself out for that box instead of for your canvas.",
     capabilities: { tier: "core" },

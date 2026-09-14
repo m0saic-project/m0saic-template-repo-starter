@@ -112,7 +112,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ThemeProviderV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "51 · Theme Provider",
+    label: "52 · Theme Provider",
     version: 1,
     description: "The PRODUCER half of theming: publishTheme(tokens, { alias }) emits a data source carrying a token set, and every downstream template reading that alias picks it up. One mode prop re-skins the whole chain; the swatches show what is being published.",
     capabilities: { tier: "core" },

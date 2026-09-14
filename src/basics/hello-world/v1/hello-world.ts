@@ -1,192 +1,56 @@
-import type {
-  MosaicColor,
-  MosaicDocument,
-  MosaicEngineContext,
-} from "@m0saic/types";
-import { asTemplateId } from "@m0saic/types";
-import { toM0String } from "@m0saic/dsl-stdlib";
-import {
-  BRAND_ORANGE,
-  HEADER_M_GLYPH,
-  brandGlyphTile,
-  defineMosaicTemplate,
-  definePropsSchema,
-  makeColorTile,
-  placeInsetPieces,
-} from "@m0saic/template-utils";
-
-import { svgLabel } from "../../../_shared/svg-text";
-import { lessonTutorial } from "../../../_shared/tutorial";
-
 /**
- * `@m0saic-starter/basics/hello-world/v1` — the smallest correct template,
- * wearing the brand.
+ * `@m0saic-starter/basics/hello-world/v1` — the repo's FRONT DOOR.
  *
- * ONE CONCEPT: the anatomy of a m0saic template. Everything else in this
- * repo is a variation on the five parts you see here:
+ * The canonical m0saic hello-world card — the brand-pattern field wiping in,
+ * the M assembling from its own rectangles, the wordmark, a greeting — with
+ * THIS repo's subline under it. It is one call to `defineHelloWorldTemplate`
+ * from `@m0saic/template-utils`; nothing here is hand-drawn, which is the
+ * point: every template repo ships the same card, so `m0saic hello-world
+ * --template-repo .` and Make's "Start here" land on something a newcomer
+ * already recognises. Lesson 02 (`basics/anatomy`) is the smallest template
+ * written by hand.
  *
- *   1. A typed props surface (`definePropsSchema`) where every optional prop
- *      has a deterministic default — same inputs, same output, always.
- *   2. An id, minted with `asTemplateId`, that encodes repo/pack/slug/version.
- *   3. `outputHints` — the SUGGESTED canvas. The host may render any size;
- *      hints are what the app preselects, not a promise you can rely on.
- *   4. A `render(props, ctx)` that returns a `MosaicDocument`: an `m0` layout
- *      string plus `sources[]` that fill its tiles in order.
- *   5. The m0 string branded through `toM0String(...)` — it canonicalizes
- *      and VALIDATES, throwing on a malformed string instead of failing
- *      later, mysteriously, at render time.
- *
- * This is the repo's smoke render, so it says hello the way the brand
- * does: the pixel-M (a color tile wearing the baked glyph as an
- * inline-mask — see geometry/mask-in-a-cell for why any source can wear
- * a mask) over the greeting. The M's cell must be SQUARE — mask bounds
- * scale onto their cell per axis, so a stretched cell would smear the
- * glyph — and "square" is a pixel fact the canvas decides. That is why
- * even hello world reads `ctx.target` and places its three rects with one
- * `placeInsetPieces` call: exact pixels, coarse string, the same layout
- * doctrine the whole curriculum runs on.
- *
- * (Trivia the test locks in: the simplest possible m0 is one full-canvas
- * rect, spelled `F` — and `toM0String("F")` canonicalizes it to `"1"`.)
+ * The convention (`repo.helloWorld` in src/repo.ts names this id):
+ *   · default chrome — keep this call; edit the subline in ONE place
+ *     (`TEMPLATE_REPO.displayName`, or pass your own string below);
+ *   · your own look — write your own template and point `repo.helloWorld`
+ *     at it. The gate warns (never fails) while a repo names no front door.
  */
+import type { HelloWorldProps } from "@m0saic/template-utils";
+import {
+  HELLO_WORLD_PROPS_SCHEMA,
+  defineHelloWorldTemplate,
+  defineMosaicTemplate,
+} from "@m0saic/template-utils";
+import { asTemplateId } from "@m0saic/types";
+import { TEMPLATE_REPO } from "../../../repo";
 
-export type HelloWorldProps = {
-  /** The greeting under the M. */
-  text?: string;
-  /** Canvas fill (#rrggbb). */
-  backgroundColor?: string;
-};
+export const HELLO_WORLD_ID = "@m0saic-starter/basics/hello-world/v1";
 
-const ID = "@m0saic-starter/basics/hello-world/v1";
-const HEX = /^#[0-9a-fA-F]{6}$/;
-const INK = "#ecf0f1" as MosaicColor;
-
-const propsSchema = definePropsSchema<HelloWorldProps>({
-  text: {
-    type: "string",
-    required: false,
-    description: "The greeting rendered under the M.",
-    meta: { control: { placeholder: "Hello, m0saic" } },
-  },
-  backgroundColor: {
-    type: "string",
-    required: false,
-    description: "Canvas fill as #rrggbb.",
-    // Color props declare themselves: `isColor` + `colorPicker` gives the
-    // app a real swatch control instead of a bare text field.
-    meta: {
-      constraints: { isColor: true },
-      control: { colorPicker: true, defaultColor: "#0d1117" },
-      ui: { label: "Background" },
-    },
-  },
+/** The canonical card, built by the factory. */
+const card = defineHelloWorldTemplate({
+  id: HELLO_WORLD_ID,
+  label: "01 · Hello World",
+  // The subline — the muted line under the greeting. One string, one edit.
+  subline: `by ${TEMPLATE_REPO.displayName}`,
+  tags: ["basics", "starter", "brand", "hello"],
+  description:
+    "The canonical m0saic hello-world card with this repo's subline: the brand field wipes in, a navy card rises, the M assembles from its own rectangles, then the wordmark and your greeting. The repo's front door — what `m0saic hello-world --template-repo .` renders.",
 });
 
+// Spelled out as a literal (not just `card`) on purpose: the repo's
+// NO-INSTALL contract check (`npm run test:contract`) loads this module with
+// the whole substrate stubbed to an identity proxy, so a factory call alone
+// would read as an options bag. The structural fields it asserts — a numeric
+// version, a render() function, a props schema — live HERE; with the real
+// substrate installed they are exactly the factory's own.
 export const HelloWorldV1 = defineMosaicTemplate<HelloWorldProps>({
-  id: asTemplateId(ID),
-  label: "01 · Hello World",
+  ...card,
+  id: asTemplateId(HELLO_WORLD_ID),
   version: 1,
-  description:
-    "The smallest correct template, wearing the brand: the pixel-M in a square cell over a greeting, placed with one placeInsetPieces call. A typed props surface, deterministic defaults, and a validated m0 string. Start here — this is the smoke render.",
-  capabilities: { tier: "core" },
-  tags: ["basics", "starter", "brand"],
-
-  outputHints: {
-    width: 1280,
-    height: 720,
-    fps: 30,
-    durationMs: 2000,
-    note: "Static content — any canvas and any duration render cleanly.",
-  },
-
-  propsSchema,
-  defaultProps: {
-    text: "Hello, m0saic",
-    backgroundColor: "#0d1117",
-  },
-
-  async render(
-    props: HelloWorldProps,
-    ctx: MosaicEngineContext,
-  ): Promise<MosaicDocument> {
-    // Fail fast on bad input rather than rendering something misleading.
-    // The props schema above is DOCUMENTATION — hosts can (and the CLI does)
-    // call render() directly with a raw props bag, so render() is the gate.
-    if (
-      props.backgroundColor !== undefined &&
-      !HEX.test(props.backgroundColor)
-    ) {
-      throw new Error(
-        `${ID}: backgroundColor ` +
-          `${JSON.stringify(props.backgroundColor)} must be a #rrggbb hex color.`,
-      );
-    }
-
-    const text = props.text ?? "Hello, m0saic";
-    const fill = (props.backgroundColor ?? "#0d1117") as MosaicColor;
-    const { width, height } = ctx.target;
-
-    // The brand square: a pixel size the CANVAS decides (ratios can't
-    // promise squareness — that's ctx.target's job).
-    const side = Math.round(Math.min(width, height) * 0.32);
-    const gx = Math.round((width - side) / 2);
-    const gy = Math.round(height * 0.42 - side / 2);
-
-    const label = {
-      x: Math.round(width * 0.08),
-      y: gy + side + Math.round(height * 0.05),
-      w: Math.round(width * 0.84),
-      h: Math.round(height * 0.12),
-    };
-
-    const placed = placeInsetPieces({
-      rootW: width,
-      rootH: height,
-      pieces: [
-        {
-          // Backdrop — the old `F`, now the page the brand sits on.
-          rect: { x: 0, y: 0, w: width, h: height, importance: 0 },
-          source: makeColorTile(fill),
-        },
-        {
-          rect: { x: gx, y: gy, w: side, h: side, importance: 2 },
-          source: brandGlyphTile(HEADER_M_GLYPH, BRAND_ORANGE),
-        },
-        {
-          rect: { x: label.x, y: label.y, w: label.w, h: label.h, importance: 1 },
-          source: svgLabel(text, label.w, label.h, {
-            maxPx: Math.round(height * 0.055),
-            maxLines: 1,
-            color: INK,
-          }),
-        },
-      ],
-    });
-
-    return {
-      kind: "mosaic_document",
-      version: 1,
-      m0: toM0String(placed.m0, ID),
-      assets: {},
-      backgroundColor: fill,
-      sources: placed.sources,
-    };
-  },
-
-  renderTutorial: lessonTutorial({
-    title: "Hello World",
-    lines: [
-      "The smallest correct template: an id, typed props with defaults, and a render() returning an m0 string plus one source per tile, in walk order.",
-      "toM0String canonicalizes and validates, so a bad layout fails at build time instead of mid-render.",
-      "The M is a color tile wearing the brand glyph as a mask, in a square cell - square is a pixel fact, so only ctx.target can decide it.",
-    ],
-    explore: [
-      "Edit Text and Background in the props panel",
-      "Switch to Geometry: a backdrop, a square, a text band",
-      "Select the M and read its rect, effective box and mask bounds",
-      "Read the source: src/basics/hello-world/",
-    ],
-  }),
+  propsSchema: { ...HELLO_WORLD_PROPS_SCHEMA },
+  defaultProps: { ...card.defaultProps },
+  render: (props, ctx) => card.render(props, ctx),
 });
 
 export default HelloWorldV1;

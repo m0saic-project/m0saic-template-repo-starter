@@ -32,7 +32,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.OverlayStackV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "07 · Overlay Stack",
+    label: "08 · Overlay Stack",
     version: 1,
     description: "1{3[-,1{1},-]}: a full-canvas base, a centered band on its overlay, a badge on the band's overlay. Overlays restore their node's whole rect and paint after it — walk order IS paint order IS source-binding order.",
     capabilities: { tier: "core" },

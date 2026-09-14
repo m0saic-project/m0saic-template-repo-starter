@@ -6,7 +6,7 @@
 
 | template | severity | rule | where |
 |---|---|---|---|
-| `basics/hello-world/v1` | ⚠ warning | bindingsCover | text |
+| `basics/anatomy/v1` | ⚠ warning | bindingsCover | text |
 | `basics/aspect-adaptive-card/v1` | ⚠ warning | bindingsCover | body |
 | `props/typed-props-tour/v1` | ⚠ warning | bindingsCover | title |
 | `controls/group-fields/v1` | ⚠ warning | bindingsCover | speaker.name, speaker.role |
@@ -34,11 +34,23 @@
 |---|---|
 | `data/fixture-fetcher/v1` | capability tier — may hit APIs / side effects |
 
-**79 probed** · 78 ratio · 1 absolute · 0 n/a · 21 attention rows · 1 skipped.
+**80 probed** · 78 ratio · 2 absolute · 0 n/a · 21 attention rows · 1 skipped.
 
 ## All templates
 
 ### basics/hello-world/v1
+
+- verdict: **ABSOLUTE** (max precision slope 0.40) · hinted canvas 1920×1080
+
+Safe canvas per probe:
+
+| aspect | 240p | 540p | 1080p | 2160p |
+|---|---|---|---|---|
+| square | 185×237 | 411×491 | 794×983 | 1587×2035 |
+| portrait | 86×237 | 224×534 | 446×1051 | 887×2013 |
+| desktop | 305×237 | 715×491 | 1426×983 | 2813×2035 |
+
+### basics/anatomy/v1
 
 - verdict: ratio (max precision slope 0.01) · hinted canvas 1280×720
 - ⚠ bindingsCover `text`: "text" (default "Hello, m0saic") is drawn as text but no source binds it — wrap the source that shows it: bindProp(src, "text").

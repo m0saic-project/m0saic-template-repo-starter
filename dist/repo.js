@@ -19,6 +19,10 @@ exports.TEMPLATE_REPO = {
     curator: "m0saic",
     homepage: "https://github.com/m0saic-project/m0saic-template-repo-starter",
     assets: { templatesDir: "assets/templates" },
+    // The front door — the template a newcomer renders first (the hello-world
+    // convention): the canonical card with this repo's subline. Point it at
+    // your own template if you want your own look.
+    helloWorld: (0, types_1.asTemplateId)("@m0saic-starter/basics/hello-world/v1"),
 };
 /**
  * The curriculum chapters, in TEACHING ORDER — this array's order flows

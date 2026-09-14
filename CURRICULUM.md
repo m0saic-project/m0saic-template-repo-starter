@@ -33,11 +33,12 @@ hot-reload loop you will live in, color as the simplest source, and sizing off
 | # | Template | id |
 |---|---|---|
 | 01 | Hello World | `basics/hello-world/v1` |
-| 02 | Hot-Reload Canary | `basics/hot-reload-canary/v1` |
-| 03 | Color Tiles | `basics/color-tiles/v1` |
-| 04 | Aspect-Adaptive Card | `basics/aspect-adaptive-card/v1` |
+| 02 | Anatomy | `basics/anatomy/v1` |
+| 03 | Hot-Reload Canary | `basics/hot-reload-canary/v1` |
+| 04 | Color Tiles | `basics/color-tiles/v1` |
+| 05 | Aspect-Adaptive Card | `basics/aspect-adaptive-card/v1` |
 
-Start at 02 if you are setting up an edit loop — it exists to prove the loop
+Start at 03 if you are setting up an edit loop — it exists to prove the loop
 works before you trust it with real work.
 
 ## geometry
@@ -47,14 +48,14 @@ makes the DSL stop feeling arbitrary.
 
 | # | Template | id |
 |---|---|---|
-| 05 | GCD Collapse | `geometry/gcd-collapse/v1` |
-| 06 | Ratio vs Absolute | `geometry/ratio-vs-absolute/v1` |
-| 07 | Overlay Stack | `geometry/overlay-stack/v1` |
-| 08 | Lattice Gutters | `geometry/lattice-gutters/v1` |
-| 09 | Inset Recovery | `geometry/inset-recovery/v1` |
-| 10 | PlaceRect Dock | `geometry/place-rect-dock/v1` |
-| 11 | Mask in a Cell | `geometry/mask-in-a-cell/v1` |
-| 12 | Quantization: Three Cures | `geometry/quantization-cures/v1` |
+| 06 | GCD Collapse | `geometry/gcd-collapse/v1` |
+| 07 | Ratio vs Absolute | `geometry/ratio-vs-absolute/v1` |
+| 08 | Overlay Stack | `geometry/overlay-stack/v1` |
+| 09 | Lattice Gutters | `geometry/lattice-gutters/v1` |
+| 10 | Inset Recovery | `geometry/inset-recovery/v1` |
+| 11 | PlaceRect Dock | `geometry/place-rect-dock/v1` |
+| 12 | Mask in a Cell | `geometry/mask-in-a-cell/v1` |
+| 13 | Quantization: Three Cures | `geometry/quantization-cures/v1` |
 
 ## props
 
@@ -63,12 +64,12 @@ declare themselves to the app, and failing usefully instead of silently.
 
 | # | Template | id |
 |---|---|---|
-| 13 | Typed Props Tour | `props/typed-props-tour/v1` |
-| 14 | Seeded Shuffle | `props/seeded-shuffle/v1` |
-| 15 | Color Props | `props/color-props/v1` |
-| 16 | JSON Data Prop | `props/json-data-prop/v1` |
-| 17 | Control Gallery | `props/control-gallery/v1` |
-| 18 | Error Mosaic | `props/error-mosaic/v1` |
+| 14 | Typed Props Tour | `props/typed-props-tour/v1` |
+| 15 | Seeded Shuffle | `props/seeded-shuffle/v1` |
+| 16 | Color Props | `props/color-props/v1` |
+| 17 | JSON Data Prop | `props/json-data-prop/v1` |
+| 18 | Control Gallery | `props/control-gallery/v1` |
+| 19 | Error Mosaic | `props/error-mosaic/v1` |
 
 18 is the one to read before you ship anything: a thrown error is right for
 headless, but a renderable report card is right for a person.
@@ -84,18 +85,18 @@ exactly what the rich editor produces.
 
 | # | Template | id |
 |---|---|---|
-| 19 | Static Options | `controls/static-options/v1` |
-| 20 | Row Editors | `controls/row-editors/v1` |
-| 21 | Number Series | `controls/number-series/v1` |
-| 22 | Weights | `controls/weights/v1` |
-| 23 | Group Fields | `controls/group-fields/v1` |
-| 24 | Range | `controls/range/v1` |
-| 25 | Draw Regions | `controls/draw-regions/v1` |
-| 26 | Code Handoff | `controls/code-handoff/v1` |
-| 27 | m0 Prop | `controls/m0-prop/v1` |
-| 28 | Panel Organization | `controls/panel-organization/v1` |
-| 29 | Dual Props | `controls/dual-props/v1` |
-| 30 | Number Display | `controls/number-display/v1` |
+| 20 | Static Options | `controls/static-options/v1` |
+| 21 | Row Editors | `controls/row-editors/v1` |
+| 22 | Number Series | `controls/number-series/v1` |
+| 23 | Weights | `controls/weights/v1` |
+| 24 | Group Fields | `controls/group-fields/v1` |
+| 25 | Range | `controls/range/v1` |
+| 26 | Draw Regions | `controls/draw-regions/v1` |
+| 27 | Code Handoff | `controls/code-handoff/v1` |
+| 28 | m0 Prop | `controls/m0-prop/v1` |
+| 29 | Panel Organization | `controls/panel-organization/v1` |
+| 30 | Dual Props | `controls/dual-props/v1` |
+| 31 | Number Display | `controls/number-display/v1` |
 
 19 draws the sharpest line in the chapter: `options` is presentation,
 `constraints.oneOf` is validation, and they are independent — declare both
@@ -120,15 +121,15 @@ host's `ctx.media` ffprobe registry.
 
 | # | Template | id |
 |---|---|---|
-| 31 | Image Card | `media/image-card/v1` |
-| 32 | Folder Contact Strip | `media/folder-contact-strip/v1` |
-| 33 | Probe Card | `media/probe-card/v1` |
-| 34 | Time-Range Clip | `media/time-range-clip/v1` |
-| 35 | Time-Ranges Medley | `media/time-ranges-medley/v1` |
-| 36 | Luma Badge | `media/luma-badge/v1` |
-| 37 | Play Speed | `media/play-speed/v1` |
-| 38 | Audio Mix | `media/audio-mix/v1` |
-| 39 | URL Asset | `media/url-asset/v1` |
+| 32 | Image Card | `media/image-card/v1` |
+| 33 | Folder Contact Strip | `media/folder-contact-strip/v1` |
+| 34 | Probe Card | `media/probe-card/v1` |
+| 35 | Time-Range Clip | `media/time-range-clip/v1` |
+| 36 | Time-Ranges Medley | `media/time-ranges-medley/v1` |
+| 37 | Luma Badge | `media/luma-badge/v1` |
+| 38 | Play Speed | `media/play-speed/v1` |
+| 39 | Audio Mix | `media/audio-mix/v1` |
+| 40 | URL Asset | `media/url-asset/v1` |
 
 ## text
 
@@ -137,10 +138,10 @@ pipelines side by side; the rest go deep on one each.
 
 | # | Template | id |
 |---|---|---|
-| 40 | Text, Three Ways | `text/text-three-ways/v1` |
-| 41 | Fit Text | `text/fit-text/v1` |
-| 42 | Count Up | `text/count-up/v1` |
-| 43 | Carved Type | `text/carved-type/v1` |
+| 41 | Text, Three Ways | `text/text-three-ways/v1` |
+| 42 | Fit Text | `text/fit-text/v1` |
+| 43 | Count Up | `text/count-up/v1` |
+| 44 | Carved Type | `text/carved-type/v1` |
 
 Nothing soft-wraps. Read 29 before you put a user-supplied string on a canvas.
 
@@ -151,8 +152,8 @@ path, authored against its own cell.
 
 | # | Template | id |
 |---|---|---|
-| 44 | Shape Masks | `masks/shape-masks/v1` |
-| 45 | Path Mask | `masks/path-mask/v1` |
+| 45 | Shape Masks | `masks/shape-masks/v1` |
+| 46 | Path Mask | `masks/path-mask/v1` |
 
 ## compose
 
@@ -160,14 +161,14 @@ Documents inside documents, and the refactor all of it enables.
 
 | # | Template | id |
 |---|---|---|
-| 46 | Child Mosaic | `compose/child-mosaic/v1` |
-| 47 | Rotate Headroom | `compose/rotate-headroom/v1` |
-| 48 | Nested Template | `compose/nested-template/v1` |
-| 49 | Nested Badge (internal) | `compose/nested-badge/v1` |
-| 50 | Camera Follow | `compose/camera-follow/v1` |
-| 51 | Theme Provider | `compose/theme-provider/v1` |
-| 52 | Theme Tokens | `compose/theme-tokens/v1` |
-| 53 | Reduce to One | `compose/reduce-to-one/v1` |
+| 47 | Child Mosaic | `compose/child-mosaic/v1` |
+| 48 | Rotate Headroom | `compose/rotate-headroom/v1` |
+| 49 | Nested Template | `compose/nested-template/v1` |
+| 50 | Nested Badge (internal) | `compose/nested-badge/v1` |
+| 51 | Camera Follow | `compose/camera-follow/v1` |
+| 52 | Theme Provider | `compose/theme-provider/v1` |
+| 53 | Theme Tokens | `compose/theme-tokens/v1` |
+| 54 | Reduce to One | `compose/reduce-to-one/v1` |
 
 51 and 52 are a pair — the provider hands a theme down, the consumer takes it.
 49 is a sub-template of 48 rather than a standalone lesson.
@@ -179,14 +180,14 @@ single vs multi, encodes as a separate axis, and ref sources.
 
 | # | Template | id |
 |---|---|---|
-| 54 | Two Scenes | `pipelines/two-scenes/v1` |
-| 55 | Fan Out | `pipelines/fan-out/v1` |
-| 56 | PNG Sequence | `pipelines/png-sequence/v1` |
-| 57 | Encode Matrix | `pipelines/encode-matrix/v1` |
-| 58 | Ref Mirror | `pipelines/ref-mirror/v1` |
-| 59 | Ref Across Steps | `pipelines/ref-across-steps/v1` |
-| 60 | Ref Reframe | `pipelines/ref-reframe/v1` |
-| 61 | Nested Pipeline | `pipelines/nested-pipeline/v1` |
+| 55 | Two Scenes | `pipelines/two-scenes/v1` |
+| 56 | Fan Out | `pipelines/fan-out/v1` |
+| 57 | PNG Sequence | `pipelines/png-sequence/v1` |
+| 58 | Encode Matrix | `pipelines/encode-matrix/v1` |
+| 59 | Ref Mirror | `pipelines/ref-mirror/v1` |
+| 60 | Ref Across Steps | `pipelines/ref-across-steps/v1` |
+| 61 | Ref Reframe | `pipelines/ref-reframe/v1` |
+| 62 | Nested Pipeline | `pipelines/nested-pipeline/v1` |
 
 58–60 are a run on ref sources: mirror pixels inside a document, carry them
 across a step boundary, then wear them differently. **Never hand-write a
@@ -200,11 +201,11 @@ write files beside the deliverable.
 
 | # | Template | id |
 |---|---|---|
-| 62 | Fixture Fetcher | `data/fixture-fetcher/v1` |
-| 63 | Pure Adapter | `data/pure-adapter/v1` |
-| 64 | Data Card | `data/data-card/v1` |
-| 65 | Sidecar JSON | `data/sidecar-json/v1` |
-| 66 | Sidecar Text | `data/sidecar-text/v1` |
+| 63 | Fixture Fetcher | `data/fixture-fetcher/v1` |
+| 64 | Pure Adapter | `data/pure-adapter/v1` |
+| 65 | Data Card | `data/data-card/v1` |
+| 66 | Sidecar JSON | `data/sidecar-json/v1` |
+| 67 | Sidecar Text | `data/sidecar-text/v1` |
 
 62 → 63 → 64 is a chain, and **Make invokes one template at a time**, so
 opening 63 or 64 alone shows them with nothing upstream — by construction.
@@ -222,9 +223,9 @@ dispatch, all editor-only and all opt-in.
 
 | # | Template | id |
 |---|---|---|
-| 67 | Render Lite | `surfaces/render-lite/v1` |
-| 68 | Render Cover | `surfaces/render-cover/v1` |
-| 69 | Render Tutorial | `surfaces/render-tutorial/v1` |
+| 68 | Render Lite | `surfaces/render-lite/v1` |
+| 69 | Render Cover | `surfaces/render-cover/v1` |
+| 70 | Render Tutorial | `surfaces/render-tutorial/v1` |
 
 `renderLite` is the only one that falls back to `render` when absent; a cover
 or tutorial that is not declared simply does not happen, and hosts never
@@ -238,10 +239,10 @@ tripwires that cost nothing until you turn them on.
 
 | # | Template | id |
 |---|---|---|
-| 70 | Layout Contract Card | `quality/layout-contract-card/v1` |
-| 71 | Geometry Contract Card | `quality/geometry-contract-card/v1` |
-| 72 | Below the Floor | `quality/below-the-floor/v1` |
-| 73 | Why the Floors Cross | `quality/why-the-floors-cross/v1` |
+| 71 | Layout Contract Card | `quality/layout-contract-card/v1` |
+| 72 | Geometry Contract Card | `quality/geometry-contract-card/v1` |
+| 73 | Below the Floor | `quality/below-the-floor/v1` |
+| 74 | Why the Floors Cross | `quality/why-the-floors-cross/v1` |
 
 70 and 71 sit together because their identities differ, and the difference is
 the lesson: a **label** survives every m0 the template regenerates and carries
@@ -284,12 +285,12 @@ instead).
 
 | # | Template | id |
 |---|---|---|
-| 74 | Host Connection | `connections/host-connection/v1` |
-| 75 | Options From a Connection | `connections/options-select/v1` |
-| 76 | Cards Picker | `connections/cards-picker/v1` |
-| 77 | Connection Multi-Select | `connections/multi-select/v1` |
-| 78 | Criteria Filter | `connections/criteria-filter/v1` |
-| 79 | Weighted Cards | `connections/weighted-cards/v1` |
+| 75 | Host Connection | `connections/host-connection/v1` |
+| 76 | Options From a Connection | `connections/options-select/v1` |
+| 77 | Cards Picker | `connections/cards-picker/v1` |
+| 78 | Connection Multi-Select | `connections/multi-select/v1` |
+| 79 | Criteria Filter | `connections/criteria-filter/v1` |
+| 80 | Weighted Cards | `connections/weighted-cards/v1` |
 
 74 registers `starter-catalog@default`: the Settings → Integrations form (a
 base URL plus a keychain-stored key) and the Test-connection probe's two
@@ -316,7 +317,7 @@ the rects you draw and the knobs in the panel.
 
 | # | Template | id |
 |---|---|---|
-| 80 | Prop Bindings | `make/prop-bindings/v1` |
+| 81 | Prop Bindings | `make/prop-bindings/v1` |
 
 80 is the **provenance** lesson: a rect that displays a prop is *bound* to
 it (`bindProp` and its siblings), and Make derives "double-click this rect

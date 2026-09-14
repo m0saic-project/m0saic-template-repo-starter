@@ -75,7 +75,7 @@ const propsSchema = definePropsSchema<ControlGalleryProps>({
 
 export const ControlGalleryV1 = defineMosaicTemplate<ControlGalleryProps>({
   id: asTemplateId(ID),
-  label: "17 · Control Gallery",
+  label: "18 · Control Gallery",
   version: 1,
   description:
     "The meta surface, one knob per affordance: placeholder ghost text, flavor:\"url\", bounded+stepped numbers, an enum select, and ui.label. The real demo is the sidebar; the canvas renders the spec sheet.",

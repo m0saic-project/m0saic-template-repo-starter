@@ -100,7 +100,7 @@ const propsSchema = definePropsSchema<MultiSelectProps>({
     type: "string",
     required: false,
     description:
-      "The sibling wire (lesson 75): which configured connection profile every card's chip picker resolves against.",
+      "The sibling wire (lesson 76): which configured connection profile every card's chip picker resolves against.",
     meta: {
       ui: { label: "Connection", order: 1 },
     },
@@ -171,7 +171,7 @@ const propsSchema = definePropsSchema<MultiSelectProps>({
 
 export const MultiSelectV1 = defineMosaicTemplate<MultiSelectProps>({
   id: asTemplateId(ID),
-  label: "77 · Connection Multi-Select",
+  label: "78 · Connection Multi-Select",
   version: 1,
   description:
     "Cards of chips, each chip a rich pick: a json prop with flavor cardList renders as a repeating card editor, and a connectionMultiSelect column gives every card a chips row backed by the connection's options — with groupByKey sectioning the picker modal by an option field (the catalog's collections). The value stays boring on purpose: plain Array<{label, itemIds}> JSON, identical whether it was picked from the modal or typed by hand — which is exactly why CLI and app renders agree.",

@@ -19,7 +19,7 @@ export const makeRegistry: StarterRegistryEntry[] = [
     slug: "prop-bindings",
     templateId: "@m0saic-starter/make/prop-bindings/v1",
     exportName: "PropBindingsV1",
-    title: "80 · Prop Bindings",
+    title: "81 · Prop Bindings",
     description:
       "Provenance: the rect that shows a prop is bound to it, so Make's double-click edits that knob in place - and every bindable kind is on one card. bindProp for free text and a number, bindProps for a header over a subtitle (one rect, two knobs), a colour swatch whose binding opens a picker, bindProp with an index for one element of a string[] or number[], bindPropPath (path AND kind) for string / number / colour leaves of a row list, bindPropRange (line span + focus token) for one line of a multi-line string - plus a closed picker drawn as a chip that gets no pencil on purpose. Which props are bindable is decided once, in the platform; the lesson's test uses the same predicate Make does.",
     tags: ["make", "lesson"],

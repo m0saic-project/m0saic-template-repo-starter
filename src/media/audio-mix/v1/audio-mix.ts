@@ -94,7 +94,7 @@ const propsSchema = definePropsSchema<AudioMixProps>({
 
 export const AudioMixV1 = defineMosaicTemplate<AudioMixProps>({
   id: asTemplateId(ID),
-  label: "38 · Audio Mix",
+  label: "39 · Audio Mix",
   version: 1,
   description:
     "Two audio tracks, one mix: audio sources enter like any media but contribute no pixels — per-source audio.volume sets the blend, and the mute idiom keeps a silenced source IN the document (audio.enabled=false) so tile indices never shift. The canvas is the mixer's meter.",

@@ -99,7 +99,7 @@ const propsSchema = definePropsSchema<ShapeMasksProps>({
 
 export const ShapeMasksV1 = defineMosaicTemplate<ShapeMasksProps>({
   id: asTemplateId(ID),
-  label: "44 · Shape Masks",
+  label: "45 · Shape Masks",
   version: 1,
   description:
     "There are no shape primitives — every shape is a color tile wearing an SVG path. Circle, ellipse, rounded rect and pill, each authored against the cell's own box, with the caption printing the path the engine actually gets.",

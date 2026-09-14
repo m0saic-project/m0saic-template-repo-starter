@@ -28,7 +28,7 @@ import { lessonTutorial } from "../../../_shared/tutorial";
  * cell of NEW rows, so added entries arrive on-brand instead of black.
  *
  * The same declaration family drives the richer editors nearby — `cardList`
- * (connections/weighted-cards, lesson 79) is objectRows grown into reorderable cards with composite
+ * (connections/weighted-cards, lesson 80) is objectRows grown into reorderable cards with composite
  * cells — so learning the columns contract once pays four times.
  *
  * (Sibling worth knowing: `flavor: "jsonModal"` renders a complex prop as
@@ -134,7 +134,7 @@ const propsSchema = definePropsSchema<RowEditorsProps>({
 
 export const RowEditorsV1 = defineMosaicTemplate<RowEditorsProps>({
   id: asTemplateId(ID),
-  label: "20 · Row Editors",
+  label: "21 · Row Editors",
   version: 1,
   description:
     "An array-of-objects prop that edits like a form: flavor objectRows + columns (text / number / color cells) renders a json prop as repeating rows with add and remove, and palette seeds new rows' colors so additions arrive on-brand. The columns contract is the same one cardList grows into cards — learn it once, use it four times. At render the prop is the plain array either way; here it draws the breakdown bar this pattern most often feeds.",
@@ -256,7 +256,7 @@ export const RowEditorsV1 = defineMosaicTemplate<RowEditorsProps>({
     lines: [
       "flavor objectRows + columns turns an array-of-objects json prop into a repeating-row form - one row per entry, add and remove, right widget per cell.",
       "palette seeds the color cell of NEW rows, so additions arrive on-brand instead of black.",
-      "Same columns contract cardList (lesson 79) grows into cards - learn it once. Render gets the plain array either way and draws the breakdown.",
+      "Same columns contract cardList (lesson 80) grows into cards - learn it once. Render gets the plain array either way and draws the breakdown.",
     ],
     explore: [
       "Add a row - watch the palette seed its color",

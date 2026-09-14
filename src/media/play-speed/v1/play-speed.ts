@@ -84,7 +84,7 @@ const propsSchema = definePropsSchema<PlaySpeedProps>({
 
 export const PlaySpeedV1 = defineMosaicTemplate<PlaySpeedProps>({
   id: asTemplateId(ID),
-  label: "37 · Play Speed",
+  label: "38 · Play Speed",
   version: 1,
   description:
     "playback.playSpeed: source time vs output time. A SMALL source window (1s by default) is re-timed by the speed knob, so it ends before the output does — and loopMode (loop / freeze / cut) visibly fills the rest. The caption does the arithmetic for the current knobs.",

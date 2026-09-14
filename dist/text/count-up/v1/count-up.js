@@ -43,7 +43,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.CountUpV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "42 · Count Up",
+    label: "43 · Count Up",
     version: 1,
     description: "A drawtext counter that ramps 0 → value over the clip: content.kind \"expr\" + eval \"frame\" + renderMode \"video\", the three fields that must agree. Flip Freeze as a still to see the quiet failure when one of them doesn't.",
     capabilities: { tier: "core" },

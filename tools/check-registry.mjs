@@ -74,6 +74,23 @@ try {
 }
 
 const count = Array.isArray(templates) ? templates.length : 0;
+
+// ── Repo level: the front door (hello-world convention, 2026-09-14) ────────
+// `repo.helloWorld` names the template a newcomer renders first — the
+// canonical card via defineHelloWorldTemplate, or the pack's own. Record
+// posture: the finding rides the same log Stage 1 prints, keyed by the repo
+// id. (Same block as the monorepo's check-registry.)
+{
+  const entry = require("../dist/index.js");
+  const repo = entry.repo ?? entry.TEMPLATE_REPO ?? null;
+  const ownIds = Array.isArray(templates) ? templates.map((t) => String(t.id)) : [];
+  const violations = typeof templateUtils.auditRepoFrontDoor === "function" ? templateUtils.auditRepoFrontDoor(repo, ownIds) : [];
+  if (violations.length && typeof templateUtils.recordTemplateConventionFinding === "function") {
+    templateUtils.recordTemplateConventionFinding(
+      templateUtils.makeTemplateConventionFinding(String(repo?.repoId ?? "(repo)"), "repoFrontDoor", violations, false),
+    );
+  }
+}
 const printFindings = (label, findings) => {
   for (const f of findings) {
     fail(`  ${label} ${f.templateId} — ${f.convention}: ${f.violations.map((v) => v.key).join(", ")}`);

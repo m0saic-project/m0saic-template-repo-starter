@@ -39,7 +39,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "03 · Color Tiles",
+    label: "04 · Color Tiles",
     version: 1,
     description: "Three equal columns, one makeColorTile each — the sources[]-to-tiles mapping, the lavfi color-tile convention, and document.backgroundColor instead of a wasted base layer.",
     capabilities: { tier: "core" },

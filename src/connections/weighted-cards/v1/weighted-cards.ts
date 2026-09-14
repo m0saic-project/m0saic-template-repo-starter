@@ -21,7 +21,7 @@ import { ITEMS_KIND } from "../../fetchers";
  * `@m0saic-starter/connections/weighted-cards/v1` — weights at BOTH depths:
  * chips against chips inside a card, and cards against each other.
  *
- * ONE CONCEPT: the weighted `cardList`. Two declarations extend lesson 77's
+ * ONE CONCEPT: the weighted `cardList`. Two declarations extend lesson 78's
  * card editor into a proportion instrument:
  *
  *  - a `weights` COLUMN sharing the multi-select's key ("itemIds") — two
@@ -140,7 +140,7 @@ const propsSchema = definePropsSchema<WeightedCardsProps>({
     type: "string",
     required: false,
     description:
-      "The sibling wire (lesson 75): which configured connection profile the chip pickers read.",
+      "The sibling wire (lesson 76): which configured connection profile the chip pickers read.",
     meta: {
       ui: { label: "Connection", order: 1 },
     },
@@ -245,7 +245,7 @@ const titleCase = (slug: string) =>
 
 export const WeightedCardsV1 = defineMosaicTemplate<WeightedCardsProps>({
   id: asTemplateId(ID),
-  label: "79 · Weighted Cards",
+  label: "80 · Weighted Cards",
   version: 1,
   description:
     "Weights at both depths: a weights column SHARING the multi-select's key gives every card an auto-balancing share group over its own chips (two cells, one array — even sets round-trip as string[], customized as {id,weight}[]), and interWeightProp names a sibling number[] the strip drags to weigh the CARDS against each other. Render is the values wearing rectangles: row heights from mixWeights, chip widths from item shares.",

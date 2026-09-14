@@ -97,7 +97,7 @@ function shade(hex) {
 }
 exports.NumberSeriesV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "21 · Number Series",
+    label: "22 · Number Series",
     version: 1,
     description: "Chart data edited as tabs of numeric rows: flavor numberSeries gives a json prop one tab per series, and the value round-trips flat (number[]) for one series and nested (number[][]) for several — so render normalizes both shapes before drawing, the same tolerance that keeps hand-authored files working. Renders grouped bars against the shared maximum. numberList is the single-series sibling: same contract minus the tabs.",
     capabilities: { tier: "core" },

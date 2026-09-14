@@ -43,7 +43,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.PlaySpeedV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "37 · Play Speed",
+    label: "38 · Play Speed",
     version: 1,
     description: "playback.playSpeed: source time vs output time. A SMALL source window (1s by default) is re-timed by the speed knob, so it ends before the output does — and loopMode (loop / freeze / cut) visibly fills the rest. The caption does the arithmetic for the current knobs.",
     capabilities: { tier: "core" },

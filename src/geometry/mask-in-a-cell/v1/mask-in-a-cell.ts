@@ -69,7 +69,7 @@ const propsSchema = definePropsSchema<MaskInACellProps>({
 
 export const MaskInACellV1 = defineMosaicTemplate<MaskInACellProps>({
   id: asTemplateId(ID),
-  label: "11 · Mask in a Cell",
+  label: "12 · Mask in a Cell",
   version: 1,
   description:
     "A diamond as it should be built: a color tile with an inline SVG-path mask inside a plain ratio cell. Bounds scale onto the cell PER AXIS — match their aspect to the cell or the shape silently smears. Flip the toggle to see both.",

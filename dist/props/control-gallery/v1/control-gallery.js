@@ -36,7 +36,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ControlGalleryV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "17 · Control Gallery",
+    label: "18 · Control Gallery",
     version: 1,
     description: "The meta surface, one knob per affordance: placeholder ghost text, flavor:\"url\", bounded+stepped numbers, an enum select, and ui.label. The real demo is the sidebar; the canvas renders the spec sheet.",
     capabilities: { tier: "core" },

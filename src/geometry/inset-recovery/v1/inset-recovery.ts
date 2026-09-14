@@ -77,7 +77,7 @@ function chipRects(width: number, height: number) {
 
 export const InsetRecoveryV1 = defineMosaicTemplate<InsetRecoveryProps>({
   id: asTemplateId(ID),
-  label: "09 · Inset Recovery",
+  label: "10 · Inset Recovery",
   version: 1,
   description:
     "Three chips at exact pixel rects, placed with placeInsetPieces: the string stays coarse (precision bounded at the lattice basis) while placement.inset recovers every rect byte-exact. The card prints the same layout's precision floor spelled via placeRects — the hereditary cost a parent would inherit. Why nestable templates use inset recovery.",

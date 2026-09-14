@@ -97,7 +97,7 @@ function producerStep(m0, width, height, fps) {
 }
 exports.RefReframeV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "60 · Ref Reframe",
+    label: "61 · Ref Reframe",
     version: 1,
     description: "A mirror whose slot differs in shape and length: placement.fit reframes the pixels and playback.loopMode fills the tail (loop, freeze or cut). Nothing is re-rendered — one intermediate, per-consumer decoration.",
     capabilities: { tier: "core" },

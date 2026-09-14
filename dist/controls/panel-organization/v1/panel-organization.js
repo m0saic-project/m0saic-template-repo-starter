@@ -64,7 +64,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.PanelOrganizationV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "28 · Panel Organization",
+    label: "29 · Panel Organization",
     version: 1,
     description: "The props panel is authored, not emitted: the top group is required props plus optional ones pinned with ui.primary; the rest folds under Optional; ui.visibleWhen skips a control until its sibling gate matches (string-coerced, so a boolean gate matches equals \"true\"); and ui.hidden removes the control entirely while the prop stays fully render-effective — hidden is not dead, agents and saved files still set it. Render paints every one of them regardless: placement is an editor conversation, render sees plain values.",
     capabilities: { tier: "core" },

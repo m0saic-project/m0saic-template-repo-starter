@@ -32,7 +32,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ChildMosaicV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "46 · Child Mosaic",
+    label: "47 · Child Mosaic",
     version: 1,
     description: "A complete document rendered inside one tile: children + a {type:\"mosaic\", ref} source, evaluated bottom-up. The child's grid grows while the parent's m0 stays two cells — and a procedural child keeps its aspect only if it declares its own size.",
     capabilities: { tier: "core" },

@@ -144,7 +144,7 @@ function shade(hex: string): MosaicColor {
 
 export const RangeV1 = defineMosaicTemplate<RangeProps>({
   id: asTemplateId(ID),
-  label: "24 · Range",
+  label: "25 · Range",
   version: 1,
   description:
     "A number allowed to be a range: flavor range gives one prop three intents, readable off the value shape — a flat number (use exactly this), { low, high } (sample fresh per use), or { low, high, once: true } (sample one value, reuse it; once is never written false). collapsible renders the flat/range toggle, allowOnce the pick-once toggle with its onceLabel. The control records intent only; this render VISUALIZES it on a scale instead of sampling, because dice belong to templates with a seed prop.",

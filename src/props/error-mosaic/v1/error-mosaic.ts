@@ -71,7 +71,7 @@ const propsSchema = definePropsSchema<ErrorMosaicProps>({
 
 export const ErrorMosaicV1 = defineMosaicTemplate<ErrorMosaicProps>({
   id: asTemplateId(ID),
-  label: "18 · Error Mosaic",
+  label: "19 · Error Mosaic",
   version: 1,
   description:
     "Failing on-canvas, usefully: collect EVERY problem with a remedy, then return makeErrorMosaic — a renderable report card instead of a dead preview. Three deliberately breakable knobs to practice on.",

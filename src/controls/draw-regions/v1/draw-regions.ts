@@ -118,7 +118,7 @@ const propsSchema = definePropsSchema<DrawRegionsProps>({
 
 export const DrawRegionsV1 = defineMosaicTemplate<DrawRegionsProps>({
   id: asTemplateId(ID),
-  label: "25 · Draw Regions",
+  label: "26 · Draw Regions",
   version: 1,
   description:
     "The user marks an area on the live preview and the template receives geometry — that handshake is the product. picker \"regions\" arms Make's draw mode (rect tool, plus ellipse/brush mask carving inside a rect); the wire is plain px JSON, so the same value arrives from --props or an agent identically. What a template does with the areas is its own concern — blur them, redact them, hand them to AI work as target boxes; this lesson shows the handshake itself, marking each region with an index chip in draw order. Zero regions is the working base case, and consumption runs parseRegionsValue then resolveRegionsToPx, degrading bad regions without killing the batch.",

@@ -85,7 +85,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
 });
 exports.ThemeTokensV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "52 · Theme Tokens",
+    label: "53 · Theme Tokens",
     version: 1,
     description: "The CONSUMER half of theming, and the three places tokens come from: local constants, a pipeline producer on ctx.upstreamData, or a provider called by id right here. applyTheme overlays whatever arrived onto the template's own values, per key — so an un-themed render is unchanged and any conforming producer swaps in.",
     capabilities: { tier: "core" },

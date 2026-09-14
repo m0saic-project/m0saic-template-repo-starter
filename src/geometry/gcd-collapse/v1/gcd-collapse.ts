@@ -63,7 +63,7 @@ const propsSchema = definePropsSchema<GcdCollapseProps>({
 
 export const GcdCollapseV1 = defineMosaicTemplate<GcdCollapseProps>({
   id: asTemplateId(ID),
-  label: "05 · GCD Collapse",
+  label: "06 · GCD Collapse",
   version: 1,
   description:
     "Two rows, same weights: literal mode keeps all 100 slots, the default optimized mode GCD-collapses to 4. At friendly widths they're identical; at hostile widths the 100-slot row's seams visibly drift while the 4-slot row stays tight. Labels print slots, DSL length, and the measured spread at this very canvas.",

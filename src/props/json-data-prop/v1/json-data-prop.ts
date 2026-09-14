@@ -57,7 +57,7 @@ const propsSchema = definePropsSchema<JsonDataPropProps>({
 
 export const JsonDataPropV1 = defineMosaicTemplate<JsonDataPropProps>({
   id: asTemplateId(ID),
-  label: "16 · JSON Data Prop",
+  label: "17 · JSON Data Prop",
   version: 1,
   description:
     "Structured data through one type:\"json\" prop — the host hands render() the parsed value, render() collects EVERY shape problem into one remedy-bearing error, and the records become geometry: one proportional bar per row.",

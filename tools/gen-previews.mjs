@@ -4,11 +4,12 @@
  *
  * For every manifest entry without a preview image (or with --force), renders
  *   assets/templates/<templateKey with "/" -> "__">/preview.png
- * via the m0saic CLI at 1280x720. Ids listed in ANIMATED_PREVIEW_IDS also get
- * preview.mp4 (640x360, 2s) + poster.png.
+ * via the m0saic CLI at 1920x1080. Ids listed in ANIMATED_PREVIEW_IDS also get
+ * preview.mp4 (1920x1080, the template's own length) + poster.png.
  *
- * Budgets (hard): preview.png <= 150 KB, preview.mp4 <= 1 MB — the whole
- * corpus stays clonable. Oversized outputs are deleted and reported.
+ * Budgets (SOFT, 2026-09-14): preview.png > 500 KB or preview.mp4 > 5 MB prints a
+ * warning and keeps the file — devs want previews that look like the product, not
+ * 360p thumbnails. Trim the default props only when a warning says so.
  *
  * CLI resolution and Windows quoting: same rules as tools/smoke-render.mjs
  * (M0SAIC_CLI env override, shell spawn on win32).
@@ -22,11 +23,13 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const IS_WIN = process.platform === "win32";
 const FORCE = process.argv.includes("--force");
 
-const PNG_BUDGET = 150 * 1024;
-const MP4_BUDGET = 1024 * 1024;
+const PNG_BUDGET = 500 * 1024;
+const MP4_BUDGET = 5 * 1024 * 1024;
 
 /** Ids whose motion is the point — these also get preview.mp4 + poster.png. */
 const ANIMATED_PREVIEW_IDS = new Set([
+  // The front door: the field wipes in and the M assembles — the motion IS the card.
+  "@m0saic-starter/basics/hello-world/v1",
   // The drawtext column's % counter is the lesson's beat; a still freezes it.
   "@m0saic-starter/text/text-three-ways/v1",
   // The ramp IS the template. A still shows the counter at t=0.
@@ -41,6 +44,14 @@ const ANIMATED_PREVIEW_IDS = new Set([
   "@m0saic-starter/pipelines/nested-pipeline/v1",
 ]);
 
+/** Clip dims per id; default 1920×1080 (previews look like the product). */
+const CLIP_DIMS = new Map([]);
+/** Where to cut a from-video still, in seconds; default 0.8 (40% into the
+ *  CLI's 2s default — past a leading transition, before a trailing one). A
+ *  reveal that settles at the END of its clip names its own moment here. */
+const STILL_AT_SEC = new Map([
+  ["@m0saic-starter/basics/hello-world/v1", 2.45],
+]);
 /** Ids whose still must be CUT from the mp4 rather than rendered directly.
  *  Two different reasons, both landing here:
  *
@@ -54,6 +65,9 @@ const ANIMATED_PREVIEW_IDS = new Set([
  *  Needs an ffmpeg on PATH (or M0SAIC_FFMPEG), same as
  *  tools/regen-fixtures.mjs. */
 const STILL_FROM_VIDEO = new Set([
+  // (2) the front door: the field wipes in and the M assembles — t=0 is a
+  // bare navy canvas; the card is settled only at the end of the clip.
+  "@m0saic-starter/basics/hello-world/v1",
   // (1) emit:single pipelines.
   "@m0saic-starter/pipelines/two-scenes/v1",
   "@m0saic-starter/pipelines/ref-across-steps/v1",
@@ -88,7 +102,7 @@ const MULTI_OUTPUT_STEP = new Map([
   ["@m0saic-starter/pipelines/ref-reframe/v1", "reframed"],
 ]);
 
-/** Per-id preview canvas when 1280x720 misrepresents the template — or
+/** Per-id preview canvas when 1920x1080 misrepresents the template — or
  *  (media units showing real video frames) busts the PNG budget. */
 const PREVIEW_DIMS = new Map([
   ["@m0saic-starter/basics/hot-reload-canary/v1", ["720", "720"]],
@@ -173,12 +187,13 @@ function enforceBudget(file, budget, label) {
   }
   const size = fs.statSync(file).size;
   if (size <= budget) return true;
-  fs.rmSync(file);
-  console.error(
-    `x ${label}: ${(size / 1024).toFixed(0)} KB exceeds the ${(budget / 1024).toFixed(0)} KB budget — deleted. ` +
-      "Simplify the default props or add a PREVIEW_OVERRIDES entry.",
+  // Soft budget: keep the file, say so. A preview that looks like the product
+  // beats a small one; the number is a nudge, not a gate.
+  console.warn(
+    `! ${label}: ${(size / 1024).toFixed(0)} KB is over the ${(budget / 1024).toFixed(0)} KB soft budget — kept. ` +
+      "Simplify the default props or add a PREVIEW_OVERRIDES entry if the corpus is getting heavy.",
   );
-  return false;
+  return true;
 }
 
 const manifest = JSON.parse(
@@ -208,7 +223,7 @@ for (const entry of manifest.templates ?? []) {
       const mp4Extra = PREVIEW_OVERRIDES.get(key) ?? [];
       // No duration flag — the CLI's 2s default is exactly the preview length.
       const okMp4 = runCli(
-        ["make", key, "--template-repo", ROOT, "-w", "640", "-h", "360", "-o", mp4, "--quiet", ...mp4Extra],
+        ["make", key, "--template-repo", ROOT, "-w", ...(CLIP_DIMS.get(key) ?? ["1920", "1080"]).flatMap((v, i) => (i === 0 ? [v] : ["-h", v])), "-o", mp4, "--quiet", ...mp4Extra],
         `preview.mp4 ${key}`,
       );
       if (!okMp4 || !enforceBudget(mp4, MP4_BUDGET, `preview.mp4 for ${key}`)) failures += 1;
@@ -222,7 +237,7 @@ for (const entry of manifest.templates ?? []) {
     fs.mkdirSync(dir, { recursive: true });
     const mp4 = path.join(dir, "preview.mp4");
     const ok =
-      fs.existsSync(mp4) && frameFromVideo(mp4, png, 0.8, `preview.png for ${key} (from preview.mp4)`);
+      fs.existsSync(mp4) && frameFromVideo(mp4, png, STILL_AT_SEC.get(key) ?? 0.8, `preview.png for ${key} (from preview.mp4)`);
     if (ok && enforceBudget(png, PNG_BUDGET, `preview.png for ${key}`)) {
       minted += 1;
       console.log(`  ok preview ${key} (cut from preview.mp4)`);
@@ -232,7 +247,7 @@ for (const entry of manifest.templates ?? []) {
   } else {
     fs.mkdirSync(dir, { recursive: true });
     const extra = PREVIEW_OVERRIDES.get(key) ?? [];
-    const [w, h] = PREVIEW_DIMS.get(key) ?? ["1280", "720"];
+    const [w, h] = PREVIEW_DIMS.get(key) ?? ["1920", "1080"];
     const step = MULTI_OUTPUT_STEP.get(key);
     let ok = runCli(
       ["make", key, "--template-repo", ROOT, "-w", w, "-h", h, "--format", "image", "-o", png, "--quiet", ...extra],
@@ -266,12 +281,12 @@ for (const entry of manifest.templates ?? []) {
     if (fromVideo) {
       if (!fs.existsSync(poster) || FORCE) {
         const okPoster =
-          fs.existsSync(mp4) && frameFromVideo(mp4, poster, 0.8, `poster.png for ${key}`);
+          fs.existsSync(mp4) && frameFromVideo(mp4, poster, STILL_AT_SEC.get(key) ?? 0.8, `poster.png for ${key}`);
         if (!okPoster || !enforceBudget(poster, PNG_BUDGET, `poster.png for ${key}`)) failures += 1;
       }
     } else if (!fs.existsSync(poster) || FORCE) {
       const okPoster = runCli(
-        ["make", key, "--template-repo", ROOT, "-w", "640", "-h", "360", "--format", "image", "-o", poster, "--quiet"],
+        ["make", key, "--template-repo", ROOT, "-w", ...(CLIP_DIMS.get(key) ?? ["1920", "1080"]).flatMap((v, i) => (i === 0 ? [v] : ["-h", v])), "--format", "image", "-o", poster, "--quiet"],
         `poster.png ${key}`,
       );
       if (!okPoster || !enforceBudget(poster, PNG_BUDGET, `poster.png for ${key}`)) failures += 1;

@@ -75,7 +75,7 @@ const propsSchema = definePropsSchema<RatioVsAbsoluteProps>({
 
 export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
   id: asTemplateId(ID),
-  label: "06 · Ratio vs Absolute",
+  label: "07 · Ratio vs Absolute",
   version: 1,
   description:
     "A proportion contract over a pixel contract: a 1:2:1 ratio split whose sides scale with the canvas, above a placeRects band whose side rails are PINNED in px while the middle absorbs the rest. Resize the canvas and watch them disagree. Default to ratio; pin pixels only at the head canvas.",
