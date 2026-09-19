@@ -36,14 +36,14 @@
     "and the host resolves @m0saic/* from its own module tree at load time.",
     "",
     "When the substrate publishes, these become normal ranges:",
-    "  \"@m0saic/types\": \"^1\", \"@m0saic/template-utils\": \"^1\", ..."
+    "  \"@m0saic/types\": \"^0.2.0\", \"@m0saic/template-utils\": \"^0.2.0\", ..."
   ],
   "dependencies": {
-    "@m0saic/dsl": "file:../m0saic/packages/dsl",
-    "@m0saic/dsl-stdlib": "file:../m0saic/packages/dsl-stdlib",
-    "@m0saic/platform": "file:../m0saic/packages/platform",
-    "@m0saic/template-utils": "file:../m0saic/packages/template-utils",
-    "@m0saic/types": "file:../m0saic/packages/types"
+    "@m0saic/dsl": "^2.0.0",
+    "@m0saic/dsl-stdlib": "^3.0.0",
+    "@m0saic/platform": "^0.2.0",
+    "@m0saic/template-utils": "^0.2.0",
+    "@m0saic/types": "^0.2.0"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
