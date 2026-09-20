@@ -33,6 +33,11 @@ straight from a clone; `src/` is never read at load time.
 - **Smoke everything:** `node tools/smoke-render.mjs` (validate-only sweep
   over every template + tiny real renders into `test-output/`). Needs the
   `m0saic` CLI on PATH or `M0SAIC_CLI` set.
+- **Is this clone the real thing?** Releases are signed (`release.json`,
+  ed25519 over the tree hash). `node tools/verify-release.mjs` says whether
+  your checkout matches a signed release; Mosaic Desktop shows a verified
+  clone as **Official** and an edited one as "differs from the signed
+  release". See `docs/publish.md`.
 
 ## Author mode (build / test / lint)
 

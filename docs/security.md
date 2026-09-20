@@ -70,7 +70,12 @@ stops an unclaimed id from being claimed by whoever loads first.
 
 **`@m0saic-starter` is NOT reserved.** A hostile repo could publish templates
 under this repo's namespace, and a user who loaded it before this one would
-get those. Nothing in the platform prevents that, so:
+get those. What tells a real clone apart is the **signed release**:
+`release.json` is signed with the m0saic release key over the tree hash, and
+only a checkout that verifies gets Official flair in Mosaic Desktop
+(`node tools/verify-release.mjs` checks a clone the same way). A copy under
+this namespace with no valid signature is shown as a third party that
+presents itself as m0saic. Beyond that:
 
 - **Forks must change `repoId` in `src/repo.ts`.** Keeping `@m0saic-starter`
   on a fork is impersonation whether or not you meant it, and it collides in

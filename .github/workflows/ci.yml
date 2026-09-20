@@ -12,6 +12,7 @@ name: ci
 on:
   push:
     branches: [main]
+    tags: ["v*"]
   pull_request:
 
 jobs:
@@ -30,6 +31,23 @@ jobs:
         run: node tools/check-deps.mjs
       - name: Loader contract (committed dist + manifest)
         run: node tools/contract-check.mjs
+
+  # Lane C — the signed release. Every push to main is a signed mint
+  # (release.json = ed25519 over the tree hash, verified against keys/);
+  # a merged change that touched dist/ or the manifests without a re-sign
+  # turns this red by design. Tag pushes also require the tag to exist.
+  release:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify release.json (ed25519 over the tree hash) against keys/
+        run: node tools/verify-release.mjs ${{ startsWith(github.ref, 'refs/tags/') && '--require-tag' || '' }}
 
   # build-verify:
   #   strategy:

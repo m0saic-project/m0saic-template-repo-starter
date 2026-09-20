@@ -16,8 +16,19 @@ npm run build && npm run previews && npm run build
 npm run verify
 git add -A
 git commit -m "..."
-git tag vYYYY.MM.N
+git push
+# then, on the production laptop, in a CLEAN clone (no node_modules):
+node <monorepo>/scripts/sign-template-repo.mjs --repo <clone> --tag vYYYY.MM.N
+# → commit release.json, keys/, tools/verify-release.mjs, .gitattributes; tag vYYYY.MM.N; push --tags
 ```
+
+**Releases are signed.** `release.json` carries an ed25519 signature (the
+m0saic release key) over the hash of `dist/**`, `template-manifest.json` and
+`package.json`. A clone that verifies shows as **Official** in Mosaic
+Desktop; a clone whose bytes differ (an edit, a stale dist) shows as
+"differs from the signed release"; no signature at all is plain
+third-party. CI verifies on every push to `main`. Anyone can check a
+clone: `node tools/verify-release.mjs`.
 
 `previews` only mints assets for templates that lack them, and the second
 build is what writes their paths into the manifest. Skip it when nothing new
