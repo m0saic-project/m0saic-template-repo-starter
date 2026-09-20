@@ -13,6 +13,27 @@ It is also the **reference for what good template code looks like**. Code you
 add here is read as the house standard, so match the surrounding style rather
 than importing habits from elsewhere.
 
+## Before you write a template: the knowledge base and the examples
+
+The reasoning behind every rule in this repo lives in **`@m0saic/knowledge`**
+— the m0 handbook, the engine mental models, the template-authoring contract,
+as plain Markdown. After `npm install` it is at
+`node_modules/@m0saic/knowledge/README.md` (start there, then
+`docs/m0saic-thesis.md`, then the router in `docs/README.md`); on GitHub at
+[m0saic-packages/packages/knowledge](https://github.com/m0saic-project/m0saic-packages/tree/main/packages/knowledge).
+Read it before the first template, not after the first failure — the
+lattice rule, the layout contract and the perf rules are all there.
+
+Then read code. Three public repos cover most of the product surface:
+
+- **this repo** — ~80 one-concept lessons; copy a pattern in isolation.
+- [m0saic-community-templates](https://github.com/m0saic-project/m0saic-community-templates)
+  — the public library, one folder per publisher, signed releases; a real
+  submission's shape (tests, registry entry, `deprecated.replacement`).
+- [m0saic-packages/packages/templates](https://github.com/m0saic-project/m0saic-packages/tree/main/packages/templates)
+  — the official library that ships in the product (100+ templates); the
+  house standard for every kind of template.
+
 ## Read the machine index first
 
 `template-manifest.json` is the complete inventory — every id, title,
