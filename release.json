@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "tag": "v2026.09.0",
+  "publishedAt": "2026-09-20T04:24:16.561Z",
+  "treeSha256": "a2cceb47df0da693e4e877758cde8f419db080f24b40b6b838d9143c21382e42",
+  "signature": {
+    "kid": "k1",
+    "alg": "ed25519",
+    "sig": "S3GZMPk4Gjw8ERaEozYjMZKKqYrSz5SKke5oZ4k29hlKAn_hbBMVh8-7MDqEkz-GmIqEoBKHp1K-Q-I7dJVMDg"
+  }
+}
