@@ -124,6 +124,23 @@ export const QuantizationCuresV1 = defineMosaicTemplate<QuantizationCuresProps>(
     "The geometry capstone: one 12x3 gridded design through four spellings. Naive ratio gutters wobble N/N+1 px (thin lines magnify quantization); then the three cures - inset recovery (exact gutters, tiny string), snapGrid (everything exact inside a quantization-free rect, coverage given up), placeRects (exact pixels baked to this canvas). Flip the Method enum and read the receipts.",
   capabilities: { tier: "core" },
   tags: ["geometry", "quantization", "lesson"],
+  // The "naive" spelling IS the disease this lesson diagnoses: its split
+  // counts (12·24 + 11 = 299, 3·55 + 2 = 167) are rough on purpose, so the
+  // gutters wobble. The three cures render on the plain 12x3 lattice.
+  lattice: {
+    allow: [
+      {
+        count: 299,
+        reason:
+          "naive ratio gutters on display: 12 cells x 24 + 11 gutters - the rough count the three cures remove",
+      },
+      {
+        count: 167,
+        reason:
+          "naive ratio gutters on display: 3 cells x 55 + 2 gutters - the rough count the three cures remove",
+      },
+    ],
+  },
 
   outputHints: {
     width: 1280,

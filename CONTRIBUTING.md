@@ -69,19 +69,17 @@ alternative fails quietly. The short version:
 - rendered copy is ASCII (the bundled glyph font draws `→` as tofu)
 - `export *` only in chapter index files
 
-## Contributing without a build
+## Building, testing, linting
 
-You can read every template, load the committed `dist/` in Mosaic, and render
-anything with the CLI using only a clone.
+`npm install` pulls every `@m0saic/*` package the build needs from npm; there
+is no monorepo to check out. `npm run verify` is the whole gate (build + lint
++ jest + loader-contract check + dep policy), and `m0saic doctor .` runs the
+same template conventions from the CLI. A PR should pass both.
 
-You **cannot** build, test, or lint without a checkout of the m0saic monorepo
-as a sibling directory (`../m0saic`) — the `package.json` `file:` links
-resolve against it, and the `@m0saic/*` packages are not all on npm yet.
-
-That is a real limit on outside contribution today, and we would rather you
-open an issue describing the lesson than send source you could not verify. A
-clear issue — the concept, the rule that bites, what a reader should be able
-to see — is a genuinely useful contribution.
+You can also read every template, load the committed `dist/` in Mosaic, and
+render anything with the CLI using only a clone — a clear issue describing
+the lesson (the concept, the rule that bites, what a reader should be able
+to see) is a genuinely useful contribution too.
 
 ## Licensing
 

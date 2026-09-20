@@ -83,11 +83,11 @@ m0saic make examples/data-chain/starter-data-chain.mosaicx --template-repo . -o 
 
 ## Building it yourself
 
-Only needed if you intend to *change* templates. It requires a checkout of the
-m0saic monorepo as a sibling directory (`../m0saic`) — see
-[`../CONTRIBUTING.md`](../CONTRIBUTING.md).
+Only needed if you intend to *change* templates. Every `@m0saic/*` package
+the build needs installs from npm — see [`../CONTRIBUTING.md`](../CONTRIBUTING.md).
 
 ```
 npm install
 npm run verify
+m0saic doctor .
 ```

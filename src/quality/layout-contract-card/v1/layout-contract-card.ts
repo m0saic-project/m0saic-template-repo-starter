@@ -75,8 +75,8 @@ const ID = "@m0saic-starter/quality/layout-contract-card/v1";
 const CARDS = 4;
 const MIN_S = 1;
 const MAX_S = 3;
-/** Card weight in rail units; gaps are 1 unit. */
-const CARD_W = 10;
+/** Card weight inside its column; the null margins are 1 unit each (a 20-slot cell). */
+const CARD_W = 18;
 
 /** The contract. One relation covers all four cards; one constraint, the header. */
 const RELATIONS: RelationalConstraint[] = [{ label: "card", equal: "size" }];
@@ -170,22 +170,23 @@ export const LayoutContractCardV1 = defineMosaicTemplate<LayoutContractCardProps
     }
     const { width, height } = ctx.target;
 
-    // The rail: four cards, gaps between. The THIRD card carries the stretch.
-    // Weights are rail units, not pixels — the same string reflows anywhere.
-    const railWeights: number[] = [];
-    const railClaimants: string[] = [];
-    for (let i = 0; i < CARDS; i++) {
-      if (i > 0) {
-        railWeights.push(1);
-        railClaimants.push("-");
-      }
-      railWeights.push(i === 2 ? Math.round(CARD_W * stretch) : CARD_W);
-      railClaimants.push("1");
-    }
-    const railM0 = weightedSplit(railWeights, "col", { claimants: railClaimants });
+    // The rail: four EQUAL columns, the THIRD carrying the stretch; inside
+    // each column the card sits between two null margins ([1, 18, 1] — a
+    // fixed 20-slot cell, on the 5-smooth lattice at every canvas). Weights
+    // are rail units, not pixels — the same string reflows anywhere. Equal
+    // columns quantize identically, so the equal-size rule holds exactly
+    // wherever the canvas lands; a stretched column breaks it (and leaves
+    // the lattice with it — that IS the broken state on display).
+    const card = String(weightedSplit([1, CARD_W, 1], "col", { claimants: ["-", "1", "-"] }));
+    const railM0 = weightedSplit(
+      Array.from({ length: CARDS }, (_, i) => (i === 2 ? Math.round(10 * stretch) : 10)),
+      "col",
+      { claimants: Array.from({ length: CARDS }, () => card) },
+    );
 
-    // Header band (tile + caption overlay), a gap, the card rail, breathing room.
-    const m0 = weightedSplit([4, 1, 7, 2], "row", {
+    // Header band (tile + caption overlay), a gap, the card rail, breathing
+    // room — a 12-slot basis, exact on every standard height.
+    const m0 = weightedSplit([3, 1, 6, 2], "row", {
       claimants: ["1{1}", "-", String(railM0), "-"],
     });
 

@@ -26,17 +26,14 @@
     "fixtures:regen": "node tools/regen-fixtures.mjs"
   },
   "//dependencies": [
-    "The @m0saic/* substrate is not on npm yet — it currently ships only",
-    "bundled inside the `m0saic` CLI package. Until it publishes, AUTHOR MODE",
-    "(build / test / lint) requires a checkout of the m0saic monorepo as a",
-    "SIBLING directory (../m0saic) so these file: links resolve.",
+    "The @m0saic/* substrate is on npm. The 0.x ranges (types, platform,",
+    "template-utils) track the m0saic CLI line; the language packages (dsl,",
+    "dsl-stdlib) version on their own. AUTHOR MODE (build / test / lint) is",
+    "`npm install && npm run verify` — no monorepo checkout, no file: links.",
     "",
     "USING the repo needs no install at all: dist/ is committed, so the app",
     "(Templates -> Add source) and the CLI (--template-repo) load it as-is,",
-    "and the host resolves @m0saic/* from its own module tree at load time.",
-    "",
-    "When the substrate publishes, these become normal ranges:",
-    "  \"@m0saic/types\": \"^0.2.0\", \"@m0saic/template-utils\": \"^0.2.0\", ..."
+    "and the host resolves @m0saic/* from its own module tree at load time."
   ],
   "dependencies": {
     "@m0saic/dsl": "^2.0.0",

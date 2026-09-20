@@ -36,14 +36,22 @@ straight from a clone; `src/` is never read at load time.
 
 ## Author mode (build / test / lint)
 
-Until the `@m0saic/*` substrate publishes to npm, author mode needs a checkout
-of the m0saic monorepo as a **sibling directory** (`../m0saic`) — the
-`package.json` `file:` links resolve against it. Then:
+The `@m0saic/*` substrate this repo builds against is on npm, so author mode
+is a plain install — no monorepo checkout, no links:
 
 ```
 npm install
 npm run verify     # build + lint + jest + loader-contract check + dep policy
+m0saic doctor .    # the same conventions + fingerprints, from outside the build
 ```
+
+The ranges in `package.json` track the CLI line (`@m0saic/types` `^0.2.0`
+goes with `m0saic` 0.2.x); the language packages version on their own
+(`@m0saic/dsl` `^2.0.0`, `@m0saic/dsl-stdlib` `^3.0.0`). Source for every
+one of them: [m0saic-dsl/m0](https://github.com/m0saic-dsl/m0) (the
+language) and
+[m0saic-project/m0saic-packages](https://github.com/m0saic-project/m0saic-packages)
+(the substrate).
 
 The edit loop against a running Mosaic Desktop:
 `edit → npm run build → Templates page → Refresh repos`. Prove it works with

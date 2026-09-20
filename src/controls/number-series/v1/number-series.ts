@@ -187,17 +187,24 @@ export const NumberSeriesV1 = defineMosaicTemplate<NumberSeriesProps>({
     // split into [air, bar] rows; zero values keep a 1-unit stub so the
     // slot never vanishes.
     const max = Math.max(...series.flat(), 1);
+    // Bars are EQUAL columns (the split count is the point count — content
+    // cardinality), and each column holds its bar between two null gutters
+    // ([1, 8, 1], a fixed 10-slot basis). Nothing depends on how many points
+    // there are, so every split stays on the 5-smooth lattice (the
+    // latticeSmooth convention).
     const barBand = (s: number[]) => {
       const cells = s.map((v) => {
         const h = Math.max(2, Math.round((v / max) * 92));
-        return String(weightedSplit([100 - h, h], "row", { mode: "literal", claimants: ["-", "1"] }));
+        const bar = String(weightedSplit([100 - h, h], "row", { mode: "literal", claimants: ["-", "1"] }));
+        return String(weightedSplit([1, 8, 1], "col", { claimants: ["-", bar, "-"] }));
       });
-      const weights = [3, ...s.flatMap(() => [Math.max(2, Math.floor(90 / s.length) - 2), 2])];
-      const claimants = ["-", ...cells.flatMap((c) => [c, "-"])];
-      return String(weightedSplit(weights, "col", { mode: "literal", claimants }));
+      return String(weightedSplit(s.map(() => 1), "col", { claimants: cells }));
     };
-    const bandH = Math.floor(64 / series.length);
-    const rowsWeights = [8, ...series.flatMap(() => [bandH, 6])];
+    // Rows on a 40-slot basis (every standard height divides by 40): a
+    // 4-slot top margin, then per series one band and a 3-slot gap.
+    const ROWS = 40;
+    const bandH = Math.floor((ROWS - 4 - 3 * series.length) / series.length);
+    const rowsWeights = [4, ...series.flatMap(() => [bandH, 3])];
     const rowsClaimants = ["-", ...series.flatMap((s) => [barBand(s), "-"])];
     const rows = String(weightedSplit(rowsWeights, "row", { mode: "literal", claimants: rowsClaimants }));
     const m0 = toM0String(`${rows}{6[-,-,-,-,-,1]}`, ID);

@@ -6,4 +6,4 @@
 # title: @m0saic-starter/basics/color-tiles/v1
 # note: Layout fingerprint: the flattened layout at the hinted canvas. The build fails when the layout differs; re-mint with `npm run fingerprints:update` and commit the diff.
 
-12[-,0,0,0,0,0,0,0,0,0,34(-,0,0,0,0,0,0,0,0,0,1,-,0,0,0,0,0,0,0,0,0,1,-,0,0,0,0,0,0,0,0,0,1,-),-]
+12[-,0,0,0,0,0,0,0,0,0,3(12(-,0,0,0,0,0,0,0,0,0,1,-),12(-,0,0,0,0,0,0,0,0,0,1,-),12(-,0,0,0,0,0,0,0,0,0,1,-)),-]

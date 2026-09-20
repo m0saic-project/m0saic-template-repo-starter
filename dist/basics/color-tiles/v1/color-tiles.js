@@ -33,7 +33,7 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     gap: {
         type: "number",
         required: false,
-        description: "Gap around and between the tiles, in weight units against a tile's 10 (0-6). The gaps are NULL cells — they paint nothing, so the document background shows through them. Set 0 for edge-to-edge tiles and the background disappears entirely.",
+        description: "Margin around each tile, in weight units against the tile's 10 (0-6); neighbours share two margins, so the gutter between tiles is twice that. The gaps are NULL cells — they paint nothing, so the document background shows through them. Set 0 for edge-to-edge tiles and the background disappears entirely.",
         meta: { constraints: { min: 0, max: 6 }, control: { step: 1 }, ui: { label: "Gap" } },
     },
 });
@@ -83,14 +83,17 @@ exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
         const m0 = gap === 0
             ? (0, dsl_stdlib_1.weightedSplit)(colors.map(() => TILE_WEIGHT), "col")
             : (() => {
-                // Columns with a null on each side and between each pair…
-                const weights = [gap];
-                const claimants = ["-"];
-                for (const _ of colors) {
-                    weights.push(TILE_WEIGHT, gap);
-                    claimants.push("1", "-");
-                }
-                const row = String((0, dsl_stdlib_1.weightedSplit)(weights, "col", { claimants }));
+                // Each color gets an EQUAL column, and inside it the tile sits
+                // between two null margins. Equal columns keep the split count
+                // at the color count, and [gap, 10, gap] is a tiny fixed basis
+                // — so every count stays on the 5-smooth lattice whatever the
+                // gap (the latticeSmooth convention; the geometry chapter has
+                // the why). Neighbours share two margins: the gutter between
+                // tiles is twice the outer margin.
+                const cell = String((0, dsl_stdlib_1.weightedSplit)([gap, TILE_WEIGHT, gap], "col", {
+                    claimants: ["-", "1", "-"],
+                }));
+                const row = String((0, dsl_stdlib_1.weightedSplit)(colors.map(() => 1), "col", { claimants: colors.map(() => cell) }));
                 // …then a null band above and below, so the background frames
                 // the tiles on all four sides instead of showing as slits.
                 return (0, dsl_stdlib_1.weightedSplit)([gap, TILE_WEIGHT, gap], "row", {

@@ -234,10 +234,10 @@ exist to fix exactly those.
 
 ## Author-mode prerequisites
 
-Until the `@m0saic/*` substrate publishes to npm, building this repo needs a
-checkout of the m0saic monorepo as a **sibling directory** (`../m0saic`) — the
-`package.json` `file:` links resolve against it.
+Node 20+ and `npm install`. The `@m0saic/*` substrate the build needs is on
+npm at the ranges `package.json` declares; nothing links to a local checkout.
+`m0saic doctor .` (the CLI) runs the same checks as the build from outside it.
 
-Without it you can still read the source, load the committed `dist/` in
-Mosaic, and render every template. You cannot rebuild, test, or lint. See
+Without an install you can still read the source, load the committed `dist/`
+in Mosaic, and render every template with the CLI. See
 [`../CONTRIBUTING.md`](../CONTRIBUTING.md).
