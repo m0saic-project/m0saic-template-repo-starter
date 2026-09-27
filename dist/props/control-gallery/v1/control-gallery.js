@@ -98,22 +98,19 @@ exports.ControlGalleryV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                (0, svg_text_1.svgTextSource)([
+                // The sheet PRINTS three of the four props, so it is their handle - one
+                // rect, three knobs (bindProps): a double-click opens nickname, homepage
+                // and strength as one form, and bindingsCover sees the drawn "50" bound.
+                // season is a closed set (constraints.oneOf) - never bindable, no entry.
+                (0, template_utils_1.bindProps)((0, svg_text_1.svgTextSource)([
                     { text: sheet.text, fontSize: sheet.fontSize, color: "#c8d2dc" },
-                ]),
+                ]), [{ propKey: "nickname" }, { propKey: "homepage" }, { propKey: "strength", kind: "number" }]),
                 ...(strength > 0 ? [(0, template_utils_1.makeColorTile)("#EF7525")] : []),
             ],
         };
     },
-    // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
-    // rect that shows it, or named here with the reason it has none.
-    bindings: {
-        unbound: {
-            nickname: "a control-gallery specimen — shown in the PANEL, not on the canvas",
-            homepage: "a control-gallery specimen — shown in the PANEL, not on the canvas",
-            strength: "gates whether a tile exists; no rect shows the number",
-        },
-    },
+    // `bindingsDeclared`: every accountable prop is bound on the sheet above;
+    // season is a closed set and needs nothing - so nothing is declared.
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Control Gallery",
         lines: [

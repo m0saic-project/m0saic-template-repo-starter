@@ -18,7 +18,6 @@ import {
   defineMosaicTemplate,
   definePropsSchema,
   HEADER_M_GLYPH,
-  makeColorTile,
   placeInsetPieces,
 } from "@m0saic/template-utils";
 

@@ -30,7 +30,14 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     },
 });
 /** One scene: a colour field with its name on it. */
-function scene(label, color, width, height, durationMs, fps) {
+function scene(label, color, width, height, durationMs, fps, 
+/** The prop this caption STATES, if any - the caption is then its handle. */
+bindTo) {
+    const caption = (0, svg_text_1.svgLabel)(label, width, Math.round(height / 5), {
+        maxPx: Math.round(height * 0.09),
+        maxLines: 1,
+        color: INK,
+    });
     return {
         kind: "mosaic_document",
         version: 1,
@@ -41,14 +48,7 @@ function scene(label, color, width, height, durationMs, fps) {
         fps,
         durationMs,
         backgroundColor: color,
-        sources: [
-            (0, template_utils_1.makeColorTile)(color),
-            (0, svg_text_1.svgLabel)(label, width, Math.round(height / 5), {
-                maxPx: Math.round(height * 0.09),
-                maxLines: 1,
-                color: INK,
-            }),
-        ],
+        sources: [(0, template_utils_1.makeColorTile)(color), bindTo ? (0, template_utils_1.bindProp)(caption, bindTo) : caption],
     };
 }
 exports.TwoScenesV1 = (0, template_utils_1.defineMosaicTemplate)({
@@ -118,17 +118,17 @@ exports.TwoScenesV1 = (0, template_utils_1.defineMosaicTemplate)({
                 {
                     name: "scene-b",
                     durationMs: sceneB,
-                    file: scene(captionB, SCENE_B, width, height, sceneB, fps),
+                    // Scene B's caption STATES the overlap, which IS transitionMs under a
+                    // fade - so that caption is the knob's handle (bindingsCover reads the
+                    // drawn "300"). A binding inside a STEP's document counts: the gate and
+                    // Make walk pipeline steps like nested children.
+                    file: scene(captionB, SCENE_B, width, height, sceneB, fps, "transitionMs"),
                 },
             ],
         };
     },
-    // `bindingsDeclared`: bound on the rect that shows it, or named here.
-    bindings: {
-        unbound: {
-            transitionMs: "timing — the caption prints the resulting OVERLAP arithmetic, not this knob; binding it there would point the handle at an explanation",
-        },
-    },
+    // `bindingsDeclared`: transitionMs is bound on scene B's caption; transition
+    // is a closed set and needs nothing - so nothing is declared.
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Two Scenes",
         lines: [

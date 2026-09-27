@@ -80,3 +80,19 @@ conventions: meets 0.2.0 (shipped at 0.2.0).
 
 A template that fails a rule NEWER than the line it shipped at is not broken — it met the conventions
 of its day, and the fix is its next `vN`.
+
+### Read the lesson, not just the rule
+
+Each 0.3.0 convention has a template in the `make` chapter that exists to be opened in Make — the rule
+as a card a reader can double-click:
+
+| Rule | Lesson |
+|---|---|
+| `bindingsCover` reads NUMBERS in their honest spellings | 82 · `make/bound-numbers/v1` |
+| one rect, two props — `bindProps`, never a second `bindProp` | 83 · `make/composite-line/v1` |
+| `bindingsDeclared` — what an honest non-binding looks like | 84 · `make/declared-unbound/v1` |
+| `type: "array"` declared plainly, edited as `objectRows`, leaf handles | 85 · `make/array-rows/v1` |
+| `canvasFill` — the one declared `canvas.baseRect` | 81 · `make/prop-bindings/v1` |
+
+`tools/new-template.mjs` scaffolds to these rules: the generated template fills its canvas with
+`document.backgroundColor` and paints no full-frame rect.

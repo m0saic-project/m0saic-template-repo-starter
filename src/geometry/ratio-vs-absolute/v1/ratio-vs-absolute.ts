@@ -165,21 +165,23 @@ export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
         ...ratioSources,
         ...absoluteSources,
         label(`ratio 1:2:1 - sides scale with the canvas: ~${Math.round(width / 4)}px here`),
-        label(
-          `placeRects - rails PINNED at ${railEff}px` +
-            (clamped ? ` (clamped from ${railPx})` : "") +
-            `, middle absorbs ${width - 2 * railEff}px`,
+        // The caption STATES the rail width, so it is railPx's handle - a
+        // double-click here edits the knob (bindingsCover reads the drawn
+        // "240"). When the canvas clamps the rail the caption names both
+        // numbers, and the binding still points at the prop.
+        bindProp(
+          label(
+            `placeRects - rails PINNED at ${railEff}px` +
+              (clamped ? ` (clamped from ${railPx})` : "") +
+              `, middle absorbs ${width - 2 * railEff}px`,
+          ),
+          "railPx",
         ),
       ],
     };
   },
-  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
-  // rect that shows it, or named here with the reason it has none.
-  bindings: {
-    unbound: {
-      railPx: "geometry — the caption names the EFFECTIVE rail (and this value only when clamped); the rails themselves are the absolute lesson",
-    },
-  },
+  // `bindingsDeclared`: both props are bound - absoluteColor on the accent
+  // rect, railPx on the caption that states it - so nothing is declared.
 
   renderTutorial: lessonTutorial({
     title: "Ratio vs Absolute",

@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProps,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -156,22 +157,22 @@ export const ControlGalleryV1 = defineMosaicTemplate<ControlGalleryProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        svgTextSource([
-          { text: sheet.text, fontSize: sheet.fontSize, color: "#c8d2dc" as MosaicColor },
-        ]),
+        // The sheet PRINTS three of the four props, so it is their handle - one
+        // rect, three knobs (bindProps): a double-click opens nickname, homepage
+        // and strength as one form, and bindingsCover sees the drawn "50" bound.
+        // season is a closed set (constraints.oneOf) - never bindable, no entry.
+        bindProps(
+          svgTextSource([
+            { text: sheet.text, fontSize: sheet.fontSize, color: "#c8d2dc" as MosaicColor },
+          ]),
+          [{ propKey: "nickname" }, { propKey: "homepage" }, { propKey: "strength", kind: "number" }],
+        ),
         ...(strength > 0 ? [makeColorTile("#EF7525" as MosaicColor)] : []),
       ],
     };
   },
-  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
-  // rect that shows it, or named here with the reason it has none.
-  bindings: {
-    unbound: {
-      nickname: "a control-gallery specimen — shown in the PANEL, not on the canvas",
-      homepage: "a control-gallery specimen — shown in the PANEL, not on the canvas",
-      strength: "gates whether a tile exists; no rect shows the number",
-    },
-  },
+  // `bindingsDeclared`: every accountable prop is bound on the sheet above;
+  // season is a closed set and needs nothing - so nothing is declared.
 
   renderTutorial: lessonTutorial({
     title: "Control Gallery",
