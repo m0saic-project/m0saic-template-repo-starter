@@ -88,6 +88,12 @@ exports.OptionsSelectV1 = (0, template_utils_1.defineMosaicTemplate)({
         bandColor: "#2e86c1",
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            collections: "the picked collections; the strip shows their CONTENT, not the selection value",
+        },
+    },
     async render(props, ctx) {
         var _a, _b, _c, _d;
         for (const [key, value] of [
@@ -137,7 +143,7 @@ exports.OptionsSelectV1 = (0, template_utils_1.defineMosaicTemplate)({
         const m0 = (0, dsl_stdlib_1.toM0String)(`${rows}{6[-,-,-,-,-,1]}`, ID);
         const sources = [];
         for (const [i, c] of collections.entries()) {
-            sources.push((0, template_utils_1.makeColorTile)(i % 2 === 0 ? band : shade(bandHex)));
+            sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(i % 2 === 0 ? band : shade(bandHex)), "bandColor"));
             sources.push((0, template_utils_1.svgLabel)(titleCase(c), width * 0.8, (height * 0.5) / n, {
                 color: "#eaeef2",
                 maxPx: Math.round((height * 0.14) / Math.max(1, n * 0.7)),

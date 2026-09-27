@@ -192,6 +192,13 @@ exports.CriteriaFilterV1 = (0, template_utils_1.defineMosaicTemplate)({
         bandColor: "#2e86c1",
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            connectionId: "names the host CONNECTION, resolved outside the canvas — nothing draws it",
+            filter: "a query — the rows are its RESULT, and no rect shows the query itself",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         for (const [key, value] of [
@@ -238,7 +245,7 @@ exports.CriteriaFilterV1 = (0, template_utils_1.defineMosaicTemplate)({
             vAlign: "middle",
         }));
         for (const row of shown) {
-            sources.push((0, template_utils_1.makeColorTile)(rows.length > 0 ? band : shade(bandHex)));
+            sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(rows.length > 0 ? band : shade(bandHex)), "bandColor"));
             sources.push((0, template_utils_1.svgLabel)(row.label, width * 0.17, height * 0.08, {
                 color: "#b9c4cf",
                 maxPx: Math.round(height * 0.024),

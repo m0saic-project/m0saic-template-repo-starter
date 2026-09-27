@@ -107,6 +107,13 @@ exports.RangeV1 = (0, template_utils_1.defineMosaicTemplate)({
         bandColor: "#2e86c1",
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            hold: "timing — how long the band holds",
+            bandColor: "no rect of its own at defaults; the strip's tiles are shaded variants",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         for (const [key, value] of [

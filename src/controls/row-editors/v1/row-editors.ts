@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindPropPath,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -199,12 +200,19 @@ export const RowEditorsV1 = defineMosaicTemplate<RowEditorsProps>({
     for (const [i, s] of segments.entries()) {
       sources.push(makeColorTile((s.color ?? SEGMENT_PALETTE[i % SEGMENT_PALETTE.length]) as MosaicColor));
       sources.push(
-        svgLabel(`${s.label} ${Math.round((s.value / total) * 100)}%`, (width * 0.8) / segments.length, height * 0.12, {
-          color: "#b9c4cf" as MosaicColor,
-          maxPx: Math.round(height * 0.022),
-          maxLines: 2,
-          vAlign: "middle",
-        }),
+        // A `list` binds a LEAF: this label draws THIS row's `label`, so the
+        // path routes into that record and Make's double-click edits just it.
+        bindPropPath(
+          svgLabel(`${s.label} ${Math.round((s.value / total) * 100)}%`, (width * 0.8) / segments.length, height * 0.12, {
+            color: "#b9c4cf" as MosaicColor,
+            maxPx: Math.round(height * 0.022),
+            maxLines: 2,
+            vAlign: "middle",
+          }),
+          "segments",
+          [i, "label"],
+          "string",
+        ),
       );
     }
 

@@ -81,14 +81,20 @@ exports.NestedTemplateV1 = (0, template_utils_1.defineMosaicTemplate)({
             children: { [CHILD_REF]: badge },
             sources: [
                 (0, template_utils_1.makeColorTile)(PANEL),
-                (0, svg_text_1.svgLabel)(caption, Math.round((width * (100 - slotPct)) / 100), height, {
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(caption, Math.round((width * (100 - slotPct)) / 100), height, {
                     maxPx: Math.round(height * 0.036),
                     maxLines: 6,
                     color: INK_DIM,
-                }),
+                }), "slotPct"),
                 { type: "mosaic", ref: CHILD_REF, placement: { fit: "contain" } },
             ],
         };
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            badgeText: "drawn by the NESTED badge — that rect belongs to the child, whose binding names the child's own prop",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Nested Template",

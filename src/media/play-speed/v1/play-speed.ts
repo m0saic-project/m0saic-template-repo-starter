@@ -7,11 +7,13 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   slugifyAssetKeyFromPath,
 } from "@m0saic/template-utils";
 
+import { formatFor, hasMedia } from "../../../_shared/output-kind";
 import { svgLabel } from "../../../_shared/svg-text";
 import { lessonTutorial } from "../../../_shared/tutorial";
 
@@ -96,8 +98,15 @@ export const PlaySpeedV1 = defineMosaicTemplate<PlaySpeedProps>({
     height: 720,
     fps: 30,
     durationMs: 4000,
-    format: { kind: "video", container: "mp4" },
+    format: { kind: "image", container: "png" },
     note: "4s of output on purpose: a 1s sample at 1x loops four times, so loopMode is obvious.",
+  },
+
+  // ⭐ This template's kind depends on its INPUT: a clip makes a video; the empty slot draws a still placeholder.
+  // A fixed declaration would be wrong for half its inputs, and the host would
+  // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+  resolveOutputHints(props: PlaySpeedProps) {
+    return formatFor(hasMedia(props.video));
   },
 
   propsSchema,
@@ -132,11 +141,15 @@ export const PlaySpeedV1 = defineMosaicTemplate<PlaySpeedProps>({
         assets: {},
         backgroundColor: "#0b0e11" as MosaicColor,
         sources: [
-          svgLabel("Pick a video (Video) - a 1s sample, re-timed, on repeat", width, height, {
-            maxPx: Math.round(height * 0.04),
-            maxLines: 2,
-            color: "#7f8c9b" as MosaicColor,
-          }),
+          // Bound while EMPTY — the rect is the ADD handle, so a dropped file fills it.
+          bindProp(
+            svgLabel("Pick a video (Video) - a 1s sample, re-timed, on repeat", width, height, {
+              maxPx: Math.round(height * 0.04),
+              maxLines: 2,
+              color: "#7f8c9b" as MosaicColor,
+            }),
+            "video",
+          ),
         ],
       };
     }
@@ -203,6 +216,13 @@ export const PlaySpeedV1 = defineMosaicTemplate<PlaySpeedProps>({
         }),
       ],
     };
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      speed: "playback rate — re-times the clip, never drawn",
+      sampleMs: "the sample window — timing, not a value on any rect",
+    },
   },
 
   renderTutorial: lessonTutorial({

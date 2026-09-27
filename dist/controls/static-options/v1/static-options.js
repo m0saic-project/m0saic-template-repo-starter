@@ -92,6 +92,12 @@ exports.StaticOptionsV1 = (0, template_utils_1.defineMosaicTemplate)({
         bandColor: "#2e86c1",
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            tracks: "a COUNT is drawn, not the list — the caption says how many, and no rect shows a track",
+        },
+    },
     async render(props, ctx) {
         var _a, _b, _c, _d, _e;
         for (const [key, value] of [
@@ -152,7 +158,7 @@ exports.StaticOptionsV1 = (0, template_utils_1.defineMosaicTemplate)({
             maxPx: Math.round(height * 0.026),
             vAlign: "middle",
         }));
-        sources.push((0, template_utils_1.makeColorTile)(shade(bandHex)));
+        sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(shade(bandHex)), "bandColor"));
         sources.push((0, template_utils_1.svgLabel)(`${titleCase(preset)} - ${tracks.length} track${tracks.length === 1 ? "" : "s"}`, width * 0.6, height * 0.1, {
             color: "#eaeef2",
             maxPx: Math.round(height * 0.032),

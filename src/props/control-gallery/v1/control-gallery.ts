@@ -163,6 +163,15 @@ export const ControlGalleryV1 = defineMosaicTemplate<ControlGalleryProps>({
       ],
     };
   },
+  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+  // rect that shows it, or named here with the reason it has none.
+  bindings: {
+    unbound: {
+      nickname: "a control-gallery specimen — shown in the PANEL, not on the canvas",
+      homepage: "a control-gallery specimen — shown in the PANEL, not on the canvas",
+      strength: "gates whether a tile exists; no rect shows the number",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "Control Gallery",

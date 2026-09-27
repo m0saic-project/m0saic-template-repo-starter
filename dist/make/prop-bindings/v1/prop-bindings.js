@@ -167,6 +167,9 @@ exports.PropBindingsV1 = (0, template_utils_1.defineMosaicTemplate)({
         mode: "boxed",
         pageColor: "#1c2833",
     },
+    // `canvasFill` is a THROW: a full-canvas colour rect is normally the smell.
+    // Here it is the SUBJECT, so it is declared rather than removed.
+    canvas: { baseRect: "the lesson is binding a full-canvas rect: the base IS the thing a reader double-clicks in Make" },
     async render(props, ctx) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         // The schema is documentation; render() is the gate.

@@ -79,7 +79,12 @@ exports.RatioVsAbsoluteV1 = (0, template_utils_1.defineMosaicTemplate)({
         // Non-overlapping rects pack onto one layer and walk left-to-right, so
         // the middle rect carries the caller's accent while the rails stay muted.
         const orderedRects = absolute.layers.flatMap((layer) => layer.rectIndices);
-        const absoluteSources = orderedRects.map((rectIndex) => (0, template_utils_1.makeColorTile)(rectIndex === 1 ? absoluteColor : "#0e6251"));
+        const absoluteSources = orderedRects.map((rectIndex) => {
+            const tile = (0, template_utils_1.makeColorTile)(rectIndex === 1 ? absoluteColor : "#0e6251");
+            // Only the accent rect SHOWS the prop, so only it earns the handle — a
+            // swatch on a muted rail would edit a colour that rail never displays.
+            return rectIndex === 1 ? (0, template_utils_1.bindProp)(tile, "absoluteColor") : tile;
+        });
         const label = (text) => (0, svg_text_1.svgLabel)(text, width, halfH, {
             maxPx: Math.round(height * 0.04),
             vAlign: "bottom",
@@ -100,6 +105,13 @@ exports.RatioVsAbsoluteV1 = (0, template_utils_1.defineMosaicTemplate)({
                     `, middle absorbs ${width - 2 * railEff}px`),
             ],
         };
+    },
+    // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+    // rect that shows it, or named here with the reason it has none.
+    bindings: {
+        unbound: {
+            railPx: "geometry — the caption names the EFFECTIVE rail (and this value only when clamped); the rails themselves are the absolute lesson",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Ratio vs Absolute",

@@ -121,7 +121,7 @@ exports.HostConnectionV1 = (0, template_utils_1.defineMosaicTemplate)({
         const green = "#7ce8a9";
         const sources = [];
         // Card background, then its contents in claim order.
-        sources.push((0, template_utils_1.makeColorTile)(dim(bandHex, 0.24)));
+        sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(dim(bandHex, 0.24)), "bandColor"));
         sources.push((0, template_utils_1.svgLabel)(`${connection_1.CATALOG_CONNECTION_SCHEMA.label}   ${String(connection_1.CATALOG_CONNECTION_ID)}`, cardW * 0.6, height * 0.09, { color: "#eaeef2", maxPx: Math.round(height * 0.038), vAlign: "middle" }));
         sources.push((0, template_utils_1.makeColorTile)("#14432c"));
         sources.push((0, template_utils_1.svgLabel)("configured", cardW * 0.2, height * 0.08, {

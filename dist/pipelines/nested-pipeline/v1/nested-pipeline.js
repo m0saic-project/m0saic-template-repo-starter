@@ -136,11 +136,11 @@ exports.NestedPipelineV1 = (0, template_utils_1.defineMosaicTemplate)({
                     playback: { loopMode },
                 },
                 (0, template_utils_1.makeColorTile)("#101418"),
-                (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.028),
                     maxLines: 2,
                     color: INK_DIM,
-                }),
+                }), "innerMs"),
             ],
         };
     },

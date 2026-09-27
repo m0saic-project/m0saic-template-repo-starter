@@ -131,6 +131,12 @@ exports.FanOutV1 = (0, template_utils_1.defineMosaicTemplate)({
             steps,
         };
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            variantMs: "timing — each variant's length, never drawn",
+        },
+    },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Fan Out",
         lines: [

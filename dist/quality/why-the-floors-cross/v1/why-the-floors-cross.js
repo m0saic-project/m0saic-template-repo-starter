@@ -156,7 +156,7 @@ exports.WhyTheFloorsCrossV1 = (0, template_utils_1.defineMosaicTemplate)({
         if (real) {
             // Wireframe of the real geometry: one alternating tile per claim.
             for (let i = 0; i < e.frameCount; i++) {
-                sources.push((0, template_utils_1.makeColorTile)(i % 2 === 0 ? band : shade(bandHex)));
+                sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(i % 2 === 0 ? band : shade(bandHex)), "bandColor"));
             }
             return {
                 kind: "mosaic_document",
@@ -194,7 +194,7 @@ exports.WhyTheFloorsCrossV1 = (0, template_utils_1.defineMosaicTemplate)({
         ], width * 0.9, height * 0.09, { maxPx: Math.round(height * 0.026), widthFrac: 0.92 });
         // Blocks bind left to right / top to bottom, then the caption text.
         if (layout === "dashboard") {
-            sources.push((0, template_utils_1.makeColorTile)(band)); // title chip
+            sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(band), "bandColor")); // title chip
             for (let i = 0; i < 6; i++) {
                 // card bg, then icon / label / value / delta on it
                 sources.push((0, template_utils_1.makeColorTile)(shade(bandHex)), (0, template_utils_1.makeColorTile)(band), (0, template_utils_1.makeColorTile)(band), (0, template_utils_1.makeColorTile)(band), (0, template_utils_1.makeColorTile)(band));

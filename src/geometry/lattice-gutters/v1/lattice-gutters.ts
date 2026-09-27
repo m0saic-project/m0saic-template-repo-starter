@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { evaluateM0, toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   latticeCellInset,
@@ -181,6 +182,16 @@ export const LatticeGuttersV1 = defineMosaicTemplate<LatticeGuttersProps>({
     gutterMode: "inset",
     tileColor: "#21618c",
   },
+  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+  // rect that shows it, or named here with the reason it has none.
+  bindings: {
+    unbound: {
+      rows: "geometry — the grid's shape",
+      cols: "geometry — the grid's shape",
+      gutterPx: "geometry — gutter width",
+      marginPx: "geometry — outer margin",
+    },
+  },
 
   async render(
     props: LatticeGuttersProps,
@@ -254,9 +265,12 @@ export const LatticeGuttersV1 = defineMosaicTemplate<LatticeGuttersProps>({
       baseM0 = `${rows}[${new Array<string>(rows).fill(rowM0).join(",")}]`;
       sources = cells.map((_, i) => {
         const inset = lattice.insetAt(i);
-        return makeColorTile(
-          tileColor as MosaicColor,
-          inset ? { placement: { inset } } : undefined,
+        return bindProp(
+          makeColorTile(
+            tileColor as MosaicColor,
+            inset ? { placement: { inset } } : undefined,
+          ),
+          "tileColor",
         );
       });
     } else {
@@ -286,7 +300,7 @@ export const LatticeGuttersV1 = defineMosaicTemplate<LatticeGuttersProps>({
       baseM0 = String(
         weightedSplit(rowSplit.weights, "row", { claimants: rowSplit.claimants }),
       );
-      sources = cells.map(() => makeColorTile(tileColor as MosaicColor));
+      sources = cells.map(() => bindProp(makeColorTile(tileColor as MosaicColor), "tileColor"));
     }
 
     // The receipts, measured on the BASE spelling (before the caption

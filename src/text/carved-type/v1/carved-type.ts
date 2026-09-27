@@ -9,6 +9,8 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProps,
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   fitSvgText,
@@ -17,6 +19,7 @@ import {
   textToPath,
 } from "@m0saic/template-utils";
 
+import { formatFor, mediaLooksLikeVideo } from "../../../_shared/output-kind";
 import { svgLabel } from "../../../_shared/svg-text";
 import { lessonTutorial } from "../../../_shared/tutorial";
 
@@ -102,8 +105,22 @@ export const CarvedTypeV1 = defineMosaicTemplate<CarvedTypeProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
-    format: { kind: "video", container: "mp4" },
+    // The DEFAULT answer: with an empty Media slot this paints a flat colour
+    // through the mask — a still. `resolveOutputHints` below re-answers for the
+    // props actually in hand, and `outputHintsResolve` (throw) checks the two
+    // agree at `defaultProps`.
+    format: { kind: "image", container: "png" },
     note: "Pick a video for Media and press play — the footage moves inside the letters.",
+  },
+
+  // ⭐ A template that accepts BOTH kinds must say which one it is FOR THE PROPS
+  // IT HAS. A fixed declaration is wrong for half its inputs by construction:
+  // this one declared video and, with no media, produced a still — so Make fell
+  // back to guessing and the user had to override by hand (founder, 2026-09-26).
+  // Pure and prop-only, as the contract requires: no probe, no clock, no I/O —
+  // the path's extension is the evidence available at this moment.
+  resolveOutputHints(props: CarvedTypeProps) {
+    return formatFor(mediaLooksLikeVideo(props.media));
   },
 
   propsSchema,
@@ -164,18 +181,30 @@ export const CarvedTypeV1 = defineMosaicTemplate<CarvedTypeProps>({
       }
       const key = String(slugifyAssetKeyFromPath(media));
       assets[key] = { kind: "file", path: media, mediaType: meta.kind };
-      carved = {
-        type: "media",
-        mediaType: meta.kind,
-        assetId: key,
-        // COVER, not contain: letterbox bars inside a glyph are holes in
-        // the word.
-        placement: { fit: "cover" },
-        mask,
-      } as never;
+      // The cell showing the footage is the media prop's handle: drop a new file
+      // on it, or open the media chip from its badge.
+      carved = bindProp(
+        {
+          type: "media",
+          mediaType: meta.kind,
+          assetId: key,
+          // COVER, not contain: letterbox bars inside a glyph are holes in
+          // the word.
+          placement: { fit: "cover" },
+          mask,
+        } as never,
+        "media",
+      );
       caption = `${meta.kind} playing through the word - the mask is the only thing that knows about text`;
     } else {
-      carved = makeColorTile(fallbackColor as MosaicColor, { mask });
+      // ⭐ ONE rect, TWO handles. This tile shows `fallbackColor` AND is the empty
+      // media slot — so it carries both bindings via `bindProps`; a second
+      // `bindProp` would replace the first. The media entry is what makes the
+      // no-media card a DROP TARGET: drag a clip on and the letters fill.
+      carved = bindProps(makeColorTile(fallbackColor as MosaicColor, { mask }), [
+        { propKey: "fallbackColor" },
+        { propKey: "media" },
+      ]);
       caption = "no media: the same mask on a plain color tile - pick a file to fill the letters";
     }
 
@@ -199,6 +228,12 @@ export const CarvedTypeV1 = defineMosaicTemplate<CarvedTypeProps>({
         }),
       ],
     };
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      word: "carved as the MASK's path, not drawn as text — there is no text rect to bind",
+    },
   },
 
   renderTutorial: lessonTutorial({

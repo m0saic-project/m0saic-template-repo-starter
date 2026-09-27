@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -163,6 +164,12 @@ export const NumberSeriesV1 = defineMosaicTemplate<NumberSeriesProps>({
     bandColor: "#2e86c1",
     pageColor: "#1c2833",
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      values: "drives the split weights — geometry, never drawn",
+    },
+  },
 
   async render(
     props: NumberSeriesProps,
@@ -212,7 +219,7 @@ export const NumberSeriesV1 = defineMosaicTemplate<NumberSeriesProps>({
     const sources: MosaicSource[] = [];
     for (const [i, s] of series.entries()) {
       for (let k = 0; k < s.length; k++) {
-        sources.push(makeColorTile(i % 2 === 0 ? band : shade(bandHex)));
+        sources.push(bindProp(makeColorTile(i % 2 === 0 ? band : shade(bandHex)), "bandColor"));
       }
     }
 

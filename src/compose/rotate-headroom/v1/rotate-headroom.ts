@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   placeInsetPieces,
@@ -254,11 +255,14 @@ export const RotateHeadroomV1 = defineMosaicTemplate<RotateHeadroomProps>({
         },
         {
           rect: { ...captionRect, importance: 10 },
-          source: svgLabel(caption, captionRect.w, captionRect.h, {
-            maxPx: Math.round(height * 0.028),
-            maxLines: 2,
-            color: mode === "headroom" ? INK_DIM : ("#e67e22" as MosaicColor),
-          }),
+          source: bindProp(
+            svgLabel(caption, captionRect.w, captionRect.h, {
+              maxPx: Math.round(height * 0.028),
+              maxLines: 2,
+              color: mode === "headroom" ? INK_DIM : ("#e67e22" as MosaicColor),
+            }),
+            "angle",
+          ),
         },
       ],
     });

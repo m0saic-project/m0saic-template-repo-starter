@@ -7,20 +7,24 @@ import { AnatomyV1 } from "./anatomy";
 type Maskish = { mask?: { kind?: string; localPath?: string } };
 
 describe("@m0saic-starter/basics/anatomy/v1", () => {
-  it("renders the brand hello: backdrop, square M, greeting", async () => {
+  it("renders the brand hello: square M, greeting — and NO backdrop rect", async () => {
     const doc = asDocument(
       await AnatomyV1.render({ ...AnatomyV1.defaultProps }, defaultCtx),
     );
 
     expect(doc.kind).toBe("mosaic_document");
     expect(doc.version).toBe(1);
-    expect(doc.sources).toHaveLength(3);
+    // TWO pieces since 2026-09-25: the full-canvas backdrop rect is gone.
+    // `document.backgroundColor` paints the page with no rect at all — a
+    // base rect is a click target covering everything, and the `canvasFill`
+    // convention refuses one. The m0 lost its `1{…}` wrapper with it.
+    expect(doc.sources).toHaveLength(2);
+    expect(doc.backgroundColor).toBe(AnatomyV1.defaultProps?.backgroundColor);
 
     // placeInsetPieces orders sources by IMPORTANCE ascending (paint order —
-    // higher importance paints later, on top): backdrop, greeting, then the
-    // M (a color tile WEARING the baked glyph as an inline-mask).
-    const [backdrop, greeting, glyph] = doc.sources as [Maskish, MosaicTextSource, Maskish];
-    expect((backdrop as { type?: string }).type).toBe("lavfi");
+    // higher importance paints later, on top): greeting, then the M (a color
+    // tile WEARING the baked glyph as an inline-mask).
+    const [greeting, glyph] = doc.sources as [MosaicTextSource, Maskish];
     expect(greeting.type).toBe("text");
     expect(greeting.layers[0]?.content).toEqual({
       kind: "literal",
@@ -39,13 +43,13 @@ describe("@m0saic-starter/basics/anatomy/v1", () => {
 
   it("renders custom text", async () => {
     const doc = asDocument(await AnatomyV1.render({ text: "Salut" }, defaultCtx));
-    const greeting = doc.sources?.[1] as MosaicTextSource;
+    const greeting = doc.sources?.[0] as MosaicTextSource;
     expect(greeting.layers[0]?.content).toEqual({ kind: "literal", text: "Salut" });
   });
 
-  it("renders the same three-piece shape at landscape and portrait", async () => {
+  it("renders the same two-piece shape at landscape and portrait", async () => {
     // The M's square side comes from min(width, height) of ctx.target, so
-    // both orientations must place all three pieces cleanly.
+    // both orientations must place both pieces cleanly.
     for (const [w, h] of [
       [1280, 720],
       [720, 1280],
@@ -56,8 +60,8 @@ describe("@m0saic-starter/basics/anatomy/v1", () => {
           { ...defaultCtx, target: { ...defaultCtx.target, width: w, height: h } },
         ),
       );
-      expect(doc.sources).toHaveLength(3);
-      expect((doc.sources?.[2] as Maskish).mask?.kind).toBe("inline-mask");
+      expect(doc.sources).toHaveLength(2);
+      expect((doc.sources?.[1] as Maskish).mask?.kind).toBe("inline-mask");
     }
   });
 

@@ -7,6 +7,7 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   slugifyAssetKeyFromPath,
@@ -100,11 +101,17 @@ export const ImageCardV1 = defineMosaicTemplate<ImageCardProps>({
         assets: {},
         backgroundColor: "#0b0e11" as MosaicColor,
         sources: [
-          svgLabel("Pick an image in the sidebar (Image) to frame it here", width, height, {
-            maxPx: Math.round(height * 0.04),
-            maxLines: 2,
-            color: "#7f8c9b" as MosaicColor,
-          }),
+          // Bound even though the prop is EMPTY — that is the convention ("bind
+          // even when the value is empty"), and it is what makes this rect a DROP
+          // TARGET: drag an image onto the canvas and it fills the slot.
+          bindProp(
+            svgLabel("Drop an image here, or pick one in the sidebar (Image)", width, height, {
+              maxPx: Math.round(height * 0.04),
+              maxLines: 2,
+              color: "#7f8c9b" as MosaicColor,
+            }),
+            "image",
+          ),
         ],
       };
     }
@@ -140,12 +147,17 @@ export const ImageCardV1 = defineMosaicTemplate<ImageCardProps>({
       assets,
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        {
-          type: "media",
-          mediaType: "image",
-          assetId: key,
-          placement: { fit },
-        } as never,
+        // The cell showing the image IS the prop's handle: a dropped file replaces
+        // it, and the picture badge opens the media chip.
+        bindProp(
+          {
+            type: "media",
+            mediaType: "image",
+            assetId: key,
+            placement: { fit },
+          } as never,
+          "image",
+        ),
         svgLabel(caption, width, Math.round(height / 6), {
           maxPx: Math.round(height * 0.026),
           maxLines: 1,

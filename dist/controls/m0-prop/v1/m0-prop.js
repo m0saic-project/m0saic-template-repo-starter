@@ -123,7 +123,7 @@ exports.M0PropV1 = (0, template_utils_1.defineMosaicTemplate)({
             const statsM0 = (0, dsl_stdlib_1.toM0String)(`${statRows}{6[-,-,-,-,-,1]}`, ID);
             const stats = [];
             const line = (text) => {
-                stats.push((0, template_utils_1.makeColorTile)(shade(bandHex)));
+                stats.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(shade(bandHex)), "bandColor"));
                 stats.push((0, template_utils_1.svgLabel)(text, width * 0.78, height * 0.12, {
                     color: "#eaeef2",
                     maxPx: Math.round(height * 0.03),
@@ -187,7 +187,7 @@ exports.M0PropV1 = (0, template_utils_1.defineMosaicTemplate)({
         // One alternating tile per claim — frameCount is the binding rule.
         // Subtract the caption's own claim, appended as the text source below.
         for (let i = 0; i < e.frameCount - 1; i++) {
-            sources.push((0, template_utils_1.makeColorTile)(i % 2 === 0 ? band : shade(bandHex)));
+            sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(i % 2 === 0 ? band : shade(bandHex)), "bandColor"));
         }
         const heading = (0, svg_text_1.fitSvgText)(`M0 PROP - your ${layout.length}-char layout, framed and wireframed (${e.frameCount - 1} claims)`, width * 0.9, height * 0.07, { maxPx: Math.round(height * 0.032), maxLines: 1 });
         const readout = (0, svg_text_1.fitSvgLines)([

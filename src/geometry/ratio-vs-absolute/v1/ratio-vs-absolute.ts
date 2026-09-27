@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { placeRects, toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -138,11 +139,14 @@ export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
     // Non-overlapping rects pack onto one layer and walk left-to-right, so
     // the middle rect carries the caller's accent while the rails stay muted.
     const orderedRects = absolute.layers.flatMap((layer) => layer.rectIndices);
-    const absoluteSources: MosaicSource[] = orderedRects.map((rectIndex) =>
-      makeColorTile(
+    const absoluteSources: MosaicSource[] = orderedRects.map((rectIndex) => {
+      const tile = makeColorTile(
         rectIndex === 1 ? (absoluteColor as MosaicColor) : ("#0e6251" as MosaicColor),
-      ),
-    );
+      );
+      // Only the accent rect SHOWS the prop, so only it earns the handle — a
+      // swatch on a muted rail would edit a colour that rail never displays.
+      return rectIndex === 1 ? bindProp(tile, "absoluteColor") : tile;
+    });
 
     const label = (text: string): MosaicSource =>
       svgLabel(text, width, halfH, {
@@ -168,6 +172,13 @@ export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
         ),
       ],
     };
+  },
+  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+  // rect that shows it, or named here with the reason it has none.
+  bindings: {
+    unbound: {
+      railPx: "geometry — the caption names the EFFECTIVE rail (and this value only when clamped); the rails themselves are the absolute lesson",
+    },
   },
 
   renderTutorial: lessonTutorial({

@@ -92,15 +92,25 @@ exports.ErrorMosaicV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                (0, template_utils_1.makeColorTile)(accent),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(accent), "accent"),
                 (0, template_utils_1.makeColorTile)("#1c2833"),
-                (0, svg_text_1.svgLabel)(`ratio ${ratio} - tags: ${items.join(" / ")}`, width, Math.round(height / 6), {
+                // The caption READS OUT the ratio, so it is that prop's handle. It also
+                // lists the tags — one rect can only lead with one prop, and the ratio is
+                // the one a reader changes.
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(`ratio ${ratio} - tags: ${items.join(" / ")}`, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.026),
                     maxLines: 1,
                     color: "#7f8c9b",
-                }),
+                }), "ratio"),
             ],
         };
+    },
+    // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+    // rect that shows it, or named here with the reason it has none.
+    bindings: {
+        unbound: {
+            tags: "listed in the caption beside the ratio, which owns that rect — a second bindProp would replace the first",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Error Mosaic",

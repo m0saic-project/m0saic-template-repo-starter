@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { placeRect, toM0String } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -138,7 +139,7 @@ export const PlaceRectDockV1 = defineMosaicTemplate<PlaceRectDockProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        makeColorTile(dockColor as MosaicColor),
+        bindProp(makeColorTile(dockColor as MosaicColor), "dockColor"),
         svgLabel(
           `placeRect ${rectW}x${rectH} at (${x},${y}) - exact px, baked for ${width}x${height}`,
           width,
@@ -147,6 +148,15 @@ export const PlaceRectDockV1 = defineMosaicTemplate<PlaceRectDockProps>({
         ),
       ],
     };
+  },
+  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+  // rect that shows it, or named here with the reason it has none.
+  bindings: {
+    unbound: {
+      widthFrac: "geometry — the dock's size",
+      heightFrac: "geometry — the dock's size",
+      marginPx: "geometry — outer margin",
+    },
   },
 
   renderTutorial: lessonTutorial({

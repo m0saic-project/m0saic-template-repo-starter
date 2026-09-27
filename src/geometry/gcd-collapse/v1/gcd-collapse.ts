@@ -139,6 +139,13 @@ export const GcdCollapseV1 = defineMosaicTemplate<GcdCollapseProps>({
       ],
     };
   },
+  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+  // rect that shows it, or named here with the reason it has none.
+  bindings: {
+    unbound: {
+      weights: "split weights — geometry; the tiles are a constant palette",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "GCD Collapse",

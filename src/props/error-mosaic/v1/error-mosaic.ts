@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -142,15 +143,28 @@ export const ErrorMosaicV1 = defineMosaicTemplate<ErrorMosaicProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        makeColorTile(accent as MosaicColor),
+        bindProp(makeColorTile(accent as MosaicColor), "accent"),
         makeColorTile("#1c2833" as MosaicColor),
-        svgLabel(`ratio ${ratio} - tags: ${items.join(" / ")}`, width, Math.round(height / 6), {
-          maxPx: Math.round(height * 0.026),
-          maxLines: 1,
-          color: "#7f8c9b" as MosaicColor,
-        }),
+        // The caption READS OUT the ratio, so it is that prop's handle. It also
+        // lists the tags — one rect can only lead with one prop, and the ratio is
+        // the one a reader changes.
+        bindProp(
+          svgLabel(`ratio ${ratio} - tags: ${items.join(" / ")}`, width, Math.round(height / 6), {
+            maxPx: Math.round(height * 0.026),
+            maxLines: 1,
+            color: "#7f8c9b" as MosaicColor,
+          }),
+          "ratio",
+        ),
       ],
     };
+  },
+  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+  // rect that shows it, or named here with the reason it has none.
+  bindings: {
+    unbound: {
+      tags: "listed in the caption beside the ratio, which owns that rect — a second bindProp would replace the first",
+    },
   },
 
   renderTutorial: lessonTutorial({

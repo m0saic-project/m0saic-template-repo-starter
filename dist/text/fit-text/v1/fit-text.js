@@ -123,7 +123,7 @@ exports.FitTextV1 = (0, template_utils_1.defineMosaicTemplate)({
             (overflow ? " - CLIPPED" : " - fits");
         const sources = [
             (0, template_utils_1.makeColorTile)(PANEL),
-            (0, svg_text_1.svgTextSource)([{ text, fontSize, color: INK }]),
+            (0, template_utils_1.bindProp)((0, svg_text_1.svgTextSource)([{ text, fontSize, color: INK }]), "copy"),
             (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
                 maxPx: Math.round(height * 0.03),
                 maxLines: 1,
@@ -138,6 +138,12 @@ exports.FitTextV1 = (0, template_utils_1.defineMosaicTemplate)({
             backgroundColor: "#0b0e11",
             sources,
         };
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            boxWidthPct: "geometry — the measuring box's width, never drawn",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Fit Text",

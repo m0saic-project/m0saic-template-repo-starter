@@ -184,7 +184,7 @@ export const GroupFieldsV1 = defineMosaicTemplate<GroupFieldsProps>({
     const m0 = toM0String(`${stage}{6[-,-,-,-,-,1]}`, ID);
 
     const sources: MosaicSource[] = [];
-    sources.push(makeColorTile(accent));
+    sources.push(bindProp(makeColorTile(accent), "speaker.accent"));
     sources.push(makeColorTile(shade("#1c2833")));
     sources.push(
       bindProp(svgLabel(speaker.name, width * 0.5, height * 0.11, {

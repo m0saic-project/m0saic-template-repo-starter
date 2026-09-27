@@ -4,6 +4,7 @@ exports.PlaySpeedV1 = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const output_kind_1 = require("../../../_shared/output-kind");
 const svg_text_1 = require("../../../_shared/svg-text");
 const tutorial_1 = require("../../../_shared/tutorial");
 const ID = "@m0saic-starter/media/play-speed/v1";
@@ -53,8 +54,14 @@ exports.PlaySpeedV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 4000,
-        format: { kind: "video", container: "mp4" },
+        format: { kind: "image", container: "png" },
         note: "4s of output on purpose: a 1s sample at 1x loops four times, so loopMode is obvious.",
+    },
+    // ⭐ This template's kind depends on its INPUT: a clip makes a video; the empty slot draws a still placeholder.
+    // A fixed declaration would be wrong for half its inputs, and the host would
+    // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+    resolveOutputHints(props) {
+        return (0, output_kind_1.formatFor)((0, output_kind_1.hasMedia)(props.video));
     },
     propsSchema,
     defaultProps: { video: "", speed: 1, sampleMs: 1000, loopMode: "loop" },
@@ -82,11 +89,12 @@ exports.PlaySpeedV1 = (0, template_utils_1.defineMosaicTemplate)({
                 assets: {},
                 backgroundColor: "#0b0e11",
                 sources: [
-                    (0, svg_text_1.svgLabel)("Pick a video (Video) - a 1s sample, re-timed, on repeat", width, height, {
+                    // Bound while EMPTY — the rect is the ADD handle, so a dropped file fills it.
+                    (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)("Pick a video (Video) - a 1s sample, re-timed, on repeat", width, height, {
                         maxPx: Math.round(height * 0.04),
                         maxLines: 2,
                         color: "#7f8c9b",
-                    }),
+                    }), "video"),
                 ],
             };
         }
@@ -143,6 +151,13 @@ exports.PlaySpeedV1 = (0, template_utils_1.defineMosaicTemplate)({
                 }),
             ],
         };
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            speed: "playback rate — re-times the clip, never drawn",
+            sampleMs: "the sample window — timing, not a value on any rect",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Play Speed",

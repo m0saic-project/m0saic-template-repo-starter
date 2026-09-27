@@ -179,6 +179,12 @@ export const ChildMosaicV1 = defineMosaicTemplate<ChildMosaicProps>({
       ],
     };
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      childGrid: "an m0 layout string — the value IS the composition of every child rect, not one of them",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "Child Mosaic",

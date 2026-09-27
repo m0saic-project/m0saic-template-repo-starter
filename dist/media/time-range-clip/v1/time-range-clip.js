@@ -4,6 +4,7 @@ exports.TimeRangeClipV1 = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const output_kind_1 = require("../../../_shared/output-kind");
 const svg_text_1 = require("../../../_shared/svg-text");
 const tutorial_1 = require("../../../_shared/tutorial");
 const ID = "@m0saic-starter/media/time-range-clip/v1";
@@ -45,8 +46,14 @@ exports.TimeRangeClipV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
-        format: { kind: "video", container: "mp4" },
+        format: { kind: "image", container: "png" },
         note: "Pick a video, then drag the scrubber's two handles — the render plays only that window.",
+    },
+    // ⭐ This template's kind depends on its INPUT: a clip makes a video; the empty slot draws a still placeholder.
+    // A fixed declaration would be wrong for half its inputs, and the host would
+    // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+    resolveOutputHints(props) {
+        return (0, output_kind_1.formatFor)((0, output_kind_1.hasMedia)(props.video));
     },
     propsSchema,
     defaultProps: { video: "", clipStartMs: 0, clipEndMs: 1000 },
@@ -64,11 +71,13 @@ exports.TimeRangeClipV1 = (0, template_utils_1.defineMosaicTemplate)({
                 assets: {},
                 backgroundColor: "#0b0e11",
                 sources: [
-                    (0, svg_text_1.svgLabel)("Pick a video (Video), then set the window with the scrubber", width, height, {
+                    // Bound while EMPTY — "bind even when the value is empty": this rect is
+                    // the ADD handle, so dropping a file on the canvas fills the slot.
+                    (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)("Pick a video (Video), then set the window with the scrubber", width, height, {
                         maxPx: Math.round(height * 0.04),
                         maxLines: 2,
                         color: "#7f8c9b",
-                    }),
+                    }), "video"),
                 ],
             };
         }

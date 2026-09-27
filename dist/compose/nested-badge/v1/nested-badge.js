@@ -71,7 +71,7 @@ exports.NestedBadgeV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: PANEL,
             sources: [
-                (0, template_utils_1.makeColorTile)(accent),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(accent), "accent"),
                 (0, template_utils_1.makeColorTile)(PANEL),
                 (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(text, labelBoxW, height, {
                     maxPx: Math.round(Math.min(labelBoxW, height) * 0.2),

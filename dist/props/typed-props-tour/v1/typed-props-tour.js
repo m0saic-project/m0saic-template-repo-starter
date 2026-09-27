@@ -112,6 +112,13 @@ exports.TypedPropsTourV1 = (0, template_utils_1.defineMosaicTemplate)({
             ],
         };
     },
+    // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+    // rect that shows it, or named here with the reason it has none.
+    bindings: {
+        unbound: {
+            tiles: "a COUNT — it decides how many rects exist, and is drawn by none of them",
+        },
+    },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Typed Props Tour",
         lines: [

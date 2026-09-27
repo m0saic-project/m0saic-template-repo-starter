@@ -77,11 +77,10 @@ exports.AnatomyV1 = (0, template_utils_1.defineMosaicTemplate)({
             rootW: width,
             rootH: height,
             pieces: [
-                {
-                    // Backdrop — the old `F`, now the page the brand sits on.
-                    rect: { x: 0, y: 0, w: width, h: height, importance: 0 },
-                    source: (0, template_utils_1.makeColorTile)(fill),
-                },
+                // NO backdrop piece. `backgroundColor: fill` below paints the page, and a
+                // full-canvas rect on top of it is the `canvasFill` smell: it becomes a
+                // click target covering everything, selected in Make any time the pointer
+                // is not on a smaller tile. (It used to be here as the old `F` wrapper.)
                 {
                     rect: { x: gx, y: gy, w: side, h: side, importance: 2 },
                     source: (0, template_utils_1.brandGlyphTile)(template_utils_1.HEADER_M_GLYPH, template_utils_1.BRAND_ORANGE),

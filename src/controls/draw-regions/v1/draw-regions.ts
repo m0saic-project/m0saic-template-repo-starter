@@ -139,6 +139,12 @@ export const DrawRegionsV1 = defineMosaicTemplate<DrawRegionsProps>({
     regions: DEFAULT_REGIONS,
     pageColor: "#1c2833",
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      regions: "a regions picker edited on the CANVAS by dragging — the draw session is the handle, not a text form",
+    },
+  },
 
   async render(
     props: DrawRegionsProps,

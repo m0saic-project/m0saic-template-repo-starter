@@ -83,6 +83,14 @@ exports.RenderLiteV1 = (0, template_utils_1.defineMosaicTemplate)({
         accentColor: "#2471a3",
         panelColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            tiles: "a COUNT — it decides how many rects exist, and is drawn by none of them",
+            accentColor: "painted by the LITE stand-in, which is the surface this lesson is about — the real render's rects are the child's",
+            panelColor: "painted by the LITE stand-in, not by a rect of this document",
+        },
+    },
     /**
      * The real thing: an N by N checkerboard, built row of columns.
      *

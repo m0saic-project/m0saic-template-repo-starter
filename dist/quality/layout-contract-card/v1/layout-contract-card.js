@@ -79,6 +79,12 @@ exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         cardColor: "#2e86c1",
         headerColor: "#8e44ad",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            stretchCard: "a layout switch — it changes which shape is built, and no rect shows it",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         for (const [key, value] of [
@@ -118,9 +124,9 @@ exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
             : `third card ${stretch.toFixed(1)}x wide - spread ${spreadPct.toFixed(0)}% breaks the 2% rule`, width * 0.86, height * 0.12, { maxPx: Math.round(height * 0.032), maxLines: 2 });
         // The LABEL is the durable identity. Everything else about this document
         // is re-derived the moment a prop or the canvas changes.
-        const cardTile = () => { var _a; return ({ ...(0, template_utils_1.makeColorTile)(((_a = props.cardColor) !== null && _a !== void 0 ? _a : "#2e86c1")), editor: { label: "card" } }); };
+        const cardTile = () => { var _a; return (0, template_utils_1.bindProp)({ ...(0, template_utils_1.makeColorTile)(((_a = props.cardColor) !== null && _a !== void 0 ? _a : "#2e86c1")), editor: { label: "card" } }, "cardColor"); };
         const sources = [
-            { ...(0, template_utils_1.makeColorTile)(((_b = props.headerColor) !== null && _b !== void 0 ? _b : "#8e44ad")), editor: { label: "header" } },
+            (0, template_utils_1.bindProp)({ ...(0, template_utils_1.makeColorTile)(((_b = props.headerColor) !== null && _b !== void 0 ? _b : "#8e44ad")), editor: { label: "header" } }, "headerColor"),
             (0, svg_text_1.svgTextSource)([
                 { text: heading.text, fontSize: heading.fontSize, color: "#eaeef2" },
                 {

@@ -85,6 +85,13 @@ exports.CardsPickerV1 = (0, template_utils_1.defineMosaicTemplate)({
         itemIds: ["big-buck-bunny", "sunrise-timelapse", "ember-glow"],
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            connectionId: "names the host CONNECTION, resolved outside the canvas — nothing draws it",
+            itemIds: "the picked ids; the cards show each item's own fields, not the id",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         if (props.pageColor !== undefined && !HEX.test(props.pageColor)) {

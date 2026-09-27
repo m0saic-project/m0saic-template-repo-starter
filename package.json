@@ -39,8 +39,8 @@
     "@m0saic/dsl": "^2.0.0",
     "@m0saic/dsl-stdlib": "^3.0.0",
     "@m0saic/platform": "^0.2.0",
-    "@m0saic/template-utils": "^0.2.0",
-    "@m0saic/types": "^0.2.0"
+    "@m0saic/template-utils": "^0.3.0",
+    "@m0saic/types": "^0.3.0"
   },
   "devDependencies": {
     "@m0saic/knowledge": "^0.2.0",

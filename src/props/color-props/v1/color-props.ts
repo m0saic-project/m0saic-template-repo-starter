@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -128,8 +129,8 @@ export const ColorPropsV1 = defineMosaicTemplate<ColorPropsProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        makeColorTile(panelColor as MosaicColor),
-        ...palette.map((c) => makeColorTile(c as MosaicColor)),
+        bindProp(makeColorTile(panelColor as MosaicColor), "panelColor"),
+        ...palette.map((c, i) => bindProp(makeColorTile(c as MosaicColor), "palette", i)),
         svgLabel(caption, width, Math.round(height / 6), {
           maxPx: Math.round(height * 0.026),
           maxLines: 2,

@@ -132,11 +132,13 @@ exports.DualPropsV1 = (0, template_utils_1.defineMosaicTemplate)({
                 maxPx: Math.round(height * 0.028),
                 vAlign: "middle",
             }),
-            (0, template_utils_1.svgLabel)(`holdSec = ${holdSec}`, width * 0.36, height * 0.1, {
+            // The readout DRAWS the number, so it is that prop's handle: double-click
+            // the label in Make and the inline form edits `holdSec`.
+            (0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(`holdSec = ${holdSec}`, width * 0.36, height * 0.1, {
                 color: "#b9c4cf",
                 maxPx: Math.round(height * 0.03),
                 vAlign: "middle",
-            }),
+            }), "holdSec"),
         ];
         const heading = (0, svg_text_1.fitSvgText)("DUAL PROPS - the dial is a view; the canonical value is the only truth", width * 0.9, height * 0.07, { maxPx: Math.round(height * 0.032), maxLines: 1 });
         const readout = (0, svg_text_1.fitSvgLines)([

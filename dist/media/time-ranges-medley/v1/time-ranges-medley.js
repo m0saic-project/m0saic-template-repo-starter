@@ -4,6 +4,7 @@ exports.TimeRangesMedleyV1 = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const output_kind_1 = require("../../../_shared/output-kind");
 const svg_text_1 = require("../../../_shared/svg-text");
 const tutorial_1 = require("../../../_shared/tutorial");
 const ID = "@m0saic-starter/media/time-ranges-medley/v1";
@@ -53,8 +54,14 @@ exports.TimeRangesMedleyV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
-        format: { kind: "video", container: "mp4" },
+        format: { kind: "image", container: "png" },
         note: "Mark several ranges in the studio — the medley resplits, one column per window.",
+    },
+    // ⭐ This template's kind depends on its INPUT: a clip makes a video; the empty slot draws a still placeholder.
+    // A fixed declaration would be wrong for half its inputs, and the host would
+    // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+    resolveOutputHints(props) {
+        return (0, output_kind_1.formatFor)((0, output_kind_1.hasMedia)(props.video));
     },
     propsSchema,
     defaultProps: { video: "", ranges: [{ startMs: 0, endMs: 1000 }] },
@@ -71,11 +78,12 @@ exports.TimeRangesMedleyV1 = (0, template_utils_1.defineMosaicTemplate)({
                 assets: {},
                 backgroundColor: "#0b0e11",
                 sources: [
-                    (0, svg_text_1.svgLabel)("Pick a video (Video), then mark several ranges - one medley column each", width, height, {
+                    // Bound while EMPTY — the rect is the ADD handle, so a dropped video fills it.
+                    (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)("Drop a video here, or pick one (Video), then mark several ranges", width, height, {
                         maxPx: Math.round(height * 0.04),
                         maxLines: 2,
                         color: "#7f8c9b",
-                    }),
+                    }), "video"),
                 ],
             };
         }
@@ -156,6 +164,12 @@ exports.TimeRangesMedleyV1 = (0, template_utils_1.defineMosaicTemplate)({
                 }),
             ],
         };
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            ranges: "time windows — they decide which frames exist, and no rect shows the numbers",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Time-Ranges Medley",

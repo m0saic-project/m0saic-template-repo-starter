@@ -4,6 +4,7 @@ exports.ProbeCardV1 = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const output_kind_1 = require("../../../_shared/output-kind");
 const svg_text_1 = require("../../../_shared/svg-text");
 const svg_text_2 = require("../../../_shared/svg-text");
 const tutorial_1 = require("../../../_shared/tutorial");
@@ -31,6 +32,12 @@ exports.ProbeCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         format: { kind: "image", container: "png" },
         note: "Pick a video, then an image — watch the duration line appear and vanish.",
     },
+    // ⭐ This template's kind depends on its INPUT: accepts BOTH kinds — a clip makes a video, a still makes an image.
+    // A fixed declaration would be wrong for half its inputs, and the host would
+    // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+    resolveOutputHints(props) {
+        return (0, output_kind_1.formatFor)((0, output_kind_1.mediaLooksLikeVideo)(props.media));
+    },
     propsSchema,
     defaultProps: { media: "" },
     async render(props, ctx) {
@@ -45,11 +52,13 @@ exports.ProbeCardV1 = (0, template_utils_1.defineMosaicTemplate)({
                 assets: {},
                 backgroundColor: "#0b0e11",
                 sources: [
-                    (0, svg_text_2.svgLabel)("Pick any image or video (Media) - this card prints its probe", width, height, {
+                    // Bound while EMPTY — "bind even when the value is empty": this rect is
+                    // the ADD handle, so dropping a file on the canvas fills the slot.
+                    (0, template_utils_1.bindProp)((0, svg_text_2.svgLabel)("Pick any image or video (Media) - this card prints its probe", width, height, {
                         maxPx: Math.round(height * 0.04),
                         maxLines: 2,
                         color: "#7f8c9b",
-                    }),
+                    }), "media"),
                 ],
             };
         }
@@ -87,12 +96,13 @@ exports.ProbeCardV1 = (0, template_utils_1.defineMosaicTemplate)({
                 (0, svg_text_1.svgTextSource)([
                     { text: sheet.text, fontSize: sheet.fontSize, color: "#c8d2dc" },
                 ]),
-                {
+                // The cell showing the file is the prop's handle — drop a new one on it.
+                (0, template_utils_1.bindProp)({
                     type: "media",
                     mediaType: isVideo ? "video" : "image",
                     assetId: key,
                     placement: { fit: "contain" },
-                },
+                }, "media"),
             ],
         };
     },

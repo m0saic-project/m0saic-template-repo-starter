@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -153,18 +154,24 @@ export const NumberDisplayV1 = defineMosaicTemplate<NumberDisplayProps>({
 
     const sources: MosaicSource[] = [
       makeColorTile("#2e86c1" as MosaicColor),
-      svgLabel(`hold ${holdMs}ms`, width * 0.4, height * 0.14, {
-        color: "#eaeef2" as MosaicColor,
-        maxPx: Math.round(height * 0.032),
-        vAlign: "middle",
-      }),
+      bindProp(
+        svgLabel(`hold ${holdMs}ms`, width * 0.4, height * 0.14, {
+          color: "#eaeef2" as MosaicColor,
+          maxPx: Math.round(height * 0.032),
+          vAlign: "middle",
+        }),
+        "holdMs",
+      ),
       makeColorTile("#1d5378" as MosaicColor),
-      svgLabel(`fade ${fadeMs}ms`, width * 0.2, height * 0.14, {
-        color: "#b9c4cf" as MosaicColor,
-        maxPx: Math.round(height * 0.024),
-        maxLines: 2,
-        vAlign: "middle",
-      }),
+      bindProp(
+        svgLabel(`fade ${fadeMs}ms`, width * 0.2, height * 0.14, {
+          color: "#b9c4cf" as MosaicColor,
+          maxPx: Math.round(height * 0.024),
+          maxLines: 2,
+          vAlign: "middle",
+        }),
+        "fadeMs",
+      ),
     ];
 
     const heading = fitSvgText(

@@ -54,11 +54,12 @@ exports.LumaBadgeV1 = (0, template_utils_1.defineMosaicTemplate)({
                 assets: {},
                 backgroundColor: "#0b0e11",
                 sources: [
-                    (0, svg_text_1.svgLabel)("Pick an image (Image) - the badge reads the pixels under it", width, height, {
+                    // Bound while EMPTY — the rect is the ADD handle, so a dropped file fills it.
+                    (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)("Pick an image (Image) - the badge reads the pixels under it", width, height, {
                         maxPx: Math.round(height * 0.04),
                         maxLines: 2,
                         color: "#7f8c9b",
-                    }),
+                    }), "image"),
                 ],
             };
         }
@@ -119,6 +120,12 @@ exports.LumaBadgeV1 = (0, template_utils_1.defineMosaicTemplate)({
                 }),
             ],
         };
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            badge: "a computed readout drawn from the image's pixels, not a slot the user fills",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Luma Badge",

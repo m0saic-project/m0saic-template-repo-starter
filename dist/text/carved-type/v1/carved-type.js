@@ -4,6 +4,7 @@ exports.CarvedTypeV1 = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const output_kind_1 = require("../../../_shared/output-kind");
 const svg_text_1 = require("../../../_shared/svg-text");
 const tutorial_1 = require("../../../_shared/tutorial");
 const ID = "@m0saic-starter/text/carved-type/v1";
@@ -48,8 +49,21 @@ exports.CarvedTypeV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
-        format: { kind: "video", container: "mp4" },
+        // The DEFAULT answer: with an empty Media slot this paints a flat colour
+        // through the mask — a still. `resolveOutputHints` below re-answers for the
+        // props actually in hand, and `outputHintsResolve` (throw) checks the two
+        // agree at `defaultProps`.
+        format: { kind: "image", container: "png" },
         note: "Pick a video for Media and press play — the footage moves inside the letters.",
+    },
+    // ⭐ A template that accepts BOTH kinds must say which one it is FOR THE PROPS
+    // IT HAS. A fixed declaration is wrong for half its inputs by construction:
+    // this one declared video and, with no media, produced a still — so Make fell
+    // back to guessing and the user had to override by hand (founder, 2026-09-26).
+    // Pure and prop-only, as the contract requires: no probe, no clock, no I/O —
+    // the path's extension is the evidence available at this moment.
+    resolveOutputHints(props) {
+        return (0, output_kind_1.formatFor)((0, output_kind_1.mediaLooksLikeVideo)(props.media));
     },
     propsSchema,
     defaultProps: { word: "MOSAIC", media: "", fallbackColor: "#EF7525" },
@@ -97,7 +111,9 @@ exports.CarvedTypeV1 = (0, template_utils_1.defineMosaicTemplate)({
             }
             const key = String((0, template_utils_1.slugifyAssetKeyFromPath)(media));
             assets[key] = { kind: "file", path: media, mediaType: meta.kind };
-            carved = {
+            // The cell showing the footage is the media prop's handle: drop a new file
+            // on it, or open the media chip from its badge.
+            carved = (0, template_utils_1.bindProp)({
                 type: "media",
                 mediaType: meta.kind,
                 assetId: key,
@@ -105,11 +121,18 @@ exports.CarvedTypeV1 = (0, template_utils_1.defineMosaicTemplate)({
                 // the word.
                 placement: { fit: "cover" },
                 mask,
-            };
+            }, "media");
             caption = `${meta.kind} playing through the word - the mask is the only thing that knows about text`;
         }
         else {
-            carved = (0, template_utils_1.makeColorTile)(fallbackColor, { mask });
+            // ⭐ ONE rect, TWO handles. This tile shows `fallbackColor` AND is the empty
+            // media slot — so it carries both bindings via `bindProps`; a second
+            // `bindProp` would replace the first. The media entry is what makes the
+            // no-media card a DROP TARGET: drag a clip on and the letters fill.
+            carved = (0, template_utils_1.bindProps)((0, template_utils_1.makeColorTile)(fallbackColor, { mask }), [
+                { propKey: "fallbackColor" },
+                { propKey: "media" },
+            ]);
             caption = "no media: the same mask on a plain color tile - pick a file to fill the letters";
         }
         const m0 = (0, dsl_stdlib_1.toM0String)(String((0, dsl_stdlib_1.weightedSplit)([5, 1], "row", { claimants: ["1", "1"] })), ID);
@@ -128,6 +151,12 @@ exports.CarvedTypeV1 = (0, template_utils_1.defineMosaicTemplate)({
                 }),
             ],
         };
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            word: "carved as the MASK's path, not drawn as text — there is no text rect to bind",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Carved Type",

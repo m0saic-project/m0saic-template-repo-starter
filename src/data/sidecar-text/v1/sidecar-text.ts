@@ -142,6 +142,12 @@ export const SidecarTextV1 = defineMosaicTemplate<SidecarTextProps>({
         "Caption track written verbatim as {output-basename}.captions.vtt (or .srt) next to the deliverable.",
     },
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      cues: "the caption prints how MANY cues there are, never a cue's own value",
+    },
+  },
 
   async render(props: SidecarTextProps, ctx: MosaicEngineContext): Promise<MosaicDocument> {
     const rows = props.cues ?? DEFAULT_CUES;

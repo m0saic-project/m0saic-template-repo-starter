@@ -93,6 +93,12 @@ exports.SidecarTextV1 = (0, template_utils_1.defineMosaicTemplate)({
             description: "Caption track written verbatim as {output-basename}.captions.vtt (or .srt) next to the deliverable.",
         },
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            cues: "the caption prints how MANY cues there are, never a cue's own value",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         const rows = (_a = props.cues) !== null && _a !== void 0 ? _a : DEFAULT_CUES;

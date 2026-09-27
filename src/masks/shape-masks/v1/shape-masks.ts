@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -210,14 +211,17 @@ export const ShapeMasksV1 = defineMosaicTemplate<ShapeMasksProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        makeColorTile(shapeColor as MosaicColor, {
-          mask: {
-            kind: "inline-mask",
-            localPath,
-            // The design space IS the cell — same aspect, no smear.
-            bounds: { x: 0, y: 0, width: cell.width, height: cell.height },
-          },
-        }),
+        bindProp(
+          makeColorTile(shapeColor as MosaicColor, {
+            mask: {
+              kind: "inline-mask",
+              localPath,
+              // The design space IS the cell — same aspect, no smear.
+              bounds: { x: 0, y: 0, width: cell.width, height: cell.height },
+            },
+          }),
+          "shapeColor",
+        ),
         svgLabel(`${note} - in a ${cell.width}x${cell.height} cell`, width, Math.round(height / 6), {
           maxPx: Math.round(height * 0.03),
           maxLines: 2,
@@ -225,6 +229,12 @@ export const ShapeMasksV1 = defineMosaicTemplate<ShapeMasksProps>({
         }),
       ],
     };
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      cornerPct: "geometry — the corner radius of the generated mask path",
+    },
   },
 
   renderTutorial: lessonTutorial({

@@ -79,8 +79,8 @@ exports.ColorPropsV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                (0, template_utils_1.makeColorTile)(panelColor),
-                ...palette.map((c) => (0, template_utils_1.makeColorTile)(c)),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(panelColor), "panelColor"),
+                ...palette.map((c, i) => (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(c), "palette", i)),
                 (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.026),
                     maxLines: 2,

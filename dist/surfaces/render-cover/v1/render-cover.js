@@ -50,6 +50,13 @@ exports.RenderCoverV1 = (0, template_utils_1.defineMosaicTemplate)({
     defaultProps: {
         accentColor: ACCENT,
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            clip: "the cover is a STILL taken from the clip — there is no media rect on the cover itself",
+            accentColor: "cover chrome, drawn by renderCover's own stand-in rather than a rect of this document",
+        },
+    },
     /**
      * Strict on purpose. No clip is a real problem, and it says so — the
      * fail-fast contract the cover exists to protect.

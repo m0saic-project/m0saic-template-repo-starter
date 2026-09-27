@@ -11,7 +11,11 @@ describe("@m0saic-starter/media/image-card/v1", () => {
   it("empty image renders the prompt card, never a dead preview", async () => {
     const doc = asDocument(await ImageCardV1.render({}, targetCtx(1280, 720)));
     expect(doc.sources).toHaveLength(1);
-    expect(JSON.stringify(doc.sources)).toContain("Pick an image");
+    expect(JSON.stringify(doc.sources)).toContain("Drop an image here");
+    // ⭐ The empty slot is BOUND (2026-09-25): "bind even when the value is
+    // empty" — that is what makes this rect a DROP TARGET in Make, which is why
+    // the copy now says "Drop".
+    expect((doc.sources?.[0] as { editor?: { binding?: { propKey?: string } } }).editor?.binding?.propKey).toBe("image");
   });
 
   it("mints the asset + media source from the probed path", async () => {

@@ -193,6 +193,12 @@ export const TwoScenesV1 = defineMosaicTemplate<TwoScenesProps>({
       ],
     };
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      transitionMs: "timing — the caption prints the resulting OVERLAP arithmetic, not this knob; binding it there would point the handle at an explanation",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "Two Scenes",

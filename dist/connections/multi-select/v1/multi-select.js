@@ -140,6 +140,13 @@ exports.MultiSelectV1 = (0, template_utils_1.defineMosaicTemplate)({
         bandColor: "#2e86c1",
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            connectionId: "names the host CONNECTION, resolved outside the canvas — nothing draws it",
+            mixes: "the picked sets; the strip shows their CONTENT, not the selection value",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         for (const [key, value] of [
@@ -179,7 +186,7 @@ exports.MultiSelectV1 = (0, template_utils_1.defineMosaicTemplate)({
         const rowH = (height * 0.64) / mixes.length;
         const sources = [];
         for (const m of mixes) {
-            sources.push((0, template_utils_1.makeColorTile)(band));
+            sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(band), "bandColor"));
             sources.push((0, template_utils_1.svgLabel)(m.label, width * 0.18, rowH, {
                 color: "#eaeef2",
                 maxPx: Math.round(height * 0.036),

@@ -183,11 +183,11 @@ exports.RotateHeadroomV1 = (0, template_utils_1.defineMosaicTemplate)({
                 },
                 {
                     rect: { ...captionRect, importance: 10 },
-                    source: (0, svg_text_1.svgLabel)(caption, captionRect.w, captionRect.h, {
+                    source: (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(caption, captionRect.w, captionRect.h, {
                         maxPx: Math.round(height * 0.028),
                         maxLines: 2,
                         color: mode === "headroom" ? INK_DIM : "#e67e22",
-                    }),
+                    }), "angle"),
                 },
             ],
         });

@@ -55,11 +55,14 @@ exports.ImageCardV1 = (0, template_utils_1.defineMosaicTemplate)({
                 assets: {},
                 backgroundColor: "#0b0e11",
                 sources: [
-                    (0, svg_text_1.svgLabel)("Pick an image in the sidebar (Image) to frame it here", width, height, {
+                    // Bound even though the prop is EMPTY — that is the convention ("bind
+                    // even when the value is empty"), and it is what makes this rect a DROP
+                    // TARGET: drag an image onto the canvas and it fills the slot.
+                    (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)("Drop an image here, or pick one in the sidebar (Image)", width, height, {
                         maxPx: Math.round(height * 0.04),
                         maxLines: 2,
                         color: "#7f8c9b",
-                    }),
+                    }), "image"),
                 ],
             };
         }
@@ -86,12 +89,14 @@ exports.ImageCardV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets,
             backgroundColor: "#0b0e11",
             sources: [
-                {
+                // The cell showing the image IS the prop's handle: a dropped file replaces
+                // it, and the picture badge opens the media chip.
+                (0, template_utils_1.bindProp)({
                     type: "media",
                     mediaType: "image",
                     assetId: key,
                     placement: { fit },
-                },
+                }, "image"),
                 (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.026),
                     maxLines: 1,

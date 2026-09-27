@@ -106,11 +106,14 @@ exports.HotReloadCanaryV1 = (0, template_utils_1.defineMosaicTemplate)({
             m0: (0, dsl_stdlib_1.toM0String)("F", "@m0saic-starter/basics/hot-reload-canary/v1"),
             assets: {},
             sources: [
-                {
+                // `bindProp` makes the tile the prop's HANDLE in Make: double-click it and
+                // a swatch picker edits `color` in place. Every prop that can carry a
+                // handle is bound or declared — the `bindingsDeclared` convention.
+                (0, template_utils_1.bindProp)({
                     type: "text",
                     visual: { backgroundColor: (0, template_utils_1.solidBackground)(fill) },
                     layers,
-                },
+                }, "color"),
             ],
         };
     },

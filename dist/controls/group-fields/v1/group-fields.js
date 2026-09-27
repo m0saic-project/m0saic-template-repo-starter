@@ -132,7 +132,7 @@ exports.GroupFieldsV1 = (0, template_utils_1.defineMosaicTemplate)({
         }));
         const m0 = (0, dsl_stdlib_1.toM0String)(`${stage}{6[-,-,-,-,-,1]}`, ID);
         const sources = [];
-        sources.push((0, template_utils_1.makeColorTile)(accent));
+        sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(accent), "speaker.accent"));
         sources.push((0, template_utils_1.makeColorTile)(shade("#1c2833")));
         sources.push((0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(speaker.name, width * 0.5, height * 0.11, {
             color: "#eaeef2",

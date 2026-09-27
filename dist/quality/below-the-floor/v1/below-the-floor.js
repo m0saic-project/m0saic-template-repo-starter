@@ -192,7 +192,7 @@ exports.BelowTheFloorV1 = (0, template_utils_1.defineMosaicTemplate)({
             // is being able to SEE them drift apart once the layout is under the
             // precision floor. `spread` in the readout is that drift, measured.
             sources: [
-                (0, template_utils_1.makeColorTile)(band),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(band), "bandColor"),
                 (0, template_utils_1.makeColorTile)(shade(band)),
                 (0, template_utils_1.makeColorTile)(page),
                 (0, svg_text_1.svgTextSource)([

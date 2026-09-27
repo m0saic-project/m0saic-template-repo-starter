@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { findStableKeys, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -159,6 +160,12 @@ export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardP
     chipColor: "#16a085",
     cardColor: "#1c2833",
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      contractOffsetPx: "geometry — the deliberate offset the contract catches, never drawn",
+    },
+  },
 
   async render(
     props: GeometryContractCardProps,
@@ -234,7 +241,7 @@ export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardP
       m0,
       assets: {},
       sources: [
-        makeColorTile((props.cardColor ?? "#1c2833") as MosaicColor),
+        bindProp(makeColorTile((props.cardColor ?? "#1c2833") as MosaicColor), "cardColor"),
         svgTextSource([
           { text: heading.text, fontSize: heading.fontSize, color: "#eaeef2" as MosaicColor },
           {
@@ -245,7 +252,7 @@ export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardP
             padding: { bottom: 0.12 },
           },
         ]),
-        makeColorTile((props.chipColor ?? "#16a085") as MosaicColor),
+        bindProp(makeColorTile((props.chipColor ?? "#16a085") as MosaicColor), "chipColor"),
       ],
     };
 

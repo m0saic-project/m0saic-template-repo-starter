@@ -8,6 +8,7 @@ import { asTemplateId } from "@m0saic/types";
 import { isValidM0String } from "@m0saic/dsl";
 import { evaluateM0, toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -196,7 +197,7 @@ export const M0PropV1 = defineMosaicTemplate<M0PropProps>({
       const statsM0 = toM0String(`${statRows}{6[-,-,-,-,-,1]}`, ID);
       const stats: MosaicSource[] = [];
       const line = (text: string) => {
-        stats.push(makeColorTile(shade(bandHex)));
+        stats.push(bindProp(makeColorTile(shade(bandHex)), "bandColor"));
         stats.push(
           svgLabel(text, width * 0.78, height * 0.12, {
             color: "#eaeef2" as MosaicColor,
@@ -279,7 +280,7 @@ export const M0PropV1 = defineMosaicTemplate<M0PropProps>({
     // One alternating tile per claim — frameCount is the binding rule.
     // Subtract the caption's own claim, appended as the text source below.
     for (let i = 0; i < e.frameCount - 1; i++) {
-      sources.push(makeColorTile(i % 2 === 0 ? band : shade(bandHex)));
+      sources.push(bindProp(makeColorTile(i % 2 === 0 ? band : shade(bandHex)), "bandColor"));
     }
 
     const heading = fitSvgText(
