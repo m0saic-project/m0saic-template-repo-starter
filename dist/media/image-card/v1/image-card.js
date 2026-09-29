@@ -11,23 +11,17 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     image: {
         type: "media",
         required: false,
-        description: "The image to frame. The value is a raw path; the host probes it.",
-        meta: { control: { picker: "file", accept: ["image"] }, ui: { label: "Image" } },
+        meta: { control: { picker: "file", accept: ["image"] }, },
     },
     fit: {
         type: "string",
         required: false,
-        description: "contain letterboxes (whole image visible); cover fills the cell (crops).",
-        meta: { constraints: { oneOf: ["contain", "cover"] }, ui: { label: "Fit" } },
+        meta: { constraints: { oneOf: ["contain", "cover"] }, },
     },
 });
 exports.ImageCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "32 · Image Card",
-    version: 1,
-    description: "One image through the whole media pipeline: raw path prop, host-side probe via ctx.media, slugified asset key, {kind:\"file\"} manifest entry, and a media source — with the contain-vs-cover fit decision on a knob.",
     capabilities: { tier: "core" },
-    tags: ["media", "image", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

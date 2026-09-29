@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/connections/multi-select/v1",
+  "label": "78 · Connection Multi-Select",
+  "description": "Cards of chips, each chip a rich pick: a json prop with flavor cardList renders as a repeating card editor, and a connectionMultiSelect column gives every card a chips row backed by the connection's options — with groupByKey sectioning the picker modal by an option field (the catalog's collections). The value stays boring on purpose: plain Array<{label, itemIds}> JSON, identical whether it was picked from the modal or typed by hand — which is exactly why CLI and app renders agree.",
+  "tags": [
+    "connections",
+    "lesson"
+  ],
+  "props": {
+    "connectionId": {
+      "label": "Connection",
+      "description": "The sibling wire (lesson 76): which configured connection profile every card's chip picker resolves against.",
+      "order": 1
+    },
+    "mixes": {
+      "label": "Mixes",
+      "description": "The mixes: repeating cards, each a label plus catalog items picked as chips from the grouped connection modal. Plain JSON at render — Array<{label, itemIds}>.",
+      "order": 2
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 3
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 4
+    }
+  }
+}

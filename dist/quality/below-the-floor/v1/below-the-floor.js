@@ -53,40 +53,30 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     mode: {
         type: "string",
         required: false,
-        description: "fits: clears both floors. under-precision: renders but cells lose their pixel — the silent failure. unrenderable: feasibility refuses the m0 at this canvas.",
         meta: {
             constraints: { oneOf: MODES },
-            ui: { label: "Mode", order: 1 },
         },
     },
     bandColor: {
         type: "string",
         required: false,
-        description: "Band fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#c0392b" },
-            ui: { label: "Band color", order: 2 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 3 },
         },
     },
 });
 exports.BelowTheFloorV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "73 · Below the Floor",
-    version: 1,
-    description: "A layout has two independent minimum sizes: feasibility (renders at all) and precision (looks right). One design, three states — clears both, clears only feasibility and quietly squashes, or falls through feasibility and is refused outright. The caption prints all three numbers at your canvas, so the loud failure and the silent one are told apart by arithmetic.",
     capabilities: { tier: "core" },
-    tags: ["quality", "feasibility", "lesson"],
     /**
      * REQUIRED HERE, and a lesson in itself. Every render is auto-compacted:
      * the framework losslessly reduces splits to their minimum representation,

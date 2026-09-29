@@ -49,17 +49,13 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     title: {
         type: "string",
         required: false,
-        description: "Headline on the rendered card.",
-        meta: { ui: { label: "Title", order: 1 } },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Page background as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: PAGE_BG },
-            ui: { label: "Page color", order: 2 },
         },
     },
 });
@@ -101,11 +97,7 @@ function buildPage(page, width, height, fps, pageBg) {
 }
 exports.RenderTutorialV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "70 · Render Tutorial",
-    version: 1,
-    description: "The only lesson in this repo that builds its own tutorial instead of using the standard page — because building one is what it teaches. Three pages as a pipeline, each declaring its own durationMs, proving the rule that a tutorial owns its timing and never reads ctx.target.durationMs.",
     capabilities: { tier: "core" },
-    tags: ["surfaces", "tutorial", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

@@ -15,7 +15,7 @@
  *      Substrate imports are satisfied by tools/stub-substrate.cjs.
  *   4. The entry exports `repo` (repoId/displayName/schemaVersion) and
  *      `templates[]` (or getTemplates()); ids are unique, well-formed,
- *      prefix-correct; every template has a `version` and a `render`
+ *      prefix-correct; every template has a `render`
  *      function; no undefined holes (the barrel-file trap).
  *   5. Manifest templateKeys set === live template ids set.
  *
@@ -165,7 +165,6 @@ if (mod) {
         return;
       }
       liveIds.push(id);
-      if (typeof t.version !== "number") fail(`"${id}" has no numeric version`);
       if (typeof t.render !== "function") fail(`"${id}" has no render() function`);
       if (!t.propsSchema || typeof t.propsSchema !== "object") {
         fail(`"${id}" has no propsSchema`);
@@ -173,6 +172,32 @@ if (mod) {
     });
     const dup = liveIds.filter((id, i) => liveIds.indexOf(id) !== i);
     for (const id of new Set(dup)) fail(`duplicate template id "${id}"`);
+  }
+}
+
+/* ── 4b. the catalog (m0saic 0.3.1) ─────────────────────────── */
+// What describes a template lives in its catalog sidecar, gathered by the build
+// into template-catalog.json — the file hosts read. Every live template must be
+// described there: a label, a description, at least one tag.
+
+if (liveIds.length > 0) {
+  const catalogPath = path.join(ROOT, "template-catalog.json");
+  if (!fs.existsSync(catalogPath)) {
+    fail("template-catalog.json missing — run the build (it gathers the <name>.catalog.json sidecars)");
+  } else {
+    let cat = null;
+    try { cat = JSON.parse(fs.readFileSync(catalogPath, "utf8")); } catch (err) { fail(`template-catalog.json does not parse: ${err.message}`); }
+    if (cat && (cat.schemaVersion !== 1 || !cat.templates || typeof cat.templates !== "object")) {
+      fail("template-catalog.json must be { schemaVersion: 1, templates: { <id>: { … } } }");
+    } else if (cat) {
+      for (const id of liveIds) {
+        const e = cat.templates[id];
+        if (!e) { fail(`"${id}" has no catalog entry — add <slug>.catalog.json beside it`); continue; }
+        if (typeof e.label !== "string" || !e.label.trim()) fail(`"${id}" catalog entry has no label`);
+        if (typeof e.description !== "string" || !e.description.trim()) fail(`"${id}" catalog entry has no description`);
+        if (!Array.isArray(e.tags) || e.tags.length === 0) fail(`"${id}" catalog entry has no tags`);
+      }
+    }
   }
 }
 

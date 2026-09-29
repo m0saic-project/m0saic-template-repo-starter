@@ -63,30 +63,21 @@ const propsSchema = definePropsSchema<ReduceToOneProps>({
   mode: {
     type: "string",
     required: false,
-    description:
-      "\"flat\": the grid is spelled inline, so the PARENT's m0 grows with the density. \"reduced\": the grid moves into a child and the parent collapses to one cell — same pixels, different string.",
-    meta: { constraints: { oneOf: [...MODES] }, ui: { label: "Mode" } },
+    meta: { constraints: { oneOf: [...MODES] }, },
   },
   density: {
     type: "number",
     required: false,
-    description: "Grid density (N×N cells). Raise it and watch only ONE of the two spellings get longer.",
     meta: {
       constraints: { min: 2, max: 12 },
       control: { step: 1 },
-      ui: { label: "Density" },
     },
   },
 });
 
 export const ReduceToOneV1 = defineMosaicTemplate<ReduceToOneProps>({
   id: asTemplateId(ID),
-  label: "54 · Reduce to One",
-  version: 1,
-  description:
-    "The same grid spelled two ways: inline (the parent's m0 grows with the density) or pushed into a child (the parent stays one cell). Identical pixels, and the caption prints both string lengths so the refactor's cost and benefit are numbers.",
   capabilities: { tier: "core" },
-  tags: ["compose", "complexity", "lesson"],
 
   outputHints: {
     width: 1280,

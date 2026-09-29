@@ -14,36 +14,26 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     word: {
         type: "string",
         required: false,
-        description: "The word to carve (ASCII, 1-10 characters). Short and fat carves best — thin glyphs show little of what is behind them.",
-        meta: { control: { placeholder: "MOSAIC" }, ui: { label: "Word" } },
     },
     media: {
         type: "media",
         required: false,
-        description: "Image or video to play through the letters. Leave empty and the same mask rides a flat color tile instead.",
         meta: {
             control: { picker: "file", accept: ["image", "video"] },
-            ui: { label: "Media" },
         },
     },
     fallbackColor: {
         type: "string",
         required: false,
-        description: "Fill for the no-media case as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#EF7525" },
-            ui: { label: "Fallback color" },
         },
     },
 });
 exports.CarvedTypeV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "44 · Carved Type",
-    version: 1,
-    description: "The word becomes an inline-mask and the picture plays through it. textToPath makes glyphs into a path, the path clips an ordinary media source, and the source underneath can be anything — same mask, different wearer.",
     capabilities: { tier: "core" },
-    tags: ["text", "masks", "media", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

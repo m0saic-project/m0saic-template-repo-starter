@@ -79,21 +79,16 @@ const propsSchema = definePropsSchema<QuantizationCuresProps>({
   method: {
     type: "string",
     required: false,
-    description:
-      "The same 12x3 gridded design, four spellings: \"naive\" ratio-weight gutters (watch them wobble), \"inset\" recovery via latticeCellInset (exact gutters, tiny string), \"snap\" via snapGridFit (everything exact inside a quantization-free rect), \"rects\" via placeRects (exact pixels baked to THIS canvas).",
     meta: {
       constraints: { oneOf: [...METHODS] },
-      ui: { label: "Method" },
     },
   },
   checkerColor: {
     type: "string",
     required: false,
-    description: "Checkerboard accent fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#2471a3" },
-      ui: { label: "Checker color" },
     },
   },
 });
@@ -119,12 +114,7 @@ function interleave(
 
 export const QuantizationCuresV1 = defineMosaicTemplate<QuantizationCuresProps>({
   id: asTemplateId(ID),
-  label: "13 · Quantization: Three Cures",
-  version: 1,
-  description:
-    "The geometry capstone: one 12x3 gridded design through four spellings. Naive ratio gutters wobble N/N+1 px (thin lines magnify quantization); then the three cures - inset recovery (exact gutters, tiny string), snapGrid (everything exact inside a quantization-free rect, coverage given up), placeRects (exact pixels baked to this canvas). Flip the Method enum and read the receipts.",
   capabilities: { tier: "core" },
-  tags: ["geometry", "quantization", "lesson"],
   // The "naive" spelling IS the disease this lesson diagnoses: its split
   // counts (12·24 + 11 = 299, 3·55 + 2 = 167) are rough on purpose, so the
   // gutters wobble. The three cures render on the plain 12x3 lattice.

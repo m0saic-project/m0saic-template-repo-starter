@@ -12,11 +12,9 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     chipColor: {
         type: "string",
         required: false,
-        description: "Chip fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#b7950b" },
-            ui: { label: "Chip color" },
         },
     },
 });
@@ -32,11 +30,7 @@ function chipRects(width, height) {
 }
 exports.InsetRecoveryV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "10 · Inset Recovery",
-    version: 1,
-    description: "Three chips at exact pixel rects, placed with placeInsetPieces: the string stays coarse (precision bounded at the lattice basis) while placement.inset recovers every rect byte-exact. The card prints the same layout's precision floor spelled via placeRects — the hereditary cost a parent would inherit. Why nestable templates use inset recovery.",
     capabilities: { tier: "core" },
-    tags: ["geometry", "precision", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

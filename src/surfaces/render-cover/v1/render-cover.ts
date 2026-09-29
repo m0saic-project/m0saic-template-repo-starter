@@ -72,32 +72,23 @@ const propsSchema = definePropsSchema<RenderCoverProps>({
   clip: {
     type: "media",
     required: false,
-    description: "The video to play. render() needs this; the cover does not.",
     meta: {
       control: { picker: "file", accept: ["video"] },
-      ui: { label: "Clip", order: 1 },
     },
   },
   accentColor: {
     type: "string",
     required: false,
-    description: "Cover and caption accent as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: ACCENT },
-      ui: { label: "Accent color", order: 2 },
     },
   },
 });
 
 export const RenderCoverV1 = defineMosaicTemplate<RenderCoverProps>({
   id: asTemplateId(ID),
-  label: "69 · Render Cover",
-  version: 1,
-  description:
-    "A friendly first frame for a template that fails fast. render() still reports exactly what is missing when it has no clip; renderCover puts a welcome page there instead on a pure-default open — opt-in, dismissed by the first prop edit, never synthesized by the host.",
   capabilities: { tier: "core" },
-  tags: ["surfaces", "onboarding", "lesson"],
 
   outputHints: {
     width: 1280,

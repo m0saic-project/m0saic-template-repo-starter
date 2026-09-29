@@ -16,41 +16,31 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     holdMs: {
         type: "number",
         required: false,
-        description: "Hold per slide. Stored in ms (the canonical unit render reads); the editor shows seconds by default and the unit chip cycles the family.",
         meta: {
             constraints: { min: HOLD_MIN, max: HOLD_MAX },
             control: { unit: "ms", displayUnit: "s", step: 100 },
-            ui: { label: "Hold", order: 1 },
         },
     },
     fadeMs: {
         type: "number",
         required: false,
-        description: "Crossfade between slides. Also stored in ms — but the display is LOCKED to ms, because cycling this tiny value's chip to hours would be a silent catastrophe.",
         meta: {
             constraints: { min: FADE_MIN, max: FADE_MAX },
             control: { unit: "ms", displayUnit: "ms", lockDisplayUnit: true, step: 50 },
-            ui: { label: "Fade", order: 2 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 3 },
         },
     },
 });
 exports.NumberDisplayV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "31 · Number Display",
-    version: 1,
-    description: "The stored unit and the shown unit are different decisions: unit names the canonical scale (ms here — what props, files, and render carry), displayUnit converts only the editor's field (2400 shows as 2.4 s), lockDisplayUnit freezes the unit chip where a swap could silently rescale a value, and step is authored in the canonical unit. Render reads canonical ms and prints it — presentation never leaks into meaning.",
     capabilities: { tier: "core" },
-    tags: ["controls", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

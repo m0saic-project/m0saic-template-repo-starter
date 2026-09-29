@@ -65,43 +65,32 @@ const propsSchema = definePropsSchema<AudioMixProps>({
   narration: {
     type: "media",
     required: false,
-    description: "Narration track.",
-    meta: { control: { picker: "file", accept: ["audio"] }, ui: { label: "Narration" } },
+    meta: { control: { picker: "file", accept: ["audio"] }, },
   },
   music: {
     type: "media",
     required: false,
-    description: "Music bed.",
-    meta: { control: { picker: "file", accept: ["audio"] }, ui: { label: "Music" } },
+    meta: { control: { picker: "file", accept: ["audio"] }, },
   },
   narrationVolume: {
     type: "number",
     required: false,
-    description: "Narration gain: 1 = as recorded, 0.5 = half, 2 = double, 4 = the top of the meter. volume is a GAIN FACTOR, not a percentage — past 4 the engine warns that it will clip.",
-    meta: { constraints: { min: 0, max: MAX_GAIN }, control: { step: 0.1 }, ui: { label: "Narration vol" } },
+    meta: { constraints: { min: 0, max: MAX_GAIN }, control: { step: 0.1 }, },
   },
   musicVolume: {
     type: "number",
     required: false,
-    description: "Music gain: 1 = as recorded, 0.5 = half, 2 = double, 4 = the top of the meter. volume is a GAIN FACTOR, not a percentage — past 4 the engine warns that it will clip.",
-    meta: { constraints: { min: 0, max: MAX_GAIN }, control: { step: 0.1 }, ui: { label: "Music vol" } },
+    meta: { constraints: { min: 0, max: MAX_GAIN }, control: { step: 0.1 }, },
   },
   muteMusic: {
     type: "boolean",
     required: false,
-    description: "Mute the music — the source STAYS, audio.enabled goes false.",
-    meta: { ui: { label: "Mute music" } },
   },
 });
 
 export const AudioMixV1 = defineMosaicTemplate<AudioMixProps>({
   id: asTemplateId(ID),
-  label: "39 · Audio Mix",
-  version: 1,
-  description:
-    "Two audio tracks, one mix: audio sources enter like any media but contribute no pixels — per-source audio.volume sets the blend, and the mute idiom keeps a silenced source IN the document (audio.enabled=false) so tile indices never shift. The canvas is the mixer's meter.",
   capabilities: { tier: "core" },
-  tags: ["media", "audio", "lesson"],
 
   outputHints: {
     width: 1280,

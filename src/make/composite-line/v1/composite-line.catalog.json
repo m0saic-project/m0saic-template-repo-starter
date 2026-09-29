@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/make/composite-line/v1",
+  "label": "83 · Composite Line",
+  "description": "One rect drawing two props - \"@handle - 2026 on GitHub\" - keeps BOTH handles with bindProps; a second bindProp would replace the first. The same line shown split, one rect per prop, as the other correct form.",
+  "tags": [
+    "make",
+    "lesson"
+  ],
+  "props": {
+    "handle": {
+      "label": "Handle",
+      "description": "The handle on the byline. Bound twice on this card: once as one of two handles on the composite rect, once on its own split rect.",
+      "placeholder": "@handle",
+      "order": 1
+    },
+    "year": {
+      "label": "Year",
+      "description": "The year on the byline - the second prop on the SAME composite rect (kind number), and on its own split rect.",
+      "order": 2
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 3
+    }
+  }
+}

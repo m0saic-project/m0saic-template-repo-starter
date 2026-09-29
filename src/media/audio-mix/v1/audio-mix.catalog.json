@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/media/audio-mix/v1",
+  "label": "39 · Audio Mix",
+  "description": "Two audio tracks, one mix: audio sources enter like any media but contribute no pixels — per-source audio.volume sets the blend, and the mute idiom keeps a silenced source IN the document (audio.enabled=false) so tile indices never shift. The canvas is the mixer's meter.",
+  "tags": [
+    "media",
+    "audio",
+    "lesson"
+  ],
+  "props": {
+    "narration": {
+      "label": "Narration",
+      "description": "Narration track."
+    },
+    "music": {
+      "label": "Music",
+      "description": "Music bed."
+    },
+    "narrationVolume": {
+      "label": "Narration vol",
+      "description": "Narration gain: 1 = as recorded, 0.5 = half, 2 = double, 4 = the top of the meter. volume is a GAIN FACTOR, not a percentage — past 4 the engine warns that it will clip."
+    },
+    "musicVolume": {
+      "label": "Music vol",
+      "description": "Music gain: 1 = as recorded, 0.5 = half, 2 = double, 4 = the top of the meter. volume is a GAIN FACTOR, not a percentage — past 4 the engine warns that it will clip."
+    },
+    "muteMusic": {
+      "label": "Mute music",
+      "description": "Mute the music — the source STAYS, audio.enabled goes false."
+    }
+  }
+}

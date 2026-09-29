@@ -77,44 +77,31 @@ const propsSchema = definePropsSchema<GroupFieldsProps>({
   speaker: {
     type: "group",
     required: false,
-    description:
-      "Who is on screen. One group value — name, role, accent — edited as one fieldset and written in one edit, whole or not at all.",
     fields: {
       name: {
         type: "string",
         required: true,
-        description: "Display name on the lower third.",
-        meta: { ui: { label: "Name", order: 1 } },
       },
       role: {
         type: "string",
         required: true,
-        description: "Second line — role, title, or affiliation.",
-        meta: { ui: { label: "Role", order: 2 } },
       },
       accent: {
         type: "string",
         required: true,
-        description: "Accent bar color as #rrggbb.",
         meta: {
           constraints: { isColor: true },
           control: { colorPicker: true, defaultColor: "#2e86c1" },
-          ui: { label: "Accent", order: 3 },
         },
       },
-    },
-    meta: {
-      ui: { label: "Speaker", order: 1 },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 2 },
     },
   },
 });
@@ -129,12 +116,7 @@ function shade(hex: string): MosaicColor {
 
 export const GroupFieldsV1 = defineMosaicTemplate<GroupFieldsProps>({
   id: asTemplateId(ID),
-  label: "24 · Group Fields",
-  version: 1,
-  description:
-    "Related props that travel as one value: type group + fields nests ordinary prop definitions (same types, same controls — the accent is a normal colorPicker) under a single prop, the editor renders one fieldset, and the value is one object written in one edit — whole or not at all. Render validates it as a unit too: one guard for one idea. Drawn as the lower third this shape most often is.",
   capabilities: { tier: "core" },
-  tags: ["controls", "lesson"],
 
   outputHints: {
     width: 1280,

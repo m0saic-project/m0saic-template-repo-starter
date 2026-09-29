@@ -64,18 +64,15 @@ const propsSchema = definePropsSchema<NestedPipelineProps>({
   innerMs: {
     type: "number",
     required: false,
-    description: "Total length of the nested pipeline (two scenes, split evenly). Shorter than the slot on purpose, so the fallback is visible.",
     meta: {
       constraints: { min: 200, max: 4000 },
       control: { step: 100 },
-      ui: { label: "Inner ms" },
     },
   },
   loopMode: {
     type: "string",
     required: false,
-    description: "What fills the gap when the inner pipeline is SHORTER than the slot: loop repeats it, freeze holds its last frame, cut goes black.",
-    meta: { constraints: { oneOf: [...LOOPS] }, ui: { label: "Loop mode" } },
+    meta: { constraints: { oneOf: [...LOOPS] }, },
   },
 });
 
@@ -110,12 +107,7 @@ function scene(
 
 export const NestedPipelineV1 = defineMosaicTemplate<NestedPipelineProps>({
   id: asTemplateId(ID),
-  label: "62 · Nested Pipeline",
-  version: 1,
-  description:
-    "A children entry may be a PIPELINE: it renders first and the parent consumes its stitched output as one tile — scene-within-scene without time in the m0. The slot's duration and canvas win, emit:\"multi\" downgrades, and loopMode fills any shortfall.",
   capabilities: { tier: "core" },
-  tags: ["pipelines", "children", "lesson"],
 
   outputHints: {
     width: 1280,

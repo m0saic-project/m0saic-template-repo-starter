@@ -117,6 +117,7 @@ function mergePreview(explicit, fallback) {
 }
 /* ── Build (pure — also consumed by the freshness test) ───── */
 function buildStarterManifest() {
+    var _a, _b;
     const packIds = new Set(repo_1.TEMPLATE_PACKS.map((p) => p.id));
     /* Chapter provenance: each registry row lives in the chapter whose pack
      * matches its id's <pack> segment. */
@@ -133,20 +134,21 @@ function buildStarterManifest() {
     const seenSlugKeys = new Set();
     const seenTemplateIds = new Set();
     const seenExports = new Set();
+    /* What each template is called and how it is described comes from its
+     * catalog sidecar (m0saic 0.3.1) — applied to the exported templates when the
+     * entry declared the catalog. */
+    const byId = new Map(index_1.templates.map((t) => [String(t.id), t]));
     /* Curriculum ordinals. Browse UIs sort by name or slug, so array order
      * never reaches the reader — the number in the title is what carries the
      * reading order across. It is derived from CHAPTERS order here and only
-     * CHECKED against what the files say, so a renumber is a build error
-     * rather than a silent disagreement. */
-    const labelById = new Map(index_1.templates.map((t) => { var _a; return [String(t.id), String((_a = t.label) !== null && _a !== void 0 ? _a : "")]; }));
+     * CHECKED against the catalog label, so a renumber is a build error rather
+     * than a silent disagreement. */
     const ordinalOf = (index) => String(index + 1).padStart(2, "0");
     for (const [index, entry] of template_registry_1.templateRegistry.entries()) {
         const expected = `${ordinalOf(index)} · `;
-        assert(entry.title.startsWith(expected), `Entry "${entry.templateId}" is #${ordinalOf(index)} in curriculum order, so its ` +
-            `title must start with "${expected}" — got "${entry.title}"`);
-        const label = labelById.get(entry.templateId);
-        assert(label === undefined || label.startsWith(expected), `Template "${entry.templateId}" label must start with "${expected}" to match its ` +
-            `registry row — got "${label}"`);
+        const label = String((_b = (_a = byId.get(entry.templateId)) === null || _a === void 0 ? void 0 : _a.label) !== null && _b !== void 0 ? _b : "");
+        assert(label.startsWith(expected), `Template "${entry.templateId}" is #${ordinalOf(index)} in curriculum order, so its ` +
+            `catalog label must start with "${expected}" — got "${label}" (edit its <slug>.catalog.json)`);
     }
     for (const entry of template_registry_1.templateRegistry) {
         const parsed = STARTER_ID_RE.exec(entry.templateId);
@@ -164,7 +166,9 @@ function buildStarterManifest() {
         assert(entry.exportName, `Entry "${entry.slug}" missing exportName`);
         assert(!seenExports.has(entry.exportName), `Duplicate exportName: "${entry.exportName}"`);
         seenExports.add(entry.exportName);
-        assert(Array.isArray(entry.tags) && entry.tags.length > 0, `Entry "${entry.templateId}" needs at least one tag`);
+        const described = byId.get(entry.templateId);
+        assert(Array.isArray(described === null || described === void 0 ? void 0 : described.tags) && described.tags.length > 0, `Template "${entry.templateId}" needs at least one tag in its catalog sidecar`);
+        assert(typeof (described === null || described === void 0 ? void 0 : described.description) === "string" && described.description.trim().length > 0, `Template "${entry.templateId}" needs a description in its catalog sidecar`);
     }
     /* Every declared pack must teach something. */
     for (const pack of repo_1.TEMPLATE_PACKS) {
@@ -181,6 +185,7 @@ function buildStarterManifest() {
     }
     /* Manifest entries, in curriculum order. */
     const manifestEntries = template_registry_1.templateRegistry.map((entry) => {
+        var _a;
         const templateKey = entry.templateId;
         const parsed = STARTER_ID_RE.exec(templateKey);
         assert(parsed, `unreachable: "${templateKey}" re-validated`);
@@ -189,12 +194,13 @@ function buildStarterManifest() {
         if ((preview === null || preview === void 0 ? void 0 : preview.video) && !preview.poster) {
             preview.poster = preview.video;
         }
+        const described = byId.get(templateKey);
         return {
             slug: entry.slug,
             templateKey: templateKey,
-            title: entry.title,
-            description: entry.description,
-            tags: entry.tags,
+            title: String(described.label),
+            description: String(described.description),
+            tags: [...((_a = described.tags) !== null && _a !== void 0 ? _a : [])],
             pack: parsed[1],
             preview,
         };

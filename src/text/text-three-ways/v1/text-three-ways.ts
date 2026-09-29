@@ -69,29 +69,20 @@ const propsSchema = definePropsSchema<TextThreeWaysProps>({
   word: {
     type: "string",
     required: false,
-    description: "The word rendered three ways (ASCII, 1-12 chars).",
-    meta: { control: { placeholder: "M0saic" }, ui: { label: "Word" } },
   },
   inkColor: {
     type: "string",
     required: false,
-    description: "Ink color as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#ecf0f1" },
-      ui: { label: "Ink" },
     },
   },
 });
 
 export const TextThreeWaysV1 = defineMosaicTemplate<TextThreeWaysProps>({
   id: asTemplateId(ID),
-  label: "41 · Text, Three Ways",
-  version: 1,
-  description:
-    "The same word through all three text pipelines, side by side: drawtext (ffmpeg, expr-capable, host fonts), the svg rasterizer (bundled font baked to geometry — identical app/CLI), and mask-carved glyphs (text as a mask any source can wear). All valid; different promises.",
   capabilities: { tier: "core" },
-  tags: ["text", "rasterizer", "lesson"],
 
   outputHints: {
     width: 1280,

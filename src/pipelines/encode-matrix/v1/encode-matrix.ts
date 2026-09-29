@@ -66,31 +66,20 @@ const propsSchema = definePropsSchema<EncodeMatrixProps>({
   web: {
     type: "boolean",
     required: false,
-    description: "Add a VP9-in-WebM encode. Same master, different codec — no second render.",
-    meta: { ui: { label: "WebM (VP9)" } },
   },
   mobile: {
     type: "boolean",
     required: false,
-    description: "Add a half-size h264 encode. size on an encode is an ffmpeg scale pass: it STRETCHES, it does not re-lay out.",
-    meta: { ui: { label: "Mobile (half size)" } },
   },
   title: {
     type: "string",
     required: false,
-    description: "Title on the card, so every deliverable is visibly the same render.",
-    meta: { control: { placeholder: "One render" }, ui: { label: "Title" } },
   },
 });
 
 export const EncodeMatrixV1 = defineMosaicTemplate<EncodeMatrixProps>({
   id: asTemplateId(ID),
-  label: "58 · Encode Matrix",
-  version: 1,
-  description:
-    "One render, many deliverables, no pipeline: `encodes` declares post-render transcode passes off a single workspace master. Codec, container and even size (as a stretching scale pass) — but never fps, duration or layout.",
   capabilities: { tier: "core" },
-  tags: ["pipelines", "encodes", "lesson"],
 
   outputHints: {
     width: 1280,

@@ -116,49 +116,37 @@ const propsSchema = definePropsSchema<PropBindingsProps>({
   title: {
     type: "string",
     required: false,
-    description: "Headline - layer 0 of the header rect. bindProps binds it together with the subtitle: one rect, two knobs.",
-    meta: { control: { placeholder: "Bind what you show" }, ui: { label: "Title", order: 1 } },
   },
   subtitle: {
     type: "string",
     required: false,
-    description: "Under the headline - layer 1 of the SAME header rect. Make opens the rect as a stacked two-field form.",
-    meta: { control: { placeholder: "every rect knows which knob drew it" }, ui: { label: "Subtitle", order: 2 } },
   },
   accentColor: {
     type: "string",
     required: false,
-    description: "The swatch's fill (#rrggbb). A colour-valued string binds with kind \"color\": double-click the swatch and Make opens a picker.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#ee7525" },
-      ui: { label: "Accent", order: 3 },
     },
   },
   count: {
     type: "number",
     required: false,
-    description: "A plain number. The numeral binds it (kind \"number\"): double-click opens a numeric editor.",
-    meta: { constraints: { min: 0, max: COUNT_MAX }, ui: { label: "Count", order: 4 } },
+    meta: { constraints: { min: 0, max: COUNT_MAX }, },
   },
   scores: {
     type: "number[]",
     required: false,
-    description: "Up to 4 numbers. Each tile binds ONE element - bindProp(src, \"scores\", i). The list itself is never bindable.",
-    meta: { constraints: { maxItems: MAX_SCORES }, ui: { label: "Scores", order: 5 } },
+    meta: { constraints: { maxItems: MAX_SCORES }, },
   },
   bullets: {
     type: "string[]",
     required: false,
-    description:
-      "Up to 4 lines. Each line is its own rect bound to ONE element - bindProp(src, \"bullets\", i). The list itself is never bindable.",
-    meta: { constraints: { maxItems: MAX_BULLETS }, ui: { label: "Bullets", order: 6 } },
+    meta: { constraints: { maxItems: MAX_BULLETS }, },
   },
   rows: {
     type: "json",
     required: false,
-    description:
-      "Up to 3 rows of {name, value, color}. Each cell binds ONE leaf - bindPropPath(src, \"rows\", [i, \"name\"], \"string\") - path AND kind, because the schema carries no per-leaf type. The value leaf is kind \"number\", the swatch leaf kind \"color\".",
     meta: {
       constraints: {
         jsonSchema: {
@@ -183,30 +171,23 @@ const propsSchema = definePropsSchema<PropBindingsProps>({
           { key: "color", kind: "color", label: "Color" },
         ],
       },
-      ui: { label: "Rows", order: 7 },
     },
   },
   code: {
     type: "string",
     required: false,
-    description:
-      "Up to 4 lines. Each line is its own rect bound to ONE character span of this string - bindPropRange(src, \"code\", undefined, lineSpan, tokenSpan); Make pre-selects the token.",
-    meta: { control: { placeholder: "one line per rect" }, ui: { label: "Code", order: 8 } },
   },
   mode: {
     type: "string",
     required: false,
-    description: "A closed set drawn as a chip. NOT bindable - closed pickers never are - so the chip carries no pencil.",
-    meta: { constraints: { oneOf: [...MODES] }, ui: { label: "Mode", order: 9 } },
+    meta: { constraints: { oneOf: [...MODES] }, },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 10 },
     },
   },
 });
@@ -231,12 +212,7 @@ const isFiniteIn = (n: unknown, lo: number, hi: number): n is number =>
 
 export const PropBindingsV1 = defineMosaicTemplate<PropBindingsProps>({
   id: asTemplateId(ID),
-  label: "81 · Prop Bindings",
-  version: 1,
-  description:
-    "Provenance: the rect that shows a prop is bound to it, so Make's double-click edits that knob in place - and every bindable kind is on one card. bindProp for free text and a number, bindProps for a header over a subtitle (one rect, two knobs), a colour swatch whose binding opens a picker, bindProp with an index for one element of a string[] or number[], bindPropPath (path AND kind) for string / number / colour leaves of a row list, bindPropRange (line span + focus token) for one line of a multi-line string - plus a closed picker drawn as a chip that gets no pencil on purpose. Which props are bindable is decided once, in the platform; the lesson's test uses the same predicate Make does.",
   capabilities: { tier: "core" },
-  tags: ["make", "lesson"],
 
   outputHints: {
     width: 1280,

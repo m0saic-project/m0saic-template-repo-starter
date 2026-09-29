@@ -13,42 +13,32 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     video: {
         type: "media",
         required: false,
-        description: "The video to re-time.",
-        meta: { control: { picker: "file", accept: ["video"] }, ui: { label: "Video" } },
+        meta: { control: { picker: "file", accept: ["video"] }, },
     },
     speed: {
         type: "number",
         required: false,
-        description: "Playback rate: 0.25-4 in steps of 0.25. 1 is realtime.",
-        meta: { constraints: { min: 0.25, max: 4 }, control: { step: 0.25 }, ui: { label: "Speed" } },
+        meta: { constraints: { min: 0.25, max: 4 }, control: { step: 0.25 }, },
     },
     sampleMs: {
         type: "number",
         required: false,
-        description: "How much SOURCE time to sample, ms (250-5000). Kept small so the window ends before the output does — that gap is where loopMode shows itself.",
         meta: {
             constraints: { min: 250, max: 5000 },
             control: { step: 250 },
-            ui: { label: "Sample (source ms)" },
         },
     },
     loopMode: {
         type: "string",
         required: false,
-        description: "What fills the output once the re-timed window runs out: loop repeats it, freeze holds the last frame, cut goes black.",
         meta: {
             constraints: { oneOf: [...LOOP_MODES] },
-            ui: { label: "Loop mode" },
         },
     },
 });
 exports.PlaySpeedV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "38 · Play Speed",
-    version: 1,
-    description: "playback.playSpeed: source time vs output time. A SMALL source window (1s by default) is re-timed by the speed knob, so it ends before the output does — and loopMode (loop / freeze / cut) visibly fills the rest. The caption does the arithmetic for the current knobs.",
     capabilities: { tier: "core" },
-    tags: ["media", "playback", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

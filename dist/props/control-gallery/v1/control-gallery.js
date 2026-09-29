@@ -12,35 +12,26 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     nickname: {
         type: "string",
         required: false,
-        description: "Ghost-text demo: the placeholder shows until you type.",
-        meta: { control: { placeholder: "type a nickname..." }, ui: { label: "Nickname" } },
     },
     homepage: {
         type: "string",
         required: false,
-        description: "flavor:\"url\" demo — semantic hint, still a plain string on the wire.",
-        meta: { control: { flavor: "url", placeholder: "https://example.com" }, ui: { label: "Homepage" } },
+        meta: { control: { flavor: "url", }, },
     },
     strength: {
         type: "number",
         required: false,
-        description: "Bounded + stepped number demo (0-100, step 5).",
-        meta: { constraints: { min: 0, max: 100 }, control: { step: 5 }, ui: { label: "Strength" } },
+        meta: { constraints: { min: 0, max: 100 }, control: { step: 5 }, },
     },
     season: {
         type: "string",
         required: false,
-        description: "Enum select demo.",
-        meta: { constraints: { oneOf: [...SEASONS] }, ui: { label: "Season" } },
+        meta: { constraints: { oneOf: [...SEASONS] }, },
     },
 });
 exports.ControlGalleryV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "18 · Control Gallery",
-    version: 1,
-    description: "The meta surface, one knob per affordance: placeholder ghost text, flavor:\"url\", bounded+stepped numbers, an enum select, and ui.label. The real demo is the sidebar; the canvas renders the spec sheet.",
     capabilities: { tier: "core" },
-    tags: ["props", "controls", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

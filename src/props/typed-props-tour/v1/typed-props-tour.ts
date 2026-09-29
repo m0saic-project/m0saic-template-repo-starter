@@ -53,37 +53,26 @@ const propsSchema = definePropsSchema<TypedPropsTourProps>({
   title: {
     type: "string",
     required: false,
-    description: "Header text (ASCII, 1-40 chars).",
-    meta: { control: { placeholder: "Typed props" }, ui: { label: "Title" } },
   },
   tiles: {
     type: "number",
     required: false,
-    description: "Columns in the middle band (1-8).",
-    meta: { constraints: { min: 1, max: 8 }, control: { step: 1 }, ui: { label: "Tiles" } },
+    meta: { constraints: { min: 1, max: 8 }, control: { step: 1 }, },
   },
   accent: {
     type: "boolean",
     required: false,
-    description: "Render the marker row at all?",
-    meta: { ui: { label: "Accent row" } },
   },
   align: {
     type: "string",
     required: false,
-    description: "Which third of the marker row holds the marker.",
-    meta: { constraints: { oneOf: [...ALIGNS] }, ui: { label: "Align" } },
+    meta: { constraints: { oneOf: [...ALIGNS] }, },
   },
 });
 
 export const TypedPropsTourV1 = defineMosaicTemplate<TypedPropsTourProps>({
   id: asTemplateId(ID),
-  label: "14 · Typed Props Tour",
-  version: 1,
-  description:
-    "One prop of each scalar type — string, number, boolean, enum — each visibly driving the render, with the received values printed as a caption receipt. The schema picks the sidebar controls; render() is the gate.",
   capabilities: { tier: "core" },
-  tags: ["props", "lesson"],
 
   outputHints: {
     width: 1280,

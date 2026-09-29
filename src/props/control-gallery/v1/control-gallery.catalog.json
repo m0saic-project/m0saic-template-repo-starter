@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/props/control-gallery/v1",
+  "label": "18 · Control Gallery",
+  "description": "The meta surface, one knob per affordance: placeholder ghost text, flavor:\"url\", bounded+stepped numbers, an enum select, and ui.label. The real demo is the sidebar; the canvas renders the spec sheet.",
+  "tags": [
+    "props",
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "nickname": {
+      "label": "Nickname",
+      "description": "Ghost-text demo: the placeholder shows until you type.",
+      "placeholder": "type a nickname..."
+    },
+    "homepage": {
+      "label": "Homepage",
+      "description": "flavor:\"url\" demo — semantic hint, still a plain string on the wire.",
+      "placeholder": "https://example.com"
+    },
+    "strength": {
+      "label": "Strength",
+      "description": "Bounded + stepped number demo (0-100, step 5)."
+    },
+    "season": {
+      "label": "Season",
+      "description": "Enum select demo."
+    }
+  }
+}

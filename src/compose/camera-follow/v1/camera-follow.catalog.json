@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/compose/camera-follow/v1",
+  "label": "51 · Camera Follow",
+  "description": "A keyframed camera walk described as rects and times: followCamera turns targets into per-frame focus expressions over a child mosaic's own coordinate space, with an optional pull-back — and viewport rects showing exactly what each settle will frame.",
+  "tags": [
+    "compose",
+    "camera",
+    "animation",
+    "lesson"
+  ],
+  "props": {
+    "zoom": {
+      "label": "Zoom",
+      "description": "Camera zoom. At 1 followCamera returns undefined — no camera at all, which the template has to handle rather than assume."
+    },
+    "pullBack": {
+      "label": "Pull back at the end",
+      "description": "Ease back to the full view after the last target and hold there — the standard end of a camera walk."
+    },
+    "showViewport": {
+      "label": "Show viewport rects",
+      "description": "Draw the crop window the camera will frame at each target, via cameraViewportRect — the same math a camera debugger uses."
+    }
+  }
+}

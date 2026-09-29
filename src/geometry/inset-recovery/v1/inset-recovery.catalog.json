@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/geometry/inset-recovery/v1",
+  "label": "10 · Inset Recovery",
+  "description": "Three chips at exact pixel rects, placed with placeInsetPieces: the string stays coarse (precision bounded at the lattice basis) while placement.inset recovers every rect byte-exact. The card prints the same layout's precision floor spelled via placeRects — the hereditary cost a parent would inherit. Why nestable templates use inset recovery.",
+  "tags": [
+    "geometry",
+    "precision",
+    "lesson"
+  ],
+  "props": {
+    "chipColor": {
+      "label": "Chip color",
+      "description": "Chip fill as #rrggbb."
+    }
+  }
+}

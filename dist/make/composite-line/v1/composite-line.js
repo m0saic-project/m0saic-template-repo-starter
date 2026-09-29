@@ -21,33 +21,24 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     handle: {
         type: "string",
         required: false,
-        description: "The handle on the byline. Bound twice on this card: once as one of two handles on the composite rect, once on its own split rect.",
-        meta: { control: { placeholder: "@handle" }, ui: { label: "Handle", order: 1 } },
     },
     year: {
         type: "number",
         required: false,
-        description: "The year on the byline - the second prop on the SAME composite rect (kind number), and on its own split rect.",
-        meta: { constraints: { min: YEAR_MIN, max: YEAR_MAX }, control: { step: 1 }, ui: { label: "Year", order: 2 } },
+        meta: { constraints: { min: YEAR_MIN, max: YEAR_MAX }, control: { step: 1 }, },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 3 },
         },
     },
 });
 exports.CompositeLineV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "83 · Composite Line",
-    version: 1,
-    description: "One rect drawing two props - \"@handle - 2026 on GitHub\" - keeps BOTH handles with bindProps; a second bindProp would replace the first. The same line shown split, one rect per prop, as the other correct form.",
     capabilities: { tier: "core" },
-    tags: ["make", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

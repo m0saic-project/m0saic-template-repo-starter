@@ -44,7 +44,8 @@ registries and **asserts** it matches what `src/index.ts` exports.
 ```
 template-manifest.json   → what exists (machine-readable, zero-exec)
 CURRICULUM.md            → chapter map and reading order
-src/<pack>/registry.ts   → the per-chapter descriptions the manifest is built from
+src/<pack>/<slug>/v1/<slug>.catalog.json → each template's label, description, tags, prop copy
+src/<pack>/registry.ts   → identity + teaching order per chapter
 docs/style.md            → the rules your code must satisfy
 ```
 
@@ -72,7 +73,9 @@ an ordinal that no longer matches its position. The build step itself runs
 every template through the platform's **template conventions** twice
 (`tools/check-registry.mjs`): at definition time — every optional knob shows
 its default, colour props carry `isColor` + `colorPicker`, no absolute path
-in `defaultProps`, a description and a tag, a `ui.label` per prop (warning)
+in `defaultProps`, a label, a description and a tag, a label per prop (warning)
+— all judged AFTER the template's catalog sidecar applies, and nothing
+descriptive may sit in its code (`catalogSidecar`)
 — and again after rendering it at its defaults — it renders, every
 `editor.binding` resolves against the schema, a free-text prop drawn as text
 is bound to its rect (warning: "bind what you show"), every svg-drawn
@@ -139,24 +142,33 @@ fresh clone, a CI job, or an agent that does not own the build.
 ## Adding a template — the whole checklist
 
 1. `src/<pack>/<slug>/v1/<slug>.ts` — read a neighbour in the same chapter
-   first and mirror it.
-2. `src/<pack>/<slug>/v1/<slug>.test.ts` — assert what the lesson claims.
-3. Add it to `src/<pack>/registry.ts` (title carries the ordinal) **and**
-   `src/<pack>/index.ts` (array + `export *`).
-4. New chapter? Also add the pack to `src/repo.ts`, `src/template-registry.ts`,
+   first and mirror it. It declares what the template IS — no label,
+   description, tags or prop copy.
+2. `src/<pack>/<slug>/v1/<slug>.catalog.json` — `{ "schemaVersion": 1,
+   "templateId", "label" (with its `NN · ` ordinal), "description", "tags",
+   "props": { "<key>": { "label", "description", "placeholder", "order" } } }`.
+3. `src/<pack>/<slug>/v1/<slug>.test.ts` — assert what the lesson claims.
+4. Add it to `src/<pack>/registry.ts` (id + export name, in teaching order)
+   **and** `src/<pack>/index.ts` (array + `export *`).
+5. New chapter? Also add the pack to `src/repo.ts`, `src/template-registry.ts`,
    `src/index.ts`, and a `## <packid>` heading in `CURRICULUM.md`.
-5. `npm run build && npm run previews && npm run build`.
-6. `npm run verify`.
+6. `npm run build && npm run previews && npm run build`.
+7. `npm run verify`.
 
-A lesson that has shipped never changes again: a fix is a new `v2` folder,
-and the old one gets an entry in `template-deprecations.json` (beside
-`template-manifest.json`) — `{ reason, replacement, since }` under its id.
-Never set `deprecated` inside a template; hosts read the sidecar (m0saic 0.3.1+).
+`npm run new -- <pack>/<slug>` writes 1–4 for you.
+
+A lesson that has shipped never changes again: a fix is a new `v2` folder.
+What DESCRIBES a template (label, description, tags, visibility, deprecation,
+and each prop's label / hint / placeholder) lives in its catalog sidecar,
+`<name>.catalog.json` beside the module, never in the code — the code freezes
+when it ships, the sidecar stays editable. Deprecate the old version there:
+`"deprecated": { "reason", "replacement", "since" }` (m0saic 0.3.1+).
 
 Appending to the end of the last chapter needs no renumbering. Inserting in
-the middle renumbers every ordinal after it, in **both** the registry `title`
-and the template `label` — the generator asserts both, so a half-done renumber
-fails the build rather than shipping.
+the middle renumbers every ordinal after it, in **both** the catalog `label`
+and CURRICULUM.md — `node tools/stamp-ordinals.mjs` rewrites both, and the
+generator asserts them, so a half-done renumber fails the build rather than
+shipping.
 
 ## Rules that fail silently
 

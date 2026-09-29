@@ -15,23 +15,15 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     note: {
         type: "string",
         required: false,
-        description: "Free text carried into the sidecar file — stands in for whatever a real template would record.",
-        meta: { control: { placeholder: "rendered by the starter repo" }, ui: { label: "Note" } },
     },
     includeGeometry: {
         type: "boolean",
         required: false,
-        description: "Add the canvas and timing to the sidecar. Useful downstream: a build step can lay out a page without opening the video.",
-        meta: { ui: { label: "Include geometry" } },
     },
 });
 exports.SidecarJsonV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "66 · Sidecar JSON",
-    version: 1,
-    description: "doc.sidecars writes files beside the render: each key becomes {output-basename}.{key}.json. sidecarsSchema on the template declares them, doc.sidecars carries the values — a sidecar is a file for what comes after m0saic, where a data source is an in-memory channel for the next template.",
     capabilities: { tier: "core" },
-    tags: ["data", "sidecars", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

@@ -167,43 +167,31 @@ const propsSchema = definePropsSchema<WhyTheFloorsCrossProps>({
   layout: {
     type: "string",
     required: false,
-    description:
-      "dashboard: title bar + six stat cards — one card is precision-high alone, six nested cross to feasibility-high (safe minimum 680x100). sidebar-page: design-pixel spec (320 of 1440) — 1440-slot ruler, silently off at 1280. even-grid: floors stay at 12. real-kpi-strip / real-theming: captured production m0, flattened, rendered as a wireframe — read Make's safe-minimum callout.",
     meta: {
       constraints: { oneOf: LAYOUTS },
-      ui: { label: "Layout", order: 1 },
     },
   },
   bandColor: {
     type: "string",
     required: false,
-    description: "Block fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#2e86c1" },
-      ui: { label: "Band color", order: 2 },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 3 },
     },
   },
 });
 
 export const WhyTheFloorsCrossV1 = defineMosaicTemplate<WhyTheFloorsCrossProps>({
   id: asTemplateId(ID),
-  label: "74 · Why the Floors Cross",
-  version: 1,
-  description:
-    "Which floor is the one to watch, for layouts people actually build? Synthetic shapes show the mechanism: one stat card is precision-high alone, six in a strip cross over to feasibility-high (safe minimum 680x100); a sidebar speced in design pixels (320 of 1440) bakes a 1440-slot ruler into the m0 and is silently off at 1280; an even grid stays at 12. Then the real thing: captured production m0, shipped bare and rendered as a wireframe — the kpi strip's flattened 22,988 chars measure 934x117 feasibility vs 193x121 precision, and theming measures 1920x1080 precision vs 663x313 feasibility. All floors are of the FLATTENED layout, the form render actually runs.",
   capabilities: { tier: "core" },
-  tags: ["quality", "feasibility", "lesson"],
 
   /**
    * REQUIRED: compaction's GCD reduction would rewrite the card anatomy and

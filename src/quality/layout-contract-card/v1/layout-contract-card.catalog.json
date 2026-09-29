@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/quality/layout-contract-card/v1",
+  "label": "71 · Layout Contract Card",
+  "description": "Ratio invariants authored against LABELS, which survive every m0 the template regenerates. One relation makes four cards equal; debug on DRAWS the contract — green members with the measured rule, or the stretched card red among them.",
+  "tags": [
+    "quality",
+    "contracts",
+    "lesson"
+  ],
+  "props": {
+    "stretchCard": {
+      "label": "Stretch card",
+      "description": "Width multiplier on the third card (1-3). 1 keeps the rail uniform; anything past ~1.02 breaks the equal-size rule (tolerance 2%).",
+      "order": 1
+    },
+    "debugLayout": {
+      "label": "Debug layout",
+      "description": "Run the layout contract and render the CONTRACT VIEW: members green with the measured rule when it holds, the offender red among them when it breaks. Off (default) returns the document untouched.",
+      "order": 2
+    },
+    "cardColor": {
+      "label": "Card color",
+      "description": "Card fill as #rrggbb.",
+      "order": 3
+    },
+    "headerColor": {
+      "label": "Header color",
+      "description": "Header fill as #rrggbb.",
+      "order": 4
+    }
+  }
+}

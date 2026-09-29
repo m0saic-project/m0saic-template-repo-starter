@@ -68,25 +68,17 @@ const propsSchema = definePropsSchema<RefMirrorProps>({
   word: {
     type: "string",
     required: false,
-    description: "Drawn ONCE in the hero cell. The three cells beside it are mirrors of those very pixels, not re-renders.",
-    meta: { control: { placeholder: "MIRROR" }, ui: { label: "Word" } },
   },
   mirrorFit: {
     type: "string",
     required: false,
-    description: "Placement on the MIRRORS only — the hero is untouched. Same pixels, different treatment per copy.",
-    meta: { constraints: { oneOf: [...FITS] }, ui: { label: "Mirror fit" } },
+    meta: { constraints: { oneOf: [...FITS] }, },
   },
 });
 
 export const RefMirrorV1 = defineMosaicTemplate<RefMirrorProps>({
   id: asTemplateId(ID),
-  label: "59 · Ref Mirror",
-  version: 1,
-  description:
-    "A ref source mirrors another cell's rendered pixels by flattenedStableKey: the target renders once and every mirror reads the same intermediate, decorating its own copy. N mirrors, one decode.",
   capabilities: { tier: "core" },
-  tags: ["pipelines", "refs", "lesson"],
 
   outputHints: {
     width: 1280,

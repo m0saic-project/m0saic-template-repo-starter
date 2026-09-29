@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/data/fixture-fetcher/v1",
+  "label": "63 · Fixture Fetcher",
+  "description": "Where data enters: a fetcher publishes a JSON payload as a type:\"data\" source and downstream templates read it as ctx.upstreamData[alias]. Declares tier:\"capability\" so ctx.secrets exists at all, and publishes a derived marker rather than the secret.",
+  "tags": [
+    "data",
+    "producer",
+    "capability",
+    "lesson"
+  ],
+  "props": {
+    "alias": {
+      "label": "Alias",
+      "description": "Channel name the payload is published under. Consumers read ctx.upstreamData[alias] — this string IS the coupling, not this template's id.",
+      "placeholder": "starterData"
+    },
+    "payload": {
+      "label": "Payload",
+      "description": "Plain JSON object to publish instead of the built-in fixture. Becomes the data source's variables verbatim."
+    },
+    "connectionId": {
+      "label": "Connection",
+      "description": "DESKTOP path. Id of a connection configured under Tools - Integrations; its secret field is read from the OS keychain, and the connection MINTS the ref so you never type one. Any registered id works - \"github@default\" ships with the app, so set a token there and name it here to watch this resolve. A GUI has no shell, which is why env: is not the desktop answer.",
+      "placeholder": "github@default"
+    },
+    "secretField": {
+      "label": "Connection field",
+      "description": "Which field of that connection holds the secret. Defaults to \"token\"."
+    },
+    "secretRef": {
+      "label": "Secret ref",
+      "description": "OPTIONAL - leave empty and the template skips the secret entirely. To try one, use \"env:NAME\" and set NAME in the environment of whatever process renders (both the CLI and the desktop app resolve it). Publishes { secretResolved, secretLength } - never the value itself.",
+      "placeholder": "env:M0SAIC_STARTER_TOKEN"
+    }
+  }
+}

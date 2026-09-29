@@ -16,18 +16,14 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     frames: {
         type: "number",
         required: false,
-        description: "How many PNGs to emit. Each frame is a whole step: N steps means N renders and N files, so this is a real cost knob.",
         meta: {
             constraints: { min: 1, max: 24 },
             control: { step: 1 },
-            ui: { label: "Frames" },
         },
     },
     prefix: {
         type: "string",
         required: false,
-        description: "Filename basis for each step. Names are zero-padded here — without padding a folder listing sorts frame-10 before frame-2.",
-        meta: { control: { placeholder: "frame" }, ui: { label: "Name prefix" } },
     },
 });
 /** One frame: its index, big, on a ramped background. */
@@ -67,11 +63,7 @@ function frameDoc(index, total, name, width, height, fps) {
 }
 exports.PngSequenceV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "57 · PNG Sequence",
-    version: 1,
-    description: "A frame sequence is emit:\"multi\" where every step is an image: each step declares format {kind:\"image\", container:\"png\"} and the engine writes one PNG per step. Zero-padded step names are the template's job — the engine only guarantees the name it was given.",
     capabilities: { tier: "core" },
-    tags: ["pipelines", "multi-output", "lesson"],
     outputHints: {
         width: 640,
         height: 360,

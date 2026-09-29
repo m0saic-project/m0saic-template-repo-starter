@@ -12,39 +12,30 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     widthFrac: {
         type: "number",
         required: false,
-        description: "Dock width as a fraction of canvas width (0.1-0.5).",
-        meta: { constraints: { min: 0.1, max: 0.5 }, control: { step: 0.02 }, ui: { label: "Width" } },
+        meta: { constraints: { min: 0.1, max: 0.5 }, control: { step: 0.02 }, },
     },
     heightFrac: {
         type: "number",
         required: false,
-        description: "Dock height as a fraction of canvas height (0.06-0.4).",
-        meta: { constraints: { min: 0.06, max: 0.4 }, control: { step: 0.02 }, ui: { label: "Height" } },
+        meta: { constraints: { min: 0.06, max: 0.4 }, control: { step: 0.02 }, },
     },
     marginPx: {
         type: "number",
         required: false,
-        description: "Margin from the bottom-right corner in pixels (0-128).",
-        meta: { constraints: { min: 0, max: 128 }, control: { step: 1 }, ui: { label: "Margin" } },
+        meta: { constraints: { min: 0, max: 128 }, control: { step: 1 }, },
     },
     dockColor: {
         type: "string",
         required: false,
-        description: "Dock fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#b7950b" },
-            ui: { label: "Dock color" },
         },
     },
 });
 exports.PlaceRectDockV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "11 · PlaceRect Dock",
-    version: 1,
-    description: "Docks one pixel-exact rect in the bottom-right corner via placeRect: margins are null tiles, so nothing quantizes into your rect. Head-only by design — the emitted string bakes THIS canvas's pixels, and the caption prints them so you can watch it re-bake per size.",
     capabilities: { tier: "core" },
-    tags: ["geometry", "placement", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

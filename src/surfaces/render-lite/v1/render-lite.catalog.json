@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/surfaces/render-lite/v1",
+  "label": "68 · Render Lite",
+  "description": "The preview stand-in. Declares renderLite so the editor draws a cheap card while you poke props, and the real N-by-N grid renders only on Make — the one surface that falls back to render when absent, instead of vanishing.",
+  "tags": [
+    "surfaces",
+    "preview",
+    "lesson"
+  ],
+  "props": {
+    "tiles": {
+      "label": "Tiles",
+      "description": "Grid density for the real render, 2-8 per side.",
+      "order": 1
+    },
+    "accentColor": {
+      "label": "Accent color",
+      "description": "Grid fill as #rrggbb.",
+      "order": 2
+    },
+    "panelColor": {
+      "label": "Panel color",
+      "description": "Alternating fill, and the lite card background, as #rrggbb.",
+      "order": 3
+    }
+  }
+}

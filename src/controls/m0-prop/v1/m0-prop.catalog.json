@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/controls/m0-prop/v1",
+  "label": "28 · m0 Prop",
+  "description": "The layout itself as a prop: type m0 tells the editor the value is grammar, not prose, and the template treats it like any untrusted input — isValidM0String at the boundary, a report card instead of a dead render when it doesn't parse. Valid layouts are framed and wireframed, one tile per claim; heavy layouts DEGRADE instead of failing — hundreds of claims get a measured stats card (chars, claims, floors), and a layout too big for this canvas gets the floors card naming its safe minimum. The grammar has no cap; only lessons and budgets do.",
+  "tags": [
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "layout": {
+      "label": "Layout",
+      "description": "The layout to frame, as a raw m0 string. type m0 tells the editor this value is grammar, not prose — and the template validates it like any untrusted input.",
+      "order": 1
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 2
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 3
+    }
+  }
+}

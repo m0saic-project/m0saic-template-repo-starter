@@ -140,17 +140,10 @@ const propsSchema = definePropsSchema<WeightedCardsProps>({
   connectionId: {
     type: "string",
     required: false,
-    description:
-      "The sibling wire (lesson 76): which configured connection profile the chip pickers read.",
-    meta: {
-      ui: { label: "Connection", order: 1 },
-    },
   },
   mixes: {
     type: "json",
     required: false,
-    description:
-      "Cards of chips with per-chip shares: a connectionMultiSelect column owns membership and a weights column SHARING ITS KEY owns shares — two cells, one array. Even sets round-trip as string[], customized ones as {id, weight}[].",
     meta: {
       constraints: {
         jsonSchema: {
@@ -199,36 +192,26 @@ const propsSchema = definePropsSchema<WeightedCardsProps>({
         ],
         interWeightProp: "mixWeights",
       },
-      ui: { label: "Mixes", order: 2 },
     },
   },
   mixWeights: {
     type: "number[]",
     required: false,
-    description:
-      "How the mixes weigh against EACH OTHER — the sibling number[] the card strip's inter-card sliders write (interWeightProp).",
-    meta: {
-      ui: { label: "Mix weights", order: 3 },
-    },
   },
   bandColor: {
     type: "string",
     required: false,
-    description: "Accent fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#2e86c1" },
-      ui: { label: "Band color", order: 4 },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 5 },
     },
   },
 });
@@ -246,12 +229,7 @@ const titleCase = (slug: string) =>
 
 export const WeightedCardsV1 = defineMosaicTemplate<WeightedCardsProps>({
   id: asTemplateId(ID),
-  label: "80 · Weighted Cards",
-  version: 1,
-  description:
-    "Weights at both depths: a weights column SHARING the multi-select's key gives every card an auto-balancing share group over its own chips (two cells, one array — even sets round-trip as string[], customized as {id,weight}[]), and interWeightProp names a sibling number[] the strip drags to weigh the CARDS against each other. Render is the values wearing rectangles: row heights from mixWeights, chip widths from item shares.",
   capabilities: { tier: "core" },
-  tags: ["controls", "connections", "lesson"],
 
   outputHints: {
     width: 1280,

@@ -17,6 +17,7 @@
  * browse UI WITHOUT executing any of this code — the build's manifest
  * generator asserts the two can't drift.
  */
+import "./catalog";
 import type { MosaicTemplate, MosaicTemplateProps } from "@m0saic/types";
 import { TEMPLATE_PACKS, TEMPLATE_REPO } from "./repo";
 export declare const repo: import("@m0saic/types").MosaicTemplateRepoDescriptor;

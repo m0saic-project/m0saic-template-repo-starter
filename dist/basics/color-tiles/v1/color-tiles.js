@@ -11,39 +11,30 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     colors: {
         type: "string[]",
         required: false,
-        description: "Tile fills, left to right (#rrggbb each). 2-8 columns.",
         // A string[] with color meta is a color LIST: the app renders one
         // swatch row per entry (add/remove; empty list = unset → defaults).
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true },
-            ui: { label: "Tile colors" },
         },
     },
     backgroundColor: {
         type: "string",
         required: false,
-        description: "Document background fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#0b0e11" },
-            ui: { label: "Background" },
         },
     },
     gap: {
         type: "number",
         required: false,
-        description: "Margin around each tile, in weight units against the tile's 10 (0-6); neighbours share two margins, so the gutter between tiles is twice that. The gaps are NULL cells — they paint nothing, so the document background shows through them. Set 0 for edge-to-edge tiles and the background disappears entirely.",
-        meta: { constraints: { min: 0, max: 6 }, control: { step: 1 }, ui: { label: "Gap" } },
+        meta: { constraints: { min: 0, max: 6 }, control: { step: 1 }, },
     },
 });
 exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "04 · Color Tiles",
-    version: 1,
-    description: "Three equal columns, one makeColorTile each — the sources[]-to-tiles mapping, the lavfi color-tile convention, and document.backgroundColor instead of a wasted base layer.",
     capabilities: { tier: "core" },
-    tags: ["basics", "layout", "color"],
     outputHints: {
         width: 1280,
         height: 720,

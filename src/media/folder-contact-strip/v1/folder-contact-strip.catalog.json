@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/media/folder-contact-strip/v1",
+  "label": "33 · Folder Contact Strip",
+  "description": "type:\"media[]\" + the folder picker: the prop arrives as an array of raw paths, each probed by the host — the template maps them to per-file asset entries and media sources, and the strip resplits to the count (first 8).",
+  "tags": [
+    "media",
+    "folder",
+    "lesson"
+  ],
+  "props": {
+    "images": {
+      "label": "Images",
+      "description": "Images from a folder. The folder picker fills the array with raw paths; the first 8 render."
+    }
+  }
+}

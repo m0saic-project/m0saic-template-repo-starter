@@ -61,29 +61,20 @@ const propsSchema = definePropsSchema<ChildMosaicProps>({
   childGrid: {
     type: "number",
     required: false,
-    description: "The child document's grid (N×N). Raise it and watch the PARENT's m0 stay exactly the same length — that is the point.",
     meta: {
       constraints: { min: 2, max: 5 },
       control: { step: 1 },
-      ui: { label: "Child grid" },
     },
   },
   declareChildSize: {
     type: "boolean",
     required: false,
-    description: "Declare a square `size` on the child. A procedural child has no media to measure, so this is its ONLY aspect signal — without it the child renders at the parent tile's shape and its square cells stretch.",
-    meta: { ui: { label: "Declare child size" } },
   },
 });
 
 export const ChildMosaicV1 = defineMosaicTemplate<ChildMosaicProps>({
   id: asTemplateId(ID),
-  label: "47 · Child Mosaic",
-  version: 1,
-  description:
-    "A complete document rendered inside one tile: children + a {type:\"mosaic\", ref} source, evaluated bottom-up. The child's grid grows while the parent's m0 stays two cells — and a procedural child keeps its aspect only if it declares its own size.",
   capabilities: { tier: "core" },
-  tags: ["compose", "children", "lesson"],
 
   outputHints: {
     width: 1280,

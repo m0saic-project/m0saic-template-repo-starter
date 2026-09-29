@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/make/array-rows/v1",
+  "label": "85 · Array Rows",
+  "description": "A type \"array\" prop, declared plainly and edited as rows: flavor objectRows + columns in the panel, and on the canvas every cell is a leaf handle - bindPropPath with a path AND a kind, onClear removing the row, and the empty last row bound as the add handle.",
+  "tags": [
+    "make",
+    "lesson"
+  ],
+  "props": {
+    "items": {
+      "label": "Items",
+      "description": "Up to 6 rows of {sku, qty, color}. flavor objectRows + columns edits them as a form; on the canvas every cell is a leaf handle (bindPropPath with a path AND a kind), an empty qty removes its row, and the empty last row adds one.",
+      "order": 1
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 2
+    }
+  }
+}

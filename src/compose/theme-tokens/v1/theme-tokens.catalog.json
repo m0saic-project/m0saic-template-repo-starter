@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/compose/theme-tokens/v1",
+  "label": "53 · Theme Tokens",
+  "description": "The CONSUMER half of theming, and the three places tokens come from: local constants, a pipeline producer on ctx.upstreamData, or a provider called by id right here. applyTheme overlays whatever arrived onto the template's own values, per key — so an un-themed render is unchanged and any conforming producer swaps in.",
+  "tags": [
+    "compose",
+    "theming",
+    "lesson"
+  ],
+  "props": {
+    "source": {
+      "label": "Token source",
+      "description": "\"local\": nothing arrived, the template's own constants render (the path you ship). \"upstream\": read whatever a pipeline producer published on ctx.upstreamData — standalone there is none, and it says so. \"provider\": render a producer by id right here and read it, a TUTORIAL shortcut so the merge is visible with one template open."
+    },
+    "providerId": {
+      "label": "Provider id",
+      "description": "Template id of the producer to call when source is \"provider\". Paste @m0saic/theming/v1 for the built-in m0saic palette, or any conforming producer — the lookup is by id against the host's registry, so nothing is imported.",
+      "placeholder": "@m0saic-starter/compose/theme-provider/v1"
+    },
+    "mode": {
+      "label": "Mode",
+      "description": "Palette to ask the provider for. The other two sources ignore it — a pipeline producer carries its own mode."
+    },
+    "alias": {
+      "label": "Alias",
+      "description": "The upstream channel name. Producer and consumer must agree on it — that, plus the token shape, IS the whole contract.",
+      "placeholder": "theme"
+    },
+    "accentFallback": {
+      "label": "Accent (local)",
+      "description": "This template's OWN accent, as #rrggbb. A producer's accent wins over it — per key, and per key only."
+    }
+  }
+}

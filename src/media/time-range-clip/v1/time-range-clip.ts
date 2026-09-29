@@ -57,37 +57,27 @@ const propsSchema = definePropsSchema<TimeRangeClipProps>({
   video: {
     type: "media",
     required: false,
-    description: "The video to window.",
-    meta: { control: { picker: "file", accept: ["video"] }, ui: { label: "Video" } },
+    meta: { control: { picker: "file", accept: ["video"] }, },
   },
   clipStartMs: {
     type: "number",
     required: false,
-    description: "Window start (ms into the source). Half of the time-range pair.",
     meta: {
       control: { picker: "time-range", videoFromProp: "video" },
-      ui: { label: "Clip start" },
     },
   },
   clipEndMs: {
     type: "number",
     required: false,
-    description: "Window end (ms into the source). The other half of the pair.",
     meta: {
       control: { picker: "time-range", videoFromProp: "video" },
-      ui: { label: "Clip end" },
     },
   },
 });
 
 export const TimeRangeClipV1 = defineMosaicTemplate<TimeRangeClipProps>({
   id: asTemplateId(ID),
-  label: "35 · Time-Range Clip",
-  version: 1,
-  description:
-    "The time-range picker pair: two number props ending in StartMs/EndMs (here clipStartMs and clipEndMs) with picker:\"time-range\" + videoFromProp render ONE scrubber with two handles — and the window lands on the source as playback.clipStartMs + clipDurationMs (start + LENGTH).",
   capabilities: { tier: "core" },
-  tags: ["media", "playback", "lesson"],
 
   outputHints: {
     width: 1280,

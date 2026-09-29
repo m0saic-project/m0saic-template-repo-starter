@@ -5,11 +5,11 @@
  * each chapter's registry.ts.
  *
  * Inserting a chapter (or a lesson) mid-corpus renumbers everything after
- * it, in THREE places the generator asserts against each other: the
- * registry `title`, the template's `label`, and CURRICULUM.md's table rows.
- * This tool makes that a non-event:
+ * it, in TWO places the build checks: the template's catalog `label` (in
+ * `<slug>.catalog.json` beside it — m0saic 0.3.1: a template's code carries no
+ * label) and CURRICULUM.md's table rows. This tool makes that a non-event:
  *
- *   node tools/stamp-ordinals.mjs          # rewrite all three surfaces
+ *   node tools/stamp-ordinals.mjs          # rewrite both surfaces
  *   node tools/stamp-ordinals.mjs --check  # exit 1 if anything would change
  *
  * It deliberately does NOT touch prose ("lesson 63", "58 and 59 pair up") —
@@ -36,7 +36,7 @@ if (packs.length === 0) {
 }
 
 // ── 2. Entries per chapter, in order ───────────────────────────────────
-/** @type {Array<{pack: string, slug: string, file: string, registryFile: string}>} */
+/** @type {Array<{pack: string, slug: string, sidecar: string}>} */
 const entries = [];
 for (const pack of packs) {
   const regFile = `src/${pack}/registry.ts`;
@@ -47,7 +47,7 @@ for (const pack of packs) {
     const dir = path.join(ROOT, "src", pack, slug);
     const versions = fs.readdirSync(dir).filter((d) => /^v\d+$/.test(d)).sort();
     const v = versions[versions.length - 1];
-    entries.push({ pack, slug, file: `src/${pack}/${slug}/${v}/${slug}.ts`, registryFile: regFile });
+    entries.push({ pack, slug, sidecar: `src/${pack}/${slug}/${v}/${slug}.catalog.json` });
   }
 }
 
@@ -55,20 +55,26 @@ for (const pack of packs) {
 const pad = (n) => String(n).padStart(2, "0");
 let changed = 0;
 
-const stampIn = (file, pattern, ordinal, what) => {
-  let src = read(file);
-  const m = src.match(pattern);
-  if (!m) {
-    console.error(`stamp-ordinals: no ${what} ordinal found in ${file}`);
+/** Restamp the `NN · ` prefix of a sidecar's catalog label. */
+const stampLabel = (file, ordinal) => {
+  let side;
+  try { side = JSON.parse(read(file)); } catch {
+    console.error(`stamp-ordinals: ${file} is missing or not JSON`);
     process.exitCode = 1;
     return;
   }
-  const next = src.replace(pattern, (whole, pre, _old, rest) => `${pre}${pad(ordinal)}${rest}`);
-  if (next !== src) {
-    changed += 1;
-    if (!CHECK) write(file, next);
-    else console.log(`  would restamp ${what}: ${file}`);
+  const m = typeof side.label === "string" ? /^(\d+)( · )/.exec(side.label) : null;
+  if (!m) {
+    console.error(`stamp-ordinals: no "NN · " ordinal in the label of ${file}`);
+    process.exitCode = 1;
+    return;
   }
+  const next = `${pad(ordinal)}${side.label.slice(m[1].length)}`;
+  if (next === side.label) return;
+  changed += 1;
+  if (CHECK) { console.log(`  would restamp label: ${file}`); return; }
+  side.label = next;
+  write(file, JSON.stringify(side, null, 2) + "\n");
 };
 
 let curriculum = read("CURRICULUM.md");
@@ -76,10 +82,8 @@ let curriculumChanged = false;
 
 entries.forEach((e, i) => {
   const ordinal = i + 1;
-  // Registry title: `title: "NN · Name"`.
-  stampIn(e.registryFile, new RegExp(`(slug:\\s*"${e.slug}",[\\s\\S]*?title:\\s*")(\\d+)( · )`), ordinal, `registry title for ${e.slug}`);
-  // Template label: `label: "NN · Name"`.
-  stampIn(e.file, /(label:\s*")(\d+)( · )/, ordinal, `label`);
+  // The catalog label: `"label": "NN · Name"` in the sidecar.
+  stampLabel(e.sidecar, ordinal);
   // CURRICULUM table row: `| NN | Name | \`pack/slug/vN\` |`.
   const rowRe = new RegExp(`(\\| )(\\d+)( \\| [^|]+ \\| \`${e.pack}/${e.slug}/v\\d+\` \\|)`);
   if (rowRe.test(curriculum)) {

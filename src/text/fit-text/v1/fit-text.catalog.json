@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/text/fit-text/v1",
+  "label": "42 · Fit Text",
+  "description": "Nothing soft-wraps — fitting is the template's job. One box, three fitting strategies (wrap the block, force one line, skip fitting and clip), and a caption printing the measured width against the box so the trade is arithmetic instead of vibes.",
+  "tags": [
+    "text",
+    "layout",
+    "lesson"
+  ],
+  "props": {
+    "copy": {
+      "label": "Copy",
+      "description": "The copy to fit into the box. Keep it ASCII — the bundled font renders exotic codepoints as tofu.",
+      "placeholder": "Nothing soft-wraps: measure the glyphs, then choose the size."
+    },
+    "mode": {
+      "label": "Mode",
+      "description": "\"fit-block\": wrap and shrink until the block fits (stays readable). \"one-line\": refuse to wrap, shrink until it fits on one line (goes small fast). \"unfitted\": draw at the max size with no measurement — the clipping this lesson exists to show."
+    },
+    "boxWidthPct": {
+      "label": "Box width %",
+      "description": "Box width as a percent of the canvas. Narrow it and watch each mode react differently."
+    }
+  }
+}

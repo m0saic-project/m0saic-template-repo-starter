@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/compose/rotate-headroom/v1",
+  "label": "48 · Rotate Headroom",
+  "description": "effects.rotate spins content inside a buffer that never grows, so corners clip. The cure isn't a bigger inset — it's a child whose declared size is the rotated bounding box (W' = w·|cos θ| + h·|sin θ|), carrying the rotation instead.",
+  "tags": [
+    "compose",
+    "effects",
+    "lesson"
+  ],
+  "props": {
+    "angle": {
+      "label": "Angle",
+      "description": "Rotation in degrees, clockwise. The corner loss peaks near 45."
+    },
+    "mode": {
+      "label": "Mode",
+      "description": "\"in-place\": the rotation sits on the card, whose buffer is exactly the card — corners clip. \"headroom\": the card rides a child whose declared size is the rotated bounding box, and the rotation sits on the CHILD — same card, room to turn."
+    }
+  }
+}

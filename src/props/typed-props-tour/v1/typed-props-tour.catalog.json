@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/props/typed-props-tour/v1",
+  "label": "14 · Typed Props Tour",
+  "description": "One prop of each scalar type — string, number, boolean, enum — each visibly driving the render, with the received values printed as a caption receipt. The schema picks the sidebar controls; render() is the gate.",
+  "tags": [
+    "props",
+    "lesson"
+  ],
+  "props": {
+    "title": {
+      "label": "Title",
+      "description": "Header text (ASCII, 1-40 chars).",
+      "placeholder": "Typed props"
+    },
+    "tiles": {
+      "label": "Tiles",
+      "description": "Columns in the middle band (1-8)."
+    },
+    "accent": {
+      "label": "Accent row",
+      "description": "Render the marker row at all?"
+    },
+    "align": {
+      "label": "Align",
+      "description": "Which third of the marker row holds the marker."
+    }
+  }
+}

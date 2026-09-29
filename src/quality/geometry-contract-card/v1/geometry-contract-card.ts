@@ -100,49 +100,35 @@ const propsSchema = definePropsSchema<GeometryContractCardProps>({
   debugGeometry: {
     type: "boolean",
     required: false,
-    description: "Run the geometry contract. Off (default) returns the document untouched.",
-    meta: { ui: { label: "Debug geometry", order: 1 } },
   },
   contractOffsetPx: {
     type: "number",
     required: false,
-    description:
-      "Px added to the CONTRACT's target height. The chip stays 1/6 of the canvas either way — this moves what the contract ASKS FOR. 1px is inside the checker's default tolerance and passes on purpose; 2 or more crosses it.",
     meta: {
       constraints: { min: 0, max: 40 },
-      ui: { label: "Contract offset (px)", order: 2 },
     },
   },
   chipColor: {
     type: "string",
     required: false,
-    description: "Chip fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#16a085" },
-      ui: { label: "Chip color", order: 3 },
     },
   },
   cardColor: {
     type: "string",
     required: false,
-    description: "Card fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Card color", order: 4 },
     },
   },
 });
 
 export const GeometryContractCardV1 = defineMosaicTemplate<GeometryContractCardProps>({
   id: asTemplateId(ID),
-  label: "72 · Geometry Contract Card",
-  version: 1,
-  description:
-    "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and debug on DRAWS the verdict: the chip green when intent survived, or realized-red vs intended-amber-ghost with the drift visible as the gap.",
   capabilities: { tier: "core" },
-  tags: ["quality", "contracts", "lesson"],
 
   outputHints: {
     width: 1280,

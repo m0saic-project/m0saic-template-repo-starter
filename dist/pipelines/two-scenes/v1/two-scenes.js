@@ -15,17 +15,14 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     transition: {
         type: "string",
         required: false,
-        description: "\"cut\": a hard boundary, and the output is exactly A + B. \"fade\": a crossfade that OVERLAPS the two scenes, so the output is A + B minus the overlap.",
-        meta: { constraints: { oneOf: [...TRANSITIONS] }, ui: { label: "Transition" } },
+        meta: { constraints: { oneOf: [...TRANSITIONS] }, },
     },
     transitionMs: {
         type: "number",
         required: false,
-        description: "Overlap length in ms. This is time the stitched output LOSES — the planner clamps it to the shorter scene.",
         meta: {
             constraints: { min: 0, max: 2000 },
             control: { step: 100 },
-            ui: { label: "Overlap ms" },
         },
     },
 });
@@ -53,11 +50,7 @@ bindTo) {
 }
 exports.TwoScenesV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "55 · Two Scenes",
-    version: 1,
-    description: "The smallest pipeline: two documents concatenated into one file. Shows that a step IS a document (own m0, own canvas, own exact durationMs) and the transition OVERLAP rule — a d-ms crossfade makes the output A + B − d, not A + B.",
     capabilities: { tier: "core" },
-    tags: ["pipelines", "time", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

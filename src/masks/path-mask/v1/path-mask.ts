@@ -92,43 +92,31 @@ const propsSchema = definePropsSchema<PathMaskProps>({
   innerWinding: {
     type: "string",
     required: false,
-    description:
-      "Which way round the inner circle is drawn. \"opposite\" = the other way from the outer circle, which is what punches the hole (the two directions cancel out in the middle). \"same\" = the same way round, and the middle fills in instead — a disc, with nothing to tell you why.",
     meta: {
       constraints: { oneOf: [...WINDINGS] },
-      ui: { label: "Inner circle drawn" },
     },
   },
   matte: {
     type: "number",
     required: false,
-    description: "Alpha for everything OUTSIDE the path (0 = clipped away, the default). Above 0 the whole bounds box renders at this alpha beneath the fully-opaque path — one tile, translucent wash plus crisp marks.",
     meta: {
       constraints: { min: 0, max: 1 },
       control: { step: 0.05 },
-      ui: { label: "Matte alpha" },
     },
   },
   inkColor: {
     type: "string",
     required: false,
-    description: "Ink for the tile the mask clips, as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#2e86c1" },
-      ui: { label: "Ink" },
     },
   },
 });
 
 export const PathMaskV1 = defineMosaicTemplate<PathMaskProps>({
   id: asTemplateId(ID),
-  label: "46 · Path Mask",
-  version: 1,
-  description:
-    "A donut, and the two rules behind it: a shape inside another cuts a hole only when it is DRAWN the other way round (the two directions cancel; draw them the same way and the middle fills in silently), and `matte` renders the area outside the path at a chosen alpha instead of clipping it away.",
   capabilities: { tier: "core" },
-  tags: ["masks", "paths", "lesson"],
 
   outputHints: {
     width: 1280,

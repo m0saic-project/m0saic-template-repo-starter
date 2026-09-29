@@ -49,35 +49,25 @@ const propsSchema = definePropsSchema<ErrorMosaicProps>({
   ratio: {
     type: "number",
     required: false,
-    description: "Split ratio for the card (0.1-0.9). Try 5 to break it.",
-    meta: { constraints: { min: 0.1, max: 0.9 }, control: { step: 0.1 }, ui: { label: "Ratio" } },
+    meta: { constraints: { min: 0.1, max: 0.9 }, control: { step: 0.1 }, },
   },
   accent: {
     type: "string",
     required: false,
-    description: "Accent color as #rrggbb. Try \"orange\" to break it.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#EF7525" },
-      ui: { label: "Accent" },
     },
   },
   tags: {
     type: "string",
     required: false,
-    description: "Comma-separated tags, 1-4 items of 1-8 ASCII chars. Try five items.",
-    meta: { control: { placeholder: "one,two,three" }, ui: { label: "Tags" } },
   },
 });
 
 export const ErrorMosaicV1 = defineMosaicTemplate<ErrorMosaicProps>({
   id: asTemplateId(ID),
-  label: "19 · Error Mosaic",
-  version: 1,
-  description:
-    "Failing on-canvas, usefully: collect EVERY problem with a remedy, then return makeErrorMosaic — a renderable report card instead of a dead preview. Three deliberately breakable knobs to practice on.",
   capabilities: { tier: "core" },
-  tags: ["props", "errors", "lesson"],
 
   outputHints: {
     width: 1280,

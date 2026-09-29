@@ -1,12 +1,14 @@
 import type { MosaicTemplateRepoManifestEntry } from "@m0saic/types";
 /**
- * One row of the authoring registry — the browse metadata for a template,
- * kept next to the code that exports it (each chapter has a registry.ts).
+ * One row of the authoring registry — a template's IDENTITY and its place in
+ * the display order (each chapter has a registry.ts).
  *
- * The build's manifest generator turns these rows into template-manifest.json
- * and ASSERTS they agree exactly with the templates the entry module exports:
- * a template can't ship unregistered, and a registry row can't outlive its
- * template.
+ * What a template is CALLED and how it is described — its title (the
+ * catalog `label`), description and tags — is not here: since m0saic 0.3.1 it
+ * lives in the template's catalog sidecar, `<name>.catalog.json` beside its
+ * module. The build's manifest generator reads both and ASSERTS the rows agree
+ * exactly with the templates the entry module exports: a template can't ship
+ * unregistered, and a registry row can't outlive its template.
  */
 export type StarterRegistryEntry = {
     /** Slug segment of the id — `@m0saic-starter/<pack>/<SLUG>/vN`. */
@@ -15,12 +17,6 @@ export type StarterRegistryEntry = {
     templateId: string;
     /** Named export on the repo entry module (src/index.ts) that yields the template. */
     exportName: string;
-    /** Card title on the Templates page. */
-    title: string;
-    /** One-paragraph description: WHAT it shows and the one concept it teaches. */
-    description: string;
-    /** Browse tags. Every entry carries its chapter tag plus free-form ones. */
-    tags: string[];
     /**
      * Explicit preview overrides. Usually omitted — the generator discovers
      * assets/templates/<id with "/" -> "__">/preview.png|preview.mp4|poster.png

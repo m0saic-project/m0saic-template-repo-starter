@@ -3,7 +3,7 @@
  * wearing the brand.
  *
  * ONE CONCEPT: the anatomy of a m0saic template. Everything else in this
- * repo is a variation on the five parts you see here:
+ * repo is a variation on the six parts you see here:
  *
  *   1. A typed props surface (`definePropsSchema`) where every optional prop
  *      has a deterministic default — same inputs, same output, always.
@@ -15,6 +15,11 @@
  *   5. The m0 string branded through `toM0String(...)` — it canonicalizes
  *      and VALIDATES, throwing on a malformed string instead of failing
  *      later, mysteriously, at render time.
+ *   6. Its catalog sidecar, `anatomy.catalog.json` beside this file — the
+ *      label, description and tags, and each prop's label / hint /
+ *      placeholder. The code declares what the template IS; the sidecar how
+ *      it is DESCRIBED, because that may change after the code ships (the
+ *      m0saic 0.3.1 template convention). None of it lives in this file.
  *
  * This is the repo's smoke render, so it says hello the way the brand
  * does: the pixel-M (a color tile wearing the baked glyph as an

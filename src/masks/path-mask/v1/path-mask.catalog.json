@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/masks/path-mask/v1",
+  "label": "46 · Path Mask",
+  "description": "A donut, and the two rules behind it: a shape inside another cuts a hole only when it is DRAWN the other way round (the two directions cancel; draw them the same way and the middle fills in silently), and `matte` renders the area outside the path at a chosen alpha instead of clipping it away.",
+  "tags": [
+    "masks",
+    "paths",
+    "lesson"
+  ],
+  "props": {
+    "innerWinding": {
+      "label": "Inner circle drawn",
+      "description": "Which way round the inner circle is drawn. \"opposite\" = the other way from the outer circle, which is what punches the hole (the two directions cancel out in the middle). \"same\" = the same way round, and the middle fills in instead — a disc, with nothing to tell you why."
+    },
+    "matte": {
+      "label": "Matte alpha",
+      "description": "Alpha for everything OUTSIDE the path (0 = clipped away, the default). Above 0 the whole bounds box renders at this alpha beneath the fully-opaque path — one tile, translucent wash plus crisp marks."
+    },
+    "inkColor": {
+      "label": "Ink",
+      "description": "Ink for the tile the mask clips, as #rrggbb."
+    }
+  }
+}

@@ -14,30 +14,24 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     tiles: {
         type: "number",
         required: false,
-        description: `Grid density for the real render, ${MIN_TILES}-${MAX_TILES} per side.`,
         meta: {
             constraints: { min: MIN_TILES, max: MAX_TILES },
-            ui: { label: "Tiles", order: 1 },
         },
     },
     accentColor: {
         type: "string",
         required: false,
-        description: "Grid fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#2471a3" },
-            ui: { label: "Accent color", order: 2 },
         },
     },
     panelColor: {
         type: "string",
         required: false,
-        description: "Alternating fill, and the lite card background, as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Panel color", order: 3 },
         },
     },
 });
@@ -64,11 +58,7 @@ function resolve(props) {
 }
 exports.RenderLiteV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "68 · Render Lite",
-    version: 1,
-    description: "The preview stand-in. Declares renderLite so the editor draws a cheap card while you poke props, and the real N-by-N grid renders only on Make — the one surface that falls back to render when absent, instead of vanishing.",
     capabilities: { tier: "core" },
-    tags: ["surfaces", "preview", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

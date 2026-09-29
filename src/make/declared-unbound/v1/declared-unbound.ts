@@ -112,63 +112,48 @@ const propsSchema = definePropsSchema<DeclaredUnboundProps>({
   label: {
     type: "string",
     required: false,
-    description: "The one bound prop on the card - the rect that shows it is its handle.",
-    meta: { control: { placeholder: "declared unbound" }, ui: { label: "Label", order: 1 } },
   },
   columns: {
     type: "number",
     required: false,
-    description: "How many tiles. A COUNT of rects, not a value on any one of them - accountable, and honestly unbound.",
-    meta: { constraints: { min: COLUMNS_MIN, max: COLUMNS_MAX }, control: { step: 1 }, ui: { label: "Columns", order: 2 } },
+    meta: { constraints: { min: COLUMNS_MIN, max: COLUMNS_MAX }, control: { step: 1 }, },
   },
   gap: {
     type: "number",
     required: false,
-    description: "Gutter between tiles, in percent of the canvas width. Geometry - never drawn.",
-    meta: { constraints: { min: 0, max: GAP_MAX }, control: { step: 0.5 }, ui: { label: "Gap", order: 3 } },
+    meta: { constraints: { min: 0, max: GAP_MAX }, control: { step: 0.5 }, },
   },
   seed: {
     type: "number",
     required: false,
-    description: "Deals the tint order through mulberry32 - determinism, never drawn. Same seed, same strip.",
-    meta: { constraints: { min: 0, max: SEED_MAX }, control: { step: 1 }, ui: { label: "Seed", order: 4 } },
+    meta: { constraints: { min: 0, max: SEED_MAX }, control: { step: 1 }, },
   },
   padding: {
     type: "number",
     required: false,
-    description: "Inset from the canvas edges, in percent of the canvas width. Geometry - never drawn.",
-    meta: { constraints: { min: 0, max: PADDING_MAX }, control: { step: 1 }, ui: { label: "Padding", order: 5 } },
+    meta: { constraints: { min: 0, max: PADDING_MAX }, control: { step: 1 }, },
   },
   accent: {
     type: "string",
     required: false,
-    description: "The tint family painted on every tile. A colour on many rects has no single handle, so it is declared rather than bound.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#ee7525" },
-      ui: { label: "Accent", order: 6 },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb. It IS document.backgroundColor, so it needs no binding and no declaration.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 7 },
     },
   },
 });
 
 export const DeclaredUnboundV1 = defineMosaicTemplate<DeclaredUnboundProps>({
   id: asTemplateId(ID),
-  label: "84 · Declared Unbound",
-  version: 1,
-  description:
-    "What a compliant NON-binding looks like: one bound label beside five accountable props that no rect shows - columns, gap, seed, padding, accent - each named in bindings.unbound with its reason, and a page colour that needs nothing because it IS the document background.",
   capabilities: { tier: "core" },
-  tags: ["make", "lesson"],
 
   outputHints: {
     width: 1280,

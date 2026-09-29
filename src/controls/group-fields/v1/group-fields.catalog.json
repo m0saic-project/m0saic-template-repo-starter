@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/controls/group-fields/v1",
+  "label": "24 · Group Fields",
+  "description": "Related props that travel as one value: type group + fields nests ordinary prop definitions (same types, same controls — the accent is a normal colorPicker) under a single prop, the editor renders one fieldset, and the value is one object written in one edit — whole or not at all. Render validates it as a unit too: one guard for one idea. Drawn as the lower third this shape most often is.",
+  "tags": [
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "speaker.name": {
+      "label": "Name",
+      "description": "Display name on the lower third.",
+      "order": 1
+    },
+    "speaker.role": {
+      "label": "Role",
+      "description": "Second line — role, title, or affiliation.",
+      "order": 2
+    },
+    "speaker.accent": {
+      "label": "Accent",
+      "description": "Accent bar color as #rrggbb.",
+      "order": 3
+    },
+    "speaker": {
+      "label": "Speaker",
+      "description": "Who is on screen. One group value — name, role, accent — edited as one fieldset and written in one edit, whole or not at all.",
+      "order": 1
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 2
+    }
+  }
+}

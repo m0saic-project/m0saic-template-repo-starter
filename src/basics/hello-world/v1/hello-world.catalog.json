@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/basics/hello-world/v1",
+  "label": "01 · Hello World",
+  "description": "The canonical m0saic hello-world card with this repo's subline: the brand field wipes in, a navy card rises, the M assembles from its own rectangles, then the wordmark and your greeting. The repo's front door — what `m0saic hello-world --template-repo .` renders.",
+  "tags": [
+    "basics",
+    "starter",
+    "brand",
+    "hello"
+  ],
+  "props": {
+    "greeting": {
+      "label": "Greeting",
+      "description": "The line under the wordmark — the tagline slot of the Home screen.",
+      "order": 1,
+      "primary": true
+    },
+    "caption": {
+      "label": "Caption",
+      "description": "Optional muted second line under the greeting (a URL, a name). Empty removes it.",
+      "placeholder": "none",
+      "order": 2
+    },
+    "accent": {
+      "label": "Accent",
+      "description": "Accent colour — paints the M and the wordmark's 0.",
+      "order": 3
+    },
+    "fieldOpacity": {
+      "label": "Field opacity",
+      "description": "Opacity of the brand-pattern field over the navy canvas (the Home screen uses 0.16).",
+      "order": 4
+    },
+    "sweep": {
+      "label": "Sweep from",
+      "description": "Edge the field wipes in from — the Home screen rolls one of the four each pass.",
+      "order": 5
+    },
+    "markReveal": {
+      "label": "Mark reveal",
+      "description": "How the M arrives: assembled from its 26 rectangles (the field's own language), or a plain fade.",
+      "order": 6
+    },
+    "animate": {
+      "label": "Animate",
+      "description": "Animate the build — the field wipes in, then the card, M, wordmark and greeting rise. Off renders the still poster.",
+      "order": 7
+    },
+    "debugLayout": {
+      "label": "Debug layout",
+      "description": "Dev-only: draw the layout contract (card, mark, wordmark and greeting fit their cells) instead of the card.",
+      "order": 9
+    }
+  }
+}

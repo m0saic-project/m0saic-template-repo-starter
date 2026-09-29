@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/geometry/ratio-vs-absolute/v1",
+  "label": "07 · Ratio vs Absolute",
+  "description": "A proportion contract over a pixel contract: a 1:2:1 ratio split whose sides scale with the canvas, above a placeRects band whose side rails are PINNED in px while the middle absorbs the rest. Resize the canvas and watch them disagree. Default to ratio; pin pixels only at the head canvas.",
+  "tags": [
+    "geometry",
+    "drafting-modes",
+    "lesson"
+  ],
+  "props": {
+    "railPx": {
+      "label": "Rail px",
+      "description": "Pinned width of the absolute band's side rails in px (40-1000). The ratio band ignores it — that's the point."
+    },
+    "absoluteColor": {
+      "label": "Absolute fill",
+      "description": "Fill for the bottom (absolute) band's middle rect as #rrggbb."
+    }
+  }
+}

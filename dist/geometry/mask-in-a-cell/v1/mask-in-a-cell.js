@@ -12,27 +12,19 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     matchAspect: {
         type: "boolean",
         required: false,
-        description: "true: mask bounds match the cell aspect (diamond stays a diamond). false: square bounds stretched over the cell — the silent smear this lesson exists to show.",
-        meta: { ui: { label: "Match cell aspect" } },
     },
     shapeColor: {
         type: "string",
         required: false,
-        description: "Shape fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#c0392b" },
-            ui: { label: "Shape color" },
         },
     },
 });
 exports.MaskInACellV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "12 · Mask in a Cell",
-    version: 1,
-    description: "A diamond as it should be built: a color tile with an inline SVG-path mask inside a plain ratio cell. Bounds scale onto the cell PER AXIS — match their aspect to the cell or the shape silently smears. Flip the toggle to see both.",
     capabilities: { tier: "core" },
-    tags: ["geometry", "masks", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

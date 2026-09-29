@@ -35,34 +35,28 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     mix: {
         type: "number[]",
         required: false,
-        description: "The timeline mix. flavor weights + the schema-declared labels render an auto-balancing slider group summing to 100; the value is one weight per label, order-paired.",
         meta: {
             constraints: { minItems: 3, maxItems: 3 },
             control: {
                 flavor: "weights",
                 weights: { labels: exports.MIX_LABELS },
             },
-            ui: { label: "Mix", order: 1 },
         },
     },
     bandColor: {
         type: "string",
         required: false,
-        description: "Accent fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#2e86c1" },
-            ui: { label: "Band color", order: 2 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 3 },
         },
     },
 });
@@ -75,11 +69,7 @@ function shade(hex) {
 }
 exports.WeightsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "23 · Weights",
-    version: 1,
-    description: "A distribution the user drags, not numbers the user types: flavor weights plus a schema-declared label set renders a number[] prop as an auto-balancing slider group holding a constant 100. One weight per label, order-paired — the labels live in the schema so the value stays pure numbers. Both the field and this render normalize forgiving-ly (stale or hand-typed values become a sane distribution), and the bands below are a weightedSplit fed directly by the prop: drag a slider, move a wall.",
     capabilities: { tier: "core" },
-    tags: ["controls", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

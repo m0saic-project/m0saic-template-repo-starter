@@ -12,17 +12,12 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     images: {
         type: "media[]",
         required: false,
-        description: "Images from a folder. The folder picker fills the array with raw paths; the first 8 render.",
-        meta: { control: { picker: "folder", accept: ["image"] }, ui: { label: "Images" } },
+        meta: { control: { picker: "folder", accept: ["image"] }, },
     },
 });
 exports.FolderContactStripV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "33 · Folder Contact Strip",
-    version: 1,
-    description: "type:\"media[]\" + the folder picker: the prop arrives as an array of raw paths, each probed by the host — the template maps them to per-file asset entries and media sources, and the strip resplits to the count (first 8).",
     capabilities: { tier: "core" },
-    tags: ["media", "folder", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

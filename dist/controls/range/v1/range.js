@@ -41,7 +41,6 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     hold: {
         type: "json",
         required: false,
-        description: "Seconds each slide holds. Flat number = exactly this; { low, high } = vary per slide; add once: true = pick one value and keep it. The control records intent; the template owns what a 'use' means.",
         meta: {
             constraints: { min: MIN_S, max: MAX_S },
             control: {
@@ -55,27 +54,22 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
                 },
                 step: 0.5,
             },
-            ui: { label: "Hold", order: 1 },
         },
     },
     bandColor: {
         type: "string",
         required: false,
-        description: "Accent fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#2e86c1" },
-            ui: { label: "Band color", order: 2 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 3 },
         },
     },
 });
@@ -88,11 +82,7 @@ function shade(hex) {
 }
 exports.RangeV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "25 · Range",
-    version: 1,
-    description: "A number allowed to be a range: flavor range gives one prop three intents, readable off the value shape — a flat number (use exactly this), { low, high } (sample fresh per use), or { low, high, once: true } (sample one value, reuse it; once is never written false). collapsible renders the flat/range toggle, allowOnce the pick-once toggle with its onceLabel. The control records intent only; this render VISUALIZES it on a scale instead of sampling, because dice belong to templates with a seed prop.",
     capabilities: { tier: "core" },
-    tags: ["controls", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

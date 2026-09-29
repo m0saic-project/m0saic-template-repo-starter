@@ -16,33 +16,24 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     copy: {
         type: "string",
         required: false,
-        description: "The copy to fit into the box. Keep it ASCII — the bundled font renders exotic codepoints as tofu.",
-        meta: { control: { placeholder: DEFAULT_COPY }, ui: { label: "Copy" } },
     },
     mode: {
         type: "string",
         required: false,
-        description: "\"fit-block\": wrap and shrink until the block fits (stays readable). \"one-line\": refuse to wrap, shrink until it fits on one line (goes small fast). \"unfitted\": draw at the max size with no measurement — the clipping this lesson exists to show.",
-        meta: { constraints: { oneOf: [...MODES] }, ui: { label: "Mode" } },
+        meta: { constraints: { oneOf: [...MODES] }, },
     },
     boxWidthPct: {
         type: "number",
         required: false,
-        description: "Box width as a percent of the canvas. Narrow it and watch each mode react differently.",
         meta: {
             constraints: { min: 40, max: 100 },
             control: { step: 10 },
-            ui: { label: "Box width %" },
         },
     },
 });
 exports.FitTextV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "42 · Fit Text",
-    version: 1,
-    description: "Nothing soft-wraps — fitting is the template's job. One box, three fitting strategies (wrap the block, force one line, skip fitting and clip), and a caption printing the measured width against the box so the trade is arithmetic instead of vibes.",
     capabilities: { tier: "core" },
-    tags: ["text", "layout", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

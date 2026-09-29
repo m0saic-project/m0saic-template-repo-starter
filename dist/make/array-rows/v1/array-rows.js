@@ -49,7 +49,6 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
         // The 0.3.0 prop type: an array of objects, declared plainly - no cast.
         type: "array",
         required: false,
-        description: "Up to 6 rows of {sku, qty, color}. flavor objectRows + columns edits them as a form; on the canvas every cell is a leaf handle (bindPropPath with a path AND a kind), an empty qty removes its row, and the empty last row adds one.",
         meta: {
             constraints: {
                 jsonSchema: {
@@ -75,27 +74,20 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
                 ],
                 palette: exports.ROW_PALETTE,
             },
-            ui: { label: "Items", order: 1 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 2 },
         },
     },
 });
 exports.ArrayRowsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "85 · Array Rows",
-    version: 1,
-    description: "A type \"array\" prop, declared plainly and edited as rows: flavor objectRows + columns in the panel, and on the canvas every cell is a leaf handle - bindPropPath with a path AND a kind, onClear removing the row, and the empty last row bound as the add handle.",
     capabilities: { tier: "core" },
-    tags: ["make", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

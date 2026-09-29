@@ -78,45 +78,36 @@ const propsSchema = definePropsSchema<LatticeGuttersProps>({
   rows: {
     type: "number",
     required: false,
-    description: "Grid rows (2-4).",
-    meta: { constraints: { min: 2, max: 4 }, control: { step: 1 }, ui: { label: "Rows" } },
+    meta: { constraints: { min: 2, max: 4 }, control: { step: 1 }, },
   },
   cols: {
     type: "number",
     required: false,
-    description: "Grid columns (2-6).",
-    meta: { constraints: { min: 2, max: 6 }, control: { step: 1 }, ui: { label: "Columns" } },
+    meta: { constraints: { min: 2, max: 6 }, control: { step: 1 }, },
   },
   gutterPx: {
     type: "number",
     required: false,
-    description: "Gutter between cells in pixels (2-48) — exact at every canvas.",
-    meta: { constraints: { min: 2, max: 48 }, control: { step: 1 }, ui: { label: "Gutter" } },
+    meta: { constraints: { min: 2, max: 48 }, control: { step: 1 }, },
   },
   marginPx: {
     type: "number",
     required: false,
-    description: "Outer margin in pixels (0-64).",
-    meta: { constraints: { min: 0, max: 64 }, control: { step: 1 }, ui: { label: "Margin" } },
+    meta: { constraints: { min: 0, max: 64 }, control: { step: 1 }, },
   },
   gutterMode: {
     type: "string",
     required: false,
-    description:
-      "Same lattice, two spellings: \"inset\" keeps a tiny grid string with gutters as leaf-private insets; \"split\" spells gutters/margins as real cells at pixel precision — watch chars and the precision floor balloon.",
     meta: {
       constraints: { oneOf: ["inset", "split"] },
-      ui: { label: "Gutter mode" },
     },
   },
   tileColor: {
     type: "string",
     required: false,
-    description: "Tile fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#21618c" },
-      ui: { label: "Tile color" },
     },
   },
 });
@@ -157,12 +148,7 @@ function axisSegments(
 
 export const LatticeGuttersV1 = defineMosaicTemplate<LatticeGuttersProps>({
   id: asTemplateId(ID),
-  label: "09 · Lattice Gutters",
-  version: 1,
-  description:
-    "Base × fiber: a plain gutterless grid with pixel-exact gutters as per-cell placement insets (latticeCellInset) — or flip Gutter mode to spell the SAME lattice as real split cells and watch the string length and precision floor balloon. The caption prints the receipts.",
   capabilities: { tier: "core" },
-  tags: ["geometry", "gutters", "lesson"],
 
   outputHints: {
     width: 1280,

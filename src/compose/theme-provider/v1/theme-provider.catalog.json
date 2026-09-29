@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/compose/theme-provider/v1",
+  "label": "52 · Theme Provider",
+  "description": "The PRODUCER half of theming: publishTheme(tokens, { alias }) emits a data source carrying a token set, and every downstream template reading that alias picks it up. One mode prop re-skins the whole chain; the swatches show what is being published.",
+  "tags": [
+    "compose",
+    "theming",
+    "producer",
+    "lesson"
+  ],
+  "props": {
+    "mode": {
+      "label": "Mode",
+      "description": "Which palette to publish. This one prop re-skins every consumer downstream — the reason a producer is a TEMPLATE and not a constant."
+    },
+    "alias": {
+      "label": "Alias",
+      "description": "The upstream channel name consumers read. Default \"theme\" — change it only when two producers would otherwise collide.",
+      "placeholder": "theme"
+    }
+  }
+}

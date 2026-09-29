@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/geometry/overlay-stack/v1",
+  "label": "08 · Overlay Stack",
+  "description": "1{3[-,1{1},-]}: a full-canvas base, a centered band on its overlay, a badge on the band's overlay. Overlays restore their node's whole rect and paint after it — walk order IS paint order IS source-binding order.",
+  "tags": [
+    "geometry",
+    "overlay",
+    "lesson"
+  ],
+  "props": {
+    "baseColor": {
+      "label": "Base color",
+      "description": "Base (bottom layer) fill as #rrggbb."
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Band (middle layer) fill as #rrggbb."
+    }
+  }
+}

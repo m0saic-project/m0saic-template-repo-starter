@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/data/data-card/v1",
+  "label": "65 · Data Card",
+  "description": "The consumer end of a data chain: read ctx.upstreamData[alias] and draw it. Producer, adapter and consumer agree on an alias and a shape — never on each other's ids — and the card says which alias it read so a broken chain is visible in the picture.",
+  "tags": [
+    "data",
+    "consumer",
+    "lesson"
+  ],
+  "props": {
+    "alias": {
+      "label": "Alias",
+      "description": "Upstream block to draw. Matches what the adapter published — the alias is the whole coupling between them.",
+      "placeholder": "seriesStats"
+    },
+    "title": {
+      "label": "Title",
+      "description": "Headline above the values.",
+      "placeholder": "Series"
+    },
+    "sampleData": {
+      "label": "Sample data",
+      "description": "Draw built-in numbers when no upstream block arrived, so the card is layoutable before the chain exists. Off, it reports the gap instead."
+    }
+  }
+}

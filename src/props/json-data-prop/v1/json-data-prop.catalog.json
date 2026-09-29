@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/props/json-data-prop/v1",
+  "label": "17 · JSON Data Prop",
+  "description": "Structured data through one type:\"json\" prop — the host hands render() the parsed value, render() collects EVERY shape problem into one remedy-bearing error, and the records become geometry: one proportional bar per row.",
+  "tags": [
+    "props",
+    "data",
+    "lesson"
+  ],
+  "props": {
+    "data": {
+      "label": "Data",
+      "description": "Records to chart: an array of 1-6 objects shaped {label: 1-12 ASCII chars, value: 1-100}."
+    }
+  }
+}

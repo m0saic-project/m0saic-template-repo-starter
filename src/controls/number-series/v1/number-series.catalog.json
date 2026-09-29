@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/controls/number-series/v1",
+  "label": "22 · Number Series",
+  "description": "Chart data edited as tabs of numeric rows: flavor numberSeries gives a json prop one tab per series, and the value round-trips flat (number[]) for one series and nested (number[][]) for several — so render normalizes both shapes before drawing, the same tolerance that keeps hand-authored files working. Renders grouped bars against the shared maximum. numberList is the single-series sibling: same contract minus the tabs.",
+  "tags": [
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "values": {
+      "label": "Values",
+      "description": "Chart values. flavor numberSeries renders a tabbed multi-series editor; the value round-trips as flat number[] for one series and number[][] for several — render normalizes both.",
+      "order": 1
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 2
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 3
+    }
+  }
+}

@@ -14,43 +14,31 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     title: {
         type: "string",
         required: false,
-        description: "Headline, accent panel.",
-        meta: { ui: { label: "Title", order: 1 } },
     },
     body: {
         type: "string",
         required: false,
-        description: "Supporting line, body panel.",
-        meta: { ui: { label: "Body", order: 2 } },
     },
     accentColor: {
         type: "string",
         required: false,
-        description: "Accent panel fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#2471a3" },
-            ui: { label: "Accent color", order: 3 },
         },
     },
     panelColor: {
         type: "string",
         required: false,
-        description: "Body panel fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Panel color", order: 4 },
         },
     },
 });
 exports.AspectAdaptiveCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "05 · Aspect-Adaptive Card",
-    version: 1,
-    description: "One template, every aspect: reads ctx.target, flips columns to rows on portrait, prints its decision live, and fits svg-rasterized text to the panels it computed. Teaches the rule that prevents the classic nested-render bug — size off ctx.target, never ctx.output.",
     capabilities: { tier: "core" },
-    tags: ["basics", "ctx", "layout"],
     outputHints: {
         width: 1280,
         height: 720,

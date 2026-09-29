@@ -12,17 +12,11 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     weights: {
         type: "number[]",
         required: false,
-        description: "Column weights shared by both rows (2-6 positive integers). Try [25,50,25] vs [1,2,1] — the optimized row emits the same string for both.",
-        meta: { ui: { label: "Weights" } },
     },
 });
 exports.GcdCollapseV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "06 · GCD Collapse",
-    version: 1,
-    description: "Two rows, same weights: literal mode keeps all 100 slots, the default optimized mode GCD-collapses to 4. At friendly widths they're identical; at hostile widths the 100-slot row's seams visibly drift while the 4-slot row stays tight. Labels print slots, DSL length, and the measured spread at this very canvas.",
     capabilities: { tier: "core" },
-    tags: ["geometry", "quantization", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

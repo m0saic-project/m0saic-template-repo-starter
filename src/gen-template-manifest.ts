@@ -135,26 +135,25 @@ export function buildStarterManifest(): MosaicTemplateRepoManifest {
   const seenTemplateIds = new Set<string>();
   const seenExports = new Set<string>();
 
+  /* What each template is called and how it is described comes from its
+   * catalog sidecar (m0saic 0.3.1) — applied to the exported templates when the
+   * entry declared the catalog. */
+  const byId = new Map(templates.map((t) => [String(t.id), t]));
+
   /* Curriculum ordinals. Browse UIs sort by name or slug, so array order
    * never reaches the reader — the number in the title is what carries the
    * reading order across. It is derived from CHAPTERS order here and only
-   * CHECKED against what the files say, so a renumber is a build error
-   * rather than a silent disagreement. */
-  const labelById = new Map(templates.map((t) => [String(t.id), String(t.label ?? "")]));
+   * CHECKED against the catalog label, so a renumber is a build error rather
+   * than a silent disagreement. */
   const ordinalOf = (index: number): string => String(index + 1).padStart(2, "0");
 
   for (const [index, entry] of templateRegistry.entries()) {
     const expected = `${ordinalOf(index)} · `;
+    const label = String(byId.get(entry.templateId)?.label ?? "");
     assert(
-      entry.title.startsWith(expected),
-      `Entry "${entry.templateId}" is #${ordinalOf(index)} in curriculum order, so its ` +
-        `title must start with "${expected}" — got "${entry.title}"`,
-    );
-    const label = labelById.get(entry.templateId);
-    assert(
-      label === undefined || label.startsWith(expected),
-      `Template "${entry.templateId}" label must start with "${expected}" to match its ` +
-        `registry row — got "${label}"`,
+      label.startsWith(expected),
+      `Template "${entry.templateId}" is #${ordinalOf(index)} in curriculum order, so its ` +
+        `catalog label must start with "${expected}" — got "${label}" (edit its <slug>.catalog.json)`,
     );
   }
 
@@ -192,9 +191,14 @@ export function buildStarterManifest(): MosaicTemplateRepoManifest {
     assert(!seenExports.has(entry.exportName), `Duplicate exportName: "${entry.exportName}"`);
     seenExports.add(entry.exportName);
 
+    const described = byId.get(entry.templateId);
     assert(
-      Array.isArray(entry.tags) && entry.tags.length > 0,
-      `Entry "${entry.templateId}" needs at least one tag`,
+      Array.isArray(described?.tags) && described!.tags!.length > 0,
+      `Template "${entry.templateId}" needs at least one tag in its catalog sidecar`,
+    );
+    assert(
+      typeof described?.description === "string" && described.description.trim().length > 0,
+      `Template "${entry.templateId}" needs a description in its catalog sidecar`,
     );
   }
 
@@ -229,12 +233,13 @@ export function buildStarterManifest(): MosaicTemplateRepoManifest {
         preview.poster = preview.video;
       }
 
+      const described = byId.get(templateKey)!;
       return {
         slug: entry.slug,
         templateKey: templateKey as TemplateKey,
-        title: entry.title,
-        description: entry.description,
-        tags: entry.tags,
+        title: String(described.label),
+        description: String(described.description),
+        tags: [...(described.tags ?? [])],
         pack: parsed[1],
         preview,
       };

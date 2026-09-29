@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/media/url-asset/v1",
+  "label": "40 · URL Asset",
+  "description": "The {kind:\"url\"} asset: a manifest entry pointing at remote media the HOST fetches at render time — with the costs stated on canvas: offline fails, bytes can drift, no probe before fetch. Prefer {kind:\"file\"} for anything reproducible.",
+  "tags": [
+    "media",
+    "url",
+    "lesson"
+  ],
+  "props": {
+    "url": {
+      "label": "Image URL",
+      "description": "Remote image URL (https). The HOST fetches it at render time.",
+      "placeholder": "https://example.com/image.png"
+    }
+  }
+}

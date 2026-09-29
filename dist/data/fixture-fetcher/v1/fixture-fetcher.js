@@ -24,42 +24,28 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     alias: {
         type: "string",
         required: false,
-        description: "Channel name the payload is published under. Consumers read ctx.upstreamData[alias] — this string IS the coupling, not this template's id.",
-        meta: { control: { placeholder: "starterData" }, ui: { label: "Alias" } },
     },
     payload: {
         type: "json",
         required: false,
-        description: "Plain JSON object to publish instead of the built-in fixture. Becomes the data source's variables verbatim.",
-        meta: { ui: { label: "Payload" } },
     },
     connectionId: {
         type: "string",
         required: false,
-        description: "DESKTOP path. Id of a connection configured under Tools - Integrations; its secret field is read from the OS keychain, and the connection MINTS the ref so you never type one. Any registered id works - \"github@default\" ships with the app, so set a token there and name it here to watch this resolve. A GUI has no shell, which is why env: is not the desktop answer.",
-        meta: { control: { placeholder: "github@default" }, ui: { label: "Connection" } },
     },
     secretField: {
         type: "string",
         required: false,
-        description: "Which field of that connection holds the secret. Defaults to \"token\".",
-        meta: { ui: { label: "Connection field" } },
     },
     secretRef: {
         type: "string",
         required: false,
-        description: "OPTIONAL - leave empty and the template skips the secret entirely. To try one, use \"env:NAME\" and set NAME in the environment of whatever process renders (both the CLI and the desktop app resolve it). Publishes { secretResolved, secretLength } - never the value itself.",
-        meta: { control: { placeholder: "env:M0SAIC_STARTER_TOKEN" }, ui: { label: "Secret ref" } },
     },
 });
 exports.FixtureFetcherV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "63 · Fixture Fetcher",
-    version: 1,
-    description: "Where data enters: a fetcher publishes a JSON payload as a type:\"data\" source and downstream templates read it as ctx.upstreamData[alias]. Declares tier:\"capability\" so ctx.secrets exists at all, and publishes a derived marker rather than the secret.",
     // The tier is the ASK. Drop it and ctx.secrets is undefined — by design.
     capabilities: { tier: "capability", caps: {} },
-    tags: ["data", "producer", "capability", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

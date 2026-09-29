@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/props/color-props/v1",
+  "label": "16 · Color Props",
+  "description": "Color props declare themselves: isColor + colorPicker turns a string prop into a real swatch control, and the same declaration on a string[] prop gets the color-list control. A scalar panel beside a palette column, receipts on the caption.",
+  "tags": [
+    "props",
+    "color",
+    "lesson"
+  ],
+  "props": {
+    "panelColor": {
+      "label": "Panel",
+      "description": "The big panel's fill as #rrggbb."
+    },
+    "palette": {
+      "label": "Palette",
+      "description": "The swatch column as #rrggbb entries (1-8)."
+    }
+  }
+}

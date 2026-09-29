@@ -15,23 +15,17 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     seed: {
         type: "number",
         required: true,
-        description: "The shuffle seed (integer 0-2147483647). Required on purpose: randomness must be reproducible, so the seed is a prop, never Math.random.",
-        meta: { constraints: { min: 0, max: 2147483647 }, control: { step: 1 }, ui: { label: "Seed" } },
+        meta: { constraints: { min: 0, max: 2147483647 }, control: { step: 1 }, },
     },
     tiles: {
         type: "number",
         required: false,
-        description: "How many tiles to deal (4-12).",
-        meta: { constraints: { min: 4, max: 12 }, control: { step: 1 }, ui: { label: "Tiles" } },
+        meta: { constraints: { min: 4, max: 12 }, control: { step: 1 }, },
     },
 });
 exports.SeededShuffleV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "15 · Seeded Shuffle",
-    version: 1,
-    description: "Randomness done the m0saic way: a REQUIRED seed prop feeds mulberry32, a Fisher-Yates shuffle deals the palette, and identical props render byte-identical documents. The caption prints the dealt order.",
     capabilities: { tier: "core" },
-    tags: ["props", "determinism", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

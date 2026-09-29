@@ -84,17 +84,10 @@ const propsSchema = definePropsSchema<OptionsSelectProps>({
   connectionId: {
     type: "string",
     required: false,
-    description:
-      "The sibling wire: which configured connection profile the picker resolves against. Every connection-backed control on this template reads it; switch profiles by editing one prop.",
-    meta: {
-      ui: { label: "Connection", order: 1 },
-    },
   },
   collections: {
     type: "string[]",
     required: false,
-    description:
-      "Catalog collections to feature. Options are fetched live from the connection at edit time via the fetcher kind + the connectionId sibling; at render this is a plain string[].",
     meta: {
       constraints: { minItems: 1, maxItems: MAX_PICKS },
       control: {
@@ -103,39 +96,29 @@ const propsSchema = definePropsSchema<OptionsSelectProps>({
           connectionFromProp: "connectionId",
         },
       },
-      ui: { label: "Collections", order: 2 },
     },
   },
   bandColor: {
     type: "string",
     required: false,
-    description: "Accent fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#2e86c1" },
-      ui: { label: "Band color", order: 3 },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 4 },
     },
   },
 });
 
 export const OptionsSelectV1 = defineMosaicTemplate<OptionsSelectProps>({
   id: asTemplateId(ID),
-  label: "76 · Options From a Connection",
-  version: 1,
-  description:
-    "A picker whose values live in the upstream backend, and the wire that connects them: optionsFromConnection names a registered fetcher kind, and connectionFromProp names the SIBLING PROP holding the connection id. The control reads the sibling, calls the host IPC, and fills with live rows — no id in the sibling, no fetch, and the control says so. The sibling is a normal prop: switch profiles by editing it, and it travels in saved files. Render never fetches: by then the value is a plain string[].",
   capabilities: { tier: "core" },
-  tags: ["connections", "lesson"],
 
   outputHints: {
     width: 1280,

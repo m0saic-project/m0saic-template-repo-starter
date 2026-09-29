@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/geometry/lattice-gutters/v1",
+  "label": "09 · Lattice Gutters",
+  "description": "Base × fiber: a plain gutterless grid with pixel-exact gutters as per-cell placement insets (latticeCellInset) — or flip Gutter mode to spell the SAME lattice as real split cells and watch the string length and precision floor balloon. The caption prints the receipts.",
+  "tags": [
+    "geometry",
+    "gutters",
+    "lesson"
+  ],
+  "props": {
+    "rows": {
+      "label": "Rows",
+      "description": "Grid rows (2-4)."
+    },
+    "cols": {
+      "label": "Columns",
+      "description": "Grid columns (2-6)."
+    },
+    "gutterPx": {
+      "label": "Gutter",
+      "description": "Gutter between cells in pixels (2-48) — exact at every canvas."
+    },
+    "marginPx": {
+      "label": "Margin",
+      "description": "Outer margin in pixels (0-64)."
+    },
+    "gutterMode": {
+      "label": "Gutter mode",
+      "description": "Same lattice, two spellings: \"inset\" keeps a tiny grid string with gutters as leaf-private insets; \"split\" spells gutters/margins as real cells at pixel precision — watch chars and the precision floor balloon."
+    },
+    "tileColor": {
+      "label": "Tile color",
+      "description": "Tile fill as #rrggbb."
+    }
+  }
+}

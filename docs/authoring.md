@@ -162,9 +162,12 @@ Lesson: `make/prop-bindings/v1`.
 ## Scaffolding a template
 
 `npm run new -- <pack>/<slug> --title "Human Title"` writes a template that
-already passes every build-gate convention, its test, and all the wiring
-(registry row, pack index, and for a new pack the descriptor, chapter and
-curriculum section). Edit the body; the header comment is the lesson.
+already passes every build-gate convention, its catalog sidecar
+(`<slug>.catalog.json` — the label, description, tags and each prop's label /
+hint / placeholder, none of which live in the code since m0saic 0.3.1), its
+test, and all the wiring (registry row, pack index, and for a new pack the
+descriptor, chapter and curriculum section). Edit the body; the header
+comment is the lesson.
 
 ## Layout fingerprints
 

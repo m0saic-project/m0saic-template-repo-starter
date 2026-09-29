@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/text/text-three-ways/v1",
+  "label": "41 · Text, Three Ways",
+  "description": "The same word through all three text pipelines, side by side: drawtext (ffmpeg, expr-capable, host fonts), the svg rasterizer (bundled font baked to geometry — identical app/CLI), and mask-carved glyphs (text as a mask any source can wear). All valid; different promises.",
+  "tags": [
+    "text",
+    "rasterizer",
+    "lesson"
+  ],
+  "props": {
+    "word": {
+      "label": "Word",
+      "description": "The word rendered three ways (ASCII, 1-12 chars).",
+      "placeholder": "M0saic"
+    },
+    "inkColor": {
+      "label": "Ink",
+      "description": "Ink color as #rrggbb."
+    }
+  }
+}

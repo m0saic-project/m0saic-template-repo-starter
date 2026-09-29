@@ -20,37 +20,29 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     stretchCard: {
         type: "number",
         required: false,
-        description: `Width multiplier on the third card (${MIN_S}-${MAX_S}). 1 keeps the rail uniform; anything past ~1.02 breaks the equal-size rule (tolerance 2%).`,
         meta: {
             constraints: { min: MIN_S, max: MAX_S },
             control: { flavor: "slider", step: 0.1 },
-            ui: { label: "Stretch card", order: 1 },
         },
     },
     debugLayout: {
         type: "boolean",
         required: false,
-        description: "Run the layout contract and render the CONTRACT VIEW: members green with the measured rule when it holds, the offender red among them when it breaks. Off (default) returns the document untouched.",
-        meta: { ui: { label: "Debug layout", order: 2 } },
     },
     cardColor: {
         type: "string",
         required: false,
-        description: "Card fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#2e86c1" },
-            ui: { label: "Card color", order: 3 },
         },
     },
     headerColor: {
         type: "string",
         required: false,
-        description: "Header fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#8e44ad" },
-            ui: { label: "Header color", order: 4 },
         },
     },
 });
@@ -59,11 +51,7 @@ exports.LAYOUT_RELATIONS = RELATIONS;
 exports.LAYOUT_CONSTRAINTS = CONSTRAINTS;
 exports.LayoutContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "71 · Layout Contract Card",
-    version: 1,
-    description: "Ratio invariants authored against LABELS, which survive every m0 the template regenerates. One relation makes four cards equal; debug on DRAWS the contract — green members with the measured rule, or the stretched card red among them.",
     capabilities: { tier: "core" },
-    tags: ["quality", "contracts", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

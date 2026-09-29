@@ -48,48 +48,33 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     source: {
         type: "string",
         required: false,
-        description: "\"local\": nothing arrived, the template's own constants render (the path you ship). \"upstream\": read whatever a pipeline producer published on ctx.upstreamData — standalone there is none, and it says so. \"provider\": render a producer by id right here and read it, a TUTORIAL shortcut so the merge is visible with one template open.",
-        meta: { constraints: { oneOf: [...SOURCES] }, ui: { label: "Token source" } },
+        meta: { constraints: { oneOf: [...SOURCES] }, },
     },
     providerId: {
         type: "string",
         required: false,
-        description: "Template id of the producer to call when source is \"provider\". Paste @m0saic/theming/v1 for the built-in m0saic palette, or any conforming producer — the lookup is by id against the host's registry, so nothing is imported.",
-        meta: {
-            control: { placeholder: STARTER_PROVIDER },
-            ui: { label: "Provider id" },
-        },
     },
     mode: {
         type: "string",
         required: false,
-        description: "Palette to ask the provider for. The other two sources ignore it — a pipeline producer carries its own mode.",
-        meta: { constraints: { oneOf: [...MODES] }, ui: { label: "Mode" } },
+        meta: { constraints: { oneOf: [...MODES] }, },
     },
     alias: {
         type: "string",
         required: false,
-        description: "The upstream channel name. Producer and consumer must agree on it — that, plus the token shape, IS the whole contract.",
-        meta: { control: { placeholder: "theme" }, ui: { label: "Alias" } },
     },
     accentFallback: {
         type: "string",
         required: false,
-        description: "This template's OWN accent, as #rrggbb. A producer's accent wins over it — per key, and per key only.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#EF7525" },
-            ui: { label: "Accent (local)" },
         },
     },
 });
 exports.ThemeTokensV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "53 · Theme Tokens",
-    version: 1,
-    description: "The CONSUMER half of theming, and the three places tokens come from: local constants, a pipeline producer on ctx.upstreamData, or a provider called by id right here. applyTheme overlays whatever arrived onto the template's own values, per key — so an un-themed render is unchanged and any conforming producer swaps in.",
     capabilities: { tier: "core" },
-    tags: ["compose", "theming", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

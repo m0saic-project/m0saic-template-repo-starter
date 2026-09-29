@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/text/count-up/v1",
+  "label": "43 · Count Up",
+  "description": "A drawtext counter that ramps 0 → value over the clip: content.kind \"expr\" + eval \"frame\" + renderMode \"video\", the three fields that must agree. Flip Freeze as a still to see the quiet failure when one of them doesn't.",
+  "tags": [
+    "text",
+    "expr",
+    "animation",
+    "lesson"
+  ],
+  "props": {
+    "value": {
+      "label": "Value",
+      "description": "The number the counter ramps up to over the clip's duration."
+    },
+    "suffix": {
+      "label": "Suffix",
+      "description": "Text drawn after the number. Kept literal — animateNumbersInText only animates digit runs, so \"stars\" stays \"stars\".",
+      "placeholder": "stars"
+    },
+    "label": {
+      "label": "Label",
+      "description": "Static label under the counter — an svg source, because it never changes.",
+      "placeholder": "since launch"
+    },
+    "freezeAsStill": {
+      "label": "Freeze as a still",
+      "description": "Render the counter as an image instead of video. The expression still compiles — it just never gets a second frame to evaluate on."
+    }
+  }
+}

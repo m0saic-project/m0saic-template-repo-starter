@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/make/prop-bindings/v1",
+  "label": "81 · Prop Bindings",
+  "description": "Provenance: the rect that shows a prop is bound to it, so Make's double-click edits that knob in place - and every bindable kind is on one card. bindProp for free text and a number, bindProps for a header over a subtitle (one rect, two knobs), a colour swatch whose binding opens a picker, bindProp with an index for one element of a string[] or number[], bindPropPath (path AND kind) for string / number / colour leaves of a row list, bindPropRange (line span + focus token) for one line of a multi-line string - plus a closed picker drawn as a chip that gets no pencil on purpose. Which props are bindable is decided once, in the platform; the lesson's test uses the same predicate Make does.",
+  "tags": [
+    "make",
+    "lesson"
+  ],
+  "props": {
+    "title": {
+      "label": "Title",
+      "description": "Headline - layer 0 of the header rect. bindProps binds it together with the subtitle: one rect, two knobs.",
+      "placeholder": "Bind what you show",
+      "order": 1
+    },
+    "subtitle": {
+      "label": "Subtitle",
+      "description": "Under the headline - layer 1 of the SAME header rect. Make opens the rect as a stacked two-field form.",
+      "placeholder": "every rect knows which knob drew it",
+      "order": 2
+    },
+    "accentColor": {
+      "label": "Accent",
+      "description": "The swatch's fill (#rrggbb). A colour-valued string binds with kind \"color\": double-click the swatch and Make opens a picker.",
+      "order": 3
+    },
+    "count": {
+      "label": "Count",
+      "description": "A plain number. The numeral binds it (kind \"number\"): double-click opens a numeric editor.",
+      "order": 4
+    },
+    "scores": {
+      "label": "Scores",
+      "description": "Up to 4 numbers. Each tile binds ONE element - bindProp(src, \"scores\", i). The list itself is never bindable.",
+      "order": 5
+    },
+    "bullets": {
+      "label": "Bullets",
+      "description": "Up to 4 lines. Each line is its own rect bound to ONE element - bindProp(src, \"bullets\", i). The list itself is never bindable.",
+      "order": 6
+    },
+    "rows": {
+      "label": "Rows",
+      "description": "Up to 3 rows of {name, value, color}. Each cell binds ONE leaf - bindPropPath(src, \"rows\", [i, \"name\"], \"string\") - path AND kind, because the schema carries no per-leaf type. The value leaf is kind \"number\", the swatch leaf kind \"color\".",
+      "order": 7
+    },
+    "code": {
+      "label": "Code",
+      "description": "Up to 4 lines. Each line is its own rect bound to ONE character span of this string - bindPropRange(src, \"code\", undefined, lineSpan, tokenSpan); Make pre-selects the token.",
+      "placeholder": "one line per rect",
+      "order": 8
+    },
+    "mode": {
+      "label": "Mode",
+      "description": "A closed set drawn as a chip. NOT bindable - closed pickers never are - so the chip carries no pencil.",
+      "order": 9
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 10
+    }
+  }
+}

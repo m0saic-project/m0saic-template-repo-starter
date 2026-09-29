@@ -18,18 +18,15 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     angle: {
         type: "number",
         required: false,
-        description: "Rotation in degrees, clockwise. The corner loss peaks near 45.",
         meta: {
             constraints: { min: -45, max: 45 },
             control: { step: 5 },
-            ui: { label: "Angle" },
         },
     },
     mode: {
         type: "string",
         required: false,
-        description: "\"in-place\": the rotation sits on the card, whose buffer is exactly the card — corners clip. \"headroom\": the card rides a child whose declared size is the rotated bounding box, and the rotation sits on the CHILD — same card, room to turn.",
-        meta: { constraints: { oneOf: [...MODES] }, ui: { label: "Mode" } },
+        meta: { constraints: { oneOf: [...MODES] }, },
     },
 });
 /** The axis-aligned box a w×h rect needs once rotated by `deg`. */
@@ -53,11 +50,7 @@ function centeredRect(outer, inner) {
 }
 exports.RotateHeadroomV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "48 · Rotate Headroom",
-    version: 1,
-    description: "effects.rotate spins content inside a buffer that never grows, so corners clip. The cure isn't a bigger inset — it's a child whose declared size is the rotated bounding box (W' = w·|cos θ| + h·|sin θ|), carrying the rotation instead.",
     capabilities: { tier: "core" },
-    tags: ["compose", "effects", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

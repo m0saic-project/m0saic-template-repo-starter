@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/basics/aspect-adaptive-card/v1",
+  "label": "05 · Aspect-Adaptive Card",
+  "description": "One template, every aspect: reads ctx.target, flips columns to rows on portrait, prints its decision live, and fits svg-rasterized text to the panels it computed. Teaches the rule that prevents the classic nested-render bug — size off ctx.target, never ctx.output.",
+  "tags": [
+    "basics",
+    "ctx",
+    "layout"
+  ],
+  "props": {
+    "title": {
+      "label": "Title",
+      "description": "Headline, accent panel.",
+      "order": 1
+    },
+    "body": {
+      "label": "Body",
+      "description": "Supporting line, body panel.",
+      "order": 2
+    },
+    "accentColor": {
+      "label": "Accent color",
+      "description": "Accent panel fill as #rrggbb.",
+      "order": 3
+    },
+    "panelColor": {
+      "label": "Panel color",
+      "description": "Body panel fill as #rrggbb.",
+      "order": 4
+    }
+  }
+}

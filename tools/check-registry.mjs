@@ -99,6 +99,48 @@ const printFindings = (label, findings) => {
   }
 };
 
+// ── The catalog (m0saic 0.3.1) ──────────────────────────────────────────────
+// A template's code declares what it IS; what DESCRIBES it (label,
+// description, tags, visibility, deprecation, each prop's label / hint) lives
+// in its catalog sidecar, <name>.catalog.json beside the module. Sound means:
+// every sidecar parses and sits in its template's folder, the generated
+// src/template-catalog.json is current, and every id and described prop
+// exists. (The `catalogSidecar` rule — nothing descriptive left in code — is a
+// render-time convention: Stage 2 reports it.)
+{
+  let repos = null;
+  try { repos = require("@m0saic/platform/template-repos"); } catch { repos = null; }
+  if (!repos || typeof repos.collectTemplateCatalog !== "function") {
+    fail("\n[check-registry] ✗ this repo follows the m0saic 0.3.1 template convention and needs @m0saic/platform 0.3.1 or later.\n");
+    finish(1);
+  }
+  const platform = require("@m0saic/platform");
+  const collected = repos.collectTemplateCatalog(ROOT);
+  const problems = [...collected.problems];
+  const generatedPath = path.join(ROOT, "src", "template-catalog.json");
+  const generated = fs.existsSync(generatedPath) ? fs.readFileSync(generatedPath, "utf8") : null;
+  if (generated !== repos.serializeTemplateCatalog(collected.file)) {
+    problems.push("src/template-catalog.json is stale — it is GENERATED from the <name>.catalog.json sidecars; run npm run build, never edit it");
+  }
+  const byId = new Map((Array.isArray(templates) ? templates : []).map((t) => [String(t.id), t]));
+  for (const { path: rel, templateId } of collected.sidecars) {
+    const t = byId.get(templateId);
+    if (!t) { problems.push(`${rel}: describes ${templateId}, which this repo does not export`); continue; }
+    const folder = `src/${templateId.split("/").slice(1).join("/")}`;
+    if (path.posix.dirname(rel) !== folder) problems.push(`${rel}: describes ${templateId} but sits outside its folder (${folder}) — a sidecar lives beside the template's code`);
+    for (const k of platform.unknownCatalogProps(t, collected.file.templates[templateId] ?? {})) {
+      problems.push(`${rel}: props.${k} — ${templateId} has no such prop (dotted as propsSchema nests it)`);
+    }
+  }
+  report.catalog = { sidecars: collected.sidecars.length, problems };
+  if (problems.length) {
+    fail(`\n[check-registry] ✗ CATALOG — the <name>.catalog.json sidecars:\n`);
+    for (const p of problems) fail(`    ${p}`);
+    finish(1);
+  }
+  say(`[check-registry] ✓ catalog: ${collected.sidecars.length} sidecar(s) sound, generated catalog current.`);
+}
+
 report.templates = typeof ids !== "undefined" ? ids.length : (typeof count !== "undefined" ? count : 0);
 // ── Stage 1: definition time ───────────────────────────────────────────────
 const recorded = typeof templateUtils.listTemplateConventionFindings === "function"

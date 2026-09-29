@@ -42,7 +42,6 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     segments: {
         type: "json",
         required: false,
-        description: "The breakdown rows. flavor objectRows + columns renders them as a repeating form (text / number / color cells); palette seeds new rows' colors. Plain Array<{label, value, color?}> at render.",
         meta: {
             constraints: {
                 jsonSchema: {
@@ -69,27 +68,20 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
                 ],
                 palette: exports.SEGMENT_PALETTE,
             },
-            ui: { label: "Segments", order: 1 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 2 },
         },
     },
 });
 exports.RowEditorsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "21 · Row Editors",
-    version: 1,
-    description: "An array-of-objects prop that edits like a form: flavor objectRows + columns (text / number / color cells) renders a json prop as repeating rows with add and remove, and palette seeds new rows' colors so additions arrive on-brand. The columns contract is the same one cardList grows into cards — learn it once, use it four times. At render the prop is the plain array either way; here it draws the breakdown bar this pattern most often feeds.",
     capabilities: { tier: "core" },
-    tags: ["controls", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

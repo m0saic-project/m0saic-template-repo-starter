@@ -15,14 +15,10 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     word: {
         type: "string",
         required: false,
-        description: "Rendered ONCE in the producer step. The consumer step mirrors those pixels back instead of drawing them again.",
-        meta: { control: { placeholder: "STEP 0" }, ui: { label: "Word" } },
     },
     keepProducer: {
         type: "boolean",
         required: false,
-        description: "Ship the producer step as a file too. Off, it is intermediate: it renders (the ref needs it) but never reaches the deliverable.",
-        meta: { ui: { label: "Keep producer output" } },
     },
 });
 /** Step 0 — renders the hero and publishes a pointer to it. */
@@ -95,11 +91,7 @@ function consumerStep(width, height, fps, producerIndex, durationMs, heroKey) {
 }
 exports.RefAcrossStepsV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "60 · Ref Across Steps",
-    version: 1,
-    description: "A ref with stepIndex is a BACK-EDGE: a later step shows an earlier step's exact rendered pixels, no re-render. Back-edges only (forward refs are an error), plus the handoff idiom where the producer self-stamps {stepIndex, flattenedStableKey} for the consumer to spread.",
     capabilities: { tier: "core" },
-    tags: ["pipelines", "refs", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

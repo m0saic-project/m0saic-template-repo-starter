@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/geometry/mask-in-a-cell/v1",
+  "label": "12 · Mask in a Cell",
+  "description": "A diamond as it should be built: a color tile with an inline SVG-path mask inside a plain ratio cell. Bounds scale onto the cell PER AXIS — match their aspect to the cell or the shape silently smears. Flip the toggle to see both.",
+  "tags": [
+    "geometry",
+    "masks",
+    "lesson"
+  ],
+  "props": {
+    "matchAspect": {
+      "label": "Match cell aspect",
+      "description": "true: mask bounds match the cell aspect (diamond stays a diamond). false: square bounds stretched over the cell — the silent smear this lesson exists to show."
+    },
+    "shapeColor": {
+      "label": "Shape color",
+      "description": "Shape fill as #rrggbb."
+    }
+  }
+}

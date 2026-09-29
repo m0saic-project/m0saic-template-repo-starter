@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/data/sidecar-json/v1",
+  "label": "66 · Sidecar JSON",
+  "description": "doc.sidecars writes files beside the render: each key becomes {output-basename}.{key}.json. sidecarsSchema on the template declares them, doc.sidecars carries the values — a sidecar is a file for what comes after m0saic, where a data source is an in-memory channel for the next template.",
+  "tags": [
+    "data",
+    "sidecars",
+    "lesson"
+  ],
+  "props": {
+    "note": {
+      "label": "Note",
+      "description": "Free text carried into the sidecar file — stands in for whatever a real template would record.",
+      "placeholder": "rendered by the starter repo"
+    },
+    "includeGeometry": {
+      "label": "Include geometry",
+      "description": "Add the canvas and timing to the sidecar. Useful downstream: a build step can lay out a page without opening the video."
+    }
+  }
+}

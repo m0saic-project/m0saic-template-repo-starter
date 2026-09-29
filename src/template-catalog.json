@@ -1,0 +1,2126 @@
+{
+  "schemaVersion": 1,
+  "templates": {
+    "@m0saic-starter/basics/anatomy/v1": {
+      "label": "02 · Anatomy",
+      "description": "The smallest correct template, wearing the brand: the pixel-M in a square cell over a greeting, placed with one placeInsetPieces call. A typed props surface, deterministic defaults, and a validated m0 string. Start here — this is the smoke render.",
+      "tags": [
+        "basics",
+        "starter",
+        "brand"
+      ],
+      "props": {
+        "text": {
+          "label": "Text",
+          "description": "The greeting rendered under the M.",
+          "placeholder": "Hello, m0saic"
+        },
+        "backgroundColor": {
+          "label": "Background",
+          "description": "Canvas fill as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/basics/aspect-adaptive-card/v1": {
+      "label": "05 · Aspect-Adaptive Card",
+      "description": "One template, every aspect: reads ctx.target, flips columns to rows on portrait, prints its decision live, and fits svg-rasterized text to the panels it computed. Teaches the rule that prevents the classic nested-render bug — size off ctx.target, never ctx.output.",
+      "tags": [
+        "basics",
+        "ctx",
+        "layout"
+      ],
+      "props": {
+        "title": {
+          "label": "Title",
+          "description": "Headline, accent panel.",
+          "order": 1
+        },
+        "body": {
+          "label": "Body",
+          "description": "Supporting line, body panel.",
+          "order": 2
+        },
+        "accentColor": {
+          "label": "Accent color",
+          "description": "Accent panel fill as #rrggbb.",
+          "order": 3
+        },
+        "panelColor": {
+          "label": "Panel color",
+          "description": "Body panel fill as #rrggbb.",
+          "order": 4
+        }
+      }
+    },
+    "@m0saic-starter/basics/color-tiles/v1": {
+      "label": "04 · Color Tiles",
+      "description": "Three equal columns, one makeColorTile each — the sources[]-to-tiles mapping, the lavfi color-tile convention, and document.backgroundColor instead of a wasted base layer.",
+      "tags": [
+        "basics",
+        "layout",
+        "color"
+      ],
+      "props": {
+        "colors": {
+          "label": "Tile colors",
+          "description": "Tile fills, left to right (#rrggbb each). 2-8 columns."
+        },
+        "backgroundColor": {
+          "label": "Background",
+          "description": "Document background fill as #rrggbb."
+        },
+        "gap": {
+          "label": "Gap",
+          "description": "Margin around each tile, in weight units against the tile's 10 (0-6); neighbours share two margins, so the gutter between tiles is twice that. The gaps are NULL cells — they paint nothing, so the document background shows through them. Set 0 for edge-to-edge tiles and the background disappears entirely."
+        }
+      }
+    },
+    "@m0saic-starter/basics/hello-world/v1": {
+      "label": "01 · Hello World",
+      "description": "The canonical m0saic hello-world card with this repo's subline: the brand field wipes in, a navy card rises, the M assembles from its own rectangles, then the wordmark and your greeting. The repo's front door — what `m0saic hello-world --template-repo .` renders.",
+      "tags": [
+        "basics",
+        "starter",
+        "brand",
+        "hello"
+      ],
+      "props": {
+        "greeting": {
+          "label": "Greeting",
+          "description": "The line under the wordmark — the tagline slot of the Home screen.",
+          "order": 1,
+          "primary": true
+        },
+        "caption": {
+          "label": "Caption",
+          "description": "Optional muted second line under the greeting (a URL, a name). Empty removes it.",
+          "placeholder": "none",
+          "order": 2
+        },
+        "accent": {
+          "label": "Accent",
+          "description": "Accent colour — paints the M and the wordmark's 0.",
+          "order": 3
+        },
+        "fieldOpacity": {
+          "label": "Field opacity",
+          "description": "Opacity of the brand-pattern field over the navy canvas (the Home screen uses 0.16).",
+          "order": 4
+        },
+        "sweep": {
+          "label": "Sweep from",
+          "description": "Edge the field wipes in from — the Home screen rolls one of the four each pass.",
+          "order": 5
+        },
+        "markReveal": {
+          "label": "Mark reveal",
+          "description": "How the M arrives: assembled from its 26 rectangles (the field's own language), or a plain fade.",
+          "order": 6
+        },
+        "animate": {
+          "label": "Animate",
+          "description": "Animate the build — the field wipes in, then the card, M, wordmark and greeting rise. Off renders the still poster.",
+          "order": 7
+        },
+        "debugLayout": {
+          "label": "Debug layout",
+          "description": "Dev-only: draw the layout contract (card, mark, wordmark and greeting fit their cells) instead of the card.",
+          "order": 9
+        }
+      }
+    },
+    "@m0saic-starter/basics/hot-reload-canary/v1": {
+      "label": "03 · Hot-Reload Canary",
+      "description": "A solid square whose fill comes from a CONSTANT in the template source, not a prop default. Flip the constant, rebuild, hit Refresh repos — the running app must follow without a restart. This is how you verify your edit loop.",
+      "tags": [
+        "basics",
+        "starter",
+        "smoke"
+      ],
+      "props": {
+        "color": {
+          "label": "Override fill",
+          "description": "Optional fill override (#rrggbb). Unset: the CANARY_COLOR constant baked into the template source.",
+          "placeholder": "module constant CANARY_COLOR"
+        }
+      }
+    },
+    "@m0saic-starter/compose/camera-follow/v1": {
+      "label": "51 · Camera Follow",
+      "description": "A keyframed camera walk described as rects and times: followCamera turns targets into per-frame focus expressions over a child mosaic's own coordinate space, with an optional pull-back — and viewport rects showing exactly what each settle will frame.",
+      "tags": [
+        "compose",
+        "camera",
+        "animation",
+        "lesson"
+      ],
+      "props": {
+        "zoom": {
+          "label": "Zoom",
+          "description": "Camera zoom. At 1 followCamera returns undefined — no camera at all, which the template has to handle rather than assume."
+        },
+        "pullBack": {
+          "label": "Pull back at the end",
+          "description": "Ease back to the full view after the last target and hold there — the standard end of a camera walk."
+        },
+        "showViewport": {
+          "label": "Show viewport rects",
+          "description": "Draw the crop window the camera will frame at each target, via cameraViewportRect — the same math a camera debugger uses."
+        }
+      }
+    },
+    "@m0saic-starter/compose/child-mosaic/v1": {
+      "label": "47 · Child Mosaic",
+      "description": "A complete document rendered inside one tile: children + a {type:\"mosaic\", ref} source, evaluated bottom-up. The child's grid grows while the parent's m0 stays two cells — and a procedural child keeps its aspect only if it declares its own size.",
+      "tags": [
+        "compose",
+        "children",
+        "lesson"
+      ],
+      "props": {
+        "childGrid": {
+          "label": "Child grid",
+          "description": "The child document's grid (N×N). Raise it and watch the PARENT's m0 stay exactly the same length — that is the point."
+        },
+        "declareChildSize": {
+          "label": "Declare child size",
+          "description": "Declare a square `size` on the child. A procedural child has no media to measure, so this is its ONLY aspect signal — without it the child renders at the parent tile's shape and its square cells stretch."
+        }
+      }
+    },
+    "@m0saic-starter/compose/nested-badge/v1": {
+      "label": "50 · Nested Badge",
+      "description": "The child half of compose/nested-template: a badge that sizes everything off ctx.target, so it fills whatever slot the caller gives it. Marked internal — not a top-level pick, but it renders standalone, which is how you debug a child.",
+      "tags": [
+        "compose",
+        "internal",
+        "lesson"
+      ],
+      "internal": true,
+      "props": {
+        "text": {
+          "label": "Text",
+          "description": "The badge's line of text — fitted to whatever box the caller hands over.",
+          "placeholder": "nested"
+        },
+        "accent": {
+          "label": "Accent",
+          "description": "Accent rail color as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/compose/nested-template/v1": {
+      "label": "49 · Nested Template",
+      "description": "renderNestedTemplate calls another registered template and returns a document to drop into children. The slot option is the lesson: hand the child its real pixel box and it lays itself out for that box instead of for your canvas.",
+      "tags": [
+        "compose",
+        "children",
+        "lesson"
+      ],
+      "props": {
+        "badgeText": {
+          "label": "Badge text",
+          "description": "Text handed down to the badge child as its own prop. Parent props in, child props out — nothing shared but the call.",
+          "placeholder": "nested"
+        },
+        "slotPct": {
+          "label": "Slot %",
+          "description": "Badge slot width as a percent of the canvas. This number becomes the child's ctx.target.width — watch the badge re-fit itself, not stretch."
+        }
+      }
+    },
+    "@m0saic-starter/compose/reduce-to-one/v1": {
+      "label": "54 · Reduce to One",
+      "description": "The same grid spelled two ways: inline (the parent's m0 grows with the density) or pushed into a child (the parent stays one cell). Identical pixels, and the caption prints both string lengths so the refactor's cost and benefit are numbers.",
+      "tags": [
+        "compose",
+        "complexity",
+        "lesson"
+      ],
+      "props": {
+        "mode": {
+          "label": "Mode",
+          "description": "\"flat\": the grid is spelled inline, so the PARENT's m0 grows with the density. \"reduced\": the grid moves into a child and the parent collapses to one cell — same pixels, different string."
+        },
+        "density": {
+          "label": "Density",
+          "description": "Grid density (N×N cells). Raise it and watch only ONE of the two spellings get longer."
+        }
+      }
+    },
+    "@m0saic-starter/compose/rotate-headroom/v1": {
+      "label": "48 · Rotate Headroom",
+      "description": "effects.rotate spins content inside a buffer that never grows, so corners clip. The cure isn't a bigger inset — it's a child whose declared size is the rotated bounding box (W' = w·|cos θ| + h·|sin θ|), carrying the rotation instead.",
+      "tags": [
+        "compose",
+        "effects",
+        "lesson"
+      ],
+      "props": {
+        "angle": {
+          "label": "Angle",
+          "description": "Rotation in degrees, clockwise. The corner loss peaks near 45."
+        },
+        "mode": {
+          "label": "Mode",
+          "description": "\"in-place\": the rotation sits on the card, whose buffer is exactly the card — corners clip. \"headroom\": the card rides a child whose declared size is the rotated bounding box, and the rotation sits on the CHILD — same card, room to turn."
+        }
+      }
+    },
+    "@m0saic-starter/compose/theme-provider/v1": {
+      "label": "52 · Theme Provider",
+      "description": "The PRODUCER half of theming: publishTheme(tokens, { alias }) emits a data source carrying a token set, and every downstream template reading that alias picks it up. One mode prop re-skins the whole chain; the swatches show what is being published.",
+      "tags": [
+        "compose",
+        "theming",
+        "producer",
+        "lesson"
+      ],
+      "props": {
+        "mode": {
+          "label": "Mode",
+          "description": "Which palette to publish. This one prop re-skins every consumer downstream — the reason a producer is a TEMPLATE and not a constant."
+        },
+        "alias": {
+          "label": "Alias",
+          "description": "The upstream channel name consumers read. Default \"theme\" — change it only when two producers would otherwise collide.",
+          "placeholder": "theme"
+        }
+      }
+    },
+    "@m0saic-starter/compose/theme-tokens/v1": {
+      "label": "53 · Theme Tokens",
+      "description": "The CONSUMER half of theming, and the three places tokens come from: local constants, a pipeline producer on ctx.upstreamData, or a provider called by id right here. applyTheme overlays whatever arrived onto the template's own values, per key — so an un-themed render is unchanged and any conforming producer swaps in.",
+      "tags": [
+        "compose",
+        "theming",
+        "lesson"
+      ],
+      "props": {
+        "source": {
+          "label": "Token source",
+          "description": "\"local\": nothing arrived, the template's own constants render (the path you ship). \"upstream\": read whatever a pipeline producer published on ctx.upstreamData — standalone there is none, and it says so. \"provider\": render a producer by id right here and read it, a TUTORIAL shortcut so the merge is visible with one template open."
+        },
+        "providerId": {
+          "label": "Provider id",
+          "description": "Template id of the producer to call when source is \"provider\". Paste @m0saic/theming/v1 for the built-in m0saic palette, or any conforming producer — the lookup is by id against the host's registry, so nothing is imported.",
+          "placeholder": "@m0saic-starter/compose/theme-provider/v1"
+        },
+        "mode": {
+          "label": "Mode",
+          "description": "Palette to ask the provider for. The other two sources ignore it — a pipeline producer carries its own mode."
+        },
+        "alias": {
+          "label": "Alias",
+          "description": "The upstream channel name. Producer and consumer must agree on it — that, plus the token shape, IS the whole contract.",
+          "placeholder": "theme"
+        },
+        "accentFallback": {
+          "label": "Accent (local)",
+          "description": "This template's OWN accent, as #rrggbb. A producer's accent wins over it — per key, and per key only."
+        }
+      }
+    },
+    "@m0saic-starter/connections/cards-picker/v1": {
+      "label": "77 · Cards Picker",
+      "description": "Pick upstream results by their artwork: picker \"cards\" turns a string[] prop's connection-backed multi-select into an image-card grid. cardAspect and cardFit are declared by the template because they are properties of the connection kind being queried (wide cover-fit for catalog stills); the heavy art itself rides a companion images fetcher, resolved lazily per visible page as data URIs, never inlined into the options list. At render the prop is a plain string[] — the artwork's only job was making the pick rich.",
+      "tags": [
+        "connections",
+        "lesson"
+      ],
+      "props": {
+        "connectionId": {
+          "label": "Connection",
+          "description": "The sibling wire (lesson 76): which configured connection profile the artwork picker resolves against.",
+          "order": 1
+        },
+        "itemIds": {
+          "label": "Items",
+          "description": "Catalog items to feature, picked by artwork. The expanded picker renders wide cover-fit cards with art resolved lazily from the connection; without images it degrades to a text list.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/connections/criteria-filter/v1": {
+      "label": "79 · Criteria Filter",
+      "description": "A query as a prop: flavor criteriaFilter + a criteria catalog declares which criteria exist (search / number / boolean / idSet with modifiers), and the editor renders the filter builder by KIND — keys and labels stay opaque, so the control works for any catalog. The idSet's options ride the same optionsFromConnection machinery as the chapter's other pickers, through the connectionId wire. The value is a flat AND-object, absent key = unset, drawn here as the saved-search card it is — carrying intent precisely is the prop's whole job; executing the query belongs to the data chapter.",
+      "tags": [
+        "connections",
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "connectionId": {
+          "label": "Connection",
+          "description": "The sibling wire (lesson 76): which configured connection profile the Collections idSet picker reads.",
+          "order": 1
+        },
+        "filter": {
+          "label": "Filter",
+          "description": "The query: a flat AND of set criteria — absent key means unset. search (text), collections (idSet from the connection), duration in seconds (number with modifiers), featured (boolean).",
+          "order": 2
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 3
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 4
+        }
+      }
+    },
+    "@m0saic-starter/connections/host-connection/v1": {
+      "label": "75 · Host Connection",
+      "description": "A template pack can teach the host a new kind of backend: registerHostConnection declares the Settings → Integrations form (base URL + keychain secret) and the Test-connection probe (reachable / authenticated / named failure). Registration is a module-eval side effect — importing the chapter makes starter-catalog@default exist — and the publisher half of the id must match the schema or registration throws. This card renders the REAL registered schema, not a mockup.",
+      "tags": [
+        "connections",
+        "lesson"
+      ],
+      "props": {
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 1
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 2
+        }
+      }
+    },
+    "@m0saic-starter/connections/multi-select/v1": {
+      "label": "78 · Connection Multi-Select",
+      "description": "Cards of chips, each chip a rich pick: a json prop with flavor cardList renders as a repeating card editor, and a connectionMultiSelect column gives every card a chips row backed by the connection's options — with groupByKey sectioning the picker modal by an option field (the catalog's collections). The value stays boring on purpose: plain Array<{label, itemIds}> JSON, identical whether it was picked from the modal or typed by hand — which is exactly why CLI and app renders agree.",
+      "tags": [
+        "connections",
+        "lesson"
+      ],
+      "props": {
+        "connectionId": {
+          "label": "Connection",
+          "description": "The sibling wire (lesson 76): which configured connection profile every card's chip picker resolves against.",
+          "order": 1
+        },
+        "mixes": {
+          "label": "Mixes",
+          "description": "The mixes: repeating cards, each a label plus catalog items picked as chips from the grouped connection modal. Plain JSON at render — Array<{label, itemIds}>.",
+          "order": 2
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 3
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 4
+        }
+      }
+    },
+    "@m0saic-starter/connections/options-select/v1": {
+      "label": "76 · Options From a Connection",
+      "description": "A picker whose values live in the upstream backend, and the wire that connects them: optionsFromConnection names a registered fetcher kind, and connectionFromProp names the SIBLING PROP holding the connection id. The control reads the sibling, calls the host IPC, and fills with live rows — no id in the sibling, no fetch, and the control says so. The sibling is a normal prop: switch profiles by editing it, and it travels in saved files. Render never fetches: by then the value is a plain string[].",
+      "tags": [
+        "connections",
+        "lesson"
+      ],
+      "props": {
+        "connectionId": {
+          "label": "Connection",
+          "description": "The sibling wire: which configured connection profile the picker resolves against. Every connection-backed control on this template reads it; switch profiles by editing one prop.",
+          "order": 1
+        },
+        "collections": {
+          "label": "Collections",
+          "description": "Catalog collections to feature. Options are fetched live from the connection at edit time via the fetcher kind + the connectionId sibling; at render this is a plain string[].",
+          "order": 2
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 3
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 4
+        }
+      }
+    },
+    "@m0saic-starter/connections/weighted-cards/v1": {
+      "label": "80 · Weighted Cards",
+      "description": "Weights at both depths: a weights column SHARING the multi-select's key gives every card an auto-balancing share group over its own chips (two cells, one array — even sets round-trip as string[], customized as {id,weight}[]), and interWeightProp names a sibling number[] the strip drags to weigh the CARDS against each other. Render is the values wearing rectangles: row heights from mixWeights, chip widths from item shares.",
+      "tags": [
+        "controls",
+        "connections",
+        "lesson"
+      ],
+      "props": {
+        "connectionId": {
+          "label": "Connection",
+          "description": "The sibling wire (lesson 76): which configured connection profile the chip pickers read.",
+          "order": 1
+        },
+        "mixes": {
+          "label": "Mixes",
+          "description": "Cards of chips with per-chip shares: a connectionMultiSelect column owns membership and a weights column SHARING ITS KEY owns shares — two cells, one array. Even sets round-trip as string[], customized ones as {id, weight}[].",
+          "order": 2
+        },
+        "mixWeights": {
+          "label": "Mix weights",
+          "description": "How the mixes weigh against EACH OTHER — the sibling number[] the card strip's inter-card sliders write (interWeightProp).",
+          "order": 3
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 4
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 5
+        }
+      }
+    },
+    "@m0saic-starter/controls/code-handoff/v1": {
+      "label": "27 · Code Handoff",
+      "description": "A prop that flows the other way: type code is a HANDOFF — { language, code } shipped by the author in defaultProps, rendered by the editor as a read-only, selectable, copyable code window (no onChange; not an input), which render() may ignore entirely. For workflows where the user must run something outside the app — the production first-adopter hands the user a browser capture snippet whose output returns through other props. This lesson hands you the CLI command that renders itself headless.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "runCommand": {
+          "label": "Run it yourself",
+          "description": "Template-to-user handoff: the exact CLI command that renders this template headless. Read-only and copyable in the editor; render uses it only to draw the card.",
+          "order": 1
+        },
+        "label": {
+          "label": "Label",
+          "description": "A normal INPUT prop, for contrast — this one flows user to template.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/controls/draw-regions/v1": {
+      "label": "26 · Draw Regions",
+      "description": "The user marks an area on the live preview and the template receives geometry — that handshake is the product. picker \"regions\" arms Make's draw mode (rect tool, plus ellipse/brush mask carving inside a rect); the wire is plain px JSON, so the same value arrives from --props or an agent identically. What a template does with the areas is its own concern — blur them, redact them, hand them to AI work as target boxes; this lesson shows the handshake itself, marking each region with an index chip in draw order. Zero regions is the working base case, and consumption runs parseRegionsValue then resolveRegionsToPx, degrading bad regions without killing the batch.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "regions": {
+          "label": "Marked areas",
+          "description": "The areas you marked. Draw on the preview (rect tool; ellipse and brush carve masks inside a rect), or hand-author { canvas, regions: [{x,y,w,h}] } px JSON — the wire is the same either way, and order is your intent.",
+          "order": 1
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 2
+        }
+      }
+    },
+    "@m0saic-starter/controls/dual-props/v1": {
+      "label": "30 · Dual Props",
+      "description": "One knob for humans, one truth for everyone: canonical props marked ui.consumer \"agent\" hold the exact values render reads (surfaced under the panel's Agent props escape), while friendly props marked \"human\" + control.syncsTo are derived views — the editor inverse-maps the canonical value to position the dial and writes changes back through the map (linear with invertible ranges, boolInvert, identity). The human key never reaches render, so dials and files can never disagree: only one of them is real.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "holdSec": {
+          "label": "holdSec",
+          "description": "CANONICAL hold, in seconds — what render reads and files carry. Lives under Agent props; humans drive it through Speed.",
+          "order": 1
+        },
+        "reduceMotion": {
+          "label": "reduceMotion",
+          "description": "CANONICAL motion flag — precise, agent-facing.",
+          "order": 2
+        },
+        "speed": {
+          "label": "Speed",
+          "description": "The human dial: 1 (leisurely) to 10 (brisk). A derived view of holdSec through an INVERTED linear map — this key never reaches render.",
+          "order": 3
+        },
+        "animate": {
+          "label": "Animate",
+          "description": "The human toggle: a boolInvert view of reduceMotion — on means motion. Never reaches render either.",
+          "order": 4
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 5
+        }
+      }
+    },
+    "@m0saic-starter/controls/group-fields/v1": {
+      "label": "24 · Group Fields",
+      "description": "Related props that travel as one value: type group + fields nests ordinary prop definitions (same types, same controls — the accent is a normal colorPicker) under a single prop, the editor renders one fieldset, and the value is one object written in one edit — whole or not at all. Render validates it as a unit too: one guard for one idea. Drawn as the lower third this shape most often is.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "speaker.name": {
+          "label": "Name",
+          "description": "Display name on the lower third.",
+          "order": 1
+        },
+        "speaker.role": {
+          "label": "Role",
+          "description": "Second line — role, title, or affiliation.",
+          "order": 2
+        },
+        "speaker.accent": {
+          "label": "Accent",
+          "description": "Accent bar color as #rrggbb.",
+          "order": 3
+        },
+        "speaker": {
+          "label": "Speaker",
+          "description": "Who is on screen. One group value — name, role, accent — edited as one fieldset and written in one edit, whole or not at all.",
+          "order": 1
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 2
+        }
+      }
+    },
+    "@m0saic-starter/controls/m0-prop/v1": {
+      "label": "28 · m0 Prop",
+      "description": "The layout itself as a prop: type m0 tells the editor the value is grammar, not prose, and the template treats it like any untrusted input — isValidM0String at the boundary, a report card instead of a dead render when it doesn't parse. Valid layouts are framed and wireframed, one tile per claim; heavy layouts DEGRADE instead of failing — hundreds of claims get a measured stats card (chars, claims, floors), and a layout too big for this canvas gets the floors card naming its safe minimum. The grammar has no cap; only lessons and budgets do.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "layout": {
+          "label": "Layout",
+          "description": "The layout to frame, as a raw m0 string. type m0 tells the editor this value is grammar, not prose — and the template validates it like any untrusted input.",
+          "order": 1
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/controls/number-display/v1": {
+      "label": "31 · Number Display",
+      "description": "The stored unit and the shown unit are different decisions: unit names the canonical scale (ms here — what props, files, and render carry), displayUnit converts only the editor's field (2400 shows as 2.4 s), lockDisplayUnit freezes the unit chip where a swap could silently rescale a value, and step is authored in the canonical unit. Render reads canonical ms and prints it — presentation never leaks into meaning.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "holdMs": {
+          "label": "Hold",
+          "description": "Hold per slide. Stored in ms (the canonical unit render reads); the editor shows seconds by default and the unit chip cycles the family.",
+          "order": 1
+        },
+        "fadeMs": {
+          "label": "Fade",
+          "description": "Crossfade between slides. Also stored in ms — but the display is LOCKED to ms, because cycling this tiny value's chip to hours would be a silent catastrophe.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/controls/number-series/v1": {
+      "label": "22 · Number Series",
+      "description": "Chart data edited as tabs of numeric rows: flavor numberSeries gives a json prop one tab per series, and the value round-trips flat (number[]) for one series and nested (number[][]) for several — so render normalizes both shapes before drawing, the same tolerance that keeps hand-authored files working. Renders grouped bars against the shared maximum. numberList is the single-series sibling: same contract minus the tabs.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "values": {
+          "label": "Values",
+          "description": "Chart values. flavor numberSeries renders a tabbed multi-series editor; the value round-trips as flat number[] for one series and number[][] for several — render normalizes both.",
+          "order": 1
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/controls/panel-organization/v1": {
+      "label": "29 · Panel Organization",
+      "description": "The props panel is authored, not emitted: the top group is required props plus optional ones pinned with ui.primary; the rest folds under Optional; ui.visibleWhen skips a control until its sibling gate matches (string-coerced, so a boolean gate matches equals \"true\"); and ui.hidden removes the control entirely while the prop stays fully render-effective — hidden is not dead, agents and saved files still set it. Render paints every one of them regardless: placement is an editor conversation, render sees plain values.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "title": {
+          "label": "Title",
+          "description": "Poster title. Required, so it sits in the top group by right.",
+          "order": 1
+        },
+        "accent": {
+          "label": "Accent",
+          "description": "Accent color. OPTIONAL — but pinned into the top group with ui.primary, because burying the one knob everyone reaches for would be panel malpractice.",
+          "order": 2,
+          "primary": true
+        },
+        "frame": {
+          "label": "Frame",
+          "description": "Draw a thin frame. Plain optional — the Optional fold is its home.",
+          "order": 3
+        },
+        "showBadge": {
+          "label": "Show badge",
+          "description": "The gate: while off, badgeText has no control at all.",
+          "order": 4
+        },
+        "badgeText": {
+          "label": "Badge text",
+          "description": "Badge copy. visibleWhen skips this control until showBadge matches — gone, not grayed.",
+          "order": 5
+        },
+        "watermarkTag": {
+          "label": "Watermark tag",
+          "description": "ui.hidden: never a control, still a prop — agents and saved files set it, and render paints it.",
+          "order": 6
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 7
+        }
+      }
+    },
+    "@m0saic-starter/controls/range/v1": {
+      "label": "25 · Range",
+      "description": "A number allowed to be a range: flavor range gives one prop three intents, readable off the value shape — a flat number (use exactly this), { low, high } (sample fresh per use), or { low, high, once: true } (sample one value, reuse it; once is never written false). collapsible renders the flat/range toggle, allowOnce the pick-once toggle with its onceLabel. The control records intent only; this render VISUALIZES it on a scale instead of sampling, because dice belong to templates with a seed prop.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "hold": {
+          "label": "Hold",
+          "description": "Seconds each slide holds. Flat number = exactly this; { low, high } = vary per slide; add once: true = pick one value and keep it. The control records intent; the template owns what a 'use' means.",
+          "order": 1
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/controls/row-editors/v1": {
+      "label": "21 · Row Editors",
+      "description": "An array-of-objects prop that edits like a form: flavor objectRows + columns (text / number / color cells) renders a json prop as repeating rows with add and remove, and palette seeds new rows' colors so additions arrive on-brand. The columns contract is the same one cardList grows into cards — learn it once, use it four times. At render the prop is the plain array either way; here it draws the breakdown bar this pattern most often feeds.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "segments": {
+          "label": "Segments",
+          "description": "The breakdown rows. flavor objectRows + columns renders them as a repeating form (text / number / color cells); palette seeds new rows' colors. Plain Array<{label, value, color?}> at render.",
+          "order": 1
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 2
+        }
+      }
+    },
+    "@m0saic-starter/controls/static-options/v1": {
+      "label": "20 · Static Options",
+      "description": "The static option list: declare rows of value/label/description and a string prop becomes segmented pills or a dropdown, a string[] becomes toggle pills. The lesson is the distinction — options is PRESENTATION, constraints.oneOf is VALIDATION, and they are independent: preset declares both (a true closed set), tracks declares options only (pills as convenience, values open — the same posture connection-backed props need). Choose per prop, on purpose.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "preset": {
+          "label": "Preset",
+          "description": "Export preset. options + constraints.oneOf together: the editor shows pills AND the validator fences the value — a true closed set.",
+          "order": 1
+        },
+        "tracks": {
+          "label": "Tracks",
+          "description": "Included tracks. options WITHOUT oneOf: toggle pills as a convenience, but any slug still validates — the picker is presentation, not a fence.",
+          "order": 2
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 3
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 4
+        }
+      }
+    },
+    "@m0saic-starter/controls/weights/v1": {
+      "label": "23 · Weights",
+      "description": "A distribution the user drags, not numbers the user types: flavor weights plus a schema-declared label set renders a number[] prop as an auto-balancing slider group holding a constant 100. One weight per label, order-paired — the labels live in the schema so the value stays pure numbers. Both the field and this render normalize forgiving-ly (stale or hand-typed values become a sane distribution), and the bands below are a weightedSplit fed directly by the prop: drag a slider, move a wall.",
+      "tags": [
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "mix": {
+          "label": "Mix",
+          "description": "The timeline mix. flavor weights + the schema-declared labels render an auto-balancing slider group summing to 100; the value is one weight per label, order-paired.",
+          "order": 1
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Accent fill as #rrggbb.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/data/data-card/v1": {
+      "label": "65 · Data Card",
+      "description": "The consumer end of a data chain: read ctx.upstreamData[alias] and draw it. Producer, adapter and consumer agree on an alias and a shape — never on each other's ids — and the card says which alias it read so a broken chain is visible in the picture.",
+      "tags": [
+        "data",
+        "consumer",
+        "lesson"
+      ],
+      "props": {
+        "alias": {
+          "label": "Alias",
+          "description": "Upstream block to draw. Matches what the adapter published — the alias is the whole coupling between them.",
+          "placeholder": "seriesStats"
+        },
+        "title": {
+          "label": "Title",
+          "description": "Headline above the values.",
+          "placeholder": "Series"
+        },
+        "sampleData": {
+          "label": "Sample data",
+          "description": "Draw built-in numbers when no upstream block arrived, so the card is layoutable before the chain exists. Off, it reports the gap instead."
+        }
+      }
+    },
+    "@m0saic-starter/data/fixture-fetcher/v1": {
+      "label": "63 · Fixture Fetcher",
+      "description": "Where data enters: a fetcher publishes a JSON payload as a type:\"data\" source and downstream templates read it as ctx.upstreamData[alias]. Declares tier:\"capability\" so ctx.secrets exists at all, and publishes a derived marker rather than the secret.",
+      "tags": [
+        "data",
+        "producer",
+        "capability",
+        "lesson"
+      ],
+      "props": {
+        "alias": {
+          "label": "Alias",
+          "description": "Channel name the payload is published under. Consumers read ctx.upstreamData[alias] — this string IS the coupling, not this template's id.",
+          "placeholder": "starterData"
+        },
+        "payload": {
+          "label": "Payload",
+          "description": "Plain JSON object to publish instead of the built-in fixture. Becomes the data source's variables verbatim."
+        },
+        "connectionId": {
+          "label": "Connection",
+          "description": "DESKTOP path. Id of a connection configured under Tools - Integrations; its secret field is read from the OS keychain, and the connection MINTS the ref so you never type one. Any registered id works - \"github@default\" ships with the app, so set a token there and name it here to watch this resolve. A GUI has no shell, which is why env: is not the desktop answer.",
+          "placeholder": "github@default"
+        },
+        "secretField": {
+          "label": "Connection field",
+          "description": "Which field of that connection holds the secret. Defaults to \"token\"."
+        },
+        "secretRef": {
+          "label": "Secret ref",
+          "description": "OPTIONAL - leave empty and the template skips the secret entirely. To try one, use \"env:NAME\" and set NAME in the environment of whatever process renders (both the CLI and the desktop app resolve it). Publishes { secretResolved, secretLength } - never the value itself.",
+          "placeholder": "env:M0SAIC_STARTER_TOKEN"
+        }
+      }
+    },
+    "@m0saic-starter/data/pure-adapter/v1": {
+      "label": "64 · Pure Adapter",
+      "description": "An adapter reads one data block and publishes another — a pure function between channels. Reshaping needs no capability tier and no network, so it stays core tier and testable with a plain object; a missing upstream degrades to an empty result rather than throwing.",
+      "tags": [
+        "data",
+        "adapter",
+        "lesson"
+      ],
+      "props": {
+        "inputAlias": {
+          "label": "Input alias",
+          "description": "Upstream channel to read. Must match what the producer published under — the alias is the contract between them.",
+          "placeholder": "starterData"
+        },
+        "outputAlias": {
+          "label": "Output alias",
+          "description": "Channel this adapter publishes on. Keep it distinct from the input so both blocks stay readable downstream.",
+          "placeholder": "seriesStats"
+        },
+        "seriesKey": {
+          "label": "Series key",
+          "description": "Which key inside the upstream block holds the numbers. Naming it as a prop is what lets one adapter serve several producers.",
+          "placeholder": "series"
+        }
+      }
+    },
+    "@m0saic-starter/data/sidecar-json/v1": {
+      "label": "66 · Sidecar JSON",
+      "description": "doc.sidecars writes files beside the render: each key becomes {output-basename}.{key}.json. sidecarsSchema on the template declares them, doc.sidecars carries the values — a sidecar is a file for what comes after m0saic, where a data source is an in-memory channel for the next template.",
+      "tags": [
+        "data",
+        "sidecars",
+        "lesson"
+      ],
+      "props": {
+        "note": {
+          "label": "Note",
+          "description": "Free text carried into the sidecar file — stands in for whatever a real template would record.",
+          "placeholder": "rendered by the starter repo"
+        },
+        "includeGeometry": {
+          "label": "Include geometry",
+          "description": "Add the canvas and timing to the sidecar. Useful downstream: a build step can lay out a page without opening the video."
+        }
+      }
+    },
+    "@m0saic-starter/data/sidecar-text/v1": {
+      "label": "67 · Sidecar Text",
+      "description": "A sidecar value of { kind: \"text\", ext, content } writes the string verbatim as {output-basename}.{key}.{ext} — the way real formats ship. Captions are the case that proves it: burned-in subtitles are pixels, a .vtt beside the video is a track a player can style and a search engine can read.",
+      "tags": [
+        "data",
+        "sidecars",
+        "captions",
+        "lesson"
+      ],
+      "props": {
+        "cues": {
+          "label": "Cues",
+          "description": "One cue per row as startMs|endMs|text. Rows that cannot parse are named in the error rather than silently dropped."
+        },
+        "format": {
+          "label": "Format",
+          "description": "vtt or srt. It picks the serialiser AND the file extension — nothing checks that the two agree, so they are set together here."
+        }
+      }
+    },
+    "@m0saic-starter/geometry/gcd-collapse/v1": {
+      "label": "06 · GCD Collapse",
+      "description": "Two rows, same weights: literal mode keeps all 100 slots, the default optimized mode GCD-collapses to 4. At friendly widths they're identical; at hostile widths the 100-slot row's seams visibly drift while the 4-slot row stays tight. Labels print slots, DSL length, and the measured spread at this very canvas.",
+      "tags": [
+        "geometry",
+        "quantization",
+        "lesson"
+      ],
+      "props": {
+        "weights": {
+          "label": "Weights",
+          "description": "Column weights shared by both rows (2-6 positive integers). Try [25,50,25] vs [1,2,1] — the optimized row emits the same string for both."
+        }
+      }
+    },
+    "@m0saic-starter/geometry/inset-recovery/v1": {
+      "label": "10 · Inset Recovery",
+      "description": "Three chips at exact pixel rects, placed with placeInsetPieces: the string stays coarse (precision bounded at the lattice basis) while placement.inset recovers every rect byte-exact. The card prints the same layout's precision floor spelled via placeRects — the hereditary cost a parent would inherit. Why nestable templates use inset recovery.",
+      "tags": [
+        "geometry",
+        "precision",
+        "lesson"
+      ],
+      "props": {
+        "chipColor": {
+          "label": "Chip color",
+          "description": "Chip fill as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/geometry/lattice-gutters/v1": {
+      "label": "09 · Lattice Gutters",
+      "description": "Base × fiber: a plain gutterless grid with pixel-exact gutters as per-cell placement insets (latticeCellInset) — or flip Gutter mode to spell the SAME lattice as real split cells and watch the string length and precision floor balloon. The caption prints the receipts.",
+      "tags": [
+        "geometry",
+        "gutters",
+        "lesson"
+      ],
+      "props": {
+        "rows": {
+          "label": "Rows",
+          "description": "Grid rows (2-4)."
+        },
+        "cols": {
+          "label": "Columns",
+          "description": "Grid columns (2-6)."
+        },
+        "gutterPx": {
+          "label": "Gutter",
+          "description": "Gutter between cells in pixels (2-48) — exact at every canvas."
+        },
+        "marginPx": {
+          "label": "Margin",
+          "description": "Outer margin in pixels (0-64)."
+        },
+        "gutterMode": {
+          "label": "Gutter mode",
+          "description": "Same lattice, two spellings: \"inset\" keeps a tiny grid string with gutters as leaf-private insets; \"split\" spells gutters/margins as real cells at pixel precision — watch chars and the precision floor balloon."
+        },
+        "tileColor": {
+          "label": "Tile color",
+          "description": "Tile fill as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/geometry/mask-in-a-cell/v1": {
+      "label": "12 · Mask in a Cell",
+      "description": "A diamond as it should be built: a color tile with an inline SVG-path mask inside a plain ratio cell. Bounds scale onto the cell PER AXIS — match their aspect to the cell or the shape silently smears. Flip the toggle to see both.",
+      "tags": [
+        "geometry",
+        "masks",
+        "lesson"
+      ],
+      "props": {
+        "matchAspect": {
+          "label": "Match cell aspect",
+          "description": "true: mask bounds match the cell aspect (diamond stays a diamond). false: square bounds stretched over the cell — the silent smear this lesson exists to show."
+        },
+        "shapeColor": {
+          "label": "Shape color",
+          "description": "Shape fill as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/geometry/overlay-stack/v1": {
+      "label": "08 · Overlay Stack",
+      "description": "1{3[-,1{1},-]}: a full-canvas base, a centered band on its overlay, a badge on the band's overlay. Overlays restore their node's whole rect and paint after it — walk order IS paint order IS source-binding order.",
+      "tags": [
+        "geometry",
+        "overlay",
+        "lesson"
+      ],
+      "props": {
+        "baseColor": {
+          "label": "Base color",
+          "description": "Base (bottom layer) fill as #rrggbb."
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Band (middle layer) fill as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/geometry/place-rect-dock/v1": {
+      "label": "11 · PlaceRect Dock",
+      "description": "Docks one pixel-exact rect in the bottom-right corner via placeRect: margins are null tiles, so nothing quantizes into your rect. Head-only by design — the emitted string bakes THIS canvas's pixels, and the caption prints them so you can watch it re-bake per size.",
+      "tags": [
+        "geometry",
+        "placement",
+        "lesson"
+      ],
+      "props": {
+        "widthFrac": {
+          "label": "Width",
+          "description": "Dock width as a fraction of canvas width (0.1-0.5)."
+        },
+        "heightFrac": {
+          "label": "Height",
+          "description": "Dock height as a fraction of canvas height (0.06-0.4)."
+        },
+        "marginPx": {
+          "label": "Margin",
+          "description": "Margin from the bottom-right corner in pixels (0-128)."
+        },
+        "dockColor": {
+          "label": "Dock color",
+          "description": "Dock fill as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/geometry/quantization-cures/v1": {
+      "label": "13 · Quantization: Three Cures",
+      "description": "The geometry capstone: one 12x3 gridded design through four spellings. Naive ratio gutters wobble N/N+1 px (thin lines magnify quantization); then the three cures - inset recovery (exact gutters, tiny string), snapGrid (everything exact inside a quantization-free rect, coverage given up), placeRects (exact pixels baked to this canvas). Flip the Method enum and read the receipts.",
+      "tags": [
+        "geometry",
+        "quantization",
+        "lesson"
+      ],
+      "props": {
+        "method": {
+          "label": "Method",
+          "description": "The same 12x3 gridded design, four spellings: \"naive\" ratio-weight gutters (watch them wobble), \"inset\" recovery via latticeCellInset (exact gutters, tiny string), \"snap\" via snapGridFit (everything exact inside a quantization-free rect), \"rects\" via placeRects (exact pixels baked to THIS canvas)."
+        },
+        "checkerColor": {
+          "label": "Checker color",
+          "description": "Checkerboard accent fill as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/geometry/ratio-vs-absolute/v1": {
+      "label": "07 · Ratio vs Absolute",
+      "description": "A proportion contract over a pixel contract: a 1:2:1 ratio split whose sides scale with the canvas, above a placeRects band whose side rails are PINNED in px while the middle absorbs the rest. Resize the canvas and watch them disagree. Default to ratio; pin pixels only at the head canvas.",
+      "tags": [
+        "geometry",
+        "drafting-modes",
+        "lesson"
+      ],
+      "props": {
+        "railPx": {
+          "label": "Rail px",
+          "description": "Pinned width of the absolute band's side rails in px (40-1000). The ratio band ignores it — that's the point."
+        },
+        "absoluteColor": {
+          "label": "Absolute fill",
+          "description": "Fill for the bottom (absolute) band's middle rect as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/make/array-rows/v1": {
+      "label": "85 · Array Rows",
+      "description": "A type \"array\" prop, declared plainly and edited as rows: flavor objectRows + columns in the panel, and on the canvas every cell is a leaf handle - bindPropPath with a path AND a kind, onClear removing the row, and the empty last row bound as the add handle.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "props": {
+        "items": {
+          "label": "Items",
+          "description": "Up to 6 rows of {sku, qty, color}. flavor objectRows + columns edits them as a form; on the canvas every cell is a leaf handle (bindPropPath with a path AND a kind), an empty qty removes its row, and the empty last row adds one.",
+          "order": 1
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 2
+        }
+      }
+    },
+    "@m0saic-starter/make/bound-numbers/v1": {
+      "label": "82 · Bound Numbers",
+      "description": "The numeral you draw is a handle. Three numbers, three honest spellings - 12,480 (toLocaleString), $3.50 (toFixed), 2026 (String) - each bound to the rect that shows it, plus a derived total that is not a prop and needs no binding. The bindingsCover numbers rule reads exactly these spellings, on a digit boundary.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "props": {
+        "visitors": {
+          "label": "Visitors",
+          "description": "A count, drawn with thousands separators (toLocaleString) and bound to the numeral that shows it. 12480 is drawn 12,480 - the gate reads that spelling.",
+          "order": 1
+        },
+        "price": {
+          "label": "Price",
+          "description": "A price, drawn to two decimals (toFixed) and bound. Decimals stay decimals: 3.5 is drawn 3.50 and the gate reads it; an integer drawn as 4.00 is not a spelling it reads - the binding holds either way.",
+          "order": 2
+        },
+        "year": {
+          "label": "Year",
+          "description": "A year, drawn plainly (String) and bound. The digit boundary keeps it honest: 2026 is never read out of 20260.",
+          "order": 3
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 4
+        }
+      }
+    },
+    "@m0saic-starter/make/composite-line/v1": {
+      "label": "83 · Composite Line",
+      "description": "One rect drawing two props - \"@handle - 2026 on GitHub\" - keeps BOTH handles with bindProps; a second bindProp would replace the first. The same line shown split, one rect per prop, as the other correct form.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "props": {
+        "handle": {
+          "label": "Handle",
+          "description": "The handle on the byline. Bound twice on this card: once as one of two handles on the composite rect, once on its own split rect.",
+          "placeholder": "@handle",
+          "order": 1
+        },
+        "year": {
+          "label": "Year",
+          "description": "The year on the byline - the second prop on the SAME composite rect (kind number), and on its own split rect.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/make/declared-unbound/v1": {
+      "label": "84 · Declared Unbound",
+      "description": "What a compliant NON-binding looks like: one bound label beside five accountable props that no rect shows - columns, gap, seed, padding, accent - each named in bindings.unbound with its reason, and a page colour that needs nothing because it IS the document background.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "props": {
+        "label": {
+          "label": "Label",
+          "description": "The one bound prop on the card - the rect that shows it is its handle.",
+          "placeholder": "declared unbound",
+          "order": 1
+        },
+        "columns": {
+          "label": "Columns",
+          "description": "How many tiles. A COUNT of rects, not a value on any one of them - accountable, and honestly unbound.",
+          "order": 2
+        },
+        "gap": {
+          "label": "Gap",
+          "description": "Gutter between tiles, in percent of the canvas width. Geometry - never drawn.",
+          "order": 3
+        },
+        "seed": {
+          "label": "Seed",
+          "description": "Deals the tint order through mulberry32 - determinism, never drawn. Same seed, same strip.",
+          "order": 4
+        },
+        "padding": {
+          "label": "Padding",
+          "description": "Inset from the canvas edges, in percent of the canvas width. Geometry - never drawn.",
+          "order": 5
+        },
+        "accent": {
+          "label": "Accent",
+          "description": "The tint family painted on every tile. A colour on many rects has no single handle, so it is declared rather than bound.",
+          "order": 6
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb. It IS document.backgroundColor, so it needs no binding and no declaration.",
+          "order": 7
+        }
+      }
+    },
+    "@m0saic-starter/make/prop-bindings/v1": {
+      "label": "81 · Prop Bindings",
+      "description": "Provenance: the rect that shows a prop is bound to it, so Make's double-click edits that knob in place - and every bindable kind is on one card. bindProp for free text and a number, bindProps for a header over a subtitle (one rect, two knobs), a colour swatch whose binding opens a picker, bindProp with an index for one element of a string[] or number[], bindPropPath (path AND kind) for string / number / colour leaves of a row list, bindPropRange (line span + focus token) for one line of a multi-line string - plus a closed picker drawn as a chip that gets no pencil on purpose. Which props are bindable is decided once, in the platform; the lesson's test uses the same predicate Make does.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "props": {
+        "title": {
+          "label": "Title",
+          "description": "Headline - layer 0 of the header rect. bindProps binds it together with the subtitle: one rect, two knobs.",
+          "placeholder": "Bind what you show",
+          "order": 1
+        },
+        "subtitle": {
+          "label": "Subtitle",
+          "description": "Under the headline - layer 1 of the SAME header rect. Make opens the rect as a stacked two-field form.",
+          "placeholder": "every rect knows which knob drew it",
+          "order": 2
+        },
+        "accentColor": {
+          "label": "Accent",
+          "description": "The swatch's fill (#rrggbb). A colour-valued string binds with kind \"color\": double-click the swatch and Make opens a picker.",
+          "order": 3
+        },
+        "count": {
+          "label": "Count",
+          "description": "A plain number. The numeral binds it (kind \"number\"): double-click opens a numeric editor.",
+          "order": 4
+        },
+        "scores": {
+          "label": "Scores",
+          "description": "Up to 4 numbers. Each tile binds ONE element - bindProp(src, \"scores\", i). The list itself is never bindable.",
+          "order": 5
+        },
+        "bullets": {
+          "label": "Bullets",
+          "description": "Up to 4 lines. Each line is its own rect bound to ONE element - bindProp(src, \"bullets\", i). The list itself is never bindable.",
+          "order": 6
+        },
+        "rows": {
+          "label": "Rows",
+          "description": "Up to 3 rows of {name, value, color}. Each cell binds ONE leaf - bindPropPath(src, \"rows\", [i, \"name\"], \"string\") - path AND kind, because the schema carries no per-leaf type. The value leaf is kind \"number\", the swatch leaf kind \"color\".",
+          "order": 7
+        },
+        "code": {
+          "label": "Code",
+          "description": "Up to 4 lines. Each line is its own rect bound to ONE character span of this string - bindPropRange(src, \"code\", undefined, lineSpan, tokenSpan); Make pre-selects the token.",
+          "placeholder": "one line per rect",
+          "order": 8
+        },
+        "mode": {
+          "label": "Mode",
+          "description": "A closed set drawn as a chip. NOT bindable - closed pickers never are - so the chip carries no pencil.",
+          "order": 9
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 10
+        }
+      }
+    },
+    "@m0saic-starter/masks/path-mask/v1": {
+      "label": "46 · Path Mask",
+      "description": "A donut, and the two rules behind it: a shape inside another cuts a hole only when it is DRAWN the other way round (the two directions cancel; draw them the same way and the middle fills in silently), and `matte` renders the area outside the path at a chosen alpha instead of clipping it away.",
+      "tags": [
+        "masks",
+        "paths",
+        "lesson"
+      ],
+      "props": {
+        "innerWinding": {
+          "label": "Inner circle drawn",
+          "description": "Which way round the inner circle is drawn. \"opposite\" = the other way from the outer circle, which is what punches the hole (the two directions cancel out in the middle). \"same\" = the same way round, and the middle fills in instead — a disc, with nothing to tell you why."
+        },
+        "matte": {
+          "label": "Matte alpha",
+          "description": "Alpha for everything OUTSIDE the path (0 = clipped away, the default). Above 0 the whole bounds box renders at this alpha beneath the fully-opaque path — one tile, translucent wash plus crisp marks."
+        },
+        "inkColor": {
+          "label": "Ink",
+          "description": "Ink for the tile the mask clips, as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/masks/shape-masks/v1": {
+      "label": "45 · Shape Masks",
+      "description": "There are no shape primitives — every shape is a color tile wearing an SVG path. Circle, ellipse, rounded rect and pill, each authored against the cell's own box, with the caption printing the path the engine actually gets.",
+      "tags": [
+        "masks",
+        "shapes",
+        "lesson"
+      ],
+      "props": {
+        "shape": {
+          "label": "Shape",
+          "description": "\"circle\" (radius from the short side, stays round), \"ellipse\" (fills the cell on purpose), \"rounded-rect\" (roundedRectPathD with your corner), \"pill\" (the same helper at half the short side — not a separate shape)."
+        },
+        "cornerPct": {
+          "label": "Corner %",
+          "description": "Corner radius for \"rounded-rect\", as a percent of the short side. At 50 it IS the pill — that is the point."
+        },
+        "shapeColor": {
+          "label": "Shape color",
+          "description": "Shape fill as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/media/audio-mix/v1": {
+      "label": "39 · Audio Mix",
+      "description": "Two audio tracks, one mix: audio sources enter like any media but contribute no pixels — per-source audio.volume sets the blend, and the mute idiom keeps a silenced source IN the document (audio.enabled=false) so tile indices never shift. The canvas is the mixer's meter.",
+      "tags": [
+        "media",
+        "audio",
+        "lesson"
+      ],
+      "props": {
+        "narration": {
+          "label": "Narration",
+          "description": "Narration track."
+        },
+        "music": {
+          "label": "Music",
+          "description": "Music bed."
+        },
+        "narrationVolume": {
+          "label": "Narration vol",
+          "description": "Narration gain: 1 = as recorded, 0.5 = half, 2 = double, 4 = the top of the meter. volume is a GAIN FACTOR, not a percentage — past 4 the engine warns that it will clip."
+        },
+        "musicVolume": {
+          "label": "Music vol",
+          "description": "Music gain: 1 = as recorded, 0.5 = half, 2 = double, 4 = the top of the meter. volume is a GAIN FACTOR, not a percentage — past 4 the engine warns that it will clip."
+        },
+        "muteMusic": {
+          "label": "Mute music",
+          "description": "Mute the music — the source STAYS, audio.enabled goes false."
+        }
+      }
+    },
+    "@m0saic-starter/media/folder-contact-strip/v1": {
+      "label": "33 · Folder Contact Strip",
+      "description": "type:\"media[]\" + the folder picker: the prop arrives as an array of raw paths, each probed by the host — the template maps them to per-file asset entries and media sources, and the strip resplits to the count (first 8).",
+      "tags": [
+        "media",
+        "folder",
+        "lesson"
+      ],
+      "props": {
+        "images": {
+          "label": "Images",
+          "description": "Images from a folder. The folder picker fills the array with raw paths; the first 8 render."
+        }
+      }
+    },
+    "@m0saic-starter/media/image-card/v1": {
+      "label": "32 · Image Card",
+      "description": "One image through the whole media pipeline: raw path prop, host-side probe via ctx.media, slugified asset key, {kind:\"file\"} manifest entry, and a media source — with the contain-vs-cover fit decision on a knob.",
+      "tags": [
+        "media",
+        "image",
+        "lesson"
+      ],
+      "props": {
+        "image": {
+          "label": "Image",
+          "description": "The image to frame. The value is a raw path; the host probes it."
+        },
+        "fit": {
+          "label": "Fit",
+          "description": "contain letterboxes (whole image visible); cover fills the cell (crops)."
+        }
+      }
+    },
+    "@m0saic-starter/media/luma-badge/v1": {
+      "label": "37 · Luma Badge",
+      "description": "Content-aware with a fallback: ctx.analysis.regionLuminance asks the host how bright the badge corner is, and the badge flips dark-on-light / light-on-dark to stay readable. Analysis is OPTIONAL — no-analysis hosts degrade to a stated default, printed on the caption.",
+      "tags": [
+        "media",
+        "analysis",
+        "lesson"
+      ],
+      "props": {
+        "image": {
+          "label": "Image",
+          "description": "The image the corner badge sits on."
+        },
+        "badge": {
+          "label": "Badge",
+          "description": "Badge text (ASCII, 1-16 chars).",
+          "placeholder": "PREVIEW"
+        }
+      }
+    },
+    "@m0saic-starter/media/play-speed/v1": {
+      "label": "38 · Play Speed",
+      "description": "playback.playSpeed: source time vs output time. A SMALL source window (1s by default) is re-timed by the speed knob, so it ends before the output does — and loopMode (loop / freeze / cut) visibly fills the rest. The caption does the arithmetic for the current knobs.",
+      "tags": [
+        "media",
+        "playback",
+        "lesson"
+      ],
+      "props": {
+        "video": {
+          "label": "Video",
+          "description": "The video to re-time."
+        },
+        "speed": {
+          "label": "Speed",
+          "description": "Playback rate: 0.25-4 in steps of 0.25. 1 is realtime."
+        },
+        "sampleMs": {
+          "label": "Sample (source ms)",
+          "description": "How much SOURCE time to sample, ms (250-5000). Kept small so the window ends before the output does — that gap is where loopMode shows itself."
+        },
+        "loopMode": {
+          "label": "Loop mode",
+          "description": "What fills the output once the re-timed window runs out: loop repeats it, freeze holds the last frame, cut goes black."
+        }
+      }
+    },
+    "@m0saic-starter/media/probe-card/v1": {
+      "label": "34 · Probe Card",
+      "description": "ctx.media is the host's ffprobe registry, keyed by the RAW prop string — templates read it, never probe. Pick any image or video and the card prints its entry: kind, dimensions, duration; the thumb renders beside the facts.",
+      "tags": [
+        "media",
+        "probe",
+        "lesson"
+      ],
+      "props": {
+        "media": {
+          "label": "Media",
+          "description": "Any image or video file. The card prints the host's probe of it."
+        }
+      }
+    },
+    "@m0saic-starter/media/time-range-clip/v1": {
+      "label": "35 · Time-Range Clip",
+      "description": "The time-range picker pair: two number props ending in StartMs/EndMs (here clipStartMs and clipEndMs) with picker:\"time-range\" + videoFromProp render ONE scrubber with two handles — and the window lands on the source as playback.clipStartMs + clipDurationMs (start + LENGTH).",
+      "tags": [
+        "media",
+        "playback",
+        "lesson"
+      ],
+      "props": {
+        "video": {
+          "label": "Video",
+          "description": "The video to window."
+        },
+        "clipStartMs": {
+          "label": "Clip start",
+          "description": "Window start (ms into the source). Half of the time-range pair."
+        },
+        "clipEndMs": {
+          "label": "Clip end",
+          "description": "Window end (ms into the source). The other half of the pair."
+        }
+      }
+    },
+    "@m0saic-starter/media/time-ranges-medley/v1": {
+      "label": "36 · Time-Ranges Medley",
+      "description": "The MULTI-range control: one type:\"json\" prop (Array<{startMs,endMs,label?}>) with picker:\"time-ranges\" — the editor's multi-range studio writes the whole array through it. Every window renders as its own medley column via clipStartMs + clipDurationMs, mapped over the array.",
+      "tags": [
+        "media",
+        "playback",
+        "lesson"
+      ],
+      "props": {
+        "video": {
+          "label": "Video",
+          "description": "The video to pull windows from."
+        },
+        "ranges": {
+          "label": "Ranges",
+          "description": "Windows within the source, milliseconds: an array of { startMs, endMs, label? }. Each renders as its own medley column (1-6)."
+        }
+      }
+    },
+    "@m0saic-starter/media/url-asset/v1": {
+      "label": "40 · URL Asset",
+      "description": "The {kind:\"url\"} asset: a manifest entry pointing at remote media the HOST fetches at render time — with the costs stated on canvas: offline fails, bytes can drift, no probe before fetch. Prefer {kind:\"file\"} for anything reproducible.",
+      "tags": [
+        "media",
+        "url",
+        "lesson"
+      ],
+      "props": {
+        "url": {
+          "label": "Image URL",
+          "description": "Remote image URL (https). The HOST fetches it at render time.",
+          "placeholder": "https://example.com/image.png"
+        }
+      }
+    },
+    "@m0saic-starter/pipelines/encode-matrix/v1": {
+      "label": "58 · Encode Matrix",
+      "description": "One render, many deliverables, no pipeline: `encodes` declares post-render transcode passes off a single workspace master. Codec, container and even size (as a stretching scale pass) — but never fps, duration or layout.",
+      "tags": [
+        "pipelines",
+        "encodes",
+        "lesson"
+      ],
+      "props": {
+        "web": {
+          "label": "WebM (VP9)",
+          "description": "Add a VP9-in-WebM encode. Same master, different codec — no second render."
+        },
+        "mobile": {
+          "label": "Mobile (half size)",
+          "description": "Add a half-size h264 encode. size on an encode is an ffmpeg scale pass: it STRETCHES, it does not re-lay out."
+        },
+        "title": {
+          "label": "Title",
+          "description": "Title on the card, so every deliverable is visibly the same render.",
+          "placeholder": "One render"
+        }
+      }
+    },
+    "@m0saic-starter/pipelines/fan-out/v1": {
+      "label": "56 · Fan Out",
+      "description": "emit:\"multi\" writes one file per output step, each at its own canvas — the only way one template delivers several geometries. Landscape and portrait re-LAY OUT rather than scaling, which is the reason to fan out instead of adding an encode.",
+      "tags": [
+        "pipelines",
+        "multi-output",
+        "lesson"
+      ],
+      "props": {
+        "title": {
+          "label": "Title",
+          "description": "Text drawn on every variant — one source of truth, laid out differently per shape.",
+          "placeholder": "Ship it"
+        },
+        "includeSquare": {
+          "label": "Include square",
+          "description": "Add a third output step at 1:1. Each step becomes its own file, named from step.name."
+        },
+        "variantMs": {
+          "label": "Variant ms",
+          "description": "How long each variant renders. Steps are independent documents, so they could differ — this one keeps them equal."
+        }
+      }
+    },
+    "@m0saic-starter/pipelines/nested-pipeline/v1": {
+      "label": "62 · Nested Pipeline",
+      "description": "A children entry may be a PIPELINE: it renders first and the parent consumes its stitched output as one tile — scene-within-scene without time in the m0. The slot's duration and canvas win, emit:\"multi\" downgrades, and loopMode fills any shortfall.",
+      "tags": [
+        "pipelines",
+        "children",
+        "lesson"
+      ],
+      "props": {
+        "innerMs": {
+          "label": "Inner ms",
+          "description": "Total length of the nested pipeline (two scenes, split evenly). Shorter than the slot on purpose, so the fallback is visible."
+        },
+        "loopMode": {
+          "label": "Loop mode",
+          "description": "What fills the gap when the inner pipeline is SHORTER than the slot: loop repeats it, freeze holds its last frame, cut goes black."
+        }
+      }
+    },
+    "@m0saic-starter/pipelines/png-sequence/v1": {
+      "label": "57 · PNG Sequence",
+      "description": "A frame sequence is emit:\"multi\" where every step is an image: each step declares format {kind:\"image\", container:\"png\"} and the engine writes one PNG per step. Zero-padded step names are the template's job — the engine only guarantees the name it was given.",
+      "tags": [
+        "pipelines",
+        "multi-output",
+        "lesson"
+      ],
+      "props": {
+        "frames": {
+          "label": "Frames",
+          "description": "How many PNGs to emit. Each frame is a whole step: N steps means N renders and N files, so this is a real cost knob."
+        },
+        "prefix": {
+          "label": "Name prefix",
+          "description": "Filename basis for each step. Names are zero-padded here — without padding a folder listing sorts frame-10 before frame-2.",
+          "placeholder": "frame"
+        }
+      }
+    },
+    "@m0saic-starter/pipelines/ref-across-steps/v1": {
+      "label": "60 · Ref Across Steps",
+      "description": "A ref with stepIndex is a BACK-EDGE: a later step shows an earlier step's exact rendered pixels, no re-render. Back-edges only (forward refs are an error), plus the handoff idiom where the producer self-stamps {stepIndex, flattenedStableKey} for the consumer to spread.",
+      "tags": [
+        "pipelines",
+        "refs",
+        "lesson"
+      ],
+      "props": {
+        "word": {
+          "label": "Word",
+          "description": "Rendered ONCE in the producer step. The consumer step mirrors those pixels back instead of drawing them again.",
+          "placeholder": "STEP 0"
+        },
+        "keepProducer": {
+          "label": "Keep producer output",
+          "description": "Ship the producer step as a file too. Off, it is intermediate: it renders (the ref needs it) but never reaches the deliverable."
+        }
+      }
+    },
+    "@m0saic-starter/pipelines/ref-mirror/v1": {
+      "label": "59 · Ref Mirror",
+      "description": "A ref source mirrors another cell's rendered pixels by flattenedStableKey: the target renders once and every mirror reads the same intermediate, decorating its own copy. N mirrors, one decode.",
+      "tags": [
+        "pipelines",
+        "refs",
+        "lesson"
+      ],
+      "props": {
+        "word": {
+          "label": "Word",
+          "description": "Drawn ONCE in the hero cell. The three cells beside it are mirrors of those very pixels, not re-renders.",
+          "placeholder": "MIRROR"
+        },
+        "mirrorFit": {
+          "label": "Mirror fit",
+          "description": "Placement on the MIRRORS only — the hero is untouched. Same pixels, different treatment per copy."
+        }
+      }
+    },
+    "@m0saic-starter/pipelines/ref-reframe/v1": {
+      "label": "61 · Ref Reframe",
+      "description": "A mirror whose slot differs in shape and length: placement.fit reframes the pixels and playback.loopMode fills the tail (loop, freeze or cut). Nothing is re-rendered — one intermediate, per-consumer decoration.",
+      "tags": [
+        "pipelines",
+        "refs",
+        "lesson"
+      ],
+      "props": {
+        "fit": {
+          "label": "Fit",
+          "description": "How the mirror frames a slot with a different shape: contain letterboxes, cover crops. Same pixels either way."
+        },
+        "loopMode": {
+          "label": "Loop mode",
+          "description": "What fills the tail once the mirrored pixels run out: loop repeats them, freeze holds the last frame, cut goes black."
+        },
+        "tailMs": {
+          "label": "Tail ms",
+          "description": "How much LONGER the consumer step runs than the target. Without a tail there is nothing for loopMode to decide."
+        }
+      }
+    },
+    "@m0saic-starter/pipelines/two-scenes/v1": {
+      "label": "55 · Two Scenes",
+      "description": "The smallest pipeline: two documents concatenated into one file. Shows that a step IS a document (own m0, own canvas, own exact durationMs) and the transition OVERLAP rule — a d-ms crossfade makes the output A + B − d, not A + B.",
+      "tags": [
+        "pipelines",
+        "time",
+        "lesson"
+      ],
+      "props": {
+        "transition": {
+          "label": "Transition",
+          "description": "\"cut\": a hard boundary, and the output is exactly A + B. \"fade\": a crossfade that OVERLAPS the two scenes, so the output is A + B minus the overlap."
+        },
+        "transitionMs": {
+          "label": "Overlap ms",
+          "description": "Overlap length in ms. This is time the stitched output LOSES — the planner clamps it to the shorter scene."
+        }
+      }
+    },
+    "@m0saic-starter/props/color-props/v1": {
+      "label": "16 · Color Props",
+      "description": "Color props declare themselves: isColor + colorPicker turns a string prop into a real swatch control, and the same declaration on a string[] prop gets the color-list control. A scalar panel beside a palette column, receipts on the caption.",
+      "tags": [
+        "props",
+        "color",
+        "lesson"
+      ],
+      "props": {
+        "panelColor": {
+          "label": "Panel",
+          "description": "The big panel's fill as #rrggbb."
+        },
+        "palette": {
+          "label": "Palette",
+          "description": "The swatch column as #rrggbb entries (1-8)."
+        }
+      }
+    },
+    "@m0saic-starter/props/control-gallery/v1": {
+      "label": "18 · Control Gallery",
+      "description": "The meta surface, one knob per affordance: placeholder ghost text, flavor:\"url\", bounded+stepped numbers, an enum select, and ui.label. The real demo is the sidebar; the canvas renders the spec sheet.",
+      "tags": [
+        "props",
+        "controls",
+        "lesson"
+      ],
+      "props": {
+        "nickname": {
+          "label": "Nickname",
+          "description": "Ghost-text demo: the placeholder shows until you type.",
+          "placeholder": "type a nickname..."
+        },
+        "homepage": {
+          "label": "Homepage",
+          "description": "flavor:\"url\" demo — semantic hint, still a plain string on the wire.",
+          "placeholder": "https://example.com"
+        },
+        "strength": {
+          "label": "Strength",
+          "description": "Bounded + stepped number demo (0-100, step 5)."
+        },
+        "season": {
+          "label": "Season",
+          "description": "Enum select demo."
+        }
+      }
+    },
+    "@m0saic-starter/props/error-mosaic/v1": {
+      "label": "19 · Error Mosaic",
+      "description": "Failing on-canvas, usefully: collect EVERY problem with a remedy, then return makeErrorMosaic — a renderable report card instead of a dead preview. Three deliberately breakable knobs to practice on.",
+      "tags": [
+        "props",
+        "errors",
+        "lesson"
+      ],
+      "props": {
+        "ratio": {
+          "label": "Ratio",
+          "description": "Split ratio for the card (0.1-0.9). Try 5 to break it."
+        },
+        "accent": {
+          "label": "Accent",
+          "description": "Accent color as #rrggbb. Try \"orange\" to break it."
+        },
+        "tags": {
+          "label": "Tags",
+          "description": "Comma-separated tags, 1-4 items of 1-8 ASCII chars. Try five items.",
+          "placeholder": "one,two,three"
+        }
+      }
+    },
+    "@m0saic-starter/props/json-data-prop/v1": {
+      "label": "17 · JSON Data Prop",
+      "description": "Structured data through one type:\"json\" prop — the host hands render() the parsed value, render() collects EVERY shape problem into one remedy-bearing error, and the records become geometry: one proportional bar per row.",
+      "tags": [
+        "props",
+        "data",
+        "lesson"
+      ],
+      "props": {
+        "data": {
+          "label": "Data",
+          "description": "Records to chart: an array of 1-6 objects shaped {label: 1-12 ASCII chars, value: 1-100}."
+        }
+      }
+    },
+    "@m0saic-starter/props/seeded-shuffle/v1": {
+      "label": "15 · Seeded Shuffle",
+      "description": "Randomness done the m0saic way: a REQUIRED seed prop feeds mulberry32, a Fisher-Yates shuffle deals the palette, and identical props render byte-identical documents. The caption prints the dealt order.",
+      "tags": [
+        "props",
+        "determinism",
+        "lesson"
+      ],
+      "props": {
+        "seed": {
+          "label": "Seed",
+          "description": "The shuffle seed (integer 0-2147483647). Required on purpose: randomness must be reproducible, so the seed is a prop, never Math.random."
+        },
+        "tiles": {
+          "label": "Tiles",
+          "description": "How many tiles to deal (4-12)."
+        }
+      }
+    },
+    "@m0saic-starter/props/typed-props-tour/v1": {
+      "label": "14 · Typed Props Tour",
+      "description": "One prop of each scalar type — string, number, boolean, enum — each visibly driving the render, with the received values printed as a caption receipt. The schema picks the sidebar controls; render() is the gate.",
+      "tags": [
+        "props",
+        "lesson"
+      ],
+      "props": {
+        "title": {
+          "label": "Title",
+          "description": "Header text (ASCII, 1-40 chars).",
+          "placeholder": "Typed props"
+        },
+        "tiles": {
+          "label": "Tiles",
+          "description": "Columns in the middle band (1-8)."
+        },
+        "accent": {
+          "label": "Accent row",
+          "description": "Render the marker row at all?"
+        },
+        "align": {
+          "label": "Align",
+          "description": "Which third of the marker row holds the marker."
+        }
+      }
+    },
+    "@m0saic-starter/quality/below-the-floor/v1": {
+      "label": "73 · Below the Floor",
+      "description": "A layout has two independent minimum sizes: feasibility (renders at all) and precision (looks right). One design, three states — clears both, clears only feasibility and quietly squashes, or falls through feasibility and is refused outright. The caption prints all three numbers at your canvas, so the loud failure and the silent one are told apart by arithmetic.",
+      "tags": [
+        "quality",
+        "feasibility",
+        "lesson"
+      ],
+      "props": {
+        "mode": {
+          "label": "Mode",
+          "description": "fits: clears both floors. under-precision: renders but cells lose their pixel — the silent failure. unrenderable: feasibility refuses the m0 at this canvas.",
+          "order": 1
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Band fill as #rrggbb.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/quality/geometry-contract-card/v1": {
+      "label": "72 · Geometry Contract Card",
+      "description": "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and debug on DRAWS the verdict: the chip green when intent survived, or realized-red vs intended-amber-ghost with the drift visible as the gap.",
+      "tags": [
+        "quality",
+        "contracts",
+        "lesson"
+      ],
+      "props": {
+        "debugGeometry": {
+          "label": "Debug geometry",
+          "description": "Run the geometry contract. Off (default) returns the document untouched.",
+          "order": 1
+        },
+        "contractOffsetPx": {
+          "label": "Contract offset (px)",
+          "description": "Px added to the CONTRACT's target height. The chip stays 1/6 of the canvas either way — this moves what the contract ASKS FOR. 1px is inside the checker's default tolerance and passes on purpose; 2 or more crosses it.",
+          "order": 2
+        },
+        "chipColor": {
+          "label": "Chip color",
+          "description": "Chip fill as #rrggbb.",
+          "order": 3
+        },
+        "cardColor": {
+          "label": "Card color",
+          "description": "Card fill as #rrggbb.",
+          "order": 4
+        }
+      }
+    },
+    "@m0saic-starter/quality/layout-contract-card/v1": {
+      "label": "71 · Layout Contract Card",
+      "description": "Ratio invariants authored against LABELS, which survive every m0 the template regenerates. One relation makes four cards equal; debug on DRAWS the contract — green members with the measured rule, or the stretched card red among them.",
+      "tags": [
+        "quality",
+        "contracts",
+        "lesson"
+      ],
+      "props": {
+        "stretchCard": {
+          "label": "Stretch card",
+          "description": "Width multiplier on the third card (1-3). 1 keeps the rail uniform; anything past ~1.02 breaks the equal-size rule (tolerance 2%).",
+          "order": 1
+        },
+        "debugLayout": {
+          "label": "Debug layout",
+          "description": "Run the layout contract and render the CONTRACT VIEW: members green with the measured rule when it holds, the offender red among them when it breaks. Off (default) returns the document untouched.",
+          "order": 2
+        },
+        "cardColor": {
+          "label": "Card color",
+          "description": "Card fill as #rrggbb.",
+          "order": 3
+        },
+        "headerColor": {
+          "label": "Header color",
+          "description": "Header fill as #rrggbb.",
+          "order": 4
+        }
+      }
+    },
+    "@m0saic-starter/quality/why-the-floors-cross/v1": {
+      "label": "74 · Why the Floors Cross",
+      "description": "Which floor is the one to watch, for layouts people actually build? Synthetic shapes show the mechanism: one stat card is precision-high alone, six in a strip cross over to feasibility-high (safe minimum 680x100); a sidebar speced in design pixels (320 of 1440) bakes a 1440-slot ruler into the m0 and is silently off at 1280; an even grid stays at 12. Then the real thing: captured production m0, shipped bare and rendered as a wireframe — the kpi strip's flattened 22,988 chars measure 934x117 feasibility vs 193x121 precision, and theming measures 1920x1080 precision vs 663x313 feasibility. All floors are of the FLATTENED layout, the form render actually runs.",
+      "tags": [
+        "quality",
+        "feasibility",
+        "lesson"
+      ],
+      "props": {
+        "layout": {
+          "label": "Layout",
+          "description": "dashboard: title bar + six stat cards — one card is precision-high alone, six nested cross to feasibility-high (safe minimum 680x100). sidebar-page: design-pixel spec (320 of 1440) — 1440-slot ruler, silently off at 1280. even-grid: floors stay at 12. real-kpi-strip / real-theming: captured production m0, flattened, rendered as a wireframe — read Make's safe-minimum callout.",
+          "order": 1
+        },
+        "bandColor": {
+          "label": "Band color",
+          "description": "Block fill as #rrggbb.",
+          "order": 2
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Backdrop as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/surfaces/render-cover/v1": {
+      "label": "69 · Render Cover",
+      "description": "A friendly first frame for a template that fails fast. render() still reports exactly what is missing when it has no clip; renderCover puts a welcome page there instead on a pure-default open — opt-in, dismissed by the first prop edit, never synthesized by the host.",
+      "tags": [
+        "surfaces",
+        "onboarding",
+        "lesson"
+      ],
+      "props": {
+        "clip": {
+          "label": "Clip",
+          "description": "The video to play. render() needs this; the cover does not.",
+          "order": 1
+        },
+        "accentColor": {
+          "label": "Accent color",
+          "description": "Cover and caption accent as #rrggbb.",
+          "order": 2
+        }
+      }
+    },
+    "@m0saic-starter/surfaces/render-lite/v1": {
+      "label": "68 · Render Lite",
+      "description": "The preview stand-in. Declares renderLite so the editor draws a cheap card while you poke props, and the real N-by-N grid renders only on Make — the one surface that falls back to render when absent, instead of vanishing.",
+      "tags": [
+        "surfaces",
+        "preview",
+        "lesson"
+      ],
+      "props": {
+        "tiles": {
+          "label": "Tiles",
+          "description": "Grid density for the real render, 2-8 per side.",
+          "order": 1
+        },
+        "accentColor": {
+          "label": "Accent color",
+          "description": "Grid fill as #rrggbb.",
+          "order": 2
+        },
+        "panelColor": {
+          "label": "Panel color",
+          "description": "Alternating fill, and the lite card background, as #rrggbb.",
+          "order": 3
+        }
+      }
+    },
+    "@m0saic-starter/surfaces/render-tutorial/v1": {
+      "label": "70 · Render Tutorial",
+      "description": "The only lesson in this repo that builds its own tutorial instead of using the standard page — because building one is what it teaches. Three pages as a pipeline, each declaring its own durationMs, proving the rule that a tutorial owns its timing and never reads ctx.target.durationMs.",
+      "tags": [
+        "surfaces",
+        "tutorial",
+        "lesson"
+      ],
+      "props": {
+        "title": {
+          "label": "Title",
+          "description": "Headline on the rendered card.",
+          "order": 1
+        },
+        "pageColor": {
+          "label": "Page color",
+          "description": "Page background as #rrggbb.",
+          "order": 2
+        }
+      }
+    },
+    "@m0saic-starter/text/carved-type/v1": {
+      "label": "44 · Carved Type",
+      "description": "The word becomes an inline-mask and the picture plays through it. textToPath makes glyphs into a path, the path clips an ordinary media source, and the source underneath can be anything — same mask, different wearer.",
+      "tags": [
+        "text",
+        "masks",
+        "media",
+        "lesson"
+      ],
+      "props": {
+        "word": {
+          "label": "Word",
+          "description": "The word to carve (ASCII, 1-10 characters). Short and fat carves best — thin glyphs show little of what is behind them.",
+          "placeholder": "MOSAIC"
+        },
+        "media": {
+          "label": "Media",
+          "description": "Image or video to play through the letters. Leave empty and the same mask rides a flat color tile instead."
+        },
+        "fallbackColor": {
+          "label": "Fallback color",
+          "description": "Fill for the no-media case as #rrggbb."
+        }
+      }
+    },
+    "@m0saic-starter/text/count-up/v1": {
+      "label": "43 · Count Up",
+      "description": "A drawtext counter that ramps 0 → value over the clip: content.kind \"expr\" + eval \"frame\" + renderMode \"video\", the three fields that must agree. Flip Freeze as a still to see the quiet failure when one of them doesn't.",
+      "tags": [
+        "text",
+        "expr",
+        "animation",
+        "lesson"
+      ],
+      "props": {
+        "value": {
+          "label": "Value",
+          "description": "The number the counter ramps up to over the clip's duration."
+        },
+        "suffix": {
+          "label": "Suffix",
+          "description": "Text drawn after the number. Kept literal — animateNumbersInText only animates digit runs, so \"stars\" stays \"stars\".",
+          "placeholder": "stars"
+        },
+        "label": {
+          "label": "Label",
+          "description": "Static label under the counter — an svg source, because it never changes.",
+          "placeholder": "since launch"
+        },
+        "freezeAsStill": {
+          "label": "Freeze as a still",
+          "description": "Render the counter as an image instead of video. The expression still compiles — it just never gets a second frame to evaluate on."
+        }
+      }
+    },
+    "@m0saic-starter/text/fit-text/v1": {
+      "label": "42 · Fit Text",
+      "description": "Nothing soft-wraps — fitting is the template's job. One box, three fitting strategies (wrap the block, force one line, skip fitting and clip), and a caption printing the measured width against the box so the trade is arithmetic instead of vibes.",
+      "tags": [
+        "text",
+        "layout",
+        "lesson"
+      ],
+      "props": {
+        "copy": {
+          "label": "Copy",
+          "description": "The copy to fit into the box. Keep it ASCII — the bundled font renders exotic codepoints as tofu.",
+          "placeholder": "Nothing soft-wraps: measure the glyphs, then choose the size."
+        },
+        "mode": {
+          "label": "Mode",
+          "description": "\"fit-block\": wrap and shrink until the block fits (stays readable). \"one-line\": refuse to wrap, shrink until it fits on one line (goes small fast). \"unfitted\": draw at the max size with no measurement — the clipping this lesson exists to show."
+        },
+        "boxWidthPct": {
+          "label": "Box width %",
+          "description": "Box width as a percent of the canvas. Narrow it and watch each mode react differently."
+        }
+      }
+    },
+    "@m0saic-starter/text/text-three-ways/v1": {
+      "label": "41 · Text, Three Ways",
+      "description": "The same word through all three text pipelines, side by side: drawtext (ffmpeg, expr-capable, host fonts), the svg rasterizer (bundled font baked to geometry — identical app/CLI), and mask-carved glyphs (text as a mask any source can wear). All valid; different promises.",
+      "tags": [
+        "text",
+        "rasterizer",
+        "lesson"
+      ],
+      "props": {
+        "word": {
+          "label": "Word",
+          "description": "The word rendered three ways (ASCII, 1-12 chars).",
+          "placeholder": "M0saic"
+        },
+        "inkColor": {
+          "label": "Ink",
+          "description": "Ink color as #rrggbb."
+        }
+      }
+    }
+  }
+}

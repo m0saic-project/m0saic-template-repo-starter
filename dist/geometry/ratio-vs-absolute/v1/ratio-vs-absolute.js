@@ -13,27 +13,20 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     railPx: {
         type: "number",
         required: false,
-        description: "Pinned width of the absolute band's side rails in px (40-1000). The ratio band ignores it — that's the point.",
-        meta: { constraints: { min: 40, max: 1000 }, control: { step: 20 }, ui: { label: "Rail px" } },
+        meta: { constraints: { min: 40, max: 1000 }, control: { step: 20 }, },
     },
     absoluteColor: {
         type: "string",
         required: false,
-        description: "Fill for the bottom (absolute) band's middle rect as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#117864" },
-            ui: { label: "Absolute fill" },
         },
     },
 });
 exports.RatioVsAbsoluteV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "07 · Ratio vs Absolute",
-    version: 1,
-    description: "A proportion contract over a pixel contract: a 1:2:1 ratio split whose sides scale with the canvas, above a placeRects band whose side rails are PINNED in px while the middle absorbs the rest. Resize the canvas and watch them disagree. Default to ratio; pin pixels only at the head canvas.",
     capabilities: { tier: "core" },
-    tags: ["geometry", "drafting-modes", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

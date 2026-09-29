@@ -15,10 +15,17 @@
  *     (`TEMPLATE_REPO.displayName`, or pass your own string below);
  *   · your own look — write your own template and point `repo.helloWorld`
  *     at it. The gate warns (never fails) while a repo names no front door.
+ *
+ * Where its WORDS live (the m0saic 0.3.1 template convention): not here. The
+ * label, description, tags and each prop's label / hint sit in
+ * `hello-world.catalog.json` beside this file — a template's code declares
+ * what it IS, its catalog sidecar how it is described, because that may
+ * change after the code ships. `catalog: true` asks the factory for exactly
+ * that shape.
  */
 import type { HelloWorldProps } from "@m0saic/template-utils";
 import {
-  HELLO_WORLD_PROPS_SCHEMA,
+  HELLO_WORLD_PROPS_SCHEMA_BARE,
   defineHelloWorldTemplate,
   defineMosaicTemplate,
 } from "@m0saic/template-utils";
@@ -31,25 +38,21 @@ export const HELLO_WORLD_ID = "@m0saic-starter/basics/hello-world/v1";
 /** The canonical card, built by the factory. */
 const card = defineHelloWorldTemplate({
   id: HELLO_WORLD_ID,
-  label: "01 · Hello World",
   // The subline — the muted line under the greeting. One string, one edit.
   subline: `by ${TEMPLATE_REPO.displayName}`,
-  tags: ["basics", "starter", "brand", "hello"],
-  description:
-    "The canonical m0saic hello-world card with this repo's subline: the brand field wipes in, a navy card rises, the M assembles from its own rectangles, then the wordmark and your greeting. The repo's front door — what `m0saic hello-world --template-repo .` renders.",
+  catalog: true,
 });
 
 // Spelled out as a literal (not just `card`) on purpose: the repo's
 // NO-INSTALL contract check (`npm run test:contract`) loads this module with
 // the whole substrate stubbed to an identity proxy, so a factory call alone
-// would read as an options bag. The structural fields it asserts — a numeric
-// version, a render() function, a props schema — live HERE; with the real
-// substrate installed they are exactly the factory's own.
+// would read as an options bag. The structural fields it asserts — a
+// render() function, a props schema — live HERE; with the real substrate
+// installed they are exactly the factory's own.
 export const HelloWorldV1 = defineMosaicTemplate<HelloWorldProps>({
   ...card,
   id: asTemplateId(HELLO_WORLD_ID),
-  version: 1,
-  propsSchema: { ...HELLO_WORLD_PROPS_SCHEMA },
+  propsSchema: { ...HELLO_WORLD_PROPS_SCHEMA_BARE },
   defaultProps: { ...card.defaultProps },
   render: (props, ctx) => card.render(props, ctx),
 

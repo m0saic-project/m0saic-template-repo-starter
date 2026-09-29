@@ -76,33 +76,24 @@ const propsSchema = definePropsSchema<HostConnectionProps>({
   bandColor: {
     type: "string",
     required: false,
-    description: "Accent fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#2e86c1" },
-      ui: { label: "Band color", order: 1 },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 2 },
     },
   },
 });
 
 export const HostConnectionV1 = defineMosaicTemplate<HostConnectionProps>({
   id: asTemplateId(ID),
-  label: "75 · Host Connection",
-  version: 1,
-  description:
-    "A template pack can teach the host a new kind of backend: registerHostConnection declares the Settings → Integrations form (base URL + keychain secret) and the Test-connection probe (reachable / authenticated / named failure). Registration is a module-eval side effect — importing the chapter makes starter-catalog@default exist — and the publisher half of the id must match the schema or registration throws. This card renders the REAL registered schema, not a mockup.",
   capabilities: { tier: "core" },
-  tags: ["connections", "lesson"],
 
   outputHints: {
     width: 1280,

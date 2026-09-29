@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/pipelines/encode-matrix/v1",
+  "label": "58 · Encode Matrix",
+  "description": "One render, many deliverables, no pipeline: `encodes` declares post-render transcode passes off a single workspace master. Codec, container and even size (as a stretching scale pass) — but never fps, duration or layout.",
+  "tags": [
+    "pipelines",
+    "encodes",
+    "lesson"
+  ],
+  "props": {
+    "web": {
+      "label": "WebM (VP9)",
+      "description": "Add a VP9-in-WebM encode. Same master, different codec — no second render."
+    },
+    "mobile": {
+      "label": "Mobile (half size)",
+      "description": "Add a half-size h264 encode. size on an encode is an ffmpeg scale pass: it STRETCHES, it does not re-lay out."
+    },
+    "title": {
+      "label": "Title",
+      "description": "Title on the card, so every deliverable is visibly the same render.",
+      "placeholder": "One render"
+    }
+  }
+}

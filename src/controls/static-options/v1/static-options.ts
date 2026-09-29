@@ -87,55 +87,40 @@ const propsSchema = definePropsSchema<StaticOptionsProps>({
   preset: {
     type: "string",
     required: false,
-    description:
-      "Export preset. options + constraints.oneOf together: the editor shows pills AND the validator fences the value — a true closed set.",
     meta: {
       constraints: { oneOf: PRESETS.map((p) => p.value) },
       control: { options: PRESETS },
-      ui: { label: "Preset", order: 1 },
     },
   },
   tracks: {
     type: "string[]",
     required: false,
-    description:
-      "Included tracks. options WITHOUT oneOf: toggle pills as a convenience, but any slug still validates — the picker is presentation, not a fence.",
     meta: {
       constraints: { minItems: 1, maxItems: 6 },
       control: { options: TRACKS },
-      ui: { label: "Tracks", order: 2 },
     },
   },
   bandColor: {
     type: "string",
     required: false,
-    description: "Accent fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#2e86c1" },
-      ui: { label: "Band color", order: 3 },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 4 },
     },
   },
 });
 
 export const StaticOptionsV1 = defineMosaicTemplate<StaticOptionsProps>({
   id: asTemplateId(ID),
-  label: "20 · Static Options",
-  version: 1,
-  description:
-    "The static option list: declare rows of value/label/description and a string prop becomes segmented pills or a dropdown, a string[] becomes toggle pills. The lesson is the distinction — options is PRESENTATION, constraints.oneOf is VALIDATION, and they are independent: preset declares both (a true closed set), tracks declares options only (pills as convenience, values open — the same posture connection-backed props need). Choose per prop, on purpose.",
   capabilities: { tier: "core" },
-  tags: ["controls", "lesson"],
 
   outputHints: {
     width: 1280,

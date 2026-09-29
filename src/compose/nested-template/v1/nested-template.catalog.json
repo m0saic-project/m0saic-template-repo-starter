@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/compose/nested-template/v1",
+  "label": "49 · Nested Template",
+  "description": "renderNestedTemplate calls another registered template and returns a document to drop into children. The slot option is the lesson: hand the child its real pixel box and it lays itself out for that box instead of for your canvas.",
+  "tags": [
+    "compose",
+    "children",
+    "lesson"
+  ],
+  "props": {
+    "badgeText": {
+      "label": "Badge text",
+      "description": "Text handed down to the badge child as its own prop. Parent props in, child props out — nothing shared but the call.",
+      "placeholder": "nested"
+    },
+    "slotPct": {
+      "label": "Slot %",
+      "description": "Badge slot width as a percent of the canvas. This number becomes the child's ctx.target.width — watch the badge re-fit itself, not stretch."
+    }
+  }
+}

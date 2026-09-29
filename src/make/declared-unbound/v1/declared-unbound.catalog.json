@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/make/declared-unbound/v1",
+  "label": "84 · Declared Unbound",
+  "description": "What a compliant NON-binding looks like: one bound label beside five accountable props that no rect shows - columns, gap, seed, padding, accent - each named in bindings.unbound with its reason, and a page colour that needs nothing because it IS the document background.",
+  "tags": [
+    "make",
+    "lesson"
+  ],
+  "props": {
+    "label": {
+      "label": "Label",
+      "description": "The one bound prop on the card - the rect that shows it is its handle.",
+      "placeholder": "declared unbound",
+      "order": 1
+    },
+    "columns": {
+      "label": "Columns",
+      "description": "How many tiles. A COUNT of rects, not a value on any one of them - accountable, and honestly unbound.",
+      "order": 2
+    },
+    "gap": {
+      "label": "Gap",
+      "description": "Gutter between tiles, in percent of the canvas width. Geometry - never drawn.",
+      "order": 3
+    },
+    "seed": {
+      "label": "Seed",
+      "description": "Deals the tint order through mulberry32 - determinism, never drawn. Same seed, same strip.",
+      "order": 4
+    },
+    "padding": {
+      "label": "Padding",
+      "description": "Inset from the canvas edges, in percent of the canvas width. Geometry - never drawn.",
+      "order": 5
+    },
+    "accent": {
+      "label": "Accent",
+      "description": "The tint family painted on every tile. A colour on many rects has no single handle, so it is declared rather than bound.",
+      "order": 6
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb. It IS document.backgroundColor, so it needs no binding and no declaration.",
+      "order": 7
+    }
+  }
+}

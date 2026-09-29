@@ -45,33 +45,24 @@ const propsSchema = definePropsSchema<ColorPropsProps>({
   panelColor: {
     type: "string",
     required: false,
-    description: "The big panel's fill as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#21618c" },
-      ui: { label: "Panel" },
     },
   },
   palette: {
     type: "string[]",
     required: false,
-    description: "The swatch column as #rrggbb entries (1-8).",
     meta: {
       constraints: { isColor: true, minItems: 1, maxItems: 8 },
       control: { colorPicker: true },
-      ui: { label: "Palette" },
     },
   },
 });
 
 export const ColorPropsV1 = defineMosaicTemplate<ColorPropsProps>({
   id: asTemplateId(ID),
-  label: "16 · Color Props",
-  version: 1,
-  description:
-    "Color props declare themselves: isColor + colorPicker turns a string prop into a real swatch control, and the same declaration on a string[] prop gets the color-list control. A scalar panel beside a palette column, receipts on the caption.",
   capabilities: { tier: "core" },
-  tags: ["props", "color", "lesson"],
 
   outputHints: {
     width: 1280,

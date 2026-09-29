@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/connections/options-select/v1",
+  "label": "76 · Options From a Connection",
+  "description": "A picker whose values live in the upstream backend, and the wire that connects them: optionsFromConnection names a registered fetcher kind, and connectionFromProp names the SIBLING PROP holding the connection id. The control reads the sibling, calls the host IPC, and fills with live rows — no id in the sibling, no fetch, and the control says so. The sibling is a normal prop: switch profiles by editing it, and it travels in saved files. Render never fetches: by then the value is a plain string[].",
+  "tags": [
+    "connections",
+    "lesson"
+  ],
+  "props": {
+    "connectionId": {
+      "label": "Connection",
+      "description": "The sibling wire: which configured connection profile the picker resolves against. Every connection-backed control on this template reads it; switch profiles by editing one prop.",
+      "order": 1
+    },
+    "collections": {
+      "label": "Collections",
+      "description": "Catalog collections to feature. Options are fetched live from the connection at edit time via the fetcher kind + the connectionId sibling; at render this is a plain string[].",
+      "order": 2
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 3
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 4
+    }
+  }
+}

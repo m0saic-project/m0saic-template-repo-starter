@@ -17,17 +17,11 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     data: {
         type: "json",
         required: false,
-        description: "Records to chart: an array of 1-6 objects shaped {label: 1-12 ASCII chars, value: 1-100}.",
-        meta: { ui: { label: "Data" } },
     },
 });
 exports.JsonDataPropV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "17 · JSON Data Prop",
-    version: 1,
-    description: "Structured data through one type:\"json\" prop — the host hands render() the parsed value, render() collects EVERY shape problem into one remedy-bearing error, and the records become geometry: one proportional bar per row.",
     capabilities: { tier: "core" },
-    tags: ["props", "data", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/basics/anatomy/v1",
+  "label": "02 · Anatomy",
+  "description": "The smallest correct template, wearing the brand: the pixel-M in a square cell over a greeting, placed with one placeInsetPieces call. A typed props surface, deterministic defaults, and a validated m0 string. Start here — this is the smoke render.",
+  "tags": [
+    "basics",
+    "starter",
+    "brand"
+  ],
+  "props": {
+    "text": {
+      "label": "Text",
+      "description": "The greeting rendered under the M.",
+      "placeholder": "Hello, m0saic"
+    },
+    "backgroundColor": {
+      "label": "Background",
+      "description": "Canvas fill as #rrggbb."
+    }
+  }
+}

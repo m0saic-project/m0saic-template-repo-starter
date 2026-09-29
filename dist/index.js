@@ -15,6 +15,28 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TEMPLATE_REPO = exports.TEMPLATE_PACKS = exports.templates = exports.repo = void 0;
+/**
+ * Entry module for the `@m0saic-starter` template repo.
+ *
+ * A host (Mosaic Desktop, or the CLI's `--template-repo`) imports THIS file
+ * and reads two exports:
+ *
+ *   • `repo`      — a MosaicTemplateRepoDescriptor: who this repo is.
+ *   • `templates` — the array of templates to register.
+ *
+ * `getTemplates()` is accepted in place of `templates` for lazy repos.
+ * Nothing else is required — THE HOST does the registering, so this file
+ * must NOT call `registerTemplate` itself. (Built-in packs register on
+ * import because they're loaded a different way; an external repo that
+ * self-registers would double-register.)
+ *
+ * `template-manifest.json` mirrors this list so the app can populate its
+ * browse UI WITHOUT executing any of this code — the build's manifest
+ * generator asserts the two can't drift.
+ */
+// FIRST: declare this repo's catalog, so every template below is defined with
+// its label / description / tags / prop copy applied (see ./catalog).
+require("./catalog");
 const repo_1 = require("./repo");
 Object.defineProperty(exports, "TEMPLATE_PACKS", { enumerable: true, get: function () { return repo_1.TEMPLATE_PACKS; } });
 Object.defineProperty(exports, "TEMPLATE_REPO", { enumerable: true, get: function () { return repo_1.TEMPLATE_REPO; } });

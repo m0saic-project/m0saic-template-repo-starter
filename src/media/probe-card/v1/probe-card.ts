@@ -40,19 +40,13 @@ const propsSchema = definePropsSchema<ProbeCardProps>({
   media: {
     type: "media",
     required: false,
-    description: "Any image or video file. The card prints the host's probe of it.",
-    meta: { control: { picker: "file", accept: ["image", "video"] }, ui: { label: "Media" } },
+    meta: { control: { picker: "file", accept: ["image", "video"] }, },
   },
 });
 
 export const ProbeCardV1 = defineMosaicTemplate<ProbeCardProps>({
   id: asTemplateId(ID),
-  label: "34 · Probe Card",
-  version: 1,
-  description:
-    "ctx.media is the host's ffprobe registry, keyed by the RAW prop string — templates read it, never probe. Pick any image or video and the card prints its entry: kind, dimensions, duration; the thumb renders beside the facts.",
   capabilities: { tier: "core" },
-  tags: ["media", "probe", "lesson"],
 
   outputHints: {
     width: 1280,

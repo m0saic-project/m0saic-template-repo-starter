@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/pipelines/ref-mirror/v1",
+  "label": "59 · Ref Mirror",
+  "description": "A ref source mirrors another cell's rendered pixels by flattenedStableKey: the target renders once and every mirror reads the same intermediate, decorating its own copy. N mirrors, one decode.",
+  "tags": [
+    "pipelines",
+    "refs",
+    "lesson"
+  ],
+  "props": {
+    "word": {
+      "label": "Word",
+      "description": "Drawn ONCE in the hero cell. The three cells beside it are mirrors of those very pixels, not re-renders.",
+      "placeholder": "MIRROR"
+    },
+    "mirrorFit": {
+      "label": "Mirror fit",
+      "description": "Placement on the MIRRORS only — the hero is untouched. Same pixels, different treatment per copy."
+    }
+  }
+}

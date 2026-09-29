@@ -13,13 +13,11 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     video: {
         type: "media",
         required: false,
-        description: "The video to pull windows from.",
-        meta: { control: { picker: "file", accept: ["video"] }, ui: { label: "Video" } },
+        meta: { control: { picker: "file", accept: ["video"] }, },
     },
     ranges: {
         type: "json",
         required: false,
-        description: "Windows within the source, milliseconds: an array of { startMs, endMs, label? }. Each renders as its own medley column (1-6).",
         meta: {
             constraints: {
                 jsonSchema: {
@@ -38,17 +36,12 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
                 },
             },
             control: { picker: "time-ranges", videoFromProp: "video" },
-            ui: { label: "Ranges" },
         },
     },
 });
 exports.TimeRangesMedleyV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "36 · Time-Ranges Medley",
-    version: 1,
-    description: "The MULTI-range control: one type:\"json\" prop (Array<{startMs,endMs,label?}>) with picker:\"time-ranges\" — the editor's multi-range studio writes the whole array through it. Every window renders as its own medley column via clipStartMs + clipDurationMs, mapped over the array.",
     capabilities: { tier: "core" },
-    tags: ["media", "playback", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

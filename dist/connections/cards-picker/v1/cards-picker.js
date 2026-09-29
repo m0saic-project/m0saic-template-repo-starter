@@ -33,15 +33,10 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     connectionId: {
         type: "string",
         required: false,
-        description: "The sibling wire (lesson 76): which configured connection profile the artwork picker resolves against.",
-        meta: {
-            ui: { label: "Connection", order: 1 },
-        },
     },
     itemIds: {
         type: "string[]",
         required: false,
-        description: "Catalog items to feature, picked by artwork. The expanded picker renders wide cover-fit cards with art resolved lazily from the connection; without images it degrades to a text list.",
         meta: {
             constraints: { minItems: 1, maxItems: MAX_ITEMS },
             control: {
@@ -50,27 +45,20 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
                 cardFit: "cover",
                 optionsFromConnection: { kind: fetchers_1.ITEMS_KIND, connectionFromProp: "connectionId" },
             },
-            ui: { label: "Items", order: 2 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 3 },
         },
     },
 });
 exports.CardsPickerV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "77 · Cards Picker",
-    version: 1,
-    description: "Pick upstream results by their artwork: picker \"cards\" turns a string[] prop's connection-backed multi-select into an image-card grid. cardAspect and cardFit are declared by the template because they are properties of the connection kind being queried (wide cover-fit for catalog stills); the heavy art itself rides a companion images fetcher, resolved lazily per visible page as data URIs, never inlined into the options list. At render the prop is a plain string[] — the artwork's only job was making the pick rich.",
     capabilities: { tier: "core" },
-    tags: ["connections", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

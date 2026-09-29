@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/data/pure-adapter/v1",
+  "label": "64 · Pure Adapter",
+  "description": "An adapter reads one data block and publishes another — a pure function between channels. Reshaping needs no capability tier and no network, so it stays core tier and testable with a plain object; a missing upstream degrades to an empty result rather than throwing.",
+  "tags": [
+    "data",
+    "adapter",
+    "lesson"
+  ],
+  "props": {
+    "inputAlias": {
+      "label": "Input alias",
+      "description": "Upstream channel to read. Must match what the producer published under — the alias is the contract between them.",
+      "placeholder": "starterData"
+    },
+    "outputAlias": {
+      "label": "Output alias",
+      "description": "Channel this adapter publishes on. Keep it distinct from the input so both blocks stay readable downstream.",
+      "placeholder": "seriesStats"
+    },
+    "seriesKey": {
+      "label": "Series key",
+      "description": "Which key inside the upstream block holds the numbers. Naming it as a prop is what lets one adapter serve several producers.",
+      "placeholder": "series"
+    }
+  }
+}

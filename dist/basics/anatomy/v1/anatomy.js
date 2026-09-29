@@ -13,29 +13,21 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     text: {
         type: "string",
         required: false,
-        description: "The greeting rendered under the M.",
-        meta: { control: { placeholder: "Hello, m0saic" }, ui: { label: "Text" } },
     },
     backgroundColor: {
         type: "string",
         required: false,
-        description: "Canvas fill as #rrggbb.",
         // Color props declare themselves: `isColor` + `colorPicker` gives the
         // app a real swatch control instead of a bare text field.
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#0d1117" },
-            ui: { label: "Background" },
         },
     },
 });
 exports.AnatomyV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "02 · Anatomy",
-    version: 1,
-    description: "The smallest correct template, wearing the brand: the pixel-M in a square cell over a greeting, placed with one placeInsetPieces call. A typed props surface, deterministic defaults, and a validated m0 string. Start here — this is the smoke render.",
     capabilities: { tier: "core" },
-    tags: ["basics", "starter", "brand"],
     outputHints: {
         width: 1280,
         height: 720,

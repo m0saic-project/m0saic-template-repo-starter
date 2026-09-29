@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/media/probe-card/v1",
+  "label": "34 · Probe Card",
+  "description": "ctx.media is the host's ffprobe registry, keyed by the RAW prop string — templates read it, never probe. Pick any image or video and the card prints its entry: kind, dimensions, duration; the thumb renders beside the facts.",
+  "tags": [
+    "media",
+    "probe",
+    "lesson"
+  ],
+  "props": {
+    "media": {
+      "label": "Media",
+      "description": "Any image or video file. The card prints the host's probe of it."
+    }
+  }
+}

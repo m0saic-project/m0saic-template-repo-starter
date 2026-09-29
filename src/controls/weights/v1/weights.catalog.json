@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/controls/weights/v1",
+  "label": "23 · Weights",
+  "description": "A distribution the user drags, not numbers the user types: flavor weights plus a schema-declared label set renders a number[] prop as an auto-balancing slider group holding a constant 100. One weight per label, order-paired — the labels live in the schema so the value stays pure numbers. Both the field and this render normalize forgiving-ly (stale or hand-typed values become a sane distribution), and the bands below are a weightedSplit fed directly by the prop: drag a slider, move a wall.",
+  "tags": [
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "mix": {
+      "label": "Mix",
+      "description": "The timeline mix. flavor weights + the schema-declared labels render an auto-balancing slider group summing to 100; the value is one weight per label, order-paired.",
+      "order": 1
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 2
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 3
+    }
+  }
+}

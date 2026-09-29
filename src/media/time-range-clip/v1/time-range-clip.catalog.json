@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/media/time-range-clip/v1",
+  "label": "35 · Time-Range Clip",
+  "description": "The time-range picker pair: two number props ending in StartMs/EndMs (here clipStartMs and clipEndMs) with picker:\"time-range\" + videoFromProp render ONE scrubber with two handles — and the window lands on the source as playback.clipStartMs + clipDurationMs (start + LENGTH).",
+  "tags": [
+    "media",
+    "playback",
+    "lesson"
+  ],
+  "props": {
+    "video": {
+      "label": "Video",
+      "description": "The video to window."
+    },
+    "clipStartMs": {
+      "label": "Clip start",
+      "description": "Window start (ms into the source). Half of the time-range pair."
+    },
+    "clipEndMs": {
+      "label": "Clip end",
+      "description": "Window end (ms into the source). The other half of the pair."
+    }
+  }
+}

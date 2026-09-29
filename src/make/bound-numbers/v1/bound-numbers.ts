@@ -92,44 +92,31 @@ const propsSchema = definePropsSchema<BoundNumbersProps>({
   visitors: {
     type: "number",
     required: false,
-    description:
-      "A count, drawn with thousands separators (toLocaleString) and bound to the numeral that shows it. 12480 is drawn 12,480 - the gate reads that spelling.",
-    meta: { constraints: { min: 0, max: VISITORS_MAX }, control: { step: 1 }, ui: { label: "Visitors", order: 1 } },
+    meta: { constraints: { min: 0, max: VISITORS_MAX }, control: { step: 1 }, },
   },
   price: {
     type: "number",
     required: false,
-    description:
-      "A price, drawn to two decimals (toFixed) and bound. Decimals stay decimals: 3.5 is drawn 3.50 and the gate reads it; an integer drawn as 4.00 is not a spelling it reads - the binding holds either way.",
-    meta: { constraints: { min: 0, max: PRICE_MAX }, control: { step: 0.25 }, ui: { label: "Price", order: 2 } },
+    meta: { constraints: { min: 0, max: PRICE_MAX }, control: { step: 0.25 }, },
   },
   year: {
     type: "number",
     required: false,
-    description:
-      "A year, drawn plainly (String) and bound. The digit boundary keeps it honest: 2026 is never read out of 20260.",
-    meta: { constraints: { min: YEAR_MIN, max: YEAR_MAX }, control: { step: 1 }, ui: { label: "Year", order: 3 } },
+    meta: { constraints: { min: YEAR_MIN, max: YEAR_MAX }, control: { step: 1 }, },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 4 },
     },
   },
 });
 
 export const BoundNumbersV1 = defineMosaicTemplate<BoundNumbersProps>({
   id: asTemplateId(ID),
-  label: "82 · Bound Numbers",
-  version: 1,
-  description:
-    "The numeral you draw is a handle. Three numbers, three honest spellings - 12,480 (toLocaleString), $3.50 (toFixed), 2026 (String) - each bound to the rect that shows it, plus a derived total that is not a prop and needs no binding. The bindingsCover numbers rule reads exactly these spellings, on a digit boundary.",
   capabilities: { tier: "core" },
-  tags: ["make", "lesson"],
 
   outputHints: {
     width: 1280,

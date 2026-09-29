@@ -25,39 +25,27 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     layout: {
         type: "m0",
         required: false,
-        description: "The layout to frame, as a raw m0 string. type m0 tells the editor this value is grammar, not prose — and the template validates it like any untrusted input.",
-        meta: {
-            ui: { label: "Layout", order: 1 },
-        },
     },
     bandColor: {
         type: "string",
         required: false,
-        description: "Accent fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#2e86c1" },
-            ui: { label: "Band color", order: 2 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 3 },
         },
     },
 });
 exports.M0PropV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "28 · m0 Prop",
-    version: 1,
-    description: "The layout itself as a prop: type m0 tells the editor the value is grammar, not prose, and the template treats it like any untrusted input — isValidM0String at the boundary, a report card instead of a dead render when it doesn't parse. Valid layouts are framed and wireframed, one tile per claim; heavy layouts DEGRADE instead of failing — hundreds of claims get a measured stats card (chars, claims, floors), and a layout too big for this canvas gets the floors card naming its safe minimum. The grammar has no cap; only lessons and budgets do.",
     capabilities: { tier: "core" },
-    tags: ["controls", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

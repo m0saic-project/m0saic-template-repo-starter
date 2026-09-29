@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/connections/criteria-filter/v1",
+  "label": "79 · Criteria Filter",
+  "description": "A query as a prop: flavor criteriaFilter + a criteria catalog declares which criteria exist (search / number / boolean / idSet with modifiers), and the editor renders the filter builder by KIND — keys and labels stay opaque, so the control works for any catalog. The idSet's options ride the same optionsFromConnection machinery as the chapter's other pickers, through the connectionId wire. The value is a flat AND-object, absent key = unset, drawn here as the saved-search card it is — carrying intent precisely is the prop's whole job; executing the query belongs to the data chapter.",
+  "tags": [
+    "connections",
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "connectionId": {
+      "label": "Connection",
+      "description": "The sibling wire (lesson 76): which configured connection profile the Collections idSet picker reads.",
+      "order": 1
+    },
+    "filter": {
+      "label": "Filter",
+      "description": "The query: a flat AND of set criteria — absent key means unset. search (text), collections (idSet from the connection), duration in seconds (number with modifiers), featured (boolean).",
+      "order": 2
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 3
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 4
+    }
+  }
+}

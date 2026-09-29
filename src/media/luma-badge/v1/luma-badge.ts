@@ -46,25 +46,17 @@ const propsSchema = definePropsSchema<LumaBadgeProps>({
   image: {
     type: "media",
     required: false,
-    description: "The image the corner badge sits on.",
-    meta: { control: { picker: "file", accept: ["image"] }, ui: { label: "Image" } },
+    meta: { control: { picker: "file", accept: ["image"] }, },
   },
   badge: {
     type: "string",
     required: false,
-    description: "Badge text (ASCII, 1-16 chars).",
-    meta: { control: { placeholder: "PREVIEW" }, ui: { label: "Badge" } },
   },
 });
 
 export const LumaBadgeV1 = defineMosaicTemplate<LumaBadgeProps>({
   id: asTemplateId(ID),
-  label: "37 · Luma Badge",
-  version: 1,
-  description:
-    "Content-aware with a fallback: ctx.analysis.regionLuminance asks the host how bright the badge corner is, and the badge flips dark-on-light / light-on-dark to stay readable. Analysis is OPTIONAL — no-analysis hosts degrade to a stated default, printed on the caption.",
   capabilities: { tier: "core" },
-  tags: ["media", "analysis", "lesson"],
 
   outputHints: {
     width: 1280,

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/pipelines/fan-out/v1",
+  "label": "56 · Fan Out",
+  "description": "emit:\"multi\" writes one file per output step, each at its own canvas — the only way one template delivers several geometries. Landscape and portrait re-LAY OUT rather than scaling, which is the reason to fan out instead of adding an encode.",
+  "tags": [
+    "pipelines",
+    "multi-output",
+    "lesson"
+  ],
+  "props": {
+    "title": {
+      "label": "Title",
+      "description": "Text drawn on every variant — one source of truth, laid out differently per shape.",
+      "placeholder": "Ship it"
+    },
+    "includeSquare": {
+      "label": "Include square",
+      "description": "Add a third output step at 1:1. Each step becomes its own file, named from step.name."
+    },
+    "variantMs": {
+      "label": "Variant ms",
+      "description": "How long each variant renders. Steps are independent documents, so they could differ — this one keeps them equal."
+    }
+  }
+}

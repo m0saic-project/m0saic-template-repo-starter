@@ -14,23 +14,17 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     title: {
         type: "string",
         required: false,
-        description: "Text drawn on every variant — one source of truth, laid out differently per shape.",
-        meta: { control: { placeholder: "Ship it" }, ui: { label: "Title" } },
     },
     includeSquare: {
         type: "boolean",
         required: false,
-        description: "Add a third output step at 1:1. Each step becomes its own file, named from step.name.",
-        meta: { ui: { label: "Include square" } },
     },
     variantMs: {
         type: "number",
         required: false,
-        description: "How long each variant renders. Steps are independent documents, so they could differ — this one keeps them equal.",
         meta: {
             constraints: { min: 200, max: 5000 },
             control: { step: 100 },
-            ui: { label: "Variant ms" },
         },
     },
 });
@@ -66,11 +60,7 @@ function variant(title, width, height, durationMs, fps) {
 }
 exports.FanOutV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "56 · Fan Out",
-    version: 1,
-    description: "emit:\"multi\" writes one file per output step, each at its own canvas — the only way one template delivers several geometries. Landscape and portrait re-LAY OUT rather than scaling, which is the reason to fan out instead of adding an encode.",
     capabilities: { tier: "core" },
-    tags: ["pipelines", "multi-output", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

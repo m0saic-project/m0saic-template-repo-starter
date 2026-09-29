@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/pipelines/ref-across-steps/v1",
+  "label": "60 · Ref Across Steps",
+  "description": "A ref with stepIndex is a BACK-EDGE: a later step shows an earlier step's exact rendered pixels, no re-render. Back-edges only (forward refs are an error), plus the handoff idiom where the producer self-stamps {stepIndex, flattenedStableKey} for the consumer to spread.",
+  "tags": [
+    "pipelines",
+    "refs",
+    "lesson"
+  ],
+  "props": {
+    "word": {
+      "label": "Word",
+      "description": "Rendered ONCE in the producer step. The consumer step mirrors those pixels back instead of drawing them again.",
+      "placeholder": "STEP 0"
+    },
+    "keepProducer": {
+      "label": "Keep producer output",
+      "description": "Ship the producer step as a file too. Off, it is intermediate: it renders (the ref needs it) but never reaches the deliverable."
+    }
+  }
+}

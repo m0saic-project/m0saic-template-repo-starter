@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/controls/number-display/v1",
+  "label": "31 · Number Display",
+  "description": "The stored unit and the shown unit are different decisions: unit names the canonical scale (ms here — what props, files, and render carry), displayUnit converts only the editor's field (2400 shows as 2.4 s), lockDisplayUnit freezes the unit chip where a swap could silently rescale a value, and step is authored in the canonical unit. Render reads canonical ms and prints it — presentation never leaks into meaning.",
+  "tags": [
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "holdMs": {
+      "label": "Hold",
+      "description": "Hold per slide. Stored in ms (the canonical unit render reads); the editor shows seconds by default and the unit chip cycles the family.",
+      "order": 1
+    },
+    "fadeMs": {
+      "label": "Fade",
+      "description": "Crossfade between slides. Also stored in ms — but the display is LOCKED to ms, because cycling this tiny value's chip to hours would be a silent catastrophe.",
+      "order": 2
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 3
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/controls/static-options/v1",
+  "label": "20 · Static Options",
+  "description": "The static option list: declare rows of value/label/description and a string prop becomes segmented pills or a dropdown, a string[] becomes toggle pills. The lesson is the distinction — options is PRESENTATION, constraints.oneOf is VALIDATION, and they are independent: preset declares both (a true closed set), tracks declares options only (pills as convenience, values open — the same posture connection-backed props need). Choose per prop, on purpose.",
+  "tags": [
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "preset": {
+      "label": "Preset",
+      "description": "Export preset. options + constraints.oneOf together: the editor shows pills AND the validator fences the value — a true closed set.",
+      "order": 1
+    },
+    "tracks": {
+      "label": "Tracks",
+      "description": "Included tracks. options WITHOUT oneOf: toggle pills as a convenience, but any slug still validates — the picker is presentation, not a fence.",
+      "order": 2
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 3
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 4
+    }
+  }
+}

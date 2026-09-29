@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/basics/hot-reload-canary/v1",
+  "label": "03 · Hot-Reload Canary",
+  "description": "A solid square whose fill comes from a CONSTANT in the template source, not a prop default. Flip the constant, rebuild, hit Refresh repos — the running app must follow without a restart. This is how you verify your edit loop.",
+  "tags": [
+    "basics",
+    "starter",
+    "smoke"
+  ],
+  "props": {
+    "color": {
+      "label": "Override fill",
+      "description": "Optional fill override (#rrggbb). Unset: the CANARY_COLOR constant baked into the template source.",
+      "placeholder": "module constant CANARY_COLOR"
+    }
+  }
+}

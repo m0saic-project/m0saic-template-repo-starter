@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/surfaces/render-tutorial/v1",
+  "label": "70 · Render Tutorial",
+  "description": "The only lesson in this repo that builds its own tutorial instead of using the standard page — because building one is what it teaches. Three pages as a pipeline, each declaring its own durationMs, proving the rule that a tutorial owns its timing and never reads ctx.target.durationMs.",
+  "tags": [
+    "surfaces",
+    "tutorial",
+    "lesson"
+  ],
+  "props": {
+    "title": {
+      "label": "Title",
+      "description": "Headline on the rendered card.",
+      "order": 1
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Page background as #rrggbb.",
+      "order": 2
+    }
+  }
+}

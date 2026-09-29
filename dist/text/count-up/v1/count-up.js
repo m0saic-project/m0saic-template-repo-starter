@@ -15,39 +15,27 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     value: {
         type: "number",
         required: false,
-        description: "The number the counter ramps up to over the clip's duration.",
         meta: {
             constraints: { min: 0, max: MAX_VALUE },
             control: { step: 1 },
-            ui: { label: "Value" },
         },
     },
     suffix: {
         type: "string",
         required: false,
-        description: "Text drawn after the number. Kept literal — animateNumbersInText only animates digit runs, so \"stars\" stays \"stars\".",
-        meta: { control: { placeholder: "stars" }, ui: { label: "Suffix" } },
     },
     label: {
         type: "string",
         required: false,
-        description: "Static label under the counter — an svg source, because it never changes.",
-        meta: { control: { placeholder: "since launch" }, ui: { label: "Label" } },
     },
     freezeAsStill: {
         type: "boolean",
         required: false,
-        description: "Render the counter as an image instead of video. The expression still compiles — it just never gets a second frame to evaluate on.",
-        meta: { ui: { label: "Freeze as a still" } },
     },
 });
 exports.CountUpV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "43 · Count Up",
-    version: 1,
-    description: "A drawtext counter that ramps 0 → value over the clip: content.kind \"expr\" + eval \"frame\" + renderMode \"video\", the three fields that must agree. Flip Freeze as a still to see the quiet failure when one of them doesn't.",
     capabilities: { tier: "core" },
-    tags: ["text", "expr", "animation", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

@@ -32,33 +32,23 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     zoom: {
         type: "number",
         required: false,
-        description: "Camera zoom. At 1 followCamera returns undefined — no camera at all, which the template has to handle rather than assume.",
         meta: {
             constraints: { min: 1, max: 3 },
             control: { step: 0.25 },
-            ui: { label: "Zoom" },
         },
     },
     pullBack: {
         type: "boolean",
         required: false,
-        description: "Ease back to the full view after the last target and hold there — the standard end of a camera walk.",
-        meta: { ui: { label: "Pull back at the end" } },
     },
     showViewport: {
         type: "boolean",
         required: false,
-        description: "Draw the crop window the camera will frame at each target, via cameraViewportRect — the same math a camera debugger uses.",
-        meta: { ui: { label: "Show viewport rects" } },
     },
 });
 exports.CameraFollowV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "51 · Camera Follow",
-    version: 1,
-    description: "A keyframed camera walk described as rects and times: followCamera turns targets into per-frame focus expressions over a child mosaic's own coordinate space, with an optional pull-back — and viewport rects showing exactly what each settle will frame.",
     capabilities: { tier: "core" },
-    tags: ["compose", "camera", "animation", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

@@ -45,22 +45,15 @@ const propsSchema = definePropsSchema<UrlAssetProps>({
   url: {
     type: "string",
     required: false,
-    description: "Remote image URL (https). The HOST fetches it at render time.",
     meta: {
-      control: { flavor: "url", placeholder: "https://example.com/image.png" },
-      ui: { label: "Image URL" },
+      control: { flavor: "url", },
     },
   },
 });
 
 export const UrlAssetV1 = defineMosaicTemplate<UrlAssetProps>({
   id: asTemplateId(ID),
-  label: "40 · URL Asset",
-  version: 1,
-  description:
-    "The {kind:\"url\"} asset: a manifest entry pointing at remote media the HOST fetches at render time — with the costs stated on canvas: offline fails, bytes can drift, no probe before fetch. Prefer {kind:\"file\"} for anything reproducible.",
   capabilities: { tier: "core" },
-  tags: ["media", "url", "lesson"],
 
   outputHints: {
     width: 1280,

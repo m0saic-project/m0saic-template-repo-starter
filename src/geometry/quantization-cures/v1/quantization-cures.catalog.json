@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/geometry/quantization-cures/v1",
+  "label": "13 · Quantization: Three Cures",
+  "description": "The geometry capstone: one 12x3 gridded design through four spellings. Naive ratio gutters wobble N/N+1 px (thin lines magnify quantization); then the three cures - inset recovery (exact gutters, tiny string), snapGrid (everything exact inside a quantization-free rect, coverage given up), placeRects (exact pixels baked to this canvas). Flip the Method enum and read the receipts.",
+  "tags": [
+    "geometry",
+    "quantization",
+    "lesson"
+  ],
+  "props": {
+    "method": {
+      "label": "Method",
+      "description": "The same 12x3 gridded design, four spellings: \"naive\" ratio-weight gutters (watch them wobble), \"inset\" recovery via latticeCellInset (exact gutters, tiny string), \"snap\" via snapGridFit (everything exact inside a quantization-free rect), \"rects\" via placeRects (exact pixels baked to THIS canvas)."
+    },
+    "checkerColor": {
+      "label": "Checker color",
+      "description": "Checkerboard accent fill as #rrggbb."
+    }
+  }
+}

@@ -7,8 +7,11 @@
  * shape the panel, and this template uses all of them:
  *
  *  - the TOP GROUP is `required` props PLUS optional ones pinned with
- *    `ui.primary: true` — `accent` here is optional (it has a default) but
- *    important enough not to bury under the Optional fold;
+ *    `primary: true` — `accent` here is optional (it has a default) but
+ *    important enough not to bury under the Optional fold. `primary`, like a
+ *    prop's label, hint and order, is PRESENTATION: it lives in the catalog
+ *    sidecar (`panel-organization.catalog.json` → `props.accent.primary`),
+ *    not in this file (m0saic 0.3.1);
  *  - everything else lands in the OPTIONAL fold (`frame` here);
  *  - `ui.visibleWhen: { prop, equals }` SKIPS a control until its sibling
  *    gate matches — `badgeText` only exists in the panel while `showBadge`

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/pipelines/ref-reframe/v1",
+  "label": "61 · Ref Reframe",
+  "description": "A mirror whose slot differs in shape and length: placement.fit reframes the pixels and playback.loopMode fills the tail (loop, freeze or cut). Nothing is re-rendered — one intermediate, per-consumer decoration.",
+  "tags": [
+    "pipelines",
+    "refs",
+    "lesson"
+  ],
+  "props": {
+    "fit": {
+      "label": "Fit",
+      "description": "How the mirror frames a slot with a different shape: contain letterboxes, cover crops. Same pixels either way."
+    },
+    "loopMode": {
+      "label": "Loop mode",
+      "description": "What fills the tail once the mirrored pixels run out: loop repeats them, freeze holds the last frame, cut goes black."
+    },
+    "tailMs": {
+      "label": "Tail ms",
+      "description": "How much LONGER the consumer step runs than the target. Without a tail there is nothing for loopMode to decide."
+    }
+  }
+}

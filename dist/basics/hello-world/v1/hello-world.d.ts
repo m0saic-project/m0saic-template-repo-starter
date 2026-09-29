@@ -15,6 +15,13 @@
  *     (`TEMPLATE_REPO.displayName`, or pass your own string below);
  *   · your own look — write your own template and point `repo.helloWorld`
  *     at it. The gate warns (never fails) while a repo names no front door.
+ *
+ * Where its WORDS live (the m0saic 0.3.1 template convention): not here. The
+ * label, description, tags and each prop's label / hint sit in
+ * `hello-world.catalog.json` beside this file — a template's code declares
+ * what it IS, its catalog sidecar how it is described, because that may
+ * change after the code ships. `catalog: true` asks the factory for exactly
+ * that shape.
  */
 import type { HelloWorldProps } from "@m0saic/template-utils";
 export declare const HELLO_WORLD_ID = "@m0saic-starter/basics/hello-world/v1";

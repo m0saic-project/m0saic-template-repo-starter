@@ -12,31 +12,23 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     baseColor: {
         type: "string",
         required: false,
-        description: "Base (bottom layer) fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#154360" },
-            ui: { label: "Base color" },
         },
     },
     bandColor: {
         type: "string",
         required: false,
-        description: "Band (middle layer) fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#2e86c1" },
-            ui: { label: "Band color" },
         },
     },
 });
 exports.OverlayStackV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "08 · Overlay Stack",
-    version: 1,
-    description: "1{3[-,1{1},-]}: a full-canvas base, a centered band on its overlay, a badge on the band's overlay. Overlays restore their node's whole rect and paint after it — walk order IS paint order IS source-binding order.",
     capabilities: { tier: "core" },
-    tags: ["geometry", "overlay", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

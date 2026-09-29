@@ -23,37 +23,28 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     shape: {
         type: "string",
         required: false,
-        description: "\"circle\" (radius from the short side, stays round), \"ellipse\" (fills the cell on purpose), \"rounded-rect\" (roundedRectPathD with your corner), \"pill\" (the same helper at half the short side — not a separate shape).",
-        meta: { constraints: { oneOf: [...SHAPES] }, ui: { label: "Shape" } },
+        meta: { constraints: { oneOf: [...SHAPES] }, },
     },
     cornerPct: {
         type: "number",
         required: false,
-        description: "Corner radius for \"rounded-rect\", as a percent of the short side. At 50 it IS the pill — that is the point.",
         meta: {
             constraints: { min: 0, max: 50 },
             control: { step: 5 },
-            ui: { label: "Corner %" },
         },
     },
     shapeColor: {
         type: "string",
         required: false,
-        description: "Shape fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#EF7525" },
-            ui: { label: "Shape color" },
         },
     },
 });
 exports.ShapeMasksV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "45 · Shape Masks",
-    version: 1,
-    description: "There are no shape primitives — every shape is a color tile wearing an SVG path. Circle, ellipse, rounded rect and pill, each authored against the cell's own box, with the caption printing the path the engine actually gets.",
     capabilities: { tier: "core" },
-    tags: ["masks", "shapes", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

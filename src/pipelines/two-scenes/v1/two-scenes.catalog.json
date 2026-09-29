@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/pipelines/two-scenes/v1",
+  "label": "55 · Two Scenes",
+  "description": "The smallest pipeline: two documents concatenated into one file. Shows that a step IS a document (own m0, own canvas, own exact durationMs) and the transition OVERLAP rule — a d-ms crossfade makes the output A + B − d, not A + B.",
+  "tags": [
+    "pipelines",
+    "time",
+    "lesson"
+  ],
+  "props": {
+    "transition": {
+      "label": "Transition",
+      "description": "\"cut\": a hard boundary, and the output is exactly A + B. \"fade\": a crossfade that OVERLAPS the two scenes, so the output is A + B minus the overlap."
+    },
+    "transitionMs": {
+      "label": "Overlap ms",
+      "description": "Overlap length in ms. This is time the stitched output LOSES — the planner clamps it to the shorter scene."
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/media/image-card/v1",
+  "label": "32 · Image Card",
+  "description": "One image through the whole media pipeline: raw path prop, host-side probe via ctx.media, slugified asset key, {kind:\"file\"} manifest entry, and a media source — with the contain-vs-cover fit decision on a knob.",
+  "tags": [
+    "media",
+    "image",
+    "lesson"
+  ],
+  "props": {
+    "image": {
+      "label": "Image",
+      "description": "The image to frame. The value is a raw path; the host probes it."
+    },
+    "fit": {
+      "label": "Fit",
+      "description": "contain letterboxes (whole image visible); cover fills the cell (crops)."
+    }
+  }
+}

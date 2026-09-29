@@ -26,8 +26,11 @@ import { lessonTutorial } from "../../../_shared/tutorial";
  * shape the panel, and this template uses all of them:
  *
  *  - the TOP GROUP is `required` props PLUS optional ones pinned with
- *    `ui.primary: true` — `accent` here is optional (it has a default) but
- *    important enough not to bury under the Optional fold;
+ *    `primary: true` — `accent` here is optional (it has a default) but
+ *    important enough not to bury under the Optional fold. `primary`, like a
+ *    prop's label, hint and order, is PRESENTATION: it lives in the catalog
+ *    sidecar (`panel-organization.catalog.json` → `props.accent.primary`),
+ *    not in this file (m0saic 0.3.1);
  *  - everything else lands in the OPTIONAL fold (`frame` here);
  *  - `ui.visibleWhen: { prop, equals }` SKIPS a control until its sibling
  *    gate matches — `badgeText` only exists in the panel while `showBadge`
@@ -67,68 +70,48 @@ const propsSchema = definePropsSchema<PanelOrganizationProps>({
   title: {
     type: "string",
     required: true,
-    description: "Poster title. Required, so it sits in the top group by right.",
-    meta: { ui: { label: "Title", order: 1 } },
   },
   accent: {
     type: "string",
     required: false,
-    description:
-      "Accent color. OPTIONAL — but pinned into the top group with ui.primary, because burying the one knob everyone reaches for would be panel malpractice.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#2e86c1" },
-      ui: { label: "Accent", order: 2, primary: true },
     },
   },
   frame: {
     type: "boolean",
     required: false,
-    description: "Draw a thin frame. Plain optional — the Optional fold is its home.",
-    meta: { ui: { label: "Frame", order: 3 } },
   },
   showBadge: {
     type: "boolean",
     required: false,
-    description: "The gate: while off, badgeText has no control at all.",
-    meta: { ui: { label: "Show badge", order: 4 } },
   },
   badgeText: {
     type: "string",
     required: false,
-    description:
-      "Badge copy. visibleWhen skips this control until showBadge matches — gone, not grayed.",
     meta: {
-      ui: { label: "Badge text", order: 5, visibleWhen: { prop: "showBadge", equals: "true" } },
+      ui: { visibleWhen: { prop: "showBadge", equals: "true" } },
     },
   },
   watermarkTag: {
     type: "string",
     required: false,
-    description:
-      "ui.hidden: never a control, still a prop — agents and saved files set it, and render paints it.",
-    meta: { ui: { label: "Watermark tag", order: 6, hidden: true } },
+    meta: { ui: { hidden: true } },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 7 },
     },
   },
 });
 
 export const PanelOrganizationV1 = defineMosaicTemplate<PanelOrganizationProps>({
   id: asTemplateId(ID),
-  label: "29 · Panel Organization",
-  version: 1,
-  description:
-    "The props panel is authored, not emitted: the top group is required props plus optional ones pinned with ui.primary; the rest folds under Optional; ui.visibleWhen skips a control until its sibling gate matches (string-coerced, so a boolean gate matches equals \"true\"); and ui.hidden removes the control entirely while the prop stays fully render-effective — hidden is not dead, agents and saved files still set it. Render paints every one of them regardless: placement is an editor conversation, render sees plain values.",
   capabilities: { tier: "core" },
-  tags: ["controls", "lesson"],
 
   outputHints: {
     width: 1280,

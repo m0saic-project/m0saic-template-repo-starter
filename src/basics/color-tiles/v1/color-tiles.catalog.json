@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/basics/color-tiles/v1",
+  "label": "04 · Color Tiles",
+  "description": "Three equal columns, one makeColorTile each — the sources[]-to-tiles mapping, the lavfi color-tile convention, and document.backgroundColor instead of a wasted base layer.",
+  "tags": [
+    "basics",
+    "layout",
+    "color"
+  ],
+  "props": {
+    "colors": {
+      "label": "Tile colors",
+      "description": "Tile fills, left to right (#rrggbb each). 2-8 columns."
+    },
+    "backgroundColor": {
+      "label": "Background",
+      "description": "Document background fill as #rrggbb."
+    },
+    "gap": {
+      "label": "Gap",
+      "description": "Margin around each tile, in weight units against the tile's 10 (0-6); neighbours share two margins, so the gutter between tiles is twice that. The gaps are NULL cells — they paint nothing, so the document background shows through them. Set 0 for edge-to-edge tiles and the background disappears entirely."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/quality/geometry-contract-card/v1",
+  "label": "72 · Geometry Contract Card",
+  "description": "A template computes rects in JS and throws the intent away at return — so a quantization squash reads as a healthy m0 and a wrong picture. Declare the intended box, select it by a computed stableKey, and debug on DRAWS the verdict: the chip green when intent survived, or realized-red vs intended-amber-ghost with the drift visible as the gap.",
+  "tags": [
+    "quality",
+    "contracts",
+    "lesson"
+  ],
+  "props": {
+    "debugGeometry": {
+      "label": "Debug geometry",
+      "description": "Run the geometry contract. Off (default) returns the document untouched.",
+      "order": 1
+    },
+    "contractOffsetPx": {
+      "label": "Contract offset (px)",
+      "description": "Px added to the CONTRACT's target height. The chip stays 1/6 of the canvas either way — this moves what the contract ASKS FOR. 1px is inside the checker's default tolerance and passes on purpose; 2 or more crosses it.",
+      "order": 2
+    },
+    "chipColor": {
+      "label": "Chip color",
+      "description": "Chip fill as #rrggbb.",
+      "order": 3
+    },
+    "cardColor": {
+      "label": "Card color",
+      "description": "Card fill as #rrggbb.",
+      "order": 4
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/make/bound-numbers/v1",
+  "label": "82 · Bound Numbers",
+  "description": "The numeral you draw is a handle. Three numbers, three honest spellings - 12,480 (toLocaleString), $3.50 (toFixed), 2026 (String) - each bound to the rect that shows it, plus a derived total that is not a prop and needs no binding. The bindingsCover numbers rule reads exactly these spellings, on a digit boundary.",
+  "tags": [
+    "make",
+    "lesson"
+  ],
+  "props": {
+    "visitors": {
+      "label": "Visitors",
+      "description": "A count, drawn with thousands separators (toLocaleString) and bound to the numeral that shows it. 12480 is drawn 12,480 - the gate reads that spelling.",
+      "order": 1
+    },
+    "price": {
+      "label": "Price",
+      "description": "A price, drawn to two decimals (toFixed) and bound. Decimals stay decimals: 3.5 is drawn 3.50 and the gate reads it; an integer drawn as 4.00 is not a spelling it reads - the binding holds either way.",
+      "order": 2
+    },
+    "year": {
+      "label": "Year",
+      "description": "A year, drawn plainly (String) and bound. The digit boundary keeps it honest: 2026 is never read out of 20260.",
+      "order": 3
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 4
+    }
+  }
+}

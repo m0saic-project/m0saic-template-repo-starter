@@ -51,30 +51,20 @@ const propsSchema = definePropsSchema<NestedBadgeProps>({
   text: {
     type: "string",
     required: false,
-    description: "The badge's line of text — fitted to whatever box the caller hands over.",
-    meta: { control: { placeholder: "nested" }, ui: { label: "Text" } },
   },
   accent: {
     type: "string",
     required: false,
-    description: "Accent rail color as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#EF7525" },
-      ui: { label: "Accent" },
     },
   },
 });
 
 export const NestedBadgeV1 = defineMosaicTemplate<NestedBadgeProps>({
   id: asTemplateId(ID),
-  label: "50 · Nested Badge",
-  version: 1,
-  description:
-    "The child half of compose/nested-template: a badge that sizes everything off ctx.target, so it fills whatever slot the caller gives it. Marked internal — not a top-level pick, but it renders standalone, which is how you debug a child.",
   capabilities: { tier: "core" },
-  tags: ["compose", "internal", "lesson"],
-  internal: true,
 
   outputHints: {
     width: 384,

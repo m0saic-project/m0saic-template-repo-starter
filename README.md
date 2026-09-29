@@ -68,9 +68,11 @@ refresh — the square must change color without an app restart).
 ```
 src/<pack>/<slug>/v1/       one template + its co-located test
 src/<pack>/registry.ts      chapter registry (array order = teaching order)
+src/<pack>/<slug>/v1/<slug>.catalog.json   the template's label, description, tags, prop copy
 src/repo.ts                 repo descriptor + pack (chapter) list
 src/index.ts                entry: exports `repo` + `templates[]`
 template-manifest.json      GENERATED zero-exec browse surface (committed)
+template-catalog.json       GENERATED from the <slug>.catalog.json sidecars — what hosts read (committed)
 dist/                       GENERATED CommonJS build (committed)
 assets/templates/<id>/      preview.png / preview.mp4 / poster.png per template
 assets/media/               tiny committed media fixtures (see NOTICE.md)

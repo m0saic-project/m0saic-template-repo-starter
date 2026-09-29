@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/compose/reduce-to-one/v1",
+  "label": "54 · Reduce to One",
+  "description": "The same grid spelled two ways: inline (the parent's m0 grows with the density) or pushed into a child (the parent stays one cell). Identical pixels, and the caption prints both string lengths so the refactor's cost and benefit are numbers.",
+  "tags": [
+    "compose",
+    "complexity",
+    "lesson"
+  ],
+  "props": {
+    "mode": {
+      "label": "Mode",
+      "description": "\"flat\": the grid is spelled inline, so the PARENT's m0 grows with the density. \"reduced\": the grid moves into a child and the parent collapses to one cell — same pixels, different string."
+    },
+    "density": {
+      "label": "Density",
+      "description": "Grid density (N×N cells). Raise it and watch only ONE of the two spellings get longer."
+    }
+  }
+}

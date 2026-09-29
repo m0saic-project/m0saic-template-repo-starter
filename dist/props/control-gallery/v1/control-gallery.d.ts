@@ -3,13 +3,17 @@
  * per affordance.
  *
  * ONE CONCEPT: `meta` is how a prop shapes its CONTROL. The type picks the
- * widget; meta refines it:
- *   - `control.placeholder` — ghost text in an empty field.
+ * widget; meta refines it (and the catalog sidecar words it):
+ *   - `placeholder`         — ghost text in an empty field (catalog sidecar:
+ *                             `props.nickname.placeholder`).
  *   - `flavor: "url"`       — semantic hint; the editor renders a URL-ish
  *                             field (still a plain string on the wire).
  *   - `constraints.min/max` + `control.step` — a bounded, stepped number.
  *   - `constraints.oneOf`   — an enum select.
- *   - `ui.label`            — the human name over the raw prop key.
+ *   - `label`               — the human name over the raw prop key (catalog
+ *                             sidecar: `props.<key>.label`). The words a
+ *                             prop wears live in control-gallery.catalog.json
+ *                             beside this file, not here (m0saic 0.3.1).
  *
  * THE REAL DEMO IS THE SIDEBAR. The canvas just renders the spec sheet —
  * each prop, its declaration, and its current value — so the form on the

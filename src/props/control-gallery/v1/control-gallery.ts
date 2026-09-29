@@ -20,13 +20,17 @@ import { lessonTutorial } from "../../../_shared/tutorial";
  * per affordance.
  *
  * ONE CONCEPT: `meta` is how a prop shapes its CONTROL. The type picks the
- * widget; meta refines it:
- *   - `control.placeholder` — ghost text in an empty field.
+ * widget; meta refines it (and the catalog sidecar words it):
+ *   - `placeholder`         — ghost text in an empty field (catalog sidecar:
+ *                             `props.nickname.placeholder`).
  *   - `flavor: "url"`       — semantic hint; the editor renders a URL-ish
  *                             field (still a plain string on the wire).
  *   - `constraints.min/max` + `control.step` — a bounded, stepped number.
  *   - `constraints.oneOf`   — an enum select.
- *   - `ui.label`            — the human name over the raw prop key.
+ *   - `label`               — the human name over the raw prop key (catalog
+ *                             sidecar: `props.<key>.label`). The words a
+ *                             prop wears live in control-gallery.catalog.json
+ *                             beside this file, not here (m0saic 0.3.1).
  *
  * THE REAL DEMO IS THE SIDEBAR. The canvas just renders the spec sheet —
  * each prop, its declaration, and its current value — so the form on the
@@ -51,37 +55,27 @@ const propsSchema = definePropsSchema<ControlGalleryProps>({
   nickname: {
     type: "string",
     required: false,
-    description: "Ghost-text demo: the placeholder shows until you type.",
-    meta: { control: { placeholder: "type a nickname..." }, ui: { label: "Nickname" } },
   },
   homepage: {
     type: "string",
     required: false,
-    description: "flavor:\"url\" demo — semantic hint, still a plain string on the wire.",
-    meta: { control: { flavor: "url", placeholder: "https://example.com" }, ui: { label: "Homepage" } },
+    meta: { control: { flavor: "url", }, },
   },
   strength: {
     type: "number",
     required: false,
-    description: "Bounded + stepped number demo (0-100, step 5).",
-    meta: { constraints: { min: 0, max: 100 }, control: { step: 5 }, ui: { label: "Strength" } },
+    meta: { constraints: { min: 0, max: 100 }, control: { step: 5 }, },
   },
   season: {
     type: "string",
     required: false,
-    description: "Enum select demo.",
-    meta: { constraints: { oneOf: [...SEASONS] }, ui: { label: "Season" } },
+    meta: { constraints: { oneOf: [...SEASONS] }, },
   },
 });
 
 export const ControlGalleryV1 = defineMosaicTemplate<ControlGalleryProps>({
   id: asTemplateId(ID),
-  label: "18 · Control Gallery",
-  version: 1,
-  description:
-    "The meta surface, one knob per affordance: placeholder ghost text, flavor:\"url\", bounded+stepped numbers, an enum select, and ui.label. The real demo is the sidebar; the canvas renders the spec sheet.",
   capabilities: { tier: "core" },
-  tags: ["props", "controls", "lesson"],
 
   outputHints: {
     width: 1280,

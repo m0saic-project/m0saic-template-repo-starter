@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/connections/weighted-cards/v1",
+  "label": "80 · Weighted Cards",
+  "description": "Weights at both depths: a weights column SHARING the multi-select's key gives every card an auto-balancing share group over its own chips (two cells, one array — even sets round-trip as string[], customized as {id,weight}[]), and interWeightProp names a sibling number[] the strip drags to weigh the CARDS against each other. Render is the values wearing rectangles: row heights from mixWeights, chip widths from item shares.",
+  "tags": [
+    "controls",
+    "connections",
+    "lesson"
+  ],
+  "props": {
+    "connectionId": {
+      "label": "Connection",
+      "description": "The sibling wire (lesson 76): which configured connection profile the chip pickers read.",
+      "order": 1
+    },
+    "mixes": {
+      "label": "Mixes",
+      "description": "Cards of chips with per-chip shares: a connectionMultiSelect column owns membership and a weights column SHARING ITS KEY owns shares — two cells, one array. Even sets round-trip as string[], customized ones as {id, weight}[].",
+      "order": 2
+    },
+    "mixWeights": {
+      "label": "Mix weights",
+      "description": "How the mixes weigh against EACH OTHER — the sibling number[] the card strip's inter-card sliders write (interWeightProp).",
+      "order": 3
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 4
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 5
+    }
+  }
+}

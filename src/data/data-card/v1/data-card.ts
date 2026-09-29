@@ -66,33 +66,20 @@ const propsSchema = definePropsSchema<DataCardProps>({
   alias: {
     type: "string",
     required: false,
-    description:
-      "Upstream block to draw. Matches what the adapter published — the alias is the whole coupling between them.",
-    meta: { control: { placeholder: "seriesStats" }, ui: { label: "Alias" } },
   },
   title: {
     type: "string",
     required: false,
-    description: "Headline above the values.",
-    meta: { control: { placeholder: "Series" }, ui: { label: "Title" } },
   },
   sampleData: {
     type: "boolean",
     required: false,
-    description:
-      "Draw built-in numbers when no upstream block arrived, so the card is layoutable before the chain exists. Off, it reports the gap instead.",
-    meta: { ui: { label: "Sample data" } },
   },
 });
 
 export const DataCardV1 = defineMosaicTemplate<DataCardProps>({
   id: asTemplateId(ID),
-  label: "65 · Data Card",
-  version: 1,
-  description:
-    "The consumer end of a data chain: read ctx.upstreamData[alias] and draw it. Producer, adapter and consumer agree on an alias and a shape — never on each other's ids — and the card says which alias it read so a broken chain is visible in the picture.",
   capabilities: { tier: "core" },
-  tags: ["data", "consumer", "lesson"],
 
   outputHints: {
     width: 1280,

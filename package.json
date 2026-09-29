@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist template-manifest.json",
-    "build": "tsc -p tsconfig.build.json && node tools/copy-assets.mjs && node dist/gen-template-manifest.js && node tools/check-registry.mjs",
+    "build": "node tools/gen-template-catalog.mjs && tsc -p tsconfig.build.json && node tools/copy-assets.mjs && node dist/gen-template-manifest.js && node tools/check-registry.mjs",
     "conventions:sweep": "node tools/check-registry.mjs --sweep",
     "fingerprints:update": "node tools/check-registry.mjs --update-fingerprints",
     "new": "node tools/new-template.mjs",
@@ -56,7 +56,7 @@
   "files": [
     "dist",
     "template-manifest.json",
-    "template-deprecations.json",
+    "template-catalog.json",
     "assets",
     "dep-allowlist.json",
     "LICENSE",

@@ -73,23 +73,19 @@ const propsSchema = definePropsSchema<RefReframeProps>({
   fit: {
     type: "string",
     required: false,
-    description: "How the mirror frames a slot with a different shape: contain letterboxes, cover crops. Same pixels either way.",
-    meta: { constraints: { oneOf: [...FITS] }, ui: { label: "Fit" } },
+    meta: { constraints: { oneOf: [...FITS] }, },
   },
   loopMode: {
     type: "string",
     required: false,
-    description: "What fills the tail once the mirrored pixels run out: loop repeats them, freeze holds the last frame, cut goes black.",
-    meta: { constraints: { oneOf: [...LOOPS] }, ui: { label: "Loop mode" } },
+    meta: { constraints: { oneOf: [...LOOPS] }, },
   },
   tailMs: {
     type: "number",
     required: false,
-    description: "How much LONGER the consumer step runs than the target. Without a tail there is nothing for loopMode to decide.",
     meta: {
       constraints: { min: 0, max: 3000 },
       control: { step: 100 },
-      ui: { label: "Tail ms" },
     },
   },
 });
@@ -156,12 +152,7 @@ function producerStep(
 
 export const RefReframeV1 = defineMosaicTemplate<RefReframeProps>({
   id: asTemplateId(ID),
-  label: "61 · Ref Reframe",
-  version: 1,
-  description:
-    "A mirror whose slot differs in shape and length: placement.fit reframes the pixels and playback.loopMode fills the tail (loop, freeze or cut). Nothing is re-rendered — one intermediate, per-consumer decoration.",
   capabilities: { tier: "core" },
-  tags: ["pipelines", "refs", "lesson"],
 
   outputHints: {
     width: 1280,

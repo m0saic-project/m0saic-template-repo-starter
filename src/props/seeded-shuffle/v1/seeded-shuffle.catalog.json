@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/props/seeded-shuffle/v1",
+  "label": "15 · Seeded Shuffle",
+  "description": "Randomness done the m0saic way: a REQUIRED seed prop feeds mulberry32, a Fisher-Yates shuffle deals the palette, and identical props render byte-identical documents. The caption prints the dealt order.",
+  "tags": [
+    "props",
+    "determinism",
+    "lesson"
+  ],
+  "props": {
+    "seed": {
+      "label": "Seed",
+      "description": "The shuffle seed (integer 0-2147483647). Required on purpose: randomness must be reproducible, so the seed is a prop, never Math.random."
+    },
+    "tiles": {
+      "label": "Tiles",
+      "description": "How many tiles to deal (4-12)."
+    }
+  }
+}

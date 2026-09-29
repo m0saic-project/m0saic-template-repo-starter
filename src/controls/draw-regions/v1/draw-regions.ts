@@ -90,8 +90,6 @@ const propsSchema = definePropsSchema<DrawRegionsProps>({
   regions: {
     type: "json",
     required: false,
-    description:
-      "The areas you marked. Draw on the preview (rect tool; ellipse and brush carve masks inside a rect), or hand-author { canvas, regions: [{x,y,w,h}] } px JSON — the wire is the same either way, and order is your intent.",
     meta: {
       control: {
         picker: "regions",
@@ -101,29 +99,21 @@ const propsSchema = definePropsSchema<DrawRegionsProps>({
           shapes: ["rect", "ellipse", "brush"],
         },
       },
-      ui: { label: "Marked areas", order: 1 },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 2 },
     },
   },
 });
 
 export const DrawRegionsV1 = defineMosaicTemplate<DrawRegionsProps>({
   id: asTemplateId(ID),
-  label: "26 · Draw Regions",
-  version: 1,
-  description:
-    "The user marks an area on the live preview and the template receives geometry — that handshake is the product. picker \"regions\" arms Make's draw mode (rect tool, plus ellipse/brush mask carving inside a rect); the wire is plain px JSON, so the same value arrives from --props or an agent identically. What a template does with the areas is its own concern — blur them, redact them, hand them to AI work as target boxes; this lesson shows the handshake itself, marking each region with an index chip in draw order. Zero regions is the working base case, and consumption runs parseRegionsValue then resolveRegionsToPx, degrading bad regions without killing the batch.",
   capabilities: { tier: "core" },
-  tags: ["controls", "lesson"],
 
   outputHints: {
     width: 1280,

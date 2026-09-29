@@ -5,7 +5,7 @@ read it top to bottom in a couple of minutes, then go turn its knobs in Make.
 
 Chapter order is the teaching order, and so is the order within a chapter.
 The numbers are curriculum ordinals; the build asserts that each template's
-position, its registry title, and its `label` all agree, so a renumber can
+position, its catalog `label`, and this table all agree, so a renumber can
 never half-land.
 
 Every template also ships:
@@ -16,8 +16,10 @@ Every template also ships:
 - a preview asset, so it has a real picture on the Templates page.
 
 Descriptions are deliberately **not** duplicated here. They live once, in each
-chapter's `registry.ts`, and flow to `template-manifest.json` and the app —
-one source, no drift. This file is the map.
+template's catalog sidecar (`<slug>.catalog.json` beside it — the m0saic 0.3.1
+convention: a template's code says what it IS, the sidecar how it is described),
+and flow to `template-catalog.json`, `template-manifest.json` and the app — one
+source, no drift. This file is the map.
 
 > **Reading it as code:** `src/<pack>/<slug>/v1/<slug>.ts`. The doc-comment at
 > the top of each file states the ONE concept and the rule that bites.

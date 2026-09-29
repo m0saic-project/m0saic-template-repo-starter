@@ -15,27 +15,19 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     badgeText: {
         type: "string",
         required: false,
-        description: "Text handed down to the badge child as its own prop. Parent props in, child props out — nothing shared but the call.",
-        meta: { control: { placeholder: "nested" }, ui: { label: "Badge text" } },
     },
     slotPct: {
         type: "number",
         required: false,
-        description: "Badge slot width as a percent of the canvas. This number becomes the child's ctx.target.width — watch the badge re-fit itself, not stretch.",
         meta: {
             constraints: { min: 20, max: 50 },
             control: { step: 5 },
-            ui: { label: "Slot %" },
         },
     },
 });
 exports.NestedTemplateV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "49 · Nested Template",
-    version: 1,
-    description: "renderNestedTemplate calls another registered template and returns a document to drop into children. The slot option is the lesson: hand the child its real pixel box and it lays itself out for that box instead of for your canvas.",
     capabilities: { tier: "core" },
-    tags: ["compose", "children", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

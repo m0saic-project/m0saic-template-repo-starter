@@ -146,27 +146,17 @@ const propsSchema = definePropsSchema<ThemeProviderProps>({
   mode: {
     type: "string",
     required: false,
-    description:
-      "Which palette to publish. This one prop re-skins every consumer downstream — the reason a producer is a TEMPLATE and not a constant.",
-    meta: { constraints: { oneOf: [...MODES] }, ui: { label: "Mode" } },
+    meta: { constraints: { oneOf: [...MODES] }, },
   },
   alias: {
     type: "string",
     required: false,
-    description:
-      "The upstream channel name consumers read. Default \"theme\" — change it only when two producers would otherwise collide.",
-    meta: { control: { placeholder: "theme" }, ui: { label: "Alias" } },
   },
 });
 
 export const ThemeProviderV1 = defineMosaicTemplate<ThemeProviderProps>({
   id: asTemplateId(ID),
-  label: "52 · Theme Provider",
-  version: 1,
-  description:
-    "The PRODUCER half of theming: publishTheme(tokens, { alias }) emits a data source carrying a token set, and every downstream template reading that alias picks it up. One mode prop re-skins the whole chain; the swatches show what is being published.",
   capabilities: { tier: "core" },
-  tags: ["compose", "theming", "producer", "lesson"],
 
   outputHints: {
     width: 1280,

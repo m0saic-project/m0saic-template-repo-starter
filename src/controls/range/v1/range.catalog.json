@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "templateId": "@m0saic-starter/controls/range/v1",
+  "label": "25 · Range",
+  "description": "A number allowed to be a range: flavor range gives one prop three intents, readable off the value shape — a flat number (use exactly this), { low, high } (sample fresh per use), or { low, high, once: true } (sample one value, reuse it; once is never written false). collapsible renders the flat/range toggle, allowOnce the pick-once toggle with its onceLabel. The control records intent only; this render VISUALIZES it on a scale instead of sampling, because dice belong to templates with a seed prop.",
+  "tags": [
+    "controls",
+    "lesson"
+  ],
+  "props": {
+    "hold": {
+      "label": "Hold",
+      "description": "Seconds each slide holds. Flat number = exactly this; { low, high } = vary per slide; add once: true = pick one value and keep it. The control records intent; the template owns what a 'use' means.",
+      "order": 1
+    },
+    "bandColor": {
+      "label": "Band color",
+      "description": "Accent fill as #rrggbb.",
+      "order": 2
+    },
+    "pageColor": {
+      "label": "Page color",
+      "description": "Backdrop as #rrggbb.",
+      "order": 3
+    }
+  }
+}

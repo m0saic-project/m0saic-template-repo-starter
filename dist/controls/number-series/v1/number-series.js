@@ -43,7 +43,6 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
     values: {
         type: "json",
         required: false,
-        description: "Chart values. flavor numberSeries renders a tabbed multi-series editor; the value round-trips as flat number[] for one series and number[][] for several — render normalizes both.",
         meta: {
             constraints: {
                 jsonSchema: {
@@ -64,27 +63,22 @@ const propsSchema = (0, template_utils_1.definePropsSchema)({
                 },
             },
             control: { flavor: "numberSeries" },
-            ui: { label: "Values", order: 1 },
         },
     },
     bandColor: {
         type: "string",
         required: false,
-        description: "Accent fill as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#2e86c1" },
-            ui: { label: "Band color", order: 2 },
         },
     },
     pageColor: {
         type: "string",
         required: false,
-        description: "Backdrop as #rrggbb.",
         meta: {
             constraints: { isColor: true },
             control: { colorPicker: true, defaultColor: "#1c2833" },
-            ui: { label: "Page color", order: 3 },
         },
     },
 });
@@ -97,11 +91,7 @@ function shade(hex) {
 }
 exports.NumberSeriesV1 = (0, template_utils_1.defineMosaicTemplate)({
     id: (0, types_1.asTemplateId)(ID),
-    label: "22 · Number Series",
-    version: 1,
-    description: "Chart data edited as tabs of numeric rows: flavor numberSeries gives a json prop one tab per series, and the value round-trips flat (number[]) for one series and nested (number[][]) for several — so render normalizes both shapes before drawing, the same tolerance that keeps hand-authored files working. Renders grouped bars against the shared maximum. numberList is the single-series sibling: same contract minus the tabs.",
     capabilities: { tier: "core" },
-    tags: ["controls", "lesson"],
     outputHints: {
         width: 1280,
         height: 720,

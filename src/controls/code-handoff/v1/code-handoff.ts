@@ -88,40 +88,24 @@ const propsSchema = definePropsSchema<CodeHandoffProps>({
   runCommand: {
     type: "code",
     required: false,
-    description:
-      "Template-to-user handoff: the exact CLI command that renders this template headless. Read-only and copyable in the editor; render uses it only to draw the card.",
-    meta: {
-      ui: { label: "Run it yourself", order: 1 },
-    },
   },
   label: {
     type: "string",
     required: false,
-    description: "A normal INPUT prop, for contrast — this one flows user to template.",
-    meta: {
-      ui: { label: "Label", order: 2 },
-    },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 3 },
     },
   },
 });
 
 export const CodeHandoffV1 = defineMosaicTemplate<CodeHandoffProps>({
   id: asTemplateId(ID),
-  label: "27 · Code Handoff",
-  version: 1,
-  description:
-    "A prop that flows the other way: type code is a HANDOFF — { language, code } shipped by the author in defaultProps, rendered by the editor as a read-only, selectable, copyable code window (no onChange; not an input), which render() may ignore entirely. For workflows where the user must run something outside the app — the production first-adopter hands the user a browser capture snippet whose output returns through other props. This lesson hands you the CLI command that renders itself headless.",
   capabilities: { tier: "core" },
-  tags: ["controls", "lesson"],
 
   outputHints: {
     width: 1280,

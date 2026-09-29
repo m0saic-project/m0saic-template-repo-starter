@@ -65,26 +65,21 @@ const propsSchema = definePropsSchema<DualPropsProps>({
   holdSec: {
     type: "number",
     required: false,
-    description:
-      "CANONICAL hold, in seconds — what render reads and files carry. Lives under Agent props; humans drive it through Speed.",
     meta: {
       constraints: { min: HOLD_MIN, max: HOLD_MAX },
-      ui: { label: "holdSec", order: 1, consumer: "agent" },
+      ui: { consumer: "agent" },
     },
   },
   reduceMotion: {
     type: "boolean",
     required: false,
-    description: "CANONICAL motion flag — precise, agent-facing.",
     meta: {
-      ui: { label: "reduceMotion", order: 2, consumer: "agent" },
+      ui: { consumer: "agent" },
     },
   },
   speed: {
     type: "number",
     required: false,
-    description:
-      "The human dial: 1 (leisurely) to 10 (brisk). A derived view of holdSec through an INVERTED linear map — this key never reaches render.",
     meta: {
       constraints: { min: 1, max: 10 },
       control: {
@@ -97,41 +92,32 @@ const propsSchema = definePropsSchema<DualPropsProps>({
           },
         ],
       },
-      ui: { label: "Speed", order: 3, consumer: "human" },
+      ui: { consumer: "human" },
     },
   },
   animate: {
     type: "boolean",
     required: false,
-    description:
-      "The human toggle: a boolInvert view of reduceMotion — on means motion. Never reaches render either.",
     meta: {
       control: {
         syncsTo: [{ prop: "reduceMotion", map: { kind: "boolInvert" } }],
       },
-      ui: { label: "Animate", order: 4, consumer: "human" },
+      ui: { consumer: "human" },
     },
   },
   pageColor: {
     type: "string",
     required: false,
-    description: "Backdrop as #rrggbb.",
     meta: {
       constraints: { isColor: true },
       control: { colorPicker: true, defaultColor: "#1c2833" },
-      ui: { label: "Page color", order: 5 },
     },
   },
 });
 
 export const DualPropsV1 = defineMosaicTemplate<DualPropsProps>({
   id: asTemplateId(ID),
-  label: "30 · Dual Props",
-  version: 1,
-  description:
-    "One knob for humans, one truth for everyone: canonical props marked ui.consumer \"agent\" hold the exact values render reads (surfaced under the panel's Agent props escape), while friendly props marked \"human\" + control.syncsTo are derived views — the editor inverse-maps the canonical value to position the dial and writes changes back through the map (linear with invertible ranges, boolInvert, identity). The human key never reaches render, so dials and files can never disagree: only one of them is real.",
   capabilities: { tier: "core" },
-  tags: ["controls", "lesson"],
 
   outputHints: {
     width: 1280,

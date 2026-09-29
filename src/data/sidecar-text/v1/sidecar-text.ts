@@ -100,27 +100,17 @@ const propsSchema = definePropsSchema<SidecarTextProps>({
   cues: {
     type: "string[]",
     required: false,
-    description:
-      "One cue per row as startMs|endMs|text. Rows that cannot parse are named in the error rather than silently dropped.",
-    meta: { ui: { label: "Cues" } },
   },
   format: {
     type: "string",
     required: false,
-    description:
-      "vtt or srt. It picks the serialiser AND the file extension — nothing checks that the two agree, so they are set together here.",
-    meta: { constraints: { oneOf: [...FORMATS] }, ui: { label: "Format" } },
+    meta: { constraints: { oneOf: [...FORMATS] }, },
   },
 });
 
 export const SidecarTextV1 = defineMosaicTemplate<SidecarTextProps>({
   id: asTemplateId(ID),
-  label: "67 · Sidecar Text",
-  version: 1,
-  description:
-    "A sidecar value of { kind: \"text\", ext, content } writes the string verbatim as {output-basename}.{key}.{ext} — the way real formats ship. Captions are the case that proves it: burned-in subtitles are pixels, a .vtt beside the video is a track a player can style and a search engine can read.",
   capabilities: { tier: "core" },
-  tags: ["data", "sidecars", "captions", "lesson"],
 
   outputHints: {
     width: 1280,
