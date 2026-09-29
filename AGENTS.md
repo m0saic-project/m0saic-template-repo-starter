@@ -29,7 +29,7 @@ Then read code. Three public repos cover most of the product surface:
 - **this repo** — ~80 one-concept lessons; copy a pattern in isolation.
 - [m0saic-community-templates](https://github.com/m0saic-project/m0saic-community-templates)
   — the public library, one folder per publisher, signed releases; a real
-  submission's shape (tests, registry entry, `deprecated.replacement`).
+  submission's shape (tests, registry entry).
 - [m0saic-packages/packages/templates](https://github.com/m0saic-project/m0saic-packages/tree/main/packages/templates)
   — the official library that ships in the product (100+ templates); the
   house standard for every kind of template.
@@ -147,6 +147,11 @@ fresh clone, a CI job, or an agent that does not own the build.
    `src/index.ts`, and a `## <packid>` heading in `CURRICULUM.md`.
 5. `npm run build && npm run previews && npm run build`.
 6. `npm run verify`.
+
+A lesson that has shipped never changes again: a fix is a new `v2` folder,
+and the old one gets an entry in `template-deprecations.json` (beside
+`template-manifest.json`) — `{ reason, replacement, since }` under its id.
+Never set `deprecated` inside a template; hosts read the sidecar (m0saic 0.3.1+).
 
 Appending to the end of the last chapter needs no renumbering. Inserting in
 the middle renumbers every ordinal after it, in **both** the registry `title`
