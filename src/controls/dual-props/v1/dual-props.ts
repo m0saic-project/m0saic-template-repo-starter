@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -194,11 +195,16 @@ export const DualPropsV1 = defineMosaicTemplate<DualPropsProps>({
         maxPx: Math.round(height * 0.028),
         vAlign: "middle",
       }),
-      svgLabel(`holdSec = ${holdSec}`, width * 0.36, height * 0.1, {
-        color: "#b9c4cf" as MosaicColor,
-        maxPx: Math.round(height * 0.03),
-        vAlign: "middle",
-      }),
+      // The readout DRAWS the number, so it is that prop's handle: double-click
+      // the label in Make and the inline form edits `holdSec`.
+      bindProp(
+        svgLabel(`holdSec = ${holdSec}`, width * 0.36, height * 0.1, {
+          color: "#b9c4cf" as MosaicColor,
+          maxPx: Math.round(height * 0.03),
+          vAlign: "middle",
+        }),
+        "holdSec",
+      ),
     ];
 
     const heading = fitSvgText(

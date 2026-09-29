@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   fitSvgText,
@@ -196,7 +197,7 @@ export const FitTextV1 = defineMosaicTemplate<FitTextProps>({
 
     const sources: MosaicSource[] = [
       makeColorTile(PANEL),
-      svgTextSource([{ text, fontSize, color: INK }]),
+      bindProp(svgTextSource([{ text, fontSize, color: INK }]), "copy"),
       svgLabel(caption, width, Math.round(height / 6), {
         maxPx: Math.round(height * 0.03),
         maxLines: 1,
@@ -212,6 +213,12 @@ export const FitTextV1 = defineMosaicTemplate<FitTextProps>({
       backgroundColor: "#0b0e11" as MosaicColor,
       sources,
     };
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      boxWidthPct: "geometry — the measuring box's width, never drawn",
+    },
   },
 
   renderTutorial: lessonTutorial({

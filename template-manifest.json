@@ -1231,6 +1231,62 @@
       "preview": {
         "image": "assets/templates/@m0saic-starter__make__prop-bindings__v1/preview.png"
       }
+    },
+    {
+      "slug": "bound-numbers",
+      "templateKey": "@m0saic-starter/make/bound-numbers/v1",
+      "title": "82 · Bound Numbers",
+      "description": "The numeral you draw is a handle. Three numbers, three honest spellings - 12,480 (toLocaleString), $3.50 (toFixed), 2026 (String) - each bound to the rect that shows it, plus a derived total that is not a prop and needs no binding. The bindingsCover numbers rule reads exactly these spellings, on a digit boundary.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "pack": "make",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__make__bound-numbers__v1/preview.png"
+      }
+    },
+    {
+      "slug": "composite-line",
+      "templateKey": "@m0saic-starter/make/composite-line/v1",
+      "title": "83 · Composite Line",
+      "description": "One rect drawing two props - \"@handle - 2026 on GitHub\" - keeps BOTH handles with bindProps; a second bindProp would replace the first. The same line shown split, one rect per prop, as the other correct form.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "pack": "make",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__make__composite-line__v1/preview.png"
+      }
+    },
+    {
+      "slug": "declared-unbound",
+      "templateKey": "@m0saic-starter/make/declared-unbound/v1",
+      "title": "84 · Declared Unbound",
+      "description": "What a compliant NON-binding looks like: one bound label beside five accountable props that no rect shows - columns, gap, seed, padding, accent - each named in bindings.unbound with its reason, and a page colour that needs nothing because it IS the document background.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "pack": "make",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__make__declared-unbound__v1/preview.png"
+      }
+    },
+    {
+      "slug": "array-rows",
+      "templateKey": "@m0saic-starter/make/array-rows/v1",
+      "title": "85 · Array Rows",
+      "description": "A type \"array\" prop, declared plainly and edited as rows: flavor objectRows + columns in the panel, and on the canvas every cell is a leaf handle - bindPropPath with a path AND a kind, onClear removing the row, and the empty last row bound as the add handle.",
+      "tags": [
+        "make",
+        "lesson"
+      ],
+      "pack": "make",
+      "preview": {
+        "image": "assets/templates/@m0saic-starter__make__array-rows__v1/preview.png"
+      }
     }
   ],
   "packs": [

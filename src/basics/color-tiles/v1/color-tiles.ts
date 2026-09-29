@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -107,6 +108,12 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
     backgroundColor: "#0b0e11",
     gap: 1,
   },
+  // `bindingsDeclared`: every prop that COULD carry a canvas handle is bound or
+  // named here with the reason it has none. `colors` is bound per element above;
+  // `backgroundColor` IS the document background, which needs neither.
+  bindings: {
+    unbound: { gap: "geometry — a split weight, never drawn" },
+  },
 
   async render(
     props: ColorTilesProps,
@@ -163,8 +170,12 @@ export const ColorTilesV1 = defineMosaicTemplate<ColorTilesProps>({
               claimants: ["-", row, "-"],
             });
           })();
-    const sources: MosaicSource[] = colors.map((c) =>
-      makeColorTile(c as MosaicColor),
+    // One tile per ELEMENT of `colors`, each bound to its own index — so Make's
+    // double-click edits that swatch, not the whole list. A basic list binds one
+    // element at a time (`bindProp(src, key, i)`); the list itself is never
+    // bindable.
+    const sources: MosaicSource[] = colors.map((c, i) =>
+      bindProp(makeColorTile(c as MosaicColor), "colors", i),
     );
 
     return {

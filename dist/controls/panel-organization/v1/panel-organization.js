@@ -134,7 +134,7 @@ exports.PanelOrganizationV1 = (0, template_utils_1.defineMosaicTemplate)({
         const m0 = (0, dsl_stdlib_1.toM0String)(`${rows}{6[-,-,-,-,-,1]}`, ID);
         const sources = [];
         if (frame)
-            sources.push((0, template_utils_1.makeColorTile)(accent));
+            sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(accent), "accent"));
         sources.push((0, template_utils_1.makeColorTile)(accent));
         sources.push((0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(title, width * 0.55, height * 0.2, {
             color: "#eaeef2",

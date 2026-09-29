@@ -279,6 +279,12 @@ export const CameraFollowV1 = defineMosaicTemplate<CameraFollowProps>({
       ],
     };
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      zoom: "camera geometry — it moves the view, no rect shows the number",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "Camera Follow",

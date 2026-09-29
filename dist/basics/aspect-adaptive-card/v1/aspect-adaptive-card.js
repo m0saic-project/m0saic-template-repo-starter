@@ -121,15 +121,17 @@ exports.AspectAdaptiveCardV1 = (0, template_utils_1.defineMosaicTemplate)({
             // Paint order follows the DSL walk: base tile, then its attached
             // overlay, per panel — so sources bind [fillA, textA, fillB, textB].
             sources: [
-                (0, template_utils_1.makeColorTile)(((_c = props.accentColor) !== null && _c !== void 0 ? _c : "#2471a3")),
-                (0, svg_text_1.svgTextSource)([
+                // Each fill is its own prop's handle — double-click the panel in Make and a
+                // swatch edits it in place. `bindingsDeclared` requires exactly this.
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(((_c = props.accentColor) !== null && _c !== void 0 ? _c : "#2471a3")), "accentColor"),
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgTextSource)([
                     {
                         text: titleFit.text,
                         fontSize: titleFit.fontSize,
                         color: "#ffffff",
                     },
-                ]),
-                (0, template_utils_1.makeColorTile)(((_d = props.panelColor) !== null && _d !== void 0 ? _d : "#1c2833")),
+                ]), "title"),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(((_d = props.panelColor) !== null && _d !== void 0 ? _d : "#1c2833")), "panelColor"),
                 (0, template_utils_1.bindProp)((0, svg_text_1.svgTextSource)([
                     {
                         text: bodyFit.text,

@@ -260,6 +260,9 @@ export const PropBindingsV1 = defineMosaicTemplate<PropBindingsProps>({
     mode: "boxed",
     pageColor: "#1c2833",
   },
+  // `canvasFill` is a THROW: a full-canvas colour rect is normally the smell.
+  // Here it is the SUBJECT, so it is declared rather than removed.
+  canvas: { baseRect: "the lesson is binding a full-canvas rect: the base IS the thing a reader double-clicks in Make" },
 
   async render(
     props: PropBindingsProps,

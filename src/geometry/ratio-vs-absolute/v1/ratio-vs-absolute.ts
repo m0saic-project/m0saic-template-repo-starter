@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { placeRects, toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -138,11 +139,14 @@ export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
     // Non-overlapping rects pack onto one layer and walk left-to-right, so
     // the middle rect carries the caller's accent while the rails stay muted.
     const orderedRects = absolute.layers.flatMap((layer) => layer.rectIndices);
-    const absoluteSources: MosaicSource[] = orderedRects.map((rectIndex) =>
-      makeColorTile(
+    const absoluteSources: MosaicSource[] = orderedRects.map((rectIndex) => {
+      const tile = makeColorTile(
         rectIndex === 1 ? (absoluteColor as MosaicColor) : ("#0e6251" as MosaicColor),
-      ),
-    );
+      );
+      // Only the accent rect SHOWS the prop, so only it earns the handle — a
+      // swatch on a muted rail would edit a colour that rail never displays.
+      return rectIndex === 1 ? bindProp(tile, "absoluteColor") : tile;
+    });
 
     const label = (text: string): MosaicSource =>
       svgLabel(text, width, halfH, {
@@ -161,14 +165,23 @@ export const RatioVsAbsoluteV1 = defineMosaicTemplate<RatioVsAbsoluteProps>({
         ...ratioSources,
         ...absoluteSources,
         label(`ratio 1:2:1 - sides scale with the canvas: ~${Math.round(width / 4)}px here`),
-        label(
-          `placeRects - rails PINNED at ${railEff}px` +
-            (clamped ? ` (clamped from ${railPx})` : "") +
-            `, middle absorbs ${width - 2 * railEff}px`,
+        // The caption STATES the rail width, so it is railPx's handle - a
+        // double-click here edits the knob (bindingsCover reads the drawn
+        // "240"). When the canvas clamps the rail the caption names both
+        // numbers, and the binding still points at the prop.
+        bindProp(
+          label(
+            `placeRects - rails PINNED at ${railEff}px` +
+              (clamped ? ` (clamped from ${railPx})` : "") +
+              `, middle absorbs ${width - 2 * railEff}px`,
+          ),
+          "railPx",
         ),
       ],
     };
   },
+  // `bindingsDeclared`: both props are bound - absoluteColor on the accent
+  // rect, railPx on the caption that states it - so nothing is declared.
 
   renderTutorial: lessonTutorial({
     title: "Ratio vs Absolute",

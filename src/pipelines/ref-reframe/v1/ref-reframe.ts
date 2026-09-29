@@ -10,6 +10,7 @@ import { asTemplateId } from "@m0saic/types";
 import type { M0String } from "@m0saic/dsl";
 import { findStableKeys, toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   animateNumbersInText,
   defineMosaicTemplate,
   definePropsSchema,
@@ -230,11 +231,14 @@ export const RefReframeV1 = defineMosaicTemplate<RefReframeProps>({
           placement: { fit },
           playback: { loopMode },
         } as unknown as MosaicSource,
-        svgLabel(caption, Math.round(width / 2), Math.round(height / 6), {
-          maxPx: Math.round(height * 0.026),
-          maxLines: 3,
-          color: INK_DIM,
-        }),
+        bindProp(
+          svgLabel(caption, Math.round(width / 2), Math.round(height / 6), {
+            maxPx: Math.round(height * 0.026),
+            maxLines: 3,
+            color: INK_DIM,
+          }),
+          "tailMs",
+        ),
       ],
     };
 

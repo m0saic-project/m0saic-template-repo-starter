@@ -96,18 +96,18 @@ exports.NumberDisplayV1 = (0, template_utils_1.defineMosaicTemplate)({
         const m0 = (0, dsl_stdlib_1.toM0String)(`${rows}{6[-,-,-,-,-,1]}`, ID);
         const sources = [
             (0, template_utils_1.makeColorTile)("#2e86c1"),
-            (0, template_utils_1.svgLabel)(`hold ${holdMs}ms`, width * 0.4, height * 0.14, {
+            (0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(`hold ${holdMs}ms`, width * 0.4, height * 0.14, {
                 color: "#eaeef2",
                 maxPx: Math.round(height * 0.032),
                 vAlign: "middle",
-            }),
+            }), "holdMs"),
             (0, template_utils_1.makeColorTile)("#1d5378"),
-            (0, template_utils_1.svgLabel)(`fade ${fadeMs}ms`, width * 0.2, height * 0.14, {
+            (0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(`fade ${fadeMs}ms`, width * 0.2, height * 0.14, {
                 color: "#b9c4cf",
                 maxPx: Math.round(height * 0.024),
                 maxLines: 2,
                 vAlign: "middle",
-            }),
+            }), "fadeMs"),
         ];
         const heading = (0, svg_text_1.fitSvgText)("NUMBER DISPLAY - stored in ms, shown in seconds, meaning never leaks", width * 0.9, height * 0.07, { maxPx: Math.round(height * 0.032), maxLines: 1 });
         const readout = (0, svg_text_1.fitSvgLines)([

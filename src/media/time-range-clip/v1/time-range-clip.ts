@@ -7,11 +7,13 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   slugifyAssetKeyFromPath,
 } from "@m0saic/template-utils";
 
+import { formatFor, hasMedia } from "../../../_shared/output-kind";
 import { svgLabel } from "../../../_shared/svg-text";
 import { lessonTutorial } from "../../../_shared/tutorial";
 
@@ -92,8 +94,15 @@ export const TimeRangeClipV1 = defineMosaicTemplate<TimeRangeClipProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
-    format: { kind: "video", container: "mp4" },
+    format: { kind: "image", container: "png" },
     note: "Pick a video, then drag the scrubber's two handles — the render plays only that window.",
+  },
+
+  // ⭐ This template's kind depends on its INPUT: a clip makes a video; the empty slot draws a still placeholder.
+  // A fixed declaration would be wrong for half its inputs, and the host would
+  // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+  resolveOutputHints(props: TimeRangeClipProps) {
+    return formatFor(hasMedia(props.video));
   },
 
   propsSchema,
@@ -116,11 +125,16 @@ export const TimeRangeClipV1 = defineMosaicTemplate<TimeRangeClipProps>({
         assets: {},
         backgroundColor: "#0b0e11" as MosaicColor,
         sources: [
-          svgLabel("Pick a video (Video), then set the window with the scrubber", width, height, {
-            maxPx: Math.round(height * 0.04),
-            maxLines: 2,
-            color: "#7f8c9b" as MosaicColor,
-          }),
+          // Bound while EMPTY — "bind even when the value is empty": this rect is
+          // the ADD handle, so dropping a file on the canvas fills the slot.
+          bindProp(
+            svgLabel("Pick a video (Video), then set the window with the scrubber", width, height, {
+              maxPx: Math.round(height * 0.04),
+              maxLines: 2,
+              color: "#7f8c9b" as MosaicColor,
+            }),
+            "video",
+          ),
         ],
       };
     }

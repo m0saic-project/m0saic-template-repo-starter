@@ -153,6 +153,12 @@ export const OptionsSelectV1 = defineMosaicTemplate<OptionsSelectProps>({
     bandColor: "#2e86c1",
     pageColor: "#1c2833",
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      collections: "the picked collections; the strip shows their CONTENT, not the selection value",
+    },
+  },
 
   async render(
     props: OptionsSelectProps,
@@ -209,7 +215,7 @@ export const OptionsSelectV1 = defineMosaicTemplate<OptionsSelectProps>({
 
     const sources: MosaicSource[] = [];
     for (const [i, c] of collections.entries()) {
-      sources.push(makeColorTile(i % 2 === 0 ? band : shade(bandHex)));
+      sources.push(bindProp(makeColorTile(i % 2 === 0 ? band : shade(bandHex)), "bandColor"));
       sources.push(
         svgLabel(titleCase(c), width * 0.8, (height * 0.5) / n, {
           color: "#eaeef2" as MosaicColor,

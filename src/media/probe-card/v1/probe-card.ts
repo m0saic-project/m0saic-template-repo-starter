@@ -7,11 +7,13 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   slugifyAssetKeyFromPath,
 } from "@m0saic/template-utils";
 
+import { formatFor, mediaLooksLikeVideo } from "../../../_shared/output-kind";
 import { fitSvgLines, svgTextSource } from "../../../_shared/svg-text";
 import { svgLabel } from "../../../_shared/svg-text";
 import { lessonTutorial } from "../../../_shared/tutorial";
@@ -61,6 +63,13 @@ export const ProbeCardV1 = defineMosaicTemplate<ProbeCardProps>({
     note: "Pick a video, then an image — watch the duration line appear and vanish.",
   },
 
+  // ⭐ This template's kind depends on its INPUT: accepts BOTH kinds — a clip makes a video, a still makes an image.
+  // A fixed declaration would be wrong for half its inputs, and the host would
+  // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+  resolveOutputHints(props: ProbeCardProps) {
+    return formatFor(mediaLooksLikeVideo(props.media));
+  },
+
   propsSchema,
   defaultProps: { media: "" },
 
@@ -79,11 +88,16 @@ export const ProbeCardV1 = defineMosaicTemplate<ProbeCardProps>({
         assets: {},
         backgroundColor: "#0b0e11" as MosaicColor,
         sources: [
-          svgLabel("Pick any image or video (Media) - this card prints its probe", width, height, {
-            maxPx: Math.round(height * 0.04),
-            maxLines: 2,
-            color: "#7f8c9b" as MosaicColor,
-          }),
+          // Bound while EMPTY — "bind even when the value is empty": this rect is
+          // the ADD handle, so dropping a file on the canvas fills the slot.
+          bindProp(
+            svgLabel("Pick any image or video (Media) - this card prints its probe", width, height, {
+              maxPx: Math.round(height * 0.04),
+              maxLines: 2,
+              color: "#7f8c9b" as MosaicColor,
+            }),
+            "media",
+          ),
         ],
       };
     }
@@ -131,12 +145,16 @@ export const ProbeCardV1 = defineMosaicTemplate<ProbeCardProps>({
         svgTextSource([
           { text: sheet.text, fontSize: sheet.fontSize, color: "#c8d2dc" as MosaicColor },
         ]),
-        {
-          type: "media",
-          mediaType: isVideo ? "video" : "image",
-          assetId: key,
-          placement: { fit: "contain" },
-        } as never,
+        // The cell showing the file is the prop's handle — drop a new one on it.
+        bindProp(
+          {
+            type: "media",
+            mediaType: isVideo ? "video" : "image",
+            assetId: key,
+            placement: { fit: "contain" },
+          } as never,
+          "media",
+        ),
       ],
     };
   },

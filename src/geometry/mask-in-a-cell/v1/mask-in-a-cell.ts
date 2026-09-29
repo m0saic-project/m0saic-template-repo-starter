@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -127,9 +128,12 @@ export const MaskInACellV1 = defineMosaicTemplate<MaskInACellProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        makeColorTile(shapeColor as MosaicColor, {
-          mask: { kind: "inline-mask", localPath, bounds },
-        }),
+        bindProp(
+          makeColorTile(shapeColor as MosaicColor, {
+            mask: { kind: "inline-mask", localPath, bounds },
+          }),
+          "shapeColor",
+        ),
         svgLabel(
           matchAspect
             ? `bounds ${bounds.width}x${bounds.height} match the ${cellW}x${cellH} cell - true diamond`

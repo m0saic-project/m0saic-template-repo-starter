@@ -204,7 +204,7 @@ export const PanelOrganizationV1 = defineMosaicTemplate<PanelOrganizationProps>(
     const m0 = toM0String(`${rows}{6[-,-,-,-,-,1]}`, ID);
 
     const sources: MosaicSource[] = [];
-    if (frame) sources.push(makeColorTile(accent));
+    if (frame) sources.push(bindProp(makeColorTile(accent), "accent"));
     sources.push(makeColorTile(accent));
     sources.push(
       bindProp(svgLabel(title, width * 0.55, height * 0.2, {

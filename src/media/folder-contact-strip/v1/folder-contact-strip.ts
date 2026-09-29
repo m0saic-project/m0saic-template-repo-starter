@@ -8,6 +8,7 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   slugifyAssetKeyFromPath,
@@ -88,11 +89,16 @@ export const FolderContactStripV1 = defineMosaicTemplate<FolderContactStripProps
         assets: {},
         backgroundColor: "#0b0e11" as MosaicColor,
         sources: [
-          svgLabel("Pick a folder of images in the sidebar (Images)", width, height, {
-            maxPx: Math.round(height * 0.04),
-            maxLines: 2,
-            color: "#7f8c9b" as MosaicColor,
-          }),
+          // Bound while EMPTY — "bind even when the value is empty": this rect is
+          // the ADD handle, so dropping a file on the canvas fills the slot.
+          bindProp(
+            svgLabel("Pick a folder of images in the sidebar (Images)", width, height, {
+              maxPx: Math.round(height * 0.04),
+              maxLines: 2,
+              color: "#7f8c9b" as MosaicColor,
+            }),
+            "images", 0,
+          ),
         ],
       };
     }

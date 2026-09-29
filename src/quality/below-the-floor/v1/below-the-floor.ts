@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { evaluateM0, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -287,7 +288,7 @@ export const BelowTheFloorV1 = defineMosaicTemplate<BelowTheFloorProps>({
       // is being able to SEE them drift apart once the layout is under the
       // precision floor. `spread` in the readout is that drift, measured.
       sources: [
-        makeColorTile(band),
+        bindProp(makeColorTile(band), "bandColor"),
         makeColorTile(shade(band)),
         makeColorTile(page),
         svgTextSource([

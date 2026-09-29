@@ -83,12 +83,15 @@ exports.JsonDataPropV1 = (0, template_utils_1.defineMosaicTemplate)({
         const rows = String((0, dsl_stdlib_1.weightedSplit)([...data.map(() => 3), 1], "row", { claimants: [...data.map(rowM0), "1"] }));
         const m0 = (0, dsl_stdlib_1.toM0String)(rows, ID);
         const rowH = Math.round((height * 3) / (data.length * 3 + 1));
-        const sources = data.flatMap((rec) => [
-            (0, svg_text_1.svgLabel)(rec.label, Math.round(width / 4), rowH, {
+        // A `json` prop binds a LEAF, not the whole value: `bindPropPath(src, key,
+        // path, kind)` routes into the record the rect actually shows, so Make's
+        // double-click edits THAT label and nothing else.
+        const sources = data.flatMap((rec, i) => [
+            (0, template_utils_1.bindPropPath)((0, svg_text_1.svgLabel)(rec.label, Math.round(width / 4), rowH, {
                 maxPx: Math.round(height * 0.04),
                 maxLines: 1,
-            }),
-            (0, template_utils_1.makeColorTile)(BAR),
+            }), "data", [i, "label"], "string"),
+            (0, template_utils_1.bindPropPath)((0, template_utils_1.makeColorTile)(BAR), "data", [i, "value"], "number"),
         ]);
         const caption = `type:"json" - ${data.length} records, max ${max} - ` +
             data.map((d) => `${d.label}:${d.value}`).join(" ");

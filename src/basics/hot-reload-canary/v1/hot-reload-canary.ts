@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   solidBackground,
@@ -138,11 +139,17 @@ export const HotReloadCanaryV1 = defineMosaicTemplate<HotReloadCanaryProps>({
       m0: toM0String("F", "@m0saic-starter/basics/hot-reload-canary/v1"),
       assets: {},
       sources: [
-        {
-          type: "text",
-          visual: { backgroundColor: solidBackground(fill as MosaicColor) },
-          layers,
-        } as MosaicTextSource,
+        // `bindProp` makes the tile the prop's HANDLE in Make: double-click it and
+        // a swatch picker edits `color` in place. Every prop that can carry a
+        // handle is bound or declared — the `bindingsDeclared` convention.
+        bindProp(
+          {
+            type: "text",
+            visual: { backgroundColor: solidBackground(fill as MosaicColor) },
+            layers,
+          } as MosaicTextSource,
+          "color",
+        ),
       ],
     };
   },

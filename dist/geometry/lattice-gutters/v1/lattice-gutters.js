@@ -104,6 +104,16 @@ exports.LatticeGuttersV1 = (0, template_utils_1.defineMosaicTemplate)({
         gutterMode: "inset",
         tileColor: "#21618c",
     },
+    // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+    // rect that shows it, or named here with the reason it has none.
+    bindings: {
+        unbound: {
+            rows: "geometry — the grid's shape",
+            cols: "geometry — the grid's shape",
+            gutterPx: "geometry — gutter width",
+            marginPx: "geometry — outer margin",
+        },
+    },
     async render(props, ctx) {
         var _a, _b, _c, _d, _e, _f;
         const rows = (_a = props.rows) !== null && _a !== void 0 ? _a : 2;
@@ -169,7 +179,7 @@ exports.LatticeGuttersV1 = (0, template_utils_1.defineMosaicTemplate)({
             baseM0 = `${rows}[${new Array(rows).fill(rowM0).join(",")}]`;
             sources = cells.map((_, i) => {
                 const inset = lattice.insetAt(i);
-                return (0, template_utils_1.makeColorTile)(tileColor, inset ? { placement: { inset } } : undefined);
+                return (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(tileColor, inset ? { placement: { inset } } : undefined), "tileColor");
             });
         }
         else {
@@ -186,7 +196,7 @@ exports.LatticeGuttersV1 = (0, template_utils_1.defineMosaicTemplate)({
                 .map((_, r) => targets[r * cols]);
             const rowSplit = axisSegments(rowRects.map((t) => t.y), rowRects.map((t) => t.h), height, new Array(rows).fill(String(colM0)));
             baseM0 = String((0, dsl_stdlib_1.weightedSplit)(rowSplit.weights, "row", { claimants: rowSplit.claimants }));
-            sources = cells.map(() => (0, template_utils_1.makeColorTile)(tileColor));
+            sources = cells.map(() => (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(tileColor), "tileColor"));
         }
         // The receipts, measured on the BASE spelling (before the caption
         // overlay): character count + precision floor at this canvas — and the

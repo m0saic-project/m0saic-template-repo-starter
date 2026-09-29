@@ -88,10 +88,19 @@ exports.PlaceRectDockV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                (0, template_utils_1.makeColorTile)(dockColor),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(dockColor), "dockColor"),
                 (0, svg_text_1.svgLabel)(`placeRect ${rectW}x${rectH} at (${x},${y}) - exact px, baked for ${width}x${height}`, width, Math.round(height / 6), { maxPx: Math.round(height * 0.04), maxLines: 2 }),
             ],
         };
+    },
+    // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+    // rect that shows it, or named here with the reason it has none.
+    bindings: {
+        unbound: {
+            widthFrac: "geometry — the dock's size",
+            heightFrac: "geometry — the dock's size",
+            marginPx: "geometry — outer margin",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "PlaceRect Dock",

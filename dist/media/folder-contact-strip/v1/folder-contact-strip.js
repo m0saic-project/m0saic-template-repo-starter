@@ -49,11 +49,13 @@ exports.FolderContactStripV1 = (0, template_utils_1.defineMosaicTemplate)({
                 assets: {},
                 backgroundColor: "#0b0e11",
                 sources: [
-                    (0, svg_text_1.svgLabel)("Pick a folder of images in the sidebar (Images)", width, height, {
+                    // Bound while EMPTY — "bind even when the value is empty": this rect is
+                    // the ADD handle, so dropping a file on the canvas fills the slot.
+                    (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)("Pick a folder of images in the sidebar (Images)", width, height, {
                         maxPx: Math.round(height * 0.04),
                         maxLines: 2,
                         color: "#7f8c9b",
-                    }),
+                    }), "images", 0),
                 ],
             };
         }

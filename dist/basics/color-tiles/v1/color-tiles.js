@@ -58,6 +58,12 @@ exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
         backgroundColor: "#0b0e11",
         gap: 1,
     },
+    // `bindingsDeclared`: every prop that COULD carry a canvas handle is bound or
+    // named here with the reason it has none. `colors` is bound per element above;
+    // `backgroundColor` IS the document background, which needs neither.
+    bindings: {
+        unbound: { gap: "geometry — a split weight, never drawn" },
+    },
     async render(props, _ctx) {
         var _a, _b, _c;
         const colors = (_a = props.colors) !== null && _a !== void 0 ? _a : ["#c0392b", "#1e8449", "#2471a3"];
@@ -100,7 +106,11 @@ exports.ColorTilesV1 = (0, template_utils_1.defineMosaicTemplate)({
                     claimants: ["-", row, "-"],
                 });
             })();
-        const sources = colors.map((c) => (0, template_utils_1.makeColorTile)(c));
+        // One tile per ELEMENT of `colors`, each bound to its own index — so Make's
+        // double-click edits that swatch, not the whole list. A basic list binds one
+        // element at a time (`bindProp(src, key, i)`); the list itself is never
+        // bindable.
+        const sources = colors.map((c, i) => (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(c), "colors", i));
         return {
             kind: "mosaic_document",
             version: 1,

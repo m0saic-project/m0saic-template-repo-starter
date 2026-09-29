@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindPropPath,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -135,12 +136,20 @@ export const JsonDataPropV1 = defineMosaicTemplate<JsonDataPropProps>({
     const m0 = toM0String(rows, ID);
 
     const rowH = Math.round((height * 3) / (data.length * 3 + 1));
-    const sources: MosaicSource[] = data.flatMap((rec) => [
-      svgLabel(rec.label, Math.round(width / 4), rowH, {
-        maxPx: Math.round(height * 0.04),
-        maxLines: 1,
-      }),
-      makeColorTile(BAR),
+    // A `json` prop binds a LEAF, not the whole value: `bindPropPath(src, key,
+    // path, kind)` routes into the record the rect actually shows, so Make's
+    // double-click edits THAT label and nothing else.
+    const sources: MosaicSource[] = data.flatMap((rec, i) => [
+      bindPropPath(
+        svgLabel(rec.label, Math.round(width / 4), rowH, {
+          maxPx: Math.round(height * 0.04),
+          maxLines: 1,
+        }),
+        "data",
+        [i, "label"],
+        "string",
+      ),
+      bindPropPath(makeColorTile(BAR), "data", [i, "value"], "number"),
     ]);
 
     const caption = `type:"json" - ${data.length} records, max ${max} - ` +

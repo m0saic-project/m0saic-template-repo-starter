@@ -1,6 +1,6 @@
 # Curriculum
 
-Eighty templates in fourteen chapters. **One template teaches one thing** —
+Eighty-five templates in fourteen chapters. **One template teaches one thing** —
 read it top to bottom in a couple of minutes, then go turn its knobs in Make.
 
 Chapter order is the teaching order, and so is the order within a chapter.
@@ -318,8 +318,16 @@ the rects you draw and the knobs in the panel.
 | # | Template | id |
 |---|---|---|
 | 81 | Prop Bindings | `make/prop-bindings/v1` |
+| 82 | Bound Numbers | `make/bound-numbers/v1` |
+| 83 | Composite Line | `make/composite-line/v1` |
+| 84 | Declared Unbound | `make/declared-unbound/v1` |
+| 85 | Array Rows | `make/array-rows/v1` |
+| 82 | Bound Numbers | `make/bound-numbers/v1` |
+| 83 | Composite Line | `make/composite-line/v1` |
+| 84 | Declared Unbound | `make/declared-unbound/v1` |
+| 85 | Array Rows | `make/array-rows/v1` |
 
-80 is the **provenance** lesson: a rect that displays a prop is *bound* to
+81 is the **provenance** lesson: a rect that displays a prop is *bound* to
 it (`bindProp` and its siblings), and Make derives "double-click this rect
 -> edit that knob" from the binding on every render. The per-render
 `stableKey` is output, never authored. Every bindable kind is on one card:
@@ -333,6 +341,23 @@ drawn as a chip gets no pencil on purpose: which props are bindable is
 decided once, in the platform, and the template's test uses the same
 predicate Make does. The build gate warns when a template draws a prop it
 never bound ("bind what you show").
+
+82–85 are the **0.3.0 conventions, one lesson each** — the rules the
+`CHANGELOG.md` states, as templates you can open. 82 is the numbers half of
+"bind what you show": the gate reads a drawn number in its honest spellings
+(`String`, `toLocaleString`, `toFixed` when the value has decimals) on a digit
+boundary, and a derived total is not a prop, so it is not a handle. 83 is the
+composite line: one rect drawing two props keeps both handles with
+`bindProps` — a second `bindProp` REPLACES the first, which is the mistake
+`year-card/v1` cannot fix in place — and the same line split, one rect per
+prop, is the other correct form. 84 is the roll call (`bindingsDeclared`,
+a THROW) from the other side: what a compliant NON-binding looks like — five
+accountable props named in `bindings.unbound` with their reasons beside one
+bound label, and a page colour that needs nothing because it IS the document
+background. 85 is the `array` prop type declared plainly (no more
+`as any`), edited as `objectRows` in the panel, every cell a leaf handle on the
+canvas, an empty qty removing its row, and the empty last row bound as the add
+handle.
 
 ---
 

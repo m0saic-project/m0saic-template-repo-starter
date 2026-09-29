@@ -94,6 +94,12 @@ exports.WeightsV1 = (0, template_utils_1.defineMosaicTemplate)({
         bandColor: "#2e86c1",
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            bandColor: "no rect of its own — the strip's tiles are shaded variants",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         for (const [key, value] of [
@@ -130,11 +136,14 @@ exports.WeightsV1 = (0, template_utils_1.defineMosaicTemplate)({
         }
         for (const [i, label] of exports.MIX_LABELS.entries()) {
             sources.push((0, template_utils_1.makeColorTile)(palette[i % palette.length]));
-            sources.push((0, template_utils_1.svgLabel)(`${label} ${Math.round(mix[i])}%`, (width * 0.8) / exports.MIX_LABELS.length, height * 0.12, {
+            sources.push(
+            // One ELEMENT of a number[] — the readout draws mix[i], so that is the
+            // index the handle edits.
+            (0, template_utils_1.bindProp)((0, template_utils_1.svgLabel)(`${label} ${Math.round(mix[i])}%`, (width * 0.8) / exports.MIX_LABELS.length, height * 0.12, {
                 color: "#b9c4cf",
                 maxPx: Math.round(height * 0.024),
                 vAlign: "middle",
-            }));
+            }), "mix", i));
         }
         const heading = (0, svg_text_1.fitSvgText)("WEIGHTS - drag a slider, move a wall", width * 0.9, height * 0.07, { maxPx: Math.round(height * 0.036), maxLines: 1 });
         const readout = (0, svg_text_1.fitSvgLines)([

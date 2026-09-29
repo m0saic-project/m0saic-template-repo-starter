@@ -118,6 +118,12 @@ exports.ReduceToOneV1 = (0, template_utils_1.defineMosaicTemplate)({
             sources,
         };
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            density: "a COUNT — it decides how many rects exist, and is drawn by none of them",
+        },
+    },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Reduce to One",
         lines: [

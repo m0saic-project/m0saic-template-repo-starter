@@ -74,6 +74,12 @@ exports.DrawRegionsV1 = (0, template_utils_1.defineMosaicTemplate)({
         regions: exports.DEFAULT_REGIONS,
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            regions: "a regions picker edited on the CANVAS by dragging — the draw session is the handle, not a text form",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         if (props.pageColor !== undefined && !HEX.test(props.pageColor)) {

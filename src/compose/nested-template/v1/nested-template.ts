@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -151,14 +152,23 @@ export const NestedTemplateV1 = defineMosaicTemplate<NestedTemplateProps>({
       children: { [CHILD_REF]: badge },
       sources: [
         makeColorTile(PANEL),
-        svgLabel(caption, Math.round((width * (100 - slotPct)) / 100), height, {
-          maxPx: Math.round(height * 0.036),
-          maxLines: 6,
-          color: INK_DIM,
-        }),
+        bindProp(
+          svgLabel(caption, Math.round((width * (100 - slotPct)) / 100), height, {
+            maxPx: Math.round(height * 0.036),
+            maxLines: 6,
+            color: INK_DIM,
+          }),
+          "slotPct",
+        ),
         { type: "mosaic", ref: CHILD_REF, placement: { fit: "contain" } } as MosaicSource,
       ],
     };
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      badgeText: "drawn by the NESTED badge — that rect belongs to the child, whose binding names the child's own prop",
+    },
   },
 
   renderTutorial: lessonTutorial({

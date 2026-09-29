@@ -8,12 +8,14 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
   slugifyAssetKeyFromPath,
 } from "@m0saic/template-utils";
 
+import { formatFor, hasMedia } from "../../../_shared/output-kind";
 import { svgLabel } from "../../../_shared/svg-text";
 import { lessonTutorial } from "../../../_shared/tutorial";
 
@@ -106,8 +108,15 @@ export const AudioMixV1 = defineMosaicTemplate<AudioMixProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
-    format: { kind: "video", container: "mp4" },
+    format: { kind: "image", container: "png" },
     note: "Slide the two volumes; toggle Mute music and note the source count never changes.",
+  },
+
+  // ⭐ This template's kind depends on its INPUT: audio must ride a video container; with no track the meter is a still.
+  // A fixed declaration would be wrong for half its inputs, and the host would
+  // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+  resolveOutputHints(props: AudioMixProps) {
+    return formatFor(hasMedia(props.narration) || hasMedia(props.music));
   },
 
   propsSchema,
@@ -117,6 +126,14 @@ export const AudioMixV1 = defineMosaicTemplate<AudioMixProps>({
     narrationVolume: 1,
     musicVolume: 0.4,
     muteMusic: false,
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      narration: "an AUDIO source — it contributes no pixels by design, so there is no rect to bind",
+      music: "an AUDIO source — it contributes no pixels by design, so there is no rect to bind",
+      narrationVolume: "a mix level — audible, never visible",
+    },
   },
 
   async render(
@@ -223,11 +240,14 @@ export const AudioMixV1 = defineMosaicTemplate<AudioMixProps>({
       ...(narrationTrack ? [narrationTrack] : []),
       ...(musicUnits > 0 ? [makeColorTile(HEX_TRACK[1])] : []),
       ...(musicTrack ? [musicTrack] : []),
-      svgLabel(caption, width, Math.round(height / 5), {
-        maxPx: Math.round(height * 0.024),
-        maxLines: 2,
-        color: "#7f8c9b" as MosaicColor,
-      }),
+      bindProp(
+        svgLabel(caption, width, Math.round(height / 5), {
+          maxPx: Math.round(height * 0.024),
+          maxLines: 2,
+          color: "#7f8c9b" as MosaicColor,
+        }),
+        "musicVolume",
+      ),
     ];
 
     return {

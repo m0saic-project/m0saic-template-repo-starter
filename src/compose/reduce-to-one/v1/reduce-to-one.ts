@@ -194,6 +194,12 @@ export const ReduceToOneV1 = defineMosaicTemplate<ReduceToOneProps>({
       sources,
     };
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      density: "a COUNT — it decides how many rects exist, and is drawn by none of them",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "Reduce to One",

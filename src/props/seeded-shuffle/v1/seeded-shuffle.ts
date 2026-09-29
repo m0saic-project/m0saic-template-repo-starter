@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -123,13 +124,23 @@ export const SeededShuffleV1 = defineMosaicTemplate<SeededShuffleProps>({
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
         ...dealt.map((c) => makeColorTile(c)),
-        svgLabel(caption, width, Math.round(height / 6), {
-          maxPx: Math.round(height * 0.026),
-          maxLines: 2,
-          color: "#7f8c9b" as MosaicColor,
-        }),
+        bindProp(
+          svgLabel(caption, width, Math.round(height / 6), {
+            maxPx: Math.round(height * 0.026),
+            maxLines: 2,
+            color: "#7f8c9b" as MosaicColor,
+          }),
+          "seed",
+        ),
       ],
     };
+  },
+  // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+  // rect that shows it, or named here with the reason it has none.
+  bindings: {
+    unbound: {
+      tiles: "a COUNT, not a value on any rect",
+    },
   },
 
   renderTutorial: lessonTutorial({

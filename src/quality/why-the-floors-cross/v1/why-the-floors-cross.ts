@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { evaluateM0, toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -272,7 +273,7 @@ export const WhyTheFloorsCrossV1 = defineMosaicTemplate<WhyTheFloorsCrossProps>(
     if (real) {
       // Wireframe of the real geometry: one alternating tile per claim.
       for (let i = 0; i < e.frameCount; i++) {
-        sources.push(makeColorTile(i % 2 === 0 ? band : shade(bandHex)));
+        sources.push(bindProp(makeColorTile(i % 2 === 0 ? band : shade(bandHex)), "bandColor"));
       }
       return {
         kind: "mosaic_document",
@@ -321,7 +322,7 @@ export const WhyTheFloorsCrossV1 = defineMosaicTemplate<WhyTheFloorsCrossProps>(
 
     // Blocks bind left to right / top to bottom, then the caption text.
     if (layout === "dashboard") {
-      sources.push(makeColorTile(band)); // title chip
+      sources.push(bindProp(makeColorTile(band), "bandColor")); // title chip
       for (let i = 0; i < 6; i++) {
         // card bg, then icon / label / value / delta on it
         sources.push(

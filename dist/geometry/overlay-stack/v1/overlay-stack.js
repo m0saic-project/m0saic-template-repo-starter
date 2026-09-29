@@ -69,8 +69,8 @@ exports.OverlayStackV1 = (0, template_utils_1.defineMosaicTemplate)({
             m0,
             assets: {},
             sources: [
-                (0, template_utils_1.makeColorTile)(baseColor),
-                (0, template_utils_1.makeColorTile)(bandColor),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(baseColor), "baseColor"),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(bandColor), "bandColor"),
                 (0, svg_text_1.svgLabel)("badge: painted last, above everything", width, height / 3, {
                     maxPx: Math.round(height * 0.05),
                     maxLines: 2,
@@ -78,6 +78,9 @@ exports.OverlayStackV1 = (0, template_utils_1.defineMosaicTemplate)({
             ],
         };
     },
+    // `canvasFill` is a THROW: a full-canvas colour rect is normally the smell.
+    // Here it is the SUBJECT, so it is declared rather than removed.
+    canvas: { baseRect: "the lesson IS the full-rect base: `1{3[-,1{1},-]}` shows every `{…}` restoring its node's whole rect, with two overlays stacked on it" },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Overlay Stack",
         lines: [

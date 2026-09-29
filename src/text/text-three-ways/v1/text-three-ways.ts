@@ -216,6 +216,12 @@ export const TextThreeWaysV1 = defineMosaicTemplate<TextThreeWaysProps>({
       ],
     };
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      inkColor: "the ink of three DIFFERENT rects (drawtext, svg, path) — the lesson is the comparison, so no single rect owns it",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "Text, Three Ways",

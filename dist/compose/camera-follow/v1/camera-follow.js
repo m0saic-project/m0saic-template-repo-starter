@@ -172,6 +172,12 @@ exports.CameraFollowV1 = (0, template_utils_1.defineMosaicTemplate)({
             ],
         };
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            zoom: "camera geometry — it moves the view, no rect shows the number",
+        },
+    },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Camera Follow",
         lines: [

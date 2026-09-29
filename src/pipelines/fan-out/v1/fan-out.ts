@@ -195,6 +195,12 @@ export const FanOutV1 = defineMosaicTemplate<FanOutProps>({
       steps,
     };
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      variantMs: "timing — each variant's length, never drawn",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "Fan Out",

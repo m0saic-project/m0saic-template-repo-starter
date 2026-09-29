@@ -106,6 +106,12 @@ exports.ThemeTokensV1 = (0, template_utils_1.defineMosaicTemplate)({
         alias: "theme",
         accentFallback: "#EF7525",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            accentFallback: "the colour used only when a token is MISSING — no rect wears it in the normal case",
+        },
+    },
     async render(props, ctx) {
         var _a, _b, _c, _d, _e;
         const source = (_a = props.source) !== null && _a !== void 0 ? _a : "provider";

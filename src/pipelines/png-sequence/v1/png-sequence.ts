@@ -179,6 +179,12 @@ export const PngSequenceV1 = defineMosaicTemplate<PngSequenceProps>({
       }),
     };
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      frames: "a COUNT of emitted stills — no rect shows it",
+    },
+  },
 
   renderTutorial: lessonTutorial({
     title: "PNG Sequence",

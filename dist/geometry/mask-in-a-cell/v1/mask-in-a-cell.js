@@ -75,9 +75,9 @@ exports.MaskInACellV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                (0, template_utils_1.makeColorTile)(shapeColor, {
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(shapeColor, {
                     mask: { kind: "inline-mask", localPath, bounds },
-                }),
+                }), "shapeColor"),
                 (0, svg_text_1.svgLabel)(matchAspect
                     ? `bounds ${bounds.width}x${bounds.height} match the ${cellW}x${cellH} cell - true diamond`
                     : `square bounds stretched onto a ${cellW}x${cellH} cell - the silent smear`, width, Math.round(height / 6), { maxPx: Math.round(height * 0.04), maxLines: 2 }),

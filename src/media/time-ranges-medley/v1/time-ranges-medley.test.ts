@@ -68,6 +68,8 @@ describe("@m0saic-starter/media/time-ranges-medley/v1", () => {
 
   it("empty video renders the prompt", async () => {
     const doc = asDocument(await TimeRangesMedleyV1.render({}, targetCtx(1280, 720)));
-    expect(JSON.stringify(doc.sources)).toContain("medley column");
+    expect(JSON.stringify(doc.sources)).toContain("Drop a video here");
+    // The empty slot is BOUND — a drop target, not just a prompt.
+    expect((doc.sources?.[0] as { editor?: { binding?: { propKey?: string } } }).editor?.binding?.propKey).toBe("video");
   });
 });

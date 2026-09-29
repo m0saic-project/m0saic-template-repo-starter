@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
 } from "@m0saic/template-utils";
@@ -92,11 +93,16 @@ export const UrlAssetV1 = defineMosaicTemplate<UrlAssetProps>({
         assets: {},
         backgroundColor: "#0b0e11" as MosaicColor,
         sources: [
-          svgLabel(lines, width, height, {
-            maxPx: Math.round(height * 0.034),
-            maxLines: 6,
-            color: "#c8d2dc" as MosaicColor,
-          }),
+          // Bound while EMPTY — "bind even when the value is empty": this rect is
+          // the ADD handle, so dropping a file on the canvas fills the slot.
+          bindProp(
+            svgLabel(lines, width, height, {
+              maxPx: Math.round(height * 0.034),
+              maxLines: 6,
+              color: "#c8d2dc" as MosaicColor,
+            }),
+            "url",
+          ),
         ],
       };
     }
@@ -126,12 +132,17 @@ export const UrlAssetV1 = defineMosaicTemplate<UrlAssetProps>({
       assets,
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        {
-          type: "media",
-          mediaType: "image",
-          assetId: key,
-          placement: { fit: "contain" },
-        } as never,
+        // `url` is a plain string prop the host fetches — the rect that SHOWS the
+        // fetched image is still its handle, so a double-click edits the URL.
+        bindProp(
+          {
+            type: "media",
+            mediaType: "image",
+            assetId: key,
+            placement: { fit: "contain" },
+          } as never,
+          "url",
+        ),
         svgLabel(caption, width, Math.round(height / 6), {
           maxPx: Math.round(height * 0.022),
           maxLines: 2,

@@ -119,6 +119,9 @@ exports.RenderTutorialV1 = (0, template_utils_1.defineMosaicTemplate)({
         title: "Press the ? pill",
         pageColor: PAGE_BG,
     },
+    // `canvasFill` is a THROW: a full-canvas colour rect is normally the smell.
+    // Here it is the SUBJECT, so it is declared rather than removed.
+    canvas: { baseRect: "a tutorial SURFACE paints its own page — it is never the deliverable, so the rect is the artifact" },
     async render(props, ctx) {
         var _a, _b;
         if (props.pageColor !== undefined && !HEX.test(props.pageColor)) {

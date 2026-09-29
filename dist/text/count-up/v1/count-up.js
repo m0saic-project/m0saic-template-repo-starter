@@ -115,7 +115,9 @@ exports.CountUpV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                counter,
+                // The counter draws BOTH: one rect, two handles (`bindProps`), because a
+                // second `bindProp` would replace the first.
+                (0, template_utils_1.bindProps)(counter, [{ propKey: "value" }, { propKey: "suffix" }]),
                 (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(label, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.06),
                     maxLines: 1,

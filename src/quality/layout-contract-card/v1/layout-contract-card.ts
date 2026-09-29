@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -151,6 +152,12 @@ export const LayoutContractCardV1 = defineMosaicTemplate<LayoutContractCardProps
     cardColor: "#2e86c1",
     headerColor: "#8e44ad",
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      stretchCard: "a layout switch — it changes which shape is built, and no rect shows it",
+    },
+  },
 
   async render(
     props: LayoutContractCardProps,
@@ -207,9 +214,9 @@ export const LayoutContractCardV1 = defineMosaicTemplate<LayoutContractCardProps
     // The LABEL is the durable identity. Everything else about this document
     // is re-derived the moment a prop or the canvas changes.
     const cardTile = (): MosaicSource =>
-      ({ ...makeColorTile((props.cardColor ?? "#2e86c1") as MosaicColor), editor: { label: "card" } } as MosaicSource);
+      (bindProp({ ...makeColorTile((props.cardColor ?? "#2e86c1") as MosaicColor), editor: { label: "card" } } as MosaicSource, "cardColor") as MosaicSource);
     const sources: MosaicSource[] = [
-      { ...makeColorTile((props.headerColor ?? "#8e44ad") as MosaicColor), editor: { label: "header" } } as MosaicSource,
+      bindProp({ ...makeColorTile((props.headerColor ?? "#8e44ad") as MosaicColor), editor: { label: "header" } } as MosaicSource, "headerColor"),
       svgTextSource([
         { text: heading.text, fontSize: heading.fontSize, color: "#eaeef2" as MosaicColor },
         {

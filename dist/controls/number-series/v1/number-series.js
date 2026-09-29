@@ -116,6 +116,12 @@ exports.NumberSeriesV1 = (0, template_utils_1.defineMosaicTemplate)({
         bandColor: "#2e86c1",
         pageColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            values: "drives the split weights — geometry, never drawn",
+        },
+    },
     async render(props, ctx) {
         var _a, _b;
         for (const [key, value] of [
@@ -160,7 +166,7 @@ exports.NumberSeriesV1 = (0, template_utils_1.defineMosaicTemplate)({
         const sources = [];
         for (const [i, s] of series.entries()) {
             for (let k = 0; k < s.length; k++) {
-                sources.push((0, template_utils_1.makeColorTile)(i % 2 === 0 ? band : shade(bandHex)));
+                sources.push((0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(i % 2 === 0 ? band : shade(bandHex)), "bandColor"));
             }
         }
         const flatShape = series.length === 1 ? "flat number[]" : `number[][] x ${series.length}`;

@@ -124,7 +124,7 @@ exports.PathMaskV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                (0, template_utils_1.makeColorTile)(inkColor, { mask }),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(inkColor, { mask }), "inkColor"),
                 (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.028),
                     maxLines: 2,
@@ -132,6 +132,12 @@ exports.PathMaskV1 = (0, template_utils_1.defineMosaicTemplate)({
                 }),
             ],
         };
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            matte: "the mask's own source — it is the STENCIL, never painted",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Path Mask",

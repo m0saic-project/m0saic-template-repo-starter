@@ -137,12 +137,15 @@ exports.RowEditorsV1 = (0, template_utils_1.defineMosaicTemplate)({
         }
         for (const [i, s] of segments.entries()) {
             sources.push((0, template_utils_1.makeColorTile)(((_c = s.color) !== null && _c !== void 0 ? _c : exports.SEGMENT_PALETTE[i % exports.SEGMENT_PALETTE.length])));
-            sources.push((0, template_utils_1.svgLabel)(`${s.label} ${Math.round((s.value / total) * 100)}%`, (width * 0.8) / segments.length, height * 0.12, {
+            sources.push(
+            // A `list` binds a LEAF: this label draws THIS row's `label`, so the
+            // path routes into that record and Make's double-click edits just it.
+            (0, template_utils_1.bindPropPath)((0, template_utils_1.svgLabel)(`${s.label} ${Math.round((s.value / total) * 100)}%`, (width * 0.8) / segments.length, height * 0.12, {
                 color: "#b9c4cf",
                 maxPx: Math.round(height * 0.022),
                 maxLines: 2,
                 vAlign: "middle",
-            }));
+            }), "segments", [i, "label"], "string"));
         }
         const heading = (0, svg_text_1.fitSvgText)(`ROW EDITORS - ${segments.length} rows, edited as a form, rendered as proportions`, width * 0.9, height * 0.07, { maxPx: Math.round(height * 0.034), maxLines: 1 });
         const readout = (0, svg_text_1.fitSvgLines)([

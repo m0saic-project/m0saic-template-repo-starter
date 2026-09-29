@@ -106,6 +106,12 @@ exports.ChildMosaicV1 = (0, template_utils_1.defineMosaicTemplate)({
             ],
         };
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            childGrid: "an m0 layout string — the value IS the composition of every child rect, not one of them",
+        },
+    },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Child Mosaic",
         lines: [

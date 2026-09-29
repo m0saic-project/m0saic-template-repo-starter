@@ -7,6 +7,7 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -96,11 +97,15 @@ export const LumaBadgeV1 = defineMosaicTemplate<LumaBadgeProps>({
         assets: {},
         backgroundColor: "#0b0e11" as MosaicColor,
         sources: [
-          svgLabel("Pick an image (Image) - the badge reads the pixels under it", width, height, {
-            maxPx: Math.round(height * 0.04),
-            maxLines: 2,
-            color: "#7f8c9b" as MosaicColor,
-          }),
+          // Bound while EMPTY — the rect is the ADD handle, so a dropped file fills it.
+          bindProp(
+            svgLabel("Pick an image (Image) - the badge reads the pixels under it", width, height, {
+              maxPx: Math.round(height * 0.04),
+              maxLines: 2,
+              color: "#7f8c9b" as MosaicColor,
+            }),
+            "image",
+          ),
         ],
       };
     }
@@ -166,6 +171,12 @@ export const LumaBadgeV1 = defineMosaicTemplate<LumaBadgeProps>({
         }),
       ],
     };
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      badge: "a computed readout drawn from the image's pixels, not a slot the user fills",
+    },
   },
 
   renderTutorial: lessonTutorial({

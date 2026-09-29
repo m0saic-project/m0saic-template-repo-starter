@@ -74,13 +74,20 @@ exports.SeededShuffleV1 = (0, template_utils_1.defineMosaicTemplate)({
             backgroundColor: "#0b0e11",
             sources: [
                 ...dealt.map((c) => (0, template_utils_1.makeColorTile)(c)),
-                (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.026),
                     maxLines: 2,
                     color: "#7f8c9b",
-                }),
+                }), "seed"),
             ],
         };
+    },
+    // `bindingsDeclared`: a prop that CAN carry a canvas handle is bound on the
+    // rect that shows it, or named here with the reason it has none.
+    bindings: {
+        unbound: {
+            tiles: "a COUNT, not a value on any rect",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Seeded Shuffle",

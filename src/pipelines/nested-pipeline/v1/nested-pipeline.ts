@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -206,11 +207,14 @@ export const NestedPipelineV1 = defineMosaicTemplate<NestedPipelineProps>({
           playback: { loopMode },
         } as unknown as MosaicSource,
         makeColorTile("#101418" as MosaicColor),
-        svgLabel(caption, width, Math.round(height / 6), {
-          maxPx: Math.round(height * 0.028),
-          maxLines: 2,
-          color: INK_DIM,
-        }),
+        bindProp(
+          svgLabel(caption, width, Math.round(height / 6), {
+            maxPx: Math.round(height * 0.028),
+            maxLines: 2,
+            color: INK_DIM,
+          }),
+          "innerMs",
+        ),
       ],
     };
   },

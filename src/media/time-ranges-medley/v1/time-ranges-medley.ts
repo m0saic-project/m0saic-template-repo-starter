@@ -8,11 +8,13 @@ import type {
 import { asAssetId, asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   slugifyAssetKeyFromPath,
 } from "@m0saic/template-utils";
 
+import { formatFor, hasMedia } from "../../../_shared/output-kind";
 import { svgLabel } from "../../../_shared/svg-text";
 import { lessonTutorial } from "../../../_shared/tutorial";
 
@@ -94,8 +96,15 @@ export const TimeRangesMedleyV1 = defineMosaicTemplate<TimeRangesMedleyProps>({
     height: 720,
     fps: 30,
     durationMs: 2000,
-    format: { kind: "video", container: "mp4" },
+    format: { kind: "image", container: "png" },
     note: "Mark several ranges in the studio — the medley resplits, one column per window.",
+  },
+
+  // ⭐ This template's kind depends on its INPUT: a clip makes a video; the empty slot draws a still placeholder.
+  // A fixed declaration would be wrong for half its inputs, and the host would
+  // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+  resolveOutputHints(props: TimeRangesMedleyProps) {
+    return formatFor(hasMedia(props.video));
   },
 
   propsSchema,
@@ -117,15 +126,19 @@ export const TimeRangesMedleyV1 = defineMosaicTemplate<TimeRangesMedleyProps>({
         assets: {},
         backgroundColor: "#0b0e11" as MosaicColor,
         sources: [
-          svgLabel(
-            "Pick a video (Video), then mark several ranges - one medley column each",
-            width,
-            height,
-            {
-              maxPx: Math.round(height * 0.04),
-              maxLines: 2,
-              color: "#7f8c9b" as MosaicColor,
-            },
+          // Bound while EMPTY — the rect is the ADD handle, so a dropped video fills it.
+          bindProp(
+            svgLabel(
+              "Drop a video here, or pick one (Video), then mark several ranges",
+              width,
+              height,
+              {
+                maxPx: Math.round(height * 0.04),
+                maxLines: 2,
+                color: "#7f8c9b" as MosaicColor,
+              },
+            ),
+            "video",
           ),
         ],
       };
@@ -220,6 +233,12 @@ export const TimeRangesMedleyV1 = defineMosaicTemplate<TimeRangesMedleyProps>({
         }),
       ],
     };
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      ranges: "time windows — they decide which frames exist, and no rect shows the numbers",
+    },
   },
 
   renderTutorial: lessonTutorial({

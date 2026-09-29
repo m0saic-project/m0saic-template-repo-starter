@@ -13,6 +13,7 @@ import {
   weightedSplit,
 } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   latticeCellInset,
@@ -176,7 +177,7 @@ export const QuantizationCuresV1 = defineMosaicTemplate<QuantizationCuresProps>(
     }
 
     const fillAt = (r: number, c: number): MosaicSource =>
-      makeColorTile((r + c) % 2 === 0 ? BASE_FILL : (checkerColor as MosaicColor));
+      bindProp(makeColorTile((r + c) % 2 === 0 ? BASE_FILL : (checkerColor as MosaicColor)), "checkerColor");
 
     // Row-major checkerboard — every method binds cells in this order.
     const cellFills: MosaicSource[] = [];

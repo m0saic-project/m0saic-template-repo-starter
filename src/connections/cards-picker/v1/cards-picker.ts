@@ -140,6 +140,13 @@ export const CardsPickerV1 = defineMosaicTemplate<CardsPickerProps>({
     itemIds: ["big-buck-bunny", "sunrise-timelapse", "ember-glow"],
     pageColor: "#1c2833",
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      connectionId: "names the host CONNECTION, resolved outside the canvas — nothing draws it",
+      itemIds: "the picked ids; the cards show each item's own fields, not the id",
+    },
+  },
 
   async render(
     props: CardsPickerProps,

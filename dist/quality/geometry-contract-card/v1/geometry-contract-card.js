@@ -81,6 +81,12 @@ exports.GeometryContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
         chipColor: "#16a085",
         cardColor: "#1c2833",
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            contractOffsetPx: "geometry — the deliberate offset the contract catches, never drawn",
+        },
+    },
     async render(props, ctx) {
         var _a, _b, _c;
         for (const [key, value] of [
@@ -141,7 +147,7 @@ exports.GeometryContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
             m0,
             assets: {},
             sources: [
-                (0, template_utils_1.makeColorTile)(((_b = props.cardColor) !== null && _b !== void 0 ? _b : "#1c2833")),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(((_b = props.cardColor) !== null && _b !== void 0 ? _b : "#1c2833")), "cardColor"),
                 (0, svg_text_1.svgTextSource)([
                     { text: heading.text, fontSize: heading.fontSize, color: "#eaeef2" },
                     {
@@ -152,7 +158,7 @@ exports.GeometryContractCardV1 = (0, template_utils_1.defineMosaicTemplate)({
                         padding: { bottom: 0.12 },
                     },
                 ]),
-                (0, template_utils_1.makeColorTile)(((_c = props.chipColor) !== null && _c !== void 0 ? _c : "#16a085")),
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(((_c = props.chipColor) !== null && _c !== void 0 ? _c : "#16a085")), "chipColor"),
             ],
         };
         return (0, template_utils_1.withGeometryContract)(doc, ctx, {

@@ -122,7 +122,7 @@ export const NestedBadgeV1 = defineMosaicTemplate<NestedBadgeProps>({
       assets: {},
       backgroundColor: PANEL,
       sources: [
-        makeColorTile(accent as MosaicColor),
+        bindProp(makeColorTile(accent as MosaicColor), "accent"),
         makeColorTile(PANEL),
         bindProp(svgLabel(text, labelBoxW, height, {
           maxPx: Math.round(Math.min(labelBoxW, height) * 0.2),

@@ -115,6 +115,12 @@ exports.PngSequenceV1 = (0, template_utils_1.defineMosaicTemplate)({
             }),
         };
     },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            frames: "a COUNT of emitted stills — no rect shows it",
+        },
+    },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "PNG Sequence",
         lines: [

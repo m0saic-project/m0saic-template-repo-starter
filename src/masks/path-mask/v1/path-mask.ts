@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   MASK_SUBPATH_BUDGET,
   defineMosaicTemplate,
   definePropsSchema,
@@ -218,7 +219,7 @@ export const PathMaskV1 = defineMosaicTemplate<PathMaskProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        makeColorTile(inkColor as MosaicColor, { mask }),
+        bindProp(makeColorTile(inkColor as MosaicColor, { mask }), "inkColor"),
         svgLabel(caption, width, Math.round(height / 6), {
           maxPx: Math.round(height * 0.028),
           maxLines: 2,
@@ -226,6 +227,12 @@ export const PathMaskV1 = defineMosaicTemplate<PathMaskProps>({
         }),
       ],
     };
+  },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      matte: "the mask's own source — it is the STENCIL, never painted",
+    },
   },
 
   renderTutorial: lessonTutorial({

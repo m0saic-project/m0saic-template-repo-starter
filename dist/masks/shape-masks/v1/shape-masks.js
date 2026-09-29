@@ -144,14 +144,14 @@ exports.ShapeMasksV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets: {},
             backgroundColor: "#0b0e11",
             sources: [
-                (0, template_utils_1.makeColorTile)(shapeColor, {
+                (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(shapeColor, {
                     mask: {
                         kind: "inline-mask",
                         localPath,
                         // The design space IS the cell — same aspect, no smear.
                         bounds: { x: 0, y: 0, width: cell.width, height: cell.height },
                     },
-                }),
+                }), "shapeColor"),
                 (0, svg_text_1.svgLabel)(`${note} - in a ${cell.width}x${cell.height} cell`, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.03),
                     maxLines: 2,
@@ -159,6 +159,12 @@ exports.ShapeMasksV1 = (0, template_utils_1.defineMosaicTemplate)({
                 }),
             ],
         };
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            cornerPct: "geometry — the corner radius of the generated mask path",
+        },
     },
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Shape Masks",

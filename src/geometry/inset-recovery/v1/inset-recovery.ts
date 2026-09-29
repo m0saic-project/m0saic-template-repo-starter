@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { evaluateM0, placeRects, toM0String } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -109,7 +110,7 @@ export const InsetRecoveryV1 = defineMosaicTemplate<InsetRecoveryProps>({
     const rects = chipRects(width, height);
     const chipPieces = rects.map((rect) => ({
       rect,
-      source: makeColorTile(chipColor as MosaicColor),
+      source: bindProp(makeColorTile(chipColor as MosaicColor), "chipColor"),
     }));
 
     // Measure the chips' two spellings FIRST so the caption can print the

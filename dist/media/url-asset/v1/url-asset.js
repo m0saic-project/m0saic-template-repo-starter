@@ -50,11 +50,13 @@ exports.UrlAssetV1 = (0, template_utils_1.defineMosaicTemplate)({
                 assets: {},
                 backgroundColor: "#0b0e11",
                 sources: [
-                    (0, svg_text_1.svgLabel)(lines, width, height, {
+                    // Bound while EMPTY — "bind even when the value is empty": this rect is
+                    // the ADD handle, so dropping a file on the canvas fills the slot.
+                    (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(lines, width, height, {
                         maxPx: Math.round(height * 0.034),
                         maxLines: 6,
                         color: "#c8d2dc",
-                    }),
+                    }), "url"),
                 ],
             };
         }
@@ -76,12 +78,14 @@ exports.UrlAssetV1 = (0, template_utils_1.defineMosaicTemplate)({
             assets,
             backgroundColor: "#0b0e11",
             sources: [
-                {
+                // `url` is a plain string prop the host fetches — the rect that SHOWS the
+                // fetched image is still its handle, so a double-click edits the URL.
+                (0, template_utils_1.bindProp)({
                     type: "media",
                     mediaType: "image",
                     assetId: key,
                     placement: { fit: "contain" },
-                },
+                }, "url"),
                 (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 6), {
                     maxPx: Math.round(height * 0.022),
                     maxLines: 2,

@@ -99,7 +99,7 @@ exports.QuantizationCuresV1 = (0, template_utils_1.defineMosaicTemplate)({
         if (width < 360 || height < 240) {
             throw new Error(`${ID}: the 12x3 grid needs at least 360x240, got ${width}x${height} — grow the canvas.`);
         }
-        const fillAt = (r, c) => (0, template_utils_1.makeColorTile)((r + c) % 2 === 0 ? BASE_FILL : checkerColor);
+        const fillAt = (r, c) => (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)((r + c) % 2 === 0 ? BASE_FILL : checkerColor), "checkerColor");
         // Row-major checkerboard — every method binds cells in this order.
         const cellFills = [];
         for (let r = 0; r < ROWS; r++) {

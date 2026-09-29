@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -144,6 +145,12 @@ export const WeightsV1 = defineMosaicTemplate<WeightsProps>({
     bandColor: "#2e86c1",
     pageColor: "#1c2833",
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      bandColor: "no rect of its own — the strip's tiles are shaded variants",
+    },
+  },
 
   async render(
     props: WeightsProps,
@@ -190,11 +197,17 @@ export const WeightsV1 = defineMosaicTemplate<WeightsProps>({
     for (const [i, label] of MIX_LABELS.entries()) {
       sources.push(makeColorTile(palette[i % palette.length]));
       sources.push(
-        svgLabel(`${label} ${Math.round(mix[i])}%`, (width * 0.8) / MIX_LABELS.length, height * 0.12, {
-          color: "#b9c4cf" as MosaicColor,
-          maxPx: Math.round(height * 0.024),
-          vAlign: "middle",
-        }),
+        // One ELEMENT of a number[] — the readout draws mix[i], so that is the
+        // index the handle edits.
+        bindProp(
+          svgLabel(`${label} ${Math.round(mix[i])}%`, (width * 0.8) / MIX_LABELS.length, height * 0.12, {
+            color: "#b9c4cf" as MosaicColor,
+            maxPx: Math.round(height * 0.024),
+            vAlign: "middle",
+          }),
+          "mix",
+          i,
+        ),
       );
     }
 

@@ -8,6 +8,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProps,
   animateNumbersInText,
   bindProp,
   defineMosaicTemplate,
@@ -183,7 +184,9 @@ export const CountUpV1 = defineMosaicTemplate<CountUpProps>({
       assets: {},
       backgroundColor: "#0b0e11" as MosaicColor,
       sources: [
-        counter,
+        // The counter draws BOTH: one rect, two handles (`bindProps`), because a
+        // second `bindProp` would replace the first.
+        bindProps(counter, [{ propKey: "value" }, { propKey: "suffix" }]),
         bindProp(svgLabel(label, width, Math.round(height / 6), {
           maxPx: Math.round(height * 0.06),
           maxLines: 1,

@@ -87,7 +87,6 @@ import {
   bindProp,
   defineMosaicTemplate,
   definePropsSchema,
-  makeColorTile,
   placeInsetPieces,
   svgLabel,
 } from "@m0saic/template-utils";
@@ -101,8 +100,9 @@ ${tutorialImport}
  *
  * Scaffolded by tools/new-template.mjs — it passes every build-gate
  * convention as generated (typed props with defaults, a bound title,
- * fitted svg copy, deterministic geometry from ctx.target). Replace the
- * body; keep the shape.
+ * fitted svg copy, deterministic geometry from ctx.target, the canvas
+ * filled by document.backgroundColor — never a full-frame rect). Replace
+ * the body; keep the shape.
  */
 
 export type ${pascal(slug)}Props = {
@@ -183,8 +183,10 @@ export const ${exportName} = defineMosaicTemplate<${pascal(slug)}Props>({
     const piece = (rect: { x: number; y: number; w: number; h: number }, importance: number, source: MosaicSource) =>
       pieces.push({ rect: { ...rect, importance }, source });
 
-    // Backdrop - the whole canvas, painted first.
-    piece(px(0, 0, 1, 1), 0, makeColorTile(page));
+    // No backdrop rect: the DOCUMENT fills the canvas (backgroundColor below).
+    // A full-frame colour rect is the canvasFill smell — it becomes the click
+    // target whenever the pointer is off a smaller tile — and the 0.3.0 gate
+    // refuses it unless the template declares \`canvas: { baseRect }\` on purpose.
 
     // The title rect is BOUND to the prop it shows (bind what you display).
     const head = px(0.06, 0.3, 0.88, 0.2);

@@ -57,7 +57,7 @@ exports.InsetRecoveryV1 = (0, template_utils_1.defineMosaicTemplate)({
         const rects = chipRects(width, height);
         const chipPieces = rects.map((rect) => ({
             rect,
-            source: (0, template_utils_1.makeColorTile)(chipColor),
+            source: (0, template_utils_1.bindProp)((0, template_utils_1.makeColorTile)(chipColor), "chipColor"),
         }));
         // Measure the chips' two spellings FIRST so the caption can print the
         // receipts: the coarse inset-recovery string vs the same rects spelled

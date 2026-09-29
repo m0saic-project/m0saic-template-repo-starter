@@ -79,7 +79,12 @@ exports.RatioVsAbsoluteV1 = (0, template_utils_1.defineMosaicTemplate)({
         // Non-overlapping rects pack onto one layer and walk left-to-right, so
         // the middle rect carries the caller's accent while the rails stay muted.
         const orderedRects = absolute.layers.flatMap((layer) => layer.rectIndices);
-        const absoluteSources = orderedRects.map((rectIndex) => (0, template_utils_1.makeColorTile)(rectIndex === 1 ? absoluteColor : "#0e6251"));
+        const absoluteSources = orderedRects.map((rectIndex) => {
+            const tile = (0, template_utils_1.makeColorTile)(rectIndex === 1 ? absoluteColor : "#0e6251");
+            // Only the accent rect SHOWS the prop, so only it earns the handle — a
+            // swatch on a muted rail would edit a colour that rail never displays.
+            return rectIndex === 1 ? (0, template_utils_1.bindProp)(tile, "absoluteColor") : tile;
+        });
         const label = (text) => (0, svg_text_1.svgLabel)(text, width, halfH, {
             maxPx: Math.round(height * 0.04),
             vAlign: "bottom",
@@ -95,12 +100,18 @@ exports.RatioVsAbsoluteV1 = (0, template_utils_1.defineMosaicTemplate)({
                 ...ratioSources,
                 ...absoluteSources,
                 label(`ratio 1:2:1 - sides scale with the canvas: ~${Math.round(width / 4)}px here`),
-                label(`placeRects - rails PINNED at ${railEff}px` +
+                // The caption STATES the rail width, so it is railPx's handle - a
+                // double-click here edits the knob (bindingsCover reads the drawn
+                // "240"). When the canvas clamps the rail the caption names both
+                // numbers, and the binding still points at the prop.
+                (0, template_utils_1.bindProp)(label(`placeRects - rails PINNED at ${railEff}px` +
                     (clamped ? ` (clamped from ${railPx})` : "") +
-                    `, middle absorbs ${width - 2 * railEff}px`),
+                    `, middle absorbs ${width - 2 * railEff}px`), "railPx"),
             ],
         };
     },
+    // `bindingsDeclared`: both props are bound - absoluteColor on the accent
+    // rect, railPx on the caption that states it - so nothing is declared.
     renderTutorial: (0, tutorial_1.lessonTutorial)({
         title: "Ratio vs Absolute",
         lines: [

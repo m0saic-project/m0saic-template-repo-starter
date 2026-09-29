@@ -6,6 +6,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -117,8 +118,8 @@ export const OverlayStackV1 = defineMosaicTemplate<OverlayStackProps>({
       m0,
       assets: {},
       sources: [
-        makeColorTile(baseColor as MosaicColor),
-        makeColorTile(bandColor as MosaicColor),
+        bindProp(makeColorTile(baseColor as MosaicColor), "baseColor"),
+        bindProp(makeColorTile(bandColor as MosaicColor), "bandColor"),
         svgLabel("badge: painted last, above everything", width, height / 3, {
           maxPx: Math.round(height * 0.05),
           maxLines: 2,
@@ -126,6 +127,9 @@ export const OverlayStackV1 = defineMosaicTemplate<OverlayStackProps>({
       ],
     };
   },
+  // `canvasFill` is a THROW: a full-canvas colour rect is normally the smell.
+  // Here it is the SUBJECT, so it is declared rather than removed.
+  canvas: { baseRect: "the lesson IS the full-rect base: `1{3[-,1{1},-]}` shows every `{…}` restoring its node's whole rect, with two overlays stacked on it" },
 
   renderTutorial: lessonTutorial({
     title: "Overlay Stack",

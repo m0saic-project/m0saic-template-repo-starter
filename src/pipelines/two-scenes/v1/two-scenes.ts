@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -86,7 +87,14 @@ function scene(
   height: number,
   durationMs: number,
   fps: number,
+  /** The prop this caption STATES, if any - the caption is then its handle. */
+  bindTo?: string,
 ): MosaicDocument {
+  const caption = svgLabel(label, width, Math.round(height / 5), {
+    maxPx: Math.round(height * 0.09),
+    maxLines: 1,
+    color: INK,
+  });
   return {
     kind: "mosaic_document",
     version: 1,
@@ -97,14 +105,7 @@ function scene(
     fps,
     durationMs,
     backgroundColor: color,
-    sources: [
-      makeColorTile(color),
-      svgLabel(label, width, Math.round(height / 5), {
-        maxPx: Math.round(height * 0.09),
-        maxLines: 1,
-        color: INK,
-      }),
-    ],
+    sources: [makeColorTile(color), bindTo ? bindProp(caption, bindTo) : caption],
   };
 }
 
@@ -188,11 +189,17 @@ export const TwoScenesV1 = defineMosaicTemplate<TwoScenesProps>({
         {
           name: "scene-b",
           durationMs: sceneB,
-          file: scene(captionB, SCENE_B, width, height, sceneB, fps),
+          // Scene B's caption STATES the overlap, which IS transitionMs under a
+          // fade - so that caption is the knob's handle (bindingsCover reads the
+          // drawn "300"). A binding inside a STEP's document counts: the gate and
+          // Make walk pipeline steps like nested children.
+          file: scene(captionB, SCENE_B, width, height, sceneB, fps, "transitionMs"),
         },
       ],
     };
   },
+  // `bindingsDeclared`: transitionMs is bound on scene B's caption; transition
+  // is a closed set and needs nothing - so nothing is declared.
 
   renderTutorial: lessonTutorial({
     title: "Two Scenes",

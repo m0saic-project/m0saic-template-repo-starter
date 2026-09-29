@@ -4,6 +4,7 @@ exports.AudioMixV1 = void 0;
 const types_1 = require("@m0saic/types");
 const dsl_stdlib_1 = require("@m0saic/dsl-stdlib");
 const template_utils_1 = require("@m0saic/template-utils");
+const output_kind_1 = require("../../../_shared/output-kind");
 const svg_text_1 = require("../../../_shared/svg-text");
 const tutorial_1 = require("../../../_shared/tutorial");
 const ID = "@m0saic-starter/media/audio-mix/v1";
@@ -62,8 +63,14 @@ exports.AudioMixV1 = (0, template_utils_1.defineMosaicTemplate)({
         height: 720,
         fps: 30,
         durationMs: 2000,
-        format: { kind: "video", container: "mp4" },
+        format: { kind: "image", container: "png" },
         note: "Slide the two volumes; toggle Mute music and note the source count never changes.",
+    },
+    // ⭐ This template's kind depends on its INPUT: audio must ride a video container; with no track the meter is a still.
+    // A fixed declaration would be wrong for half its inputs, and the host would
+    // have to guess (see _shared/output-kind.ts). Pure and prop-only.
+    resolveOutputHints(props) {
+        return (0, output_kind_1.formatFor)((0, output_kind_1.hasMedia)(props.narration) || (0, output_kind_1.hasMedia)(props.music));
     },
     propsSchema,
     defaultProps: {
@@ -72,6 +79,14 @@ exports.AudioMixV1 = (0, template_utils_1.defineMosaicTemplate)({
         narrationVolume: 1,
         musicVolume: 0.4,
         muteMusic: false,
+    },
+    // `bindingsDeclared`: bound on the rect that shows it, or named here.
+    bindings: {
+        unbound: {
+            narration: "an AUDIO source — it contributes no pixels by design, so there is no rect to bind",
+            music: "an AUDIO source — it contributes no pixels by design, so there is no rect to bind",
+            narrationVolume: "a mix level — audible, never visible",
+        },
     },
     async render(props, ctx) {
         var _a, _b, _c, _d, _e;
@@ -158,11 +173,11 @@ exports.AudioMixV1 = (0, template_utils_1.defineMosaicTemplate)({
             ...(narrationTrack ? [narrationTrack] : []),
             ...(musicUnits > 0 ? [(0, template_utils_1.makeColorTile)(HEX_TRACK[1])] : []),
             ...(musicTrack ? [musicTrack] : []),
-            (0, svg_text_1.svgLabel)(caption, width, Math.round(height / 5), {
+            (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(caption, width, Math.round(height / 5), {
                 maxPx: Math.round(height * 0.024),
                 maxLines: 2,
                 color: "#7f8c9b",
-            }),
+            }), "musicVolume"),
         ];
         return {
             kind: "mosaic_document",

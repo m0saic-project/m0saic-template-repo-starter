@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -186,7 +187,7 @@ export const HostConnectionV1 = defineMosaicTemplate<HostConnectionProps>({
     const green = "#7ce8a9" as MosaicColor;
     const sources: MosaicSource[] = [];
     // Card background, then its contents in claim order.
-    sources.push(makeColorTile(dim(bandHex, 0.24)));
+    sources.push(bindProp(makeColorTile(dim(bandHex, 0.24)), "bandColor"));
     sources.push(
       svgLabel(
         `${CATALOG_CONNECTION_SCHEMA.label}   ${String(CATALOG_CONNECTION_ID)}`,

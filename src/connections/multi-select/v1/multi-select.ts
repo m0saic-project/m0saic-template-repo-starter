@@ -7,6 +7,7 @@ import type {
 import { asTemplateId } from "@m0saic/types";
 import { toM0String, weightedSplit } from "@m0saic/dsl-stdlib";
 import {
+  bindProp,
   defineMosaicTemplate,
   definePropsSchema,
   makeColorTile,
@@ -194,6 +195,13 @@ export const MultiSelectV1 = defineMosaicTemplate<MultiSelectProps>({
     bandColor: "#2e86c1",
     pageColor: "#1c2833",
   },
+  // `bindingsDeclared`: bound on the rect that shows it, or named here.
+  bindings: {
+    unbound: {
+      connectionId: "names the host CONNECTION, resolved outside the canvas — nothing draws it",
+      mixes: "the picked sets; the strip shows their CONTENT, not the selection value",
+    },
+  },
 
   async render(
     props: MultiSelectProps,
@@ -238,7 +246,7 @@ export const MultiSelectV1 = defineMosaicTemplate<MultiSelectProps>({
     const rowH = (height * 0.64) / mixes.length;
     const sources: MosaicSource[] = [];
     for (const m of mixes) {
-      sources.push(makeColorTile(band));
+      sources.push(bindProp(makeColorTile(band), "bandColor"));
       sources.push(
         svgLabel(m.label, width * 0.18, rowH, {
           color: "#eaeef2" as MosaicColor,

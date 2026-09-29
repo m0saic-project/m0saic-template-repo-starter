@@ -161,11 +161,11 @@ exports.RefReframeV1 = (0, template_utils_1.defineMosaicTemplate)({
                     placement: { fit },
                     playback: { loopMode },
                 },
-                (0, svg_text_1.svgLabel)(caption, Math.round(width / 2), Math.round(height / 6), {
+                (0, template_utils_1.bindProp)((0, svg_text_1.svgLabel)(caption, Math.round(width / 2), Math.round(height / 6), {
                     maxPx: Math.round(height * 0.026),
                     maxLines: 3,
                     color: INK_DIM,
-                }),
+                }), "tailMs"),
             ],
         };
         return {
