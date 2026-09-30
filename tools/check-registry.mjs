@@ -74,6 +74,12 @@ try {
 }
 
 const count = Array.isArray(templates) ? templates.length : 0;
+// The template-convention line this repo targets (src/repo.ts `conventions`,
+// m0saic 0.3.1). Rules introduced after it are reported as advice, never
+// errors, until the repo moves it.
+const CONVENTIONS_TARGET = (() => {
+  try { const e = require("../dist/index.js"); return (e.repo ?? e.TEMPLATE_REPO)?.conventions ?? null; } catch { return null; }
+})();
 
 // ── Repo level: the front door (hello-world convention, 2026-09-14) ────────
 // `repo.helloWorld` names the template a newcomer renders first — the
@@ -175,7 +181,11 @@ const skipped = [];
 const layouts = [];
 let rendered = 0;
 for (const template of templates) {
-  const audit = await templateUtils.auditRenderedTemplate(template, SWEEP ? { sweepCanvases: templateUtils.STANDARD_SWEEP_CANVASES } : {});
+  const audit = await templateUtils.auditRenderedTemplate(template, {
+    ...(SWEEP ? { sweepCanvases: templateUtils.STANDARD_SWEEP_CANVASES } : {}),
+    // The repo's conventions target (repo.conventions): newer rules are advice.
+    ...(CONVENTIONS_TARGET ? { conventionsTarget: CONVENTIONS_TARGET } : {}),
+  });
   if (audit.skipped) {
     skipped.push(`${audit.templateId}: ${audit.skipped}`);
     report.skipped.push({ templateId: audit.templateId, reason: audit.skipped });

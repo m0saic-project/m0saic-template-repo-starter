@@ -8,7 +8,8 @@
  * step (tools/gen-template-catalog.mjs) gathers the sidecars into
  * src/template-catalog.json; this module declares it.
  *
- * IMPORTING THIS DECLARES THE CATALOG — src/index.ts imports it FIRST, so every
+ * IMPORTING THIS DECLARES THE CATALOG (and the repo's conventions target) —
+ * src/index.ts imports it FIRST, so every
  * template is defined with its entry applied, before the build gate's
  * conventions judge it (a template with no label / description / tags would
  * otherwise fail them).

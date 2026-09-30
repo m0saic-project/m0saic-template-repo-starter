@@ -10,7 +10,8 @@
     "assets": {
       "templatesDir": "assets/templates"
     },
-    "helloWorld": "@m0saic-starter/basics/hello-world/v1"
+    "helloWorld": "@m0saic-starter/basics/hello-world/v1",
+    "conventions": "0.3.1"
   },
   "entryModule": "./dist/index.js",
   "templates": [

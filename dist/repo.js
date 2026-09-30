@@ -23,6 +23,11 @@ exports.TEMPLATE_REPO = {
     // convention): the canonical card with this repo's subline. Point it at
     // your own template if you want your own look.
     helloWorld: (0, types_1.asTemplateId)("@m0saic-starter/basics/hello-world/v1"),
+    // The template-convention line this repo targets (m0saic 0.3.1): the checks
+    // hold its templates to the rules up to it and report newer ones as advice,
+    // so a new m0saic release never turns this build red. Move it when your
+    // templates have adopted a newer line's rules.
+    conventions: "0.3.1",
 };
 /**
  * The curriculum chapters, in TEACHING ORDER — this array's order flows

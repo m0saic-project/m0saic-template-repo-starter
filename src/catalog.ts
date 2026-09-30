@@ -8,16 +8,20 @@
  * step (tools/gen-template-catalog.mjs) gathers the sidecars into
  * src/template-catalog.json; this module declares it.
  *
- * IMPORTING THIS DECLARES THE CATALOG — src/index.ts imports it FIRST, so every
+ * IMPORTING THIS DECLARES THE CATALOG (and the repo's conventions target) —
+ * src/index.ts imports it FIRST, so every
  * template is defined with its entry applied, before the build gate's
  * conventions judge it (a template with no label / description / tags would
  * otherwise fail them).
  */
 import type { MosaicTemplateCatalogFile } from "@m0saic/types";
-import { declareTemplateCatalog } from "@m0saic/template-utils";
+import { declareTemplateCatalog, declareTemplateConventions } from "@m0saic/template-utils";
 import catalog from "./template-catalog.json";
+import { TEMPLATE_REPO } from "./repo";
 
 /** The gathered catalog (validated by the build step that wrote it). */
 export const TEMPLATE_CATALOG = catalog as unknown as MosaicTemplateCatalogFile;
 
 declareTemplateCatalog(TEMPLATE_CATALOG.templates);
+// …and the conventions target (`repo.conventions`): rules newer than it are advice here.
+declareTemplateConventions(TEMPLATE_REPO.conventions);
