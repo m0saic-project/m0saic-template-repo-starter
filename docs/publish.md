@@ -1,7 +1,9 @@
 # Publishing a release
 
 This repo is consumed by **clone**, not by npm. A release is a tag on a commit
-whose `dist/` is current — nothing is uploaded anywhere.
+whose `dist/` is current, plus a **bundle** attached to that tag's GitHub
+release: the same build without what running it never reads (see
+[Bundles](#bundles-the-release-as-a-host-installs-it)).
 
 That makes the whole discipline one rule: **the build output in the commit
 must match the source in the commit.** A tag whose `dist/` is stale hands
@@ -19,12 +21,15 @@ git commit -m "..."
 git push
 # then, on the production laptop, in a CLEAN clone (no node_modules):
 node <monorepo>/scripts/sign-template-repo.mjs --repo <clone> --tag vYYYY.MM.N
-# → commit release.json, keys/, tools/verify-release.mjs, .gitattributes; tag vYYYY.MM.N; push --tags
+# → commit release.json, keys/, tools/verify-release.mjs, tools/pack-bundle.mjs, .gitattributes; tag vYYYY.MM.N; push --tags
+# then, in the same clone, pack the bundle and attach it to the tag's release:
+node tools/pack-bundle.mjs --tag vYYYY.MM.N
+gh release create vYYYY.MM.N bundle/bundle.json bundle/runtime.tgz bundle/previews.tgz
 ```
 
 **Releases are signed.** `release.json` carries an ed25519 signature (the
-m0saic release key) over the hash of `dist/**`, `template-manifest.json` and
-`package.json`. A clone that verifies shows as **Official** in Mosaic
+m0saic release key) over the hash of `dist/**`, `template-manifest.json`,
+`template-catalog.json` and `package.json`. A clone that verifies shows as **Official** in Mosaic
 Desktop; a clone whose bytes differ (an edit, a stale dist) shows as
 "differs from the signed release"; no signature at all is plain
 third-party. CI verifies on every push to `main`. Anyone can check a
@@ -38,6 +43,35 @@ was added.
 `assets/templates/**` are generated *and* tracked — that is what makes the
 repo loadable with no build step. A commit that changes `src/` without them is
 incomplete.
+
+## Bundles: the release as a host installs it
+
+A clone carries everything: source, tests, tools, fixtures. Running the
+templates needs two parts of it, so each release also ships as three files on
+its GitHub release:
+
+| File | Holds | Needed for |
+|---|---|---|
+| `bundle.json` | the index: tag, commit, each archive's sha256 and size | checking the two archives |
+| `runtime.tgz` | `dist/**`, `template-manifest.json`, `template-catalog.json`, `package.json`, `release.json` (when it signs this build), `LICENSE`, `NOTICE.md` | rendering, in the CLI or Mosaic Desktop |
+| `previews.tgz` | the previews the manifest resolves (`assets/templates/<key>/preview.png`, `preview.mp4`, `poster.png`) | the gallery in Mosaic Desktop; the CLI never shows a preview |
+
+```
+npm run bundle          # → bundle/bundle.json, bundle/runtime.tgz, bundle/previews.tgz
+gh release create vYYYY.MM.N bundle/bundle.json bundle/runtime.tgz bundle/previews.tgz
+```
+
+Extract `runtime.tgz`, then `previews.tgz`, into one empty folder and the
+folder loads like a clone (`--template-repo <folder>`). The names never change,
+so `https://github.com/<owner>/<repo>/releases/latest/download/bundle.json`
+always names the newest release. `bundle/` is ignored by git: the files live
+on the release, not in the repo.
+
+`npm run bundle` refuses a `release.json` signed for a different build (a
+`dist/` rebuilt after signing): re-sign, or pack with
+`npm run bundle -- --unsigned`. A repo of your own started from this one is
+unsigned: delete `release.json` (and the CI `release` lane), and the bundle
+packs without a signature.
 
 ## Version format
 
@@ -81,7 +115,6 @@ rather than committing the churn.
 
 ## After tagging
 
-Users pull and press **Refresh repos**. There is no publish step, no registry,
-and nothing to yank — a bad release is fixed by the next commit, which is
-worth remembering as a reason not to rush the tag rather than a reason to
-relax about it.
+Users pull and press **Refresh repos**. There is no registry and nothing to
+yank — a bad release is fixed by the next commit, which is worth remembering
+as a reason not to rush the tag rather than a reason to relax about it.

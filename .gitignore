@@ -8,6 +8,9 @@ node_modules
 # local render output
 test-output
 
+# release assets (npm run bundle): attached to a GitHub release, never committed
+bundle/
+
 # OS files
 .DS_Store
 Thumbs.db

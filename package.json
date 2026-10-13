@@ -23,7 +23,8 @@
     "verify": "npm run build && npm run lint && npm test && npm run test:contract && npm run check:deps",
     "smoke:render": "node tools/smoke-render.mjs",
     "previews": "node tools/gen-previews.mjs",
-    "fixtures:regen": "node tools/regen-fixtures.mjs"
+    "fixtures:regen": "node tools/regen-fixtures.mjs",
+    "bundle": "node tools/pack-bundle.mjs"
   },
   "//dependencies": [
     "The @m0saic/* substrate is on npm. The 0.x ranges (types, platform,",
