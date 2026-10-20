@@ -55,13 +55,18 @@ its GitHub release:
 | `bundle.json` | the index: tag, commit, each archive's sha256 and size | checking the two archives |
 | `runtime.tgz` | `dist/**`, `template-manifest.json`, `template-catalog.json`, `package.json`, `release.json` (when it signs this build), `LICENSE`, `NOTICE.md` | rendering, in the CLI or Mosaic Desktop |
 | `previews.tgz` | the previews the manifest resolves (`assets/templates/<key>/preview.png`, `preview.mp4`, `poster.png`) | the gallery in Mosaic Desktop; the CLI never shows a preview |
+| `samples.tgz` | the pack's sample pictures and clips — only when `template-manifest.json` names a folder in `repo.assets.samplesDir` (say `"samples"`); capped at 128 MB unpacked | Mosaic Desktop's Files dock, as the first place, "Samples"; the CLI never fetches it |
 
 ```
-npm run bundle          # → bundle/bundle.json, bundle/runtime.tgz, bundle/previews.tgz
+npm run bundle          # → bundle/bundle.json, bundle/runtime.tgz, bundle/previews.tgz [, bundle/samples.tgz]
 gh release create vYYYY.MM.N bundle/bundle.json bundle/runtime.tgz bundle/previews.tgz
 ```
 
-Extract `runtime.tgz`, then `previews.tgz`, into one empty folder and the
+A repo that ships samples adds `bundle/samples.tgz` to that line (`npm run bundle` prints the exact command). Declare
+the folder once in `template-manifest.json` — `"repo": { "assets": { "samplesDir": "samples" } }` — and keep it small:
+a handful of pictures and clips a first-time user can drag onto a template. A repo that names no folder ships none.
+
+Extract `runtime.tgz`, then `previews.tgz` (and `samples.tgz`), into one empty folder and the
 folder loads like a clone (`--template-repo <folder>`). The names never change,
 so `https://github.com/<owner>/<repo>/releases/latest/download/bundle.json`
 always names the newest release. `bundle/` is ignored by git: the files live

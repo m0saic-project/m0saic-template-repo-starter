@@ -21,6 +21,9 @@
  *                        exists, else <templatesDir>/<templateKey, "/" as
  *                        "__">/preview.png | preview.mp4 | poster.png.
  *                        Desktop only; the CLI never fetches it.
+ *   bundle/samples.tgz   the pack's sample pictures and clips, when the
+ *                        manifest names a folder (`repo.assets.samplesDir`);
+ *                        Mosaic Desktop's Files dock shows it as "Samples"
  *   bundle/bundle.json   the index: repo id, tag, commit, and per archive its
  *                        sha256, size and file count. The runtime entry also
  *                        carries treeSha256, the listing release.json signs.
@@ -31,7 +34,7 @@
  *
  * Publishing is a GitHub release on the tag with the three files attached:
  *
- *   gh release create v2026.10.1 bundle/bundle.json bundle/runtime.tgz bundle/previews.tgz
+ *   gh release create v2026.10.1 bundle/bundle.json bundle/runtime.tgz bundle/previews.tgz [bundle/samples.tgz]
  *
  * The file names never change, so `releases/latest/download/bundle.json`
  * always names the newest release.
@@ -54,13 +57,14 @@
  *
  * Usage:
  *   node tools/pack-bundle.mjs [--repo <dir>] [--out <dir>] [--tag <tag>]
- *                              [--unsigned] [--no-previews] [--json]
+ *                              [--unsigned] [--no-previews] [--no-samples] [--json]
  *
  *   --repo         the built repo to pack (default: this repo's root).
  *   --out          where the three files go (default: <repo>/bundle).
  *   --tag          the release tag; must equal release.json's when both exist.
  *   --unsigned     leave release.json out.
  *   --no-previews  runtime only (bundle.json says `previews: null`).
+ *   --no-samples   skip the samples archive (bundle.json says `samples: null`).
  *   --json         print bundle.json instead of prose.
  *
  * Exit 0 when the bundle is written; 1 when the repo is refused; 2 on bad usage.
@@ -78,6 +82,9 @@ export const BUNDLE_KIND = "m0saic-template-bundle";
 export const BUNDLE_FILE = "bundle.json";
 export const RUNTIME_ARCHIVE = "runtime.tgz";
 export const PREVIEWS_ARCHIVE = "previews.tgz";
+export const SAMPLES_ARCHIVE = "samples.tgz";
+/** A pack ships "a very small amount of pixels": the samples set, unpacked, may not exceed this. */
+export const MAX_SAMPLES_BYTES = 128 * 1024 * 1024;
 export const DEFAULT_OUT_DIR = "bundle";
 export const DEFAULT_TEMPLATES_DIR = "assets/templates";
 export const CONVENTION_PREVIEW_FILES = ["preview.png", "preview.mp4", "poster.png"];
@@ -213,6 +220,33 @@ export function collectPreviewFiles(repoDir, manifest, runtimeSet = new Set()) {
     }
   }
   return { files: [...picked].sort(byCodeUnit), missing };
+}
+
+/**
+ * The pack's sample pictures and clips: every file under the folder the
+ * manifest names in `repo.assets.samplesDir`, or none when it names no
+ * folder (a repo opts in with that one line; Mosaic Desktop's Files dock
+ * shows the folder as "Samples", first). The folder must be inside the repo,
+ * hold no links, and stay under MAX_SAMPLES_BYTES unpacked. Returns
+ * `{ dir, files }`, `dir` repo-relative (null when undeclared). Throws BundleError.
+ */
+export function collectSampleFiles(repoDir, manifest) {
+  const declared = manifest?.repo?.assets?.samplesDir;
+  if (typeof declared !== "string" || !declared.trim()) return { dir: null, files: [] };
+  const rel = repoRelative(declared.trim());
+  if (!rel) throw new BundleError("samples-outside-repo", declared);
+  const abs = absOf(repoDir, rel);
+  const kind = lstatKind(abs);
+  if (kind === "missing") throw new BundleError("samples-missing", `${rel}/ (repo.assets.samplesDir)`);
+  if (kind !== "dir") throw new BundleError(kind === "symlink" ? "symlink-in-tree" : "special-file-in-tree", rel);
+  const inside = path.relative(fs.realpathSync(repoDir), fs.realpathSync(abs));
+  if (inside.startsWith("..") || path.isAbsolute(inside)) throw new BundleError("samples-outside-repo", declared);
+  const files = [];
+  walkDist(abs, rel, files);
+  let bytes = 0;
+  for (const f of files) bytes += fs.statSync(absOf(repoDir, f)).size;
+  if (bytes > MAX_SAMPLES_BYTES) throw new BundleError("samples-too-large", `${rel}/ is ${mb(bytes)}; the cap is ${mb(MAX_SAMPLES_BYTES)}`);
+  return { dir: rel, files: files.sort(byCodeUnit) };
 }
 
 // ── tar (ustar, with a PAX record for a path ustar cannot hold) ─────────────
@@ -374,10 +408,10 @@ export function readGit(repoDir) {
 }
 
 /**
- * Pack `repoDir` into `outDir` (bundle.json + runtime.tgz [+ previews.tgz]).
+ * Pack `repoDir` into `outDir` (bundle.json + runtime.tgz [+ previews.tgz] [+ samples.tgz]).
  * Returns `{ bundle, missingPreviews }`. Throws BundleError when refused.
  */
-export function packBundle({ repoDir, outDir, tag = null, unsigned = false, previews = true, git = readGit }) {
+export function packBundle({ repoDir, outDir, tag = null, unsigned = false, previews = true, samples = true, git = readGit }) {
   if (tag != null && !TAG_PATTERN.test(tag)) throw new BundleError("bad-tag", String(tag));
   const out = path.resolve(outDir ?? path.join(repoDir, DEFAULT_OUT_DIR));
   const relOut = path.relative(path.resolve(repoDir, SIGNED_DIR), out);
@@ -407,11 +441,14 @@ export function packBundle({ repoDir, outDir, tag = null, unsigned = false, prev
   const runtime = buildArchive(repoDir, runtimeFiles, mtime);
   const previewSet = previews ? collectPreviewFiles(repoDir, manifest, new Set(runtimeFiles)) : null;
   const previewArchive = previewSet && previewSet.files.length > 0 ? buildArchive(repoDir, previewSet.files, mtime) : null;
+  const sampleSet = samples ? collectSampleFiles(repoDir, manifest) : { dir: null, files: [] };
+  const sampleArchive = sampleSet.files.length > 0 ? buildArchive(repoDir, sampleSet.files, mtime) : null;
 
   fs.mkdirSync(out, { recursive: true });
-  for (const f of [BUNDLE_FILE, RUNTIME_ARCHIVE, PREVIEWS_ARCHIVE]) fs.rmSync(path.join(out, f), { force: true });
+  for (const f of [BUNDLE_FILE, RUNTIME_ARCHIVE, PREVIEWS_ARCHIVE, SAMPLES_ARCHIVE]) fs.rmSync(path.join(out, f), { force: true });
   fs.writeFileSync(path.join(out, RUNTIME_ARCHIVE), runtime.gz);
   if (previewArchive) fs.writeFileSync(path.join(out, PREVIEWS_ARCHIVE), previewArchive.gz);
+  if (sampleArchive) fs.writeFileSync(path.join(out, SAMPLES_ARCHIVE), sampleArchive.gz);
 
   const describe = (file, a) => ({ file, sha256: a.sha256, size: a.size, files: a.files, unpackedSize: a.unpackedSize });
   const bundle = {
@@ -426,6 +463,7 @@ export function packBundle({ repoDir, outDir, tag = null, unsigned = false, prev
     templates: Array.isArray(manifest?.templates) ? manifest.templates.length : 0,
     runtime: { ...describe(RUNTIME_ARCHIVE, runtime), treeSha256 },
     previews: previewArchive ? { ...describe(PREVIEWS_ARCHIVE, previewArchive), missing: previewSet.missing.length } : null,
+    samples: sampleArchive ? { ...describe(SAMPLES_ARCHIVE, sampleArchive), dir: sampleSet.dir } : null,
   };
   fs.writeFileSync(path.join(out, BUNDLE_FILE), JSON.stringify(bundle, null, 2) + "\n");
   return { bundle, outDir: out, missingPreviews: previewSet?.missing ?? [] };
@@ -436,7 +474,7 @@ export function parseArgs(argv, defaultRepo) {
     const i = argv.indexOf(flag);
     return i >= 0 ? argv[i + 1] : undefined;
   };
-  const known = new Set(["--repo", "--out", "--tag", "--unsigned", "--no-previews", "--json"]);
+  const known = new Set(["--repo", "--out", "--tag", "--unsigned", "--no-previews", "--no-samples", "--json"]);
   for (const flag of ["--repo", "--out", "--tag"]) {
     if (argv.includes(flag) && (!val(flag) || val(flag).startsWith("--"))) return { ok: false, error: `${flag} needs a value` };
   }
@@ -450,12 +488,13 @@ export function parseArgs(argv, defaultRepo) {
     tag: val("--tag") ?? null,
     unsigned: argv.includes("--unsigned"),
     previews: !argv.includes("--no-previews"),
+    samples: !argv.includes("--no-samples"),
     json: argv.includes("--json"),
   };
 }
 
 const USAGE =
-  "Usage: node tools/pack-bundle.mjs [--repo <dir>] [--out <dir>] [--tag <tag>] [--unsigned] [--no-previews] [--json]";
+  "Usage: node tools/pack-bundle.mjs [--repo <dir>] [--out <dir>] [--tag <tag>] [--unsigned] [--no-previews] [--no-samples] [--json]";
 
 function mb(bytes) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -488,11 +527,13 @@ function main() {
   console.log(`  ${RUNTIME_ARCHIVE}   ${mb(bundle.runtime.size)}  ${bundle.runtime.files} files  ${signedNote}  treeSha256 ${bundle.runtime.treeSha256.slice(0, 12)}`);
   if (bundle.previews) console.log(`  ${PREVIEWS_ARCHIVE}  ${mb(bundle.previews.size)}  ${bundle.previews.files} files`);
   else console.log(`  ${PREVIEWS_ARCHIVE}  none${args.previews ? " (no preview files found)" : " (--no-previews)"}`);
+  if (bundle.samples) console.log(`  ${SAMPLES_ARCHIVE}   ${mb(bundle.samples.size)}  ${bundle.samples.files} files  (${bundle.samples.dir}/)`);
+  else if (!args.samples) console.log(`  ${SAMPLES_ARCHIVE}   none (--no-samples)`);
   if (missingPreviews.length > 0) {
     console.log(`  ! ${missingPreviews.length} template(s) without a preview: ${missingPreviews.slice(0, 5).join(", ")}${missingPreviews.length > 5 ? ", ..." : ""}`);
   }
   if (bundle.commit?.dirty) console.log("  ! the packed files differ from HEAD: commit before you publish");
-  const files = [BUNDLE_FILE, RUNTIME_ARCHIVE, ...(bundle.previews ? [PREVIEWS_ARCHIVE] : [])].map((f) => `${rel}/${f}`);
+  const files = [BUNDLE_FILE, RUNTIME_ARCHIVE, ...(bundle.previews ? [PREVIEWS_ARCHIVE] : []), ...(bundle.samples ? [SAMPLES_ARCHIVE] : [])].map((f) => `${rel}/${f}`);
   console.log(`\nPublish: gh release create ${bundle.tag ?? "<tag>"} ${files.join(" ")}`);
 }
 
