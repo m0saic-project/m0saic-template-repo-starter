@@ -12,9 +12,11 @@
  *
  *   bundle/runtime.tgz   what a host loads and runs: dist/**,
  *                        template-manifest.json, template-catalog.json,
- *                        package.json, release.json (only when it signs this
- *                        tree), LICENSE / NOTICE. The CLI and Desktop both
- *                        install it.
+ *                        package.json, m0saic.brand.json (when the repo has
+ *                        one: the shop-profile schema Desktop reads; outside
+ *                        the signature), release.json (only when it signs
+ *                        this tree), LICENSE / NOTICE. The CLI and Desktop
+ *                        both install it.
  *   bundle/previews.tgz  the gallery previews, found the way Desktop finds
  *                        them (resolveTemplatePreview in @m0saic/platform):
  *                        an entry's explicit `preview` paths when any of them
@@ -88,8 +90,10 @@ export const MAX_SAMPLES_BYTES = 128 * 1024 * 1024;
 export const DEFAULT_OUT_DIR = "bundle";
 export const DEFAULT_TEMPLATES_DIR = "assets/templates";
 export const CONVENTION_PREVIEW_FILES = ["preview.png", "preview.mp4", "poster.png"];
-/** Every root file the signature covers, plus the catalog hosts read; the first two are required. */
-export const RUNTIME_ROOT_FILES = [...new Set(["template-manifest.json", "package.json", ...SIGNED_FILES, "template-catalog.json"])];
+/** The repo's brand schema (Mosaic Desktop's shop profile): rides when present, never signed. */
+export const BRAND_FILE = "m0saic.brand.json";
+/** Every root file the signature covers, plus the catalog and the brand schema hosts read; the first two are required. */
+export const RUNTIME_ROOT_FILES = [...new Set(["template-manifest.json", "package.json", ...SIGNED_FILES, "template-catalog.json", BRAND_FILE])];
 const REQUIRED_ROOT_FILES = ["template-manifest.json", "package.json"];
 const NOTICE_FILE = /^(LICENSE|LICENCE|NOTICE)(\.(md|txt))?$/i;
 const TAG_PATTERN = /^[A-Za-z0-9][\w.-]*$/;

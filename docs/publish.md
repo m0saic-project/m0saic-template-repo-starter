@@ -53,7 +53,7 @@ its GitHub release:
 | File | Holds | Needed for |
 |---|---|---|
 | `bundle.json` | the index: tag, commit, each archive's sha256 and size | checking the two archives |
-| `runtime.tgz` | `dist/**`, `template-manifest.json`, `template-catalog.json`, `package.json`, `release.json` (when it signs this build), `LICENSE`, `NOTICE.md` | rendering, in the CLI or Mosaic Desktop |
+| `runtime.tgz` | `dist/**`, `template-manifest.json`, `template-catalog.json`, `package.json`, `m0saic.brand.json` (when the repo has one — the shop-profile schema Mosaic Desktop reads; not part of the signature), `release.json` (when it signs this build), `LICENSE`, `NOTICE.md` | rendering, in the CLI or Mosaic Desktop |
 | `previews.tgz` | the previews the manifest resolves (`assets/templates/<key>/preview.png`, `preview.mp4`, `poster.png`) | the gallery in Mosaic Desktop; the CLI never shows a preview |
 | `samples.tgz` | the pack's sample pictures and clips — only when `template-manifest.json` names a folder in `repo.assets.samplesDir` (say `"samples"`); capped at 128 MB unpacked | Mosaic Desktop's Files dock, as the first place, "Samples"; the CLI never fetches it |
 
